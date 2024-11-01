@@ -1,19 +1,19 @@
 ﻿/* CSS layout do especulamente - by neontflame 
 	shoutouts 2 expression web 4 */
-	
+
 body {
-	background-color: #BAE2FF;
-	width: 641px;
-	margin: auto;
-	padding: 0px;
+  background-color: #bae2ff;
+  width: 641px;
+  margin: auto;
+  padding: 0px;
 }
 
 .bodyPrincipal {
-	padding-left: 4px;
-	padding-right: 4px;
-	background-image: url('CoolAssFundo.png');
-	background-color: #F6FBFF;
-    background-repeat: no-repeat;
+  padding-left: 4px;
+  padding-right: 4px;
+  background-image: url("/elementos/CoolAssFundo.png");
+  background-color: #f6fbff;
+  background-repeat: no-repeat;
 }
 
 .headerAwesome {
@@ -23,117 +23,116 @@ body {
 }
 
 a img {
-	border-width: 0px;
+  border-width: 0px;
 }
 
 .container {
-	font: 12px "Verdana";
-	min-width: 600px;
-	padding-top: 5px;
-	padding-bottom: 5px;
+  font: 12px "Verdana";
+  min-width: 600px;
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
 
 .left_col {
-	width: 182px;
-	margin-right: 3px;
-	float: left;
+  width: 182px;
+  margin-right: 3px;
+  float: left;
 }
 
 .right_col {
-	width: 200px;
-	float: right;
+  width: 200px;
+  float: right;
 }
 
 .page_content {
-	margin-left: 189px;
-	margin-bottom: -19px;
+  margin-left: 189px;
+  margin-bottom: -19px;
 }
 
 .page_content_two {
-	margin-left: 189px;
-	margin-right: 189px;
-	margin-bottom: -19px;
+  margin-left: 189px;
+  margin-right: 189px;
+  margin-bottom: -19px;
 }
 
-.inside_page_content{
-	padding: 5px;
-	border-style: solid;
-	border-width: 1px;
-	border-color: #9EBBFF;
-	background-color: white;
-	color: #4F6BAD;
+.inside_page_content {
+  padding: 5px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #9ebbff;
+  background-color: white;
+  color: #4f6bad;
 }
 
 /* woaw cool footery ! */
 
 .bodyFooter {
-	background-image: url('TheFullAssCundo.png');
-	height: 153px;
+  background-image: url("/elementos/TheFullAssCundo.png");
+  height: 153px;
 }
 
 .insideBodyFooter {
-	float: left;
-	color: #4F6BAD;
-	font-family: "Verdana";
-	font-size: 10px;
-	padding: 20px;
+  float: left;
+  color: #4f6bad;
+  font-family: "Verdana";
+  font-size: 10px;
+  padding: 20px;
 }
 
 .insideBodyFooter a {
-	color: #4F6BAD;
-	font-weight: bold;
-	text-decoration: none;
+  color: #4f6bad;
+  font-weight: bold;
+  text-decoration: none;
 }
-
 
 /* woaw cool headery ! */
 .coolOrganizationy {
-	margin-top: 3px;
+  margin-top: 3px;
 }
 
 .coolLinkery {
-	float: left;
+  float: left;
 }
 
 .coolLinkery a {
-	color: #0000CC;
-	font-family: "Verdana";
-	font-weight: bold;
-	font-size: 12px;
-	text-decoration: none;
-	margin: 10px;
+  color: #0000cc;
+  font-family: "Verdana";
+  font-weight: bold;
+  font-size: 12px;
+  text-decoration: none;
+  margin: 10px;
 }
 
 .coolSearchBar {
-	float: right;
-	margin-bottom: 3px;
+  float: right;
+  margin-bottom: 3px;
 }
 
 .coolSubHeadery {
-	margin-top: 3px;
-	border-style: solid;
-	border-color: #5D85E2;
-	border-width: 1px;
-	
-	background-image: url("header/subheaderbg.png");
-	height: 18px;
+  margin-top: 3px;
+  border-style: solid;
+  border-color: #5d85e2;
+  border-width: 1px;
+
+  background-image: url("/elementos/header/subheaderbg.png");
+  height: 18px;
 }
 
 .coolUsery {
-	float: right;
-	color: #000000;
-	font-family: "Verdana";
-	font-size: 12px;
-	text-decoration: none;
+  float: right;
+  color: #000000;
+  font-family: "Verdana";
+  font-size: 12px;
+  text-decoration: none;
 }
 
 .coolUsery .links {
-	margin-top: -5px;
+  margin-top: -5px;
 }
 
 .coolUsery a {
-	color: #000000;
-	font-weight: bold;
-	text-decoration: none;
-	margin-left: 3px;
+  color: #000000;
+  font-weight: bold;
+  text-decoration: none;
+  margin-left: 3px;
 }

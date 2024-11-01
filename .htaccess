@@ -1,0 +1,2 @@
+# Bloquear acesso às coisas do git
+RedirectMatch 404 /\.git.*
