@@ -12,7 +12,7 @@ $banner = $banners[array_rand($banners)];
 
 <head>
   <meta content="pt-br" http-equiv="Content-Language" />
-  <title>[PORTAL ESPECULAMENTE]</title>
+  <title><?= $titulo ?? "[PORTAL ESPECULAMENTE]" ?></title>
   <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
   <link href="/cssManeiro.css" rel="stylesheet" type="text/css" />
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
@@ -58,8 +58,11 @@ $banner = $banners[array_rand($banners)];
           </div>
 
           <div class="coolUsery">
-            <!-- <div class="links">Olá novamente, <a href="">Usuario123</a><img src="/elementos/header/headerSetaUndrop.png" /></div> -->
-            <div class="links" style="margin-top: 1px;"><a href="/registro.php">Criar conta</a> | <a href="/login.php">Entrar</a></div>
+            <?php if (isset($usuario)) : ?>
+              <div class="links">Olá novamente, <a href="/sair.php"><?= $usuario['username'] ?></a><img src="/elementos/header/headerSetaUndrop.png" /></div>
+            <?php else : ?>
+              <div class="links" style="margin-top: 1px; margin-right: 10px;"><a href="/registro.php">Criar conta</a> | <a href="/entrar.php">Entrar</a></div>
+            <?php endif ?>
           </div>
 
         </div>

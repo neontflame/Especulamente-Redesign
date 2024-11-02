@@ -11,8 +11,10 @@ $ad = $ads[array_rand($ads)];
   <a href=""><img src="/elementos/sidebar/midiaInativo.png" onmouseover="this.src='/elementos/sidebar/midiaAtivo.png';" onmouseout="this.src='/elementos/sidebar/midiaInativo.png';" /></a><br />
   <a href=""><img src="/elementos/sidebar/blogsInativo.png" onmouseover="this.src='/elementos/sidebar/blogsAtivo.png';" onmouseout="this.src='/elementos/sidebar/blogsInativo.png';" /></a><br />
   <a href=""><img src="/elementos/sidebar/orestoInativo.png" style="margin-top: 8px;" onmouseover="this.src='/elementos/sidebar/orestoAtivo.png';" onmouseout="this.src='/elementos/sidebar/orestoInativo.png';" /></a>
-  <br />
-  <img src="/elementos/sidebar/patrociono.png" style="margin-top: 6px;" />
-  <!-- ANUNCIOS SAO 180x208-->
-  <a href="<?= $ad[1] ?>" target="_blank"><img style="border: 1px solid #5D85E2;" src="/elementos/sidebar/patrocinios/<?= $ad[0] ?>" /></a>
+  <?php if (!($esconder_ad ?? false)) : ?>
+    <br />
+    <img src="/elementos/sidebar/patrociono.png" style="margin-top: 6px;" />
+    <!-- ANUNCIOS SAO 180x208-->
+    <a href="<?= $ad[1] ?>" target="_blank"><img style="border: 1px solid #5D85E2;" src="/elementos/sidebar/patrocinios/<?= $ad[0] ?>" /></a>
+  <?php endif ?>
 </div>
