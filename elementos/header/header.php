@@ -15,6 +15,7 @@ $banner = $banners[array_rand($banners)];
   <title>[PORTAL ESPECULAMENTE]</title>
   <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
   <link href="/cssManeiro.css" rel="stylesheet" type="text/css" />
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 </head>
 
 <body>
@@ -57,7 +58,8 @@ $banner = $banners[array_rand($banners)];
           </div>
 
           <div class="coolUsery">
-            <div class="links">Olá novamente, <a href="">Usuario123</a><img src="/elementos/header/headerSetaUndrop.png" /></div>
+            <!-- <div class="links">Olá novamente, <a href="">Usuario123</a><img src="/elementos/header/headerSetaUndrop.png" /></div> -->
+            <div class="links" style="margin-top: 1px;"><a href="/registro.php">Criar conta</a> | <a href="/login.php">Entrar</a></div>
           </div>
 
         </div>
