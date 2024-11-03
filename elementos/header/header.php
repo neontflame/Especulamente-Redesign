@@ -54,7 +54,7 @@ $banner = $banners[array_rand($banners)];
         <div class="coolSubHeadery">
           <div class="coolLinkery">
             <a href="">AMIGOS</a>
-            <a href="">FÓRUNS</a>
+            <a href="https://1604chan.fupi.cat" target="_blank">BOARDS</a>
           </div>
 
           <div class="coolUsery">

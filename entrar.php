@@ -1,9 +1,7 @@
+<?php include $_SERVER['DOCUMENT_ROOT'] . '/shhhh/autoload.php'; ?>
 <?php
-include $_SERVER['DOCUMENT_ROOT'] . '/shhhh/login_coisos.php';
-
-if (isset($_SESSION['id'])) {
-  header("Location: index.php");
-  die();
+if (isset($usuario)) {
+  redirect('/');
 }
 
 $erro;
@@ -13,9 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $senha = $_POST['senha'];
 
   if (isset($username) && isset($senha)) {
-    $con = new PDO("mysql:host=localhost;dbname=especulamente", "especulamente", "");
-
-    $stmt = $con->prepare("SELECT * FROM usuarios WHERE username = ?");
+    $stmt = $db->prepare("SELECT * FROM usuarios WHERE username = ?");
     $stmt->bindParam(1, $username);
     $stmt->execute();
 
@@ -24,8 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       if (password_verify($senha, $row->password_hash)) {
         $_SESSION['id'] = $row->id;
         $_SESSION['username'] = $row->username;
-        header("Location: index.php");
-        die();
+        redirect('/');
       } else {
         $erro = "Usuário ou senha incorretos!";
       }
@@ -47,17 +42,17 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
   include $_SERVER['DOCUMENT_ROOT'] . '/elementos/sidebar/sidebar.php';
   ?>
 
-  <div class="page_content" style="height: 270px">
+  <div class="page_content" style="height: 254px">
     <div class="inside_page_content">
       <?php if (isset($erro)) : ?>
         <p><?= $erro ?></p>
       <?php endif ?>
-      <form action="/entrar.php" method="post">
+      <form action="" method="post">
         <label for="username">nome de usuário</label>
         <input name="username" id="username" type="text" required>
         <br>
         <label for="senha">senha</label>
-        <input name="senha" id="senha" type="text" required>
+        <input name="senha" id="senha" type="password" required>
         <br>
         <button>Entrar</button>
       </form>

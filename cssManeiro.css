@@ -46,7 +46,6 @@ a img {
 
 .page_content {
   margin-left: 189px;
-  margin-bottom: -19px;
 }
 
 .page_content_two {
@@ -101,6 +100,10 @@ a img {
   font-size: 12px;
   text-decoration: none;
   margin: 10px;
+}
+
+.coolLinkery a:hover {
+  text-decoration: underline;
 }
 
 .coolSearchBar {

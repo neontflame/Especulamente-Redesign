@@ -1,10 +1,10 @@
-<?php include $_SERVER['DOCUMENT_ROOT'] . '/shhhh/login_coisos.php'; ?>
+<?php include $_SERVER['DOCUMENT_ROOT'] . '/shhhh/autoload.php'; ?>
 <?php include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 
 <div class="container">
   <?php include $_SERVER['DOCUMENT_ROOT'] . '/elementos/sidebar/sidebar.php'; ?>
 
-  <div class="page_content" style="height: 504px">
+  <div class="page_content" style="height: 486px">
     <div class="inside_page_content">
       <p>
         Pellentesque habitant morbi tristique senectus et netus et
