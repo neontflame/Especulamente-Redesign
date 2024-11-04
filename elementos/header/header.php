@@ -3,6 +3,7 @@ $banners = [
   'headercool1.png',
   'headercool2.swf',
   'headercool3.png',
+  'headercool4.png',
 ];
 $banner = $banners[array_rand($banners)];
 ?>
