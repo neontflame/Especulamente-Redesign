@@ -130,6 +130,9 @@ a img {
 }
 
 .coolUsery .links {
+  margin-top: 2px;
+
+  position: relative;
 }
 
 .coolUsery a {
@@ -137,4 +140,46 @@ a img {
   font-weight: bold;
   text-decoration: none;
   margin-left: 3px;
+}
+
+.coolUsery button {
+  padding: 0;
+  border: 0;
+  background-color: transparent;
+  float: right;
+  margin-top: -1px;
+  cursor: pointer;
+  width: 26px;
+  height: 15px;
+  background-image: url("/elementos/header/headerSeta.png");
+}
+
+.coolUsery button.ativo {
+  background-position: 0 -15px;
+}
+
+.coolUsery #headerMenu {
+  display: none;
+  position: absolute;
+  top: 20px;
+  right: 4px;
+  background-color: #f6fbff;
+  border: 1px solid #5d85e2;
+  padding: 5px;
+}
+
+.coolUsery #headerMenu.ativo {
+  display: block;
+}
+
+.coolUsery #headerMenu a {
+  display: block;
+  color: #000000;
+  font-weight: bold;
+  text-decoration: none;
+  margin: 2px;
+}
+
+.coolUsery #headerMenu a:hover {
+  text-decoration: underline;
 }
