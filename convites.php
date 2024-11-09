@@ -8,6 +8,8 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
   if (isset($_GET['deletar'])) {
     $oq_deletar = $_GET['deletar'];
 
+    $oq_deletar = substr($oq_deletar, 0, 255);
+
     $rows = $db->prepare("SELECT * FROM convites WHERE codigo = ? AND criado_por = ?");
     $rows->bindParam(1, $oq_deletar);
     $rows->bindParam(2, $usuario['id']);
@@ -25,6 +27,8 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $codigo = $_POST['codigo'];
+
+  $codigo = substr($codigo, 0, 255);
 
   if (isset($codigo)) {
     $rows = $db->prepare("SELECT * FROM convites WHERE codigo = ?");
@@ -66,15 +70,31 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
       <?php if (isset($erro)) : ?>
         <p><?= $erro ?></p>
       <?php endif ?>
-      <ul>
+      <ul id="convites">
         <?php
         $rows = $db->prepare("SELECT * FROM convites WHERE criado_por = ?");
         $rows->bindParam(1, $usuario['id']);
         $rows->execute();
+
         if ($rows->rowCount() > 0) {
           while ($row = $rows->fetch(PDO::FETCH_OBJ)) {
+            $username = null;
+            if ($row->usado_por) {
+              $user_q = $db->prepare("SELECT username FROM usuarios WHERE id = ?");
+              $user_q->bindParam(1, $row->usado_por);
+              $user_q->execute();
+              $user = $user_q->fetch(PDO::FETCH_OBJ);
+              $username = $user->username;
+            }
         ?>
-            <li><?= $row->codigo ?> - <a href="/convites.php?deletar=<?= $row->codigo ?>">Deletar</a></li>
+            <li>
+              <?= $row->codigo ?> -
+              <?php if ($username != null): ?>
+                Usado por <a href="/usuarios/<?= $username ?>"><?= $username ?></a>
+              <?php else: ?>
+                <button onclick="navigator.clipboard.writeText('<?= $config['URL'] ?>/registro.php?convite=<?= $row->codigo ?>')">Copiar link</button> - <a href="/convites.php?deletar=<?= $row->codigo ?>">Deletar</a>
+              <?php endif ?>
+            </li>
         <?php
           }
         }

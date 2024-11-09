@@ -5,11 +5,21 @@ if (isset($usuario)) {
 }
 
 $erro;
-$convite;
+$username = "";
+$email = "";
+$convite = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
   if (isset($_GET["convite"])) {
     $convite = $_GET["convite"];
+    $rows = $db->prepare("SELECT * FROM convites WHERE codigo = ? AND usado_por IS NULL");
+    $rows->bindParam(1, $convite);
+    $rows->execute();
+
+    if ($rows->rowCount() == 0) {
+      $erro = "Seu código é: null CÓDIGO";
+      $convite = null;
+    }
   } else {
     $erro = "Whoops! Você precisa de um convite para criar uma conta! Você não é digno!";
   }
@@ -17,16 +27,67 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $username = $_POST['username'];
+  $email = $_POST['email'];
   $senha = $_POST['senha'];
+  $convite = $_POST['convite'];
 
-  // The message
-  $message = "Line 1\r\nLine 2\r\nLine 3";
+  $rows = $db->prepare("SELECT * FROM usuarios WHERE username = ?");
+  $rows->bindParam(1, $username);
+  $rows->execute();
 
-  // In case any of our lines are larger than 70 characters, we should use wordwrap()
-  $message = wordwrap($message, 70, "\r\n");
+  $permitido_criar = true;
 
-  // Send
-  mail($_POST['email'], 'My Subject', $message);
+  if ($rows->rowCount() != 0) {
+    $erro = "Cadê a originalidade? Esse nome de usuário JÁ existe.";
+    $permitido_criar = false;
+  }
+
+  $rows = $db->prepare("SELECT * FROM usuarios WHERE email = ?");
+  $rows->bindParam(1, $email);
+  $rows->execute();
+
+  if ($rows->rowCount() != 0) {
+    $erro = "Cadê a originalidade? Esse email JÁ foi usado.";
+    $permitido_criar = false;
+  }
+
+  if (strlen($senha) < 6) {
+    $erro = "Sua senha é: muito curta. senha.";
+    $permitido_criar = false;
+  }
+
+  if ($permitido_criar) {
+    $rows = $db->prepare("INSERT INTO usuarios (username, password_hash, email) VALUES (?, ?, ?)");
+    $rows->bindParam(1, $username);
+    $hashword = password_hash($senha, PASSWORD_DEFAULT);
+    $rows->bindParam(2, $hashword);
+    $rows->bindParam(3, $email);
+    $rows->execute();
+
+    $rows = $db->prepare("SELECT id FROM usuarios WHERE username = ?");
+    $rows->bindParam(1, $username);
+    $rows->execute();
+    $row = $rows->fetch(PDO::FETCH_OBJ);
+
+    $last_id = $row->id;
+
+    $row = $rows->fetch(PDO::FETCH_OBJ);
+    $rows = $db->prepare("UPDATE convites SET usado_por = ? WHERE codigo = ?");
+    $rows->bindParam(1, $last_id);
+    $rows->bindParam(2, $convite);
+    $rows->execute();
+
+    /*
+    // The message
+    $message = "Sua conta foi CRIADA com SUCESSO";
+
+    // In case any of our lines are larger than 70 characters, we should use wordwrap()
+    $message = wordwrap($message, 70, "\r\n");
+
+    // Send
+    mail($email, 'Atenção', $message);
+    */
+  }
 }
 ?>
 
@@ -47,12 +108,15 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
         <p><?= $erro ?></p>
       <?php endif ?>
       <?php if (isset($convite)) : ?>
+        <h1>VOCÊ É DIGNO!!!</h1>
+        <p>Seu código é: <?= $convite ?></p>
         <form action="" method="post">
+          <input type="hidden" name="convite" value="<?= $convite ?>">
           <label for="username">nome de usuário</label>
-          <input name="username" id="username" type="text" required>
+          <input name="username" id="username" type="text" required value="<?= $username ?>">
           <br>
           <label for="email">email</label>
-          <input name="email" id="email" type="email" required>
+          <input name="email" id="email" type="email" required value="<?= $email ?>">
           <br>
           <label for="senha">senha</label>
           <input name="senha" id="senha" type="password" required>

@@ -1,6 +1,7 @@
 <?php
-include $_SERVER['DOCUMENT_ROOT'] . '/shhhh/login_coisos.php';
-include $_SERVER['DOCUMENT_ROOT'] . '/shhhh/db.php';
+include 'config.php';
+include 'login_coisos.php';
+include 'db.php';
 
 function redirect($location)
 {

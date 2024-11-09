@@ -66,6 +66,7 @@ $banner = $banners[array_rand($banners)];
                 <div id="headerMenu">
                   <a href="/usuarios/<?= $usuario['username'] ?>">Perfil</a>
                   <a href="/configuracoes.php">Configurações</a>
+                  <a href="/convites.php">Seus convites</a>
                   <hr>
                   <a href="/sair.php">Sair</a>
                 </div>
