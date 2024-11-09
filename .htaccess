@@ -4,3 +4,7 @@ ErrorDocument 404 /404.php
 # Bloquear acesso às coisas do git
 RedirectMatch 404 /\.git.*
 RedirectMatch 404 /\.shhhh.*
+
+RewriteEngine on
+RewriteCond %{REQUEST_URI} !^/usuarios/perfil\.php$
+RewriteRule ^usuarios/([^/]+) /usuarios/perfil.php?username=$1 [L,QSA]
