@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS `convites` (
   `id` int NOT NULL AUTO_INCREMENT,
   `codigo` varchar(255) NOT NULL,
   `criado_por` int NOT NULL,
-  `usado_por` int NOT NULL,
+  `usado_por` int NULL,
   PRIMARY KEY (`id`),
   KEY `FK_criado_por` (`criado_por`),
   KEY `FK_usado_por` (`usado_por`)
