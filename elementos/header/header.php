@@ -61,10 +61,10 @@ $banner = $banners[array_rand($banners)];
           <div class="coolUsery">
             <?php if (isset($usuario)) : ?>
               <div class="links">
-                Olá novamente, <a href="/usuarios/<?= $usuario['username'] ?>"><?= $usuario['username'] ?></a>
+                Olá novamente, <a href="/usuarios/<?= $usuario->username ?>"><?= $usuario->username ?></a>
                 <button id="headerSeta"></button>
                 <div id="headerMenu">
-                  <a href="/usuarios/<?= $usuario['username'] ?>">Perfil</a>
+                  <a href="/usuarios/<?= $usuario->username ?>">Perfil</a>
                   <a href="/configuracoes.php">Configurações</a>
                   <a href="/convites.php">Seus convites</a>
                   <hr>

@@ -1,14 +1,11 @@
 <?php
 session_start();
 
-$usuario;
+$usuario = null;
 
 if (isset($_SESSION['id'])) {
   global $usuario;
-  $usuario = [
-    'id' => $_SESSION['id'],
-    'username' => $_SESSION['username'],
-  ];
+  $usuario = usuario_requestIDator($_SESSION['id']);
 }
 
 function fazer_logout()

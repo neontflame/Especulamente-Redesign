@@ -8,7 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
   if (isset($_GET['deletar'])) {
     $convite = obter_convite($_GET['deletar']);
 
-    if (!$convite || $convite->criado_por != $usuario['id']) {
+    if (!$convite || $convite->criado_por != $usuario->id) {
       $erro = "Whoops! Esse convite não existe, ou não é seu.";
     } else {
       deletar_convite($convite->codigo);
@@ -25,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($convite) {
       $erro = "Whoops! Um convite com esse nome já existe.";
     } else {
-      criar_convite($codigo, $usuario['id']);
+      criar_convite($codigo, $usuario->id);
     }
   }
 }
@@ -56,7 +56,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
       <?php endif ?>
       <ul id="convites">
         <?php
-        foreach (obter_convites_criados_por($usuario['id']) as $convite) {
+        foreach (obter_convites_criados_por($usuario->id) as $convite) {
           $user = null;
           if ($convite->usado_por) {
             $user = usuario_requestIDator($convite->usado_por);

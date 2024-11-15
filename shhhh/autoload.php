@@ -1,7 +1,7 @@
 <?php
 include 'config.php';
-include 'login_coisos.php';
 include 'db.php';
+include 'login_coisos.php';
 
 function redirect($location)
 {
