@@ -17,6 +17,7 @@ $char = $chars[array_rand($chars)];
     <img src="/elementos/footer/LaughedTesticle.png" />
     <img src="/elementos/footer/get_flash_player.png" />
     <img src="/elementos/footer/expression.png" />
+    <img src="/elementos/footer/associates.png" />
     <br />
     <br />
     <a href="">TERMOS DE USO</a> -
