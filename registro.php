@@ -31,29 +31,38 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $senha = $_POST['senha'];
   $convite = $_POST['convite'];
 
-  $rows = $db->prepare("SELECT * FROM usuarios WHERE username = ?");
-  $rows->bindParam(1, $username);
-  $rows->execute();
-
   $permitido_criar = true;
 
-  if ($rows->rowCount() != 0) {
-    $erro = "Cadê a originalidade? Esse nome de usuário JÁ existe.";
-    $permitido_criar = false;
-  }
-
-  $rows = $db->prepare("SELECT * FROM usuarios WHERE email = ?");
-  $rows->bindParam(1, $email);
+  $rows = $db->prepare("SELECT * FROM convites WHERE codigo = ? AND usado_por IS NULL");
+  $rows->bindParam(1, $convite);
   $rows->execute();
 
-  if ($rows->rowCount() != 0) {
-    $erro = "Cadê a originalidade? Esse email JÁ foi usado.";
+  if ($rows->rowCount() == 0) {
+    $erro = "Seu código é: null CÓDIGO";
     $permitido_criar = false;
-  }
+  } else {
+    $rows = $db->prepare("SELECT * FROM usuarios WHERE username = ?");
+    $rows->bindParam(1, $username);
+    $rows->execute();
 
-  if (strlen($senha) < 6) {
-    $erro = "Sua senha é: muito curta. senha.";
-    $permitido_criar = false;
+    if ($rows->rowCount() != 0) {
+      $erro = "Cadê a originalidade? Esse nome de usuário JÁ existe.";
+      $permitido_criar = false;
+    } else {
+      $rows = $db->prepare("SELECT * FROM usuarios WHERE email = ?");
+      $rows->bindParam(1, $email);
+      $rows->execute();
+
+      if ($rows->rowCount() != 0) {
+        $erro = "Cadê a originalidade? Esse email JÁ foi usado.";
+        $permitido_criar = false;
+      } else {
+        if (strlen($senha) < 6) {
+          $erro = "Sua senha é: muito curta. senha.";
+          $permitido_criar = false;
+        }
+      }
+    }
   }
 
   if ($permitido_criar) {
@@ -107,7 +116,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
       <?php if (isset($erro)) : ?>
         <p><?= $erro ?></p>
       <?php endif ?>
-      <?php if (isset($convite)) : ?>
+      <?php if ($convite) : ?>
         <h1>VOCÊ É DIGNO!!!</h1>
         <p>Seu código é: <?= $convite ?></p>
         <form action="" method="post">

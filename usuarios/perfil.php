@@ -19,6 +19,7 @@ if (!$user) {
 
   <div class="page_content" style="height: 486px">
     <div class="inside_page_content">
+      <img src="/static/pfp_padrao.png" alt="Foto de perfil de <?= $user->username ?>">
       <h1><?= $user->username ?></h1>
 
     </div>

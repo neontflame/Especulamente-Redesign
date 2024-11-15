@@ -16,7 +16,7 @@ $banner = $banners[array_rand($banners)];
   <title><?= $titulo ?? "[PORTAL ESPECULAMENTE]" ?></title>
   <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
   <link href="/cssManeiro.css" rel="stylesheet" type="text/css" />
-  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 </head>
 
 <body>
