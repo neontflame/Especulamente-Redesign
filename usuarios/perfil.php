@@ -9,6 +9,7 @@ $erro = [];
 
 $perfil = usuario_requestinator($username);
 
+// carregar Pfp
 if (isset($_POST)) {
   if (isset($_FILES['pfp_fnf'])) {
     $pfp = $_FILES['pfp_fnf'];
@@ -25,6 +26,7 @@ if (isset($_POST)) {
     }
   }
 
+// carregar Bnr
   if (isset($_FILES['bnr_fnf'])) {
     $banner = $_FILES['bnr_fnf'];
 
@@ -40,6 +42,7 @@ if (isset($_POST)) {
     }
   }
 
+// carregar Biographia
   if (isset($_POST['bio_fnf'])) {
     $bio = $_POST['bio_fnf'];
 
@@ -48,6 +51,7 @@ if (isset($_POST)) {
     $perfil = usuario_requestinator($username);
   }
 
+// carregar Mito
   if (isset($_POST['mitar'])) {
     $mitar = $_POST['mitar'];
 
@@ -62,7 +66,8 @@ if (isset($_POST)) {
       die();
     }
   }
-
+  
+// carregar Soja
   if (isset($_POST['sojar'])) {
     $sojar = $_POST['sojar'];
 
@@ -79,6 +84,7 @@ if (isset($_POST)) {
   }
 }
 
+// whoops you have to put the usuario in the url
 if (!$perfil) {
   erro_404();
 }
@@ -92,7 +98,19 @@ $perfil_e_meu = $usuario ? ($usuario->id == $perfil->id) : false;
   <?php include $_SERVER['DOCUMENT_ROOT'] . '/elementos/sidebar/sidebar.php'; ?>
 
   <div class="page_content" style="min-height: 486px">
-    <div class="inside_page_content">
+	<style>
+	.coolBorderyNormal {
+	  border: solid;
+	  border-color: #9EBBFF;
+	  border-width: 1px;
+	}
+
+	.coolBorderyEditable {
+	  background-color: #5d85e2;
+	  border: none;
+	  padding: 1px 1px;
+	}
+	</style>
       <?php if ($erro) : ?>
         <div class="erro" style="color: red; background: black; text-align: center;">
           <img src="/static/skull-and-cross.gif" width="24" height="24" />
@@ -102,10 +120,15 @@ $perfil_e_meu = $usuario ? ($usuario->id == $perfil->id) : false;
       <?php endif; ?>
 
       <?php if ($perfil_e_meu) : ?>
-        <button onclick="pfp_fnf.click()">
+        <button onclick="pfp_fnf.click()" class="coolBorderyEditable" style="margin-right: 3px;">
         <?php endif; ?>
 
-        <img src="<?= pfp($perfil->id) ?>" alt="Foto de perfil de <?= $perfil->username ?>" width="48" height="48">
+        <img src="<?= pfp($perfil->id) ?>" alt="Foto de perfil de <?= $perfil->username ?>" width="48" height="48"
+		<?php if (!$perfil_e_meu) : ?>
+		class="coolBorderyNormal"
+		style="margin-right: 3px;"
+		<?php endif; ?>
+		>
 
         <?php if ($perfil_e_meu) : ?>
         </button>
@@ -115,10 +138,14 @@ $perfil_e_meu = $usuario ? ($usuario->id == $perfil->id) : false;
       <?php endif; ?>
 
       <?php if ($perfil_e_meu) : ?>
-        <button onclick="bnr_fnf.click()">
+        <button onclick="bnr_fnf.click()" class="coolBorderyEditable">
         <?php endif; ?>
 
-        <img src="<?= banner($perfil->id) ?>" alt="Foto de banner de <?= $perfil->username ?>" width="385" height="48">
+        <img src="<?= banner($perfil->id) ?>" alt="Foto de banner de <?= $perfil->username ?>" width="385" height="48"
+		<?php if (!$perfil_e_meu) : ?>
+		class="coolBorderyNormal"
+		<?php endif; ?>
+		>
 
         <?php if ($perfil_e_meu) : ?>
         </button>
@@ -126,7 +153,8 @@ $perfil_e_meu = $usuario ? ($usuario->id == $perfil->id) : false;
           <input type="file" name="bnr_fnf" id="bnr_fnf" accept="image/*" onchange="form_bnr.submit()">
         </form>
       <?php endif; ?>
-
+	  
+    <div class="inside_page_content">
       <?php if ($perfil_e_meu) : ?>
         <button onclick="form_bio.style.display = 'block'; bio.style.display = 'none'">
         <?php endif; ?>
