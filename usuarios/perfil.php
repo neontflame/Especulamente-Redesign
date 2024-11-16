@@ -147,7 +147,7 @@ $perfil_e_meu = $usuario ? ($usuario->id == $perfil->id) : false;
         <span id="sojadas_cnt"><?= $perfil->sojadas ?></span> sojadas.
       </p>
 
-      <?php if (!$perfil_e_meu) : ?>
+      <?php if (!$perfil_e_meu && isset($usuario)) : ?>
         <?php
         $ja_mitou = ja_reagiu($usuario->id, $perfil->id, 'perfil', 'mitada');
         $ja_sojou = ja_reagiu($usuario->id, $perfil->id, 'perfil', 'sojada');
