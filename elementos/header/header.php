@@ -4,6 +4,7 @@ $banners = [
   'headercool2.swf',
   'headercool3.png',
   'headercool4.png',
+  'headercool5.png',
 ];
 $banner = $banners[array_rand($banners)];
 ?>
@@ -40,7 +41,7 @@ $banner = $banners[array_rand($banners)];
         <div class="coolBannery">
           <a href="/">
             <?php if (str_ends_with($banner, '.swf')) : ?>
-              <object width="633" height="110">
+              <object width="633" height="110" style="display: inline-block">
                 <param name="movie" value="/elementos/header/headers/<?= $banner ?>">
                 <embed src="/elementos/header/headers/<?= $banner ?>" width="633" height="110">
                 </embed>
