@@ -35,10 +35,21 @@ function usuario_requestIDator($id)
   return $user;
 }
 
-// TODO ISSO
+// Porjtoej por id
 function projeto_requestIDator($id)
 {
-  return null;
+  global $db;
+
+  $rows = $db->prepare("SELECT * FROM projetos WHERE id = ?");
+  $rows->bindParam(1, $id);
+  $rows->execute();
+  $proj = $rows->fetch(PDO::FETCH_OBJ);
+
+  if ($proj == false) {
+    return null;
+  }
+
+  return $proj;
 }
 
 function obter_convite($codigo)
@@ -294,4 +305,26 @@ function desreagir($id_reator, $id_reagido, $tipo_de_reagido, $tipo_de_reacao)
   }
 
   return $count;
+}
+
+function criar_projeto($id_criador, $nome, $descricao, $tipo, $arquivos)
+{
+  global $db;
+
+  // EXPLODIR HOSTINGER
+  $arquivos = implode('\n', $arquivos);
+
+  $rows = $db->prepare("INSERT INTO projetos (id_criador, nome, descricao, tipo, arquivos) VALUES (?, ?, ?, ?, ?)");
+  $rows->bindParam(1, $id_criador);
+  $rows->bindParam(2, $nome);
+  $rows->bindParam(3, $descricao);
+  $rows->bindParam(4, $tipo);
+  $rows->bindParam(5, $arquivos);
+  $rows->execute();
+
+  $id = $db->lastInsertId();
+
+  mkdir($_SERVER['DOCUMENT_ROOT'] . '/static/projetos/' . $id);
+
+  return projeto_requestIDator($id);
 }
