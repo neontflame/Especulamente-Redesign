@@ -1,11 +1,14 @@
 <?php
-$banners = [
-  'headercool1.png',
-  'headercool2.swf',
-  'headercool3.png',
-  'headercool4.png',
-  'headercool5.png',
-];
+$banners = array();
+$dir = $_SERVER['DOCUMENT_ROOT'] . "/elementos/header/headers/";
+if ($handle = scandir($dir)) {
+        foreach ($handle as $target) {
+                if (!in_array($target, [".", ".."])) {
+                        $banners[] = $target;
+                }
+        }
+}
+
 $banner = $banners[array_rand($banners)];
 ?>
 
