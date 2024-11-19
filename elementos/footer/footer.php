@@ -1,9 +1,14 @@
 <?php
-$chars = [
-  'padudu.png',
-  'queixao.png',
-  'sushi.png',
-];
+$chars = array();
+$dir = $_SERVER['DOCUMENT_ROOT'] . "/elementos/footer/chars/";
+if ($handle = scandir($dir)) {
+        foreach ($handle as $target) {
+                if (!in_array($target, [".", ".."])) {
+                        $chars[] = $target;
+                }
+        }
+}
+
 $char = $chars[array_rand($chars)];
 ?>
 </div>
