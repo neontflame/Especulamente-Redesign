@@ -15,9 +15,9 @@ $char = $chars[array_rand($chars)];
     Webmasters: Neon T. Flame e Fupicat
     <br /><br />
     <img src="/elementos/footer/LaughedTesticle.png" />
-    <img src="/elementos/footer/get_flash_player.png" />
+    <a href="https://archive.org/details/flashplayer_old"><img src="/elementos/footer/get_flash_player.png" /></a>
     <img src="/elementos/footer/expression.png" />
-    <img src="/elementos/footer/associates.png" />
+    <a href="https://feldspargamer.github.io/AssociaDouga/index.html"><img src="/elementos/footer/associates.png"></a>
     <br />
     <br />
     <a href="">TERMOS DE USO</a> -
