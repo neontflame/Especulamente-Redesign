@@ -125,6 +125,7 @@ $perfil_e_meu = $usuario ? ($usuario->id == $perfil->id) : false;
 	  border: none;
 	  position: relative;
 	  padding: 1px 1px;
+	  text-align: left;
 	  vertical-align: top;
     
     font: 12px "Verdana";
@@ -186,7 +187,7 @@ $perfil_e_meu = $usuario ? ($usuario->id == $perfil->id) : false;
         <button class="bioEditavel" onclick="form_bio.style.display = 'block'; bio.style.display = 'none'">
         <?php endif; ?>
 
-        <p id="bio" style="margin-top: 0px;"><?= htmlspecialchars($perfil->bio) ?></p>
+        <p id="bio" style="margin-top: 0px; white-space: pre-line;"><?= htmlspecialchars($perfil->bio) ?></p>
 
         <?php if ($perfil_e_meu) : ?>
         </button>
