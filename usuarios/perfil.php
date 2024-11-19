@@ -119,6 +119,25 @@ $perfil_e_meu = $usuario ? ($usuario->id == $perfil->id) : false;
       .coolBorderyEditable:active {
         opacity: .7;
       }
+	  
+	.bioEditavel {
+	  background-color: #FFFFFF;
+	  border: none;
+	  position: relative;
+	  padding: 1px 1px;
+	  vertical-align: top;
+    
+    font: 12px "Verdana";
+    color: #4f6bad;
+	}
+
+	.bioEditavel:hover {
+	  background-color: #FFFFDD;
+	}
+
+	.bioEditavel:active {
+	  background-color: #FFEEAA;
+	}
     </style>
     <?php if ($erro) : ?>
       <div class="erro" style="color: red; background: black; text-align: center;">
@@ -164,15 +183,15 @@ $perfil_e_meu = $usuario ? ($usuario->id == $perfil->id) : false;
 
     <div class="inside_page_content">
       <?php if ($perfil_e_meu) : ?>
-        <button onclick="form_bio.style.display = 'block'; bio.style.display = 'none'">
+        <button class="bioEditavel" onclick="form_bio.style.display = 'block'; bio.style.display = 'none'">
         <?php endif; ?>
 
-        <p id="bio"><?= htmlspecialchars($perfil->bio) ?></p>
+        <p id="bio" style="margin-top: 0px;"><?= htmlspecialchars($perfil->bio) ?></p>
 
         <?php if ($perfil_e_meu) : ?>
         </button>
         <form action="" method="post" enctype="multipart/form-data" id="form_bio" style="display: none;">
-          <textarea name="bio_fnf" id="bio_fnf"><?= htmlspecialchars($perfil->bio) ?></textarea>
+          <textarea name="bio_fnf" id="bio_fnf" style="width: 425px; height: 150px;"><?= htmlspecialchars($perfil->bio) ?></textarea>
           <button type="submit">Salvar</button>
         </form>
       <?php endif; ?>
