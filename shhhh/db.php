@@ -109,20 +109,67 @@ function obter_convites_criados_por($criado_por)
   return $convites;
 }
 
-function pfp($id)
+function pfp($user)
 {
-  if (file_exists($_SERVER['DOCUMENT_ROOT'] . '/static/pfps/' . $id . '.png')) {
-    return '/static/pfps/' . $id . '.png';
+  if (empty($user->pfp)) {
+    return '/static/pfp_padrao.png';
   }
-  return '/static/pfp_padrao.png';
+  return '/static/pfps/' . $user->pfp;
 }
 
-function banner($id)
+function banner($user)
 {
-  if (file_exists($_SERVER['DOCUMENT_ROOT'] . '/static/banners/' . $id . '.png')) {
-    return '/static/banners/' . $id . '.png';
+  if (empty($user->banner)) {
+    return '/static/banner_padrao.png';
   }
-  return '/static/banner_padrao.png';
+  return '/static/banners/' . $user->banner;
+}
+
+function subir_arquivo($file, $pasta, $tabela, $id, $coluna, $extensoes_permitidas, $max_FILE_Sisz)
+{
+  global $db;
+
+  if (!isset($file) || $file['size'] == 0) {
+    return "§Não tem arquivo?!";
+  }
+
+  if ($file['size'] > $max_FILE_Sisz) {
+    return "§Arquivo muito grande!";
+  }
+
+  $extension = pathinfo($file['name'], PATHINFO_EXTENSION);
+  if (!in_array($extension, $extensoes_permitidas)) {
+    return "§Extensão não permitida!";
+  }
+
+  // Corrige a pasta
+  if (substr($pasta, -1) != '/') {
+    $pasta .= '/';
+  }
+  if (substr($pasta, 0, 1) != '/') {
+    $pasta = '/' . $pasta;
+  }
+
+  // DELETAR aqruivo antigo
+  $rows = $db->prepare("SELECT $coluna FROM $tabela WHERE id = ?");
+  $rows->bindParam(1, $id);
+  $rows->execute();
+  $old_file = $rows->fetch(PDO::FETCH_OBJ)->$coluna;
+  if (!empty($old_file)) {
+    unlink($_SERVER['DOCUMENT_ROOT'] . $pasta . $old_file);
+  }
+
+  // Sube arquivo novo
+  $filename = uniqid() . '.' . $extension;
+  $file_path = $_SERVER['DOCUMENT_ROOT'] . $pasta . $filename;
+  move_uploaded_file($file['tmp_name'], $file_path);
+
+  $rows = $db->prepare("UPDATE $tabela SET $coluna = ? WHERE id = ?");
+  $rows->bindParam(1, $filename);
+  $rows->bindParam(2, $id);
+  $rows->execute();
+
+  return $filename;
 }
 
 // Campos é uma array [campo => valor]

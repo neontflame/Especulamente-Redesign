@@ -9,36 +9,21 @@ $erro = [];
 
 $perfil = usuario_requestinator($username);
 
-// carregar Pfp
+// carregar Pfp (checar comentario de baixo)
 if (isset($_POST)) {
+  // O comentario acima vai aqui nao ali então imagine q está aqui
   if (isset($_FILES['pfp_fnf'])) {
-    $pfp = $_FILES['pfp_fnf'];
-
-    if ($pfp['size'] > 0) {
-      if ($pfp['size'] > 1024 * 1024) {
-        array_push($erro, "Sua pfp é muito grande!");
-      } else {
-        $pfp_path = $_SERVER['DOCUMENT_ROOT'] . '/static/pfps/' . $usuario->id . '.png';
-        move_uploaded_file($pfp['tmp_name'], $pfp_path);
-
-        $perfil = usuario_requestinator($username);
-      }
+    $pfp_rtn = subir_arquivo($_FILES['pfp_fnf'], '/static/pfps/', 'usuarios', $usuario->id, 'pfp', ['png', 'jpg', 'jpeg', 'gif', 'bmp'], 1024 * 1024);
+    if (str_starts_with($pfp_rtn, '§')) {
+      array_push($erro, substr($pfp_rtn, 1));
     }
   }
 
   // carregar Bnr
   if (isset($_FILES['bnr_fnf'])) {
-    $banner = $_FILES['bnr_fnf'];
-
-    if ($banner['size'] > 0) {
-      if ($banner['size'] > 1024 * 1024) {
-        array_push($erro, "Seu banner é muito grande!");
-      } else {
-        $banner_path = $_SERVER['DOCUMENT_ROOT'] . '/static/banners/' . $usuario->id . '.png';
-        move_uploaded_file($banner['tmp_name'], $banner_path);
-
-        $perfil = usuario_requestinator($username);
-      }
+    $bnr_rtn = subir_arquivo($_FILES['bnr_fnf'], '/static/banners/', 'usuarios', $usuario->id, 'banner', ['png', 'jpg', 'jpeg', 'gif', 'bmp'], 1024 * 1024);
+    if (str_starts_with($bnr_rtn, '§')) {
+      array_push($erro, substr($bnr_rtn, 1));
     }
   }
 
@@ -47,8 +32,6 @@ if (isset($_POST)) {
     $bio = $_POST['bio_fnf'];
 
     mudar_usuario($usuario->id, ['bio' => $bio]);
-
-    $perfil = usuario_requestinator($username);
   }
 
   // carregar Mito
@@ -82,6 +65,8 @@ if (isset($_POST)) {
       die();
     }
   }
+
+  $perfil = usuario_requestinator($username);
 }
 
 // whoops you have to put the usuario in the url
@@ -119,26 +104,26 @@ $perfil_e_meu = $usuario ? ($usuario->id == $perfil->id) : false;
       .coolBorderyEditable:active {
         opacity: .7;
       }
-	  
-	.bioEditavel {
-	  background-color: #FFFFFF;
-	  border: none;
-	  position: relative;
-	  padding: 1px 1px;
-	  text-align: left;
-	  vertical-align: top;
-    
-    font: 12px "Verdana";
-    color: #4f6bad;
-	}
 
-	.bioEditavel:hover {
-	  background-color: #FFFFDD;
-	}
+      .bioEditavel {
+        background-color: #FFFFFF;
+        border: none;
+        position: relative;
+        padding: 1px 1px;
+        text-align: left;
+        vertical-align: top;
 
-	.bioEditavel:active {
-	  background-color: #FFEEAA;
-	}
+        font: 12px "Verdana";
+        color: #4f6bad;
+      }
+
+      .bioEditavel:hover {
+        background-color: #FFFFDD;
+      }
+
+      .bioEditavel:active {
+        background-color: #FFEEAA;
+      }
     </style>
     <?php if ($erro) : ?>
       <div class="erro" style="color: red; background: black; text-align: center;">
@@ -152,7 +137,7 @@ $perfil_e_meu = $usuario ? ($usuario->id == $perfil->id) : false;
       <button onclick="pfp_fnf.click()" class="coolBorderyEditable" style="margin-bottom: 6px;">
       <?php endif; ?>
 
-      <img src="<?= pfp($perfil->id) ?>" alt="Foto de perfil de <?= $perfil->username ?>" width="48" height="48"
+      <img src="<?= pfp($perfil) ?>" alt="Foto de perfil de <?= $perfil->username ?>" width="48" height="48"
         <?php if (!$perfil_e_meu) : ?>
         class="coolBorderyNormal"
         style="margin-bottom: 6px;"
@@ -169,7 +154,7 @@ $perfil_e_meu = $usuario ? ($usuario->id == $perfil->id) : false;
       <button onclick="bnr_fnf.click()" class="coolBorderyEditable" style="float: right;">
       <?php endif; ?>
 
-      <img src="<?= banner($perfil->id) ?>" alt="Foto de banner de <?= $perfil->username ?>" width="385" height="48"
+      <img src="<?= banner($perfil) ?>" alt="Foto de banner de <?= $perfil->username ?>" width="385" height="48"
         <?php if (!$perfil_e_meu) : ?>
         class="coolBorderyNormal"
         style="float: right;"
