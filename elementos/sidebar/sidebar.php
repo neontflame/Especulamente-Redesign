@@ -2,7 +2,7 @@
 $ads = [
   ['ad1.png', 'https://www.google.com.br/search?q=cabelo'],
   ['ad2.png', 'https://store.steampowered.com/app/2161700/Persona_3_Reload/'],
-  ['ad3.png'. 'https://especulamente.com.br'],
+  ['ad3.png', 'https://especulamente.com.br'],
 ];
 $ad = $ads[array_rand($ads)];
 ?>
@@ -16,6 +16,6 @@ $ad = $ads[array_rand($ads)];
     <br />
     <img src="/elementos/sidebar/patrociono.png" style="margin-top: 6px;" />
     <!-- ANUNCIOS SAO 180x208-->
-    <a href="<?= $ad[1] ?>" target="_blank"><img style="border: 1px solid #5D85E2;" src="/elementos/sidebar/patrocinios/<?= $ad[0] ?>" /></a>
+    <a href="<?= $ad[1] ?>" target="_blank"><img width="180" height="208" style="border: 1px solid #5D85E2;" src="/elementos/sidebar/patrocinios/<?= $ad[0] ?>" /></a>
   <?php endif ?>
 </div>
