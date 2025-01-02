@@ -183,3 +183,62 @@ a img {
 .coolUsery #headerMenu a:hover {
   text-decoration: underline;
 }
+
+label {
+  font-weight: bold;
+  display: block;
+  font-size: 15px;
+  
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+/* woaw botoes ! */
+
+.coolButt {
+	margin-top: 3px;
+	background-color: #D6EBFF;
+	border-style: solid;
+	border-width: 1px;
+	border-color: #5d85e2;
+	
+	font-family: Verdana;
+}
+
+.coolButt:hover {
+	background-color: aliceblue;
+}
+
+.coolButt:active {
+	background-color: #B5DCFF;
+}
+
+    .vermelho {
+	background-color: #FFB7B2;
+	border-color: #E2665D;
+}
+
+.vermelho:hover {
+	background-color: #FFF0F2;
+}
+
+.vermelho:active {
+	background-color: #FF938C;
+}
+
+.verde {
+	background-color: #B2FFD3;
+	border-color: #4DE287;
+}
+
+.verde:hover {
+	background-color: #DDFFEB;
+}
+
+.verde:active {
+	background-color: #60FFA0;
+}
+
+.grandissimo {
+      width: 99%;
+}

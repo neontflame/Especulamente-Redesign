@@ -124,6 +124,25 @@ $perfil_e_meu = $usuario ? ($usuario->id == $perfil->id) : false;
       .bioEditavel:active {
         background-color: #FFEEAA;
       }
+	  
+	  .bioButt {
+		  margin-top: 3px;
+		  width: 100%;
+		  background-color: #D6EBFF;
+		  border-style: solid;
+		  border-width: 1px;
+		  border-color: #5d85e2;
+		  
+		  font-family: Verdana;
+		}
+
+		.bioButt:hover {
+		  background-color: aliceblue;
+		}
+		
+		.bioButt:active {
+		  background-color: #B5DCFF;
+		}
     </style>
     <?php if ($erro) : ?>
       <div class="erro" style="color: red; background: black; text-align: center;">
@@ -178,7 +197,9 @@ $perfil_e_meu = $usuario ? ($usuario->id == $perfil->id) : false;
         </button>
         <form action="" method="post" enctype="multipart/form-data" id="form_bio" style="display: none;">
           <textarea name="bio_fnf" id="bio_fnf" style="width: 425px; height: 150px;"><?= htmlspecialchars($perfil->bio) ?></textarea>
-          <button type="submit">Salvar</button>
+          <button type="submit" class="bioButt">
+		  Salvar bio
+		  </button>
         </form>
       <?php endif; ?>
 
