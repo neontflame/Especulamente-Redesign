@@ -6,7 +6,7 @@ login_obrigatorio($usuario);
 $erro = [];
 $tipo = $_GET['tipo'] ?? null;
 
-if (isset($_POST)) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
   if (isset($_POST['tipo'])) {
     $tipo = $_POST['tipo'];
 
@@ -19,29 +19,13 @@ if (isset($_POST)) {
         array_push($erro, "O nome do projeto é muito curto.");
       }
 
-      if (count($arquivos['name']) == 0) {
-        array_push($erro, "Você precisa enviar pelo menos um arquivo.");
+      $projeto = criar_projeto($usuario->id, $nome, $descricao, $tipo, $arquivos);
+      if (is_string($projeto)) {
+        array_push($erro, $projeto);
       }
 
       if (count($erro) == 0) {
-        $projeto = criar_projeto($usuario->id, $nome, $descricao, $tipo, $arquivos['name']);
-
-        for ($i = 0; $i < count($arquivos['name']); $i++) {
-          $arquivo = $arquivos['name'][$i];
-          $arquivo_tmp = $arquivos['tmp_name'][$i];
-          $arquivo_size = $arquivos['size'][$i];
-
-          if ($arquivo_size > 1024 * 1024 * 1024) {
-            array_push($erro, "O arquivo $arquivo é muito grande.");
-          } else {
-            $arquivo_path = $_SERVER['DOCUMENT_ROOT'] . '/static/projetos/' . $projeto->id . '/' . $arquivo;
-            move_uploaded_file($arquivo_tmp, $arquivo_path);
-          }
-        }
-
-        if (count($erro) == 0) {
-          header('Location: /projetos/ver.php?id=' . $projeto->id);
-        }
+        header('Location: /projetos/ver.php?id=' . $projeto->id);
       }
     }
   }
@@ -51,14 +35,14 @@ if (isset($_POST)) {
 <?php include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 
 <style>
-label {
-  font-weight: bold;
-  display: block;
-  font-size: 15px;
-  
-  margin-top: 5px;
-  margin-bottom: 5px;
-}
+  label {
+    font-weight: bold;
+    display: block;
+    font-size: 15px;
+
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
 </style>
 
 <div class="container">
@@ -75,33 +59,33 @@ label {
 
     <div class="inside_page_content" style="padding-right: 0px;">
       <?php if ($tipo == null) : ?>
-		<img src="/elementos/pagetitles/projeto-criator.png" style="margin-top: -5px; margin-left: -5px;">
+        <img src="/elementos/pagetitles/projeto-criator.png" style="margin-top: -5px; margin-left: -5px;">
         <h1 style="text-align: center; font-style: italic; font-weight: normal;">O que você quer criar hoje...?</h1>
 
         <!-- Coiso Downloadável -->
         <a href="/projetos/criar.php?tipo=dl" style="margin-left: -5px; margin-right:-4px;">
-		<img src="/elementos/projetos/dl.png" onmouseover="this.src='/elementos/projetos/dl-hover.png';" onmouseout="this.src='/elementos/projetos/dl.png';">
-		</a>
-		
-		<a href="/projetos/criar.php?tipo=jg" style="margin-right:-4px;">
-		<img src="/elementos/projetos/jogo.png" onmouseover="this.src='/elementos/projetos/jogo-hover.png';" onmouseout="this.src='/elementos/projetos/jogo.png';">
-		</a>
-		<a href="/projetos/criar.php?tipo=md" style="margin-right:-4px;">
-		<img src="/elementos/projetos/midia.png" onmouseover="this.src='/elementos/projetos/midia-hover.png';" onmouseout="this.src='/elementos/projetos/midia.png';">
-		</a>
-		<a href="/projetos/criar.php?tipo=bg" style="margin-right:-4px;">
-		<img src="/elementos/projetos/blog.png" onmouseover="this.src='/elementos/projetos/blog-hover.png';" onmouseout="this.src='/elementos/projetos/blog.png';">
-		</a>
-		<a href="/projetos/criar.php?tipo=rt">
-		<img src="/elementos/projetos/resto.png" onmouseover="this.src='/elementos/projetos/resto-hover.png';" onmouseout="this.src='/elementos/projetos/resto.png';">
-		</a>
+          <img src="/elementos/projetos/dl.png" onmouseover="this.src='/elementos/projetos/dl-hover.png';" onmouseout="this.src='/elementos/projetos/dl.png';">
+        </a>
+
+        <a href="/projetos/criar.php?tipo=jg" style="margin-right:-4px;">
+          <img src="/elementos/projetos/jogo.png" onmouseover="this.src='/elementos/projetos/jogo-hover.png';" onmouseout="this.src='/elementos/projetos/jogo.png';">
+        </a>
+        <a href="/projetos/criar.php?tipo=md" style="margin-right:-5px;">
+          <img src="/elementos/projetos/midia.png" onmouseover="this.src='/elementos/projetos/midia-hover.png';" onmouseout="this.src='/elementos/projetos/midia.png';">
+        </a>
+        <a href="/projetos/criar.php?tipo=bg" style="margin-right:-4px;">
+          <img src="/elementos/projetos/blog.png" onmouseover="this.src='/elementos/projetos/blog-hover.png';" onmouseout="this.src='/elementos/projetos/blog.png';">
+        </a>
+        <a href="/projetos/criar.php?tipo=rt">
+          <img src="/elementos/projetos/resto.png" onmouseover="this.src='/elementos/projetos/resto-hover.png';" onmouseout="this.src='/elementos/projetos/resto.png';">
+        </a>
       <?php endif; ?>
 
       <?php if ($tipo == 'jg' || $tipo == 'md' || $tipo == 'bg' || $tipo == 'rt') : ?>
-	  
-      <h1 style="text-align: center; font-style: italic; font-weight: normal;">isso ainda nao existe :(</h1>
+
+        <h1 style="text-align: center; font-style: italic; font-weight: normal;">isso ainda nao existe :(</h1>
       <?php endif; ?>
-	  
+
       <?php if ($tipo == 'dl') : ?>
         <!-- Downloadável -->
         <a href="/projetos/criar.php"><img style="margin-left: -5px; margin-top: -5px;" src="/elementos/voltar.png"></a>
@@ -120,14 +104,14 @@ label {
           <br>
 
           <label for="arquivos">arquivos de seu downloadável</label>
-          <div id="multiFileUploader">
+          <div id="multiFileUploader" style="margin-bottom: 10px;">
             <ul class="files">
 
             </ul>
             <button class="coolButt grandissimo" type="button" onclick="addMais1()">+ Adicionar mais um</button>
           </div>
 
-          <button type="submit" class="coolButt verde grandissimo" >Criar</button>
+          <button type="submit" class="coolButt verde grandissimo">Criar</button>
         </form>
 
         <div id="fileTemplate" style="display: none;">

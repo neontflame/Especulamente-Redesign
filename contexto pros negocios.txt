@@ -2,3 +2,4 @@ CoolAssFundo: cool ass fundo
 TheFullAssCundo: eu tinha misspellado
 
 esse projeto usa §-based detecção de erros, a mais avançada tecnologia de §s.
+livel == legível por humanoss

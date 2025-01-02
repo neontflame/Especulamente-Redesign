@@ -125,6 +125,21 @@ function banner($user)
   return '/static/banners/' . $user->banner;
 }
 
+// Vai ter q ir aqui mesmo
+function humanFileSize($size)
+{
+  if ($size >= 1073741824) {
+    $fileSize = round($size / 1024 / 1024 / 1024, 1) . 'GB';
+  } elseif ($size >= 1048576) {
+    $fileSize = round($size / 1024 / 1024, 1) . 'MB';
+  } elseif ($size >= 1024) {
+    $fileSize = round($size / 1024, 1) . 'KB';
+  } else {
+    $fileSize = $size . ' bytes';
+  }
+  return $fileSize;
+}
+
 function subir_arquivo($file, $pasta, $tabela, $id, $coluna, $extensoes_permitidas, $max_FILE_Sisz)
 {
   global $db;
@@ -133,12 +148,14 @@ function subir_arquivo($file, $pasta, $tabela, $id, $coluna, $extensoes_permitid
     return "§Não tem arquivo?!";
   }
 
+  $livel = humanFileSize($max_FILE_Sisz);
+
   if ($file['size'] > $max_FILE_Sisz) {
-    return "§Arquivo muito grande!";
+    return "§Arquivo muito grande! O máximo é $livel.";
   }
 
   $extension = pathinfo($file['name'], PATHINFO_EXTENSION);
-  if (!in_array($extension, $extensoes_permitidas)) {
+  if (count($extensoes_permitidas) > 0 && !in_array($extension, $extensoes_permitidas)) {
     return "§Extensão não permitida!";
   }
 
@@ -170,6 +187,69 @@ function subir_arquivo($file, $pasta, $tabela, $id, $coluna, $extensoes_permitid
   $rows->execute();
 
   return $filename;
+}
+
+function subir_arquivoses($files, $pasta, $tabela, $id, $coluna, $extensoes_permitidas, $max_FILE_Sisz, $max_FILE_cont)
+{
+  global $db;
+
+  if (!isset($files) || count($files['size']) == 0) {
+    return "§Não tem arquivo?!";
+  }
+
+  if (count($files['size']) > $max_FILE_cont) {
+    return "§Arquivos demais! O número máximo de arquivos permitidos é $max_FILE_cont.";
+  }
+
+  $livel = humanFileSize($max_FILE_Sisz);
+
+  $filenames = [];
+  for ($i = 0; $i < count($files['size']); $i++) {
+
+    if ($files['size'][$i] > $max_FILE_Sisz) {
+      return "§Arquivo muito grande! O tamanho máximo é $livel.";
+    }
+
+    $extension = pathinfo($files['name'][$i], PATHINFO_EXTENSION);
+    if (count($extensoes_permitidas) > 0 && !in_array($extension, $extensoes_permitidas)) {
+      return "§Extensão não permitida!";
+    }
+
+    // Corrige a pasta
+    if (substr($pasta, -1) != '/') {
+      $pasta .= '/';
+    }
+    if (substr($pasta, 0, 1) != '/') {
+      $pasta = '/' . $pasta;
+    }
+
+    // Sube arquivo novo
+    $filename = uniqid() . '.' . $extension;
+    $file_path = $_SERVER['DOCUMENT_ROOT'] . $pasta . $filename;
+    move_uploaded_file($files['tmp_name'][$i], $file_path);
+
+    array_push($filenames, $filename);
+  }
+
+  $rows = $db->prepare("SELECT $coluna FROM $tabela WHERE id = ?");
+  $rows->bindParam(1, $id);
+  $rows->execute();
+  $old_files = $rows->fetch(PDO::FETCH_OBJ)->$coluna;
+  if (!empty($old_files)) {
+    $old_files = explode('\n', $old_files);
+    foreach ($old_files as $old_file) {
+      unlink($_SERVER['DOCUMENT_ROOT'] . $pasta . $old_file);
+    }
+  }
+
+  $filenames = implode('\n', $filenames);
+
+  $rows = $db->prepare("UPDATE $tabela SET $coluna = ? WHERE id = ?");
+  $rows->bindParam(1, $filenames);
+  $rows->bindParam(2, $id);
+  $rows->execute();
+
+  return $filenames;
 }
 
 // Campos é uma array [campo => valor]
@@ -359,19 +439,24 @@ function criar_projeto($id_criador, $nome, $descricao, $tipo, $arquivos)
   global $db;
 
   // EXPLODIR HOSTINGER
-  $arquivos = implode('\n', $arquivos);
+  $arquivos_de_vdd = implode('\n', $arquivos['name']);
 
-  $rows = $db->prepare("INSERT INTO projetos (id_criador, nome, descricao, tipo, arquivos) VALUES (?, ?, ?, ?, ?)");
+  $rows = $db->prepare("INSERT INTO projetos (id_criador, nome, descricao, tipo, arquivos_de_vdd) VALUES (?, ?, ?, ?, ?)");
   $rows->bindParam(1, $id_criador);
   $rows->bindParam(2, $nome);
   $rows->bindParam(3, $descricao);
   $rows->bindParam(4, $tipo);
-  $rows->bindParam(5, $arquivos);
+  $rows->bindParam(5, $arquivos_de_vdd);
   $rows->execute();
 
   $id = $db->lastInsertId();
 
   mkdir($_SERVER['DOCUMENT_ROOT'] . '/static/projetos/' . $id);
+
+  $rtn = subir_arquivoses($arquivos, '/static/projetos/' . $id, "projetos", $id, "arquivos", [], 1024 * 1024 * 1024, 50);
+  if (str_starts_with($rtn, "§")) {
+    return substr($rtn, 1);
+  }
 
   return projeto_requestIDator($id);
 }

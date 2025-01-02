@@ -2,11 +2,11 @@
 $banners = array();
 $dir = $_SERVER['DOCUMENT_ROOT'] . "/elementos/header/headers/";
 if ($handle = scandir($dir)) {
-        foreach ($handle as $target) {
-                if (!in_array($target, [".", ".."])) {
-                        $banners[] = $target;
-                }
-        }
+  foreach ($handle as $target) {
+    if (!in_array($target, [".", ".."])) {
+      $banners[] = $target;
+    }
+  }
 }
 
 $banner = $banners[array_rand($banners)];
@@ -58,7 +58,10 @@ $banner = $banners[array_rand($banners)];
         <!-- LINKS ABAIXO DO BANNER -->
         <div class="coolSubHeadery">
           <div class="coolLinkery">
-            <a href="">AMIGOS</a>
+            <?php if (isset($usuario)) : ?>
+              <a href="/projetos/criar.php" style="color: forestgreen;">+ CRIAR</a>
+            <?php endif ?>
+            <a href="/usuarios.php">AMIGOS</a>
             <a href="https://1604chan.fupi.cat" target="_blank">BOARDS</a>
           </div>
 
