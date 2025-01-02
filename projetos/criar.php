@@ -50,6 +50,17 @@ if (isset($_POST)) {
 
 <?php include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 
+<style>
+label {
+  font-weight: bold;
+  display: block;
+  font-size: 15px;
+  
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+</style>
+
 <div class="container">
   <?php include $_SERVER['DOCUMENT_ROOT'] . '/elementos/sidebar/sidebar.php'; ?>
 
