@@ -4,6 +4,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/shhhh/autoload.php';
 <?php
 $page = $_GET['page'] ?? 1;
 $projetos = [];
+
 $pages = projetos_tudo($projetos, $page);
 ?>
 

@@ -53,7 +53,7 @@ function projeto_requestIDator($id)
 }
 
 // Retorna o número de páginas
-function projetos_tudo($array, $page = 1, $perPage = 10)
+function projetos_tudo(&$array, $page = 1, $perPage = 10)
 {
   global $db;
 
@@ -72,7 +72,6 @@ function projetos_tudo($array, $page = 1, $perPage = 10)
   while ($row = $rows->fetch(PDO::FETCH_OBJ)) {
     array_push($array, $row);
   }
-
   return $pages;
 }
 
