@@ -147,7 +147,7 @@ $perfil_e_meu = $usuario ? ($usuario->id == $perfil->id) : false;
     <?php if ($erro) : ?>
       <div class="erro" style="color: red; background: black; text-align: center;">
         <img src="/static/skull-and-cross.gif" width="24" height="24" />
-        <?= $erro ?>
+        <?= $erro[0] ?>
         <img src="/static/skull-and-cross.gif" width="24" height="24" />
       </div>
     <?php endif; ?>

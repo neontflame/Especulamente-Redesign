@@ -62,11 +62,11 @@ function projetos_tudo($array, $page = 1, $perPage = 10)
   $count = $rows->fetch(PDO::FETCH_OBJ)->count;
 
   $pages = ceil($count / $perPage);
-
-  $rows = $db->prepare("SELECT * FROM projetos ORDER BY id DESC LIMIT ? OFFSET ?");
-  $rows->bindParam(1, $perPage);
   $offset = ($page - 1) * $perPage;
-  $rows->bindParam(2, $offset);
+  
+  $rows = $db->prepare("SELECT * FROM projetos ORDER BY id DESC LIMIT ? OFFSET ?");
+  $rows->bindParam(1, $perPage, PDO::PARAM_INT);
+  $rows->bindParam(2, $offset, PDO::PARAM_INT);
   $rows->execute();
 
   while ($row = $rows->fetch(PDO::FETCH_OBJ)) {
