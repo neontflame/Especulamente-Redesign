@@ -25,7 +25,7 @@ $arquivos_de_vdd = explode('\n', $projeto->arquivos_de_vdd);
       <?php if ($projeto->tipo == 'dl') : ?>
         <ul>
           <?php foreach ($arquivos as $i => $arquivo) : ?>
-            <li><a href="<?= $config['URL'] ?>/static/projetos/<?= $projeto->id ?>/<?= $arquivo ?>" download><?= $arquivos_de_vdd[$i] ?></a></li>
+            <li><a href="<?= $config['URL'] ?>/static/projetos/<?= $projeto->id ?>/<?= $arquivo ?>" download="<?= $arquivos_de_vdd[$i] ?>"><?= $arquivos_de_vdd[$i] ?></a></li>
           <?php endforeach ?>
         </ul>
       <?php endif ?>
