@@ -52,6 +52,30 @@ function projeto_requestIDator($id)
   return $proj;
 }
 
+// Retorna o número de páginas
+function projetos_tudo($array, $page = 1, $perPage = 10)
+{
+  global $db;
+
+  $rows = $db->prepare("SELECT COUNT(*) as count FROM projetos");
+  $rows->execute();
+  $count = $rows->fetch(PDO::FETCH_OBJ)->count;
+
+  $pages = ceil($count / $perPage);
+
+  $rows = $db->prepare("SELECT * FROM projetos ORDER BY id DESC LIMIT ? OFFSET ?");
+  $rows->bindParam(1, $perPage);
+  $offset = ($page - 1) * $perPage;
+  $rows->bindParam(2, $offset);
+  $rows->execute();
+
+  while ($row = $rows->fetch(PDO::FETCH_OBJ)) {
+    array_push($array, $row);
+  }
+
+  return $pages;
+}
+
 function obter_convite($codigo)
 {
   global $db;
