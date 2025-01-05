@@ -233,3 +233,54 @@ a img {
 .grandissimo {
       width: 99%;
 }
+
+/* grah fuck your botoes ... */
+
+.projeto {
+  border-bottom: solid 1px;
+  border-bottom-color: #9EBBFF;
+}
+
+.projeto h2 {
+  color: black;
+  font-weight: normal;
+  margin-top:4px;
+  margin-bottom:-4px;
+}
+
+.projeto a {
+  float: right;
+}
+
+.autorDeProjeto { /* css jank capitulo 1 */
+  float: right;
+  color: #C9DAFF;
+  margin-right: -90px;
+}
+
+/* el paginado */
+
+.pagination {
+  display: inline-block;
+  text-align: center;
+  margin-top: -5px;
+  margin-bottom: -10px;
+  margin-left: 45px; /* css jank capitulo 2 */
+}
+
+.pagination a, p {
+  display: inline-block;
+}
+
+.pagination a {
+  color: #5757E6;
+  text-decoration: none;
+}
+
+.pagination a:hover {
+  color: #2525C4;
+}
+
+.textinhoClaro {
+  color: #BBBBFF;
+}
