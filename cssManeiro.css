@@ -236,6 +236,10 @@ a img {
 
 /* grah fuck your botoes ... */
 
+.projetos {
+  margin-top: -4px;
+}
+
 .projeto {
   border-bottom: solid 1px;
   border-bottom-color: #9EBBFF;
@@ -256,6 +260,7 @@ a img {
   color: #C9DAFF;
   margin-right: 12px;
   text-decoration: none;
+  margin-top: 4px;
 }
 
 /* el paginado */
