@@ -22,9 +22,11 @@ $pages = projetos_tudo($projetos, $page);
         <?php foreach ($projetos as $projeto) : ?>
           <div class="projeto">
             <a href="<?= $config['URL'] ?>/projetos/ver.php?id=<?= $projeto->id ?>"><img src="/elementos/botaoTransferir.png"></a>
+            <a class="autorDeProjeto" href="<?= $config['URL'] ?>/usuarios/<?= usuario_requestIDator($projeto->id_criador)->username ?>">
+			feito por <?= usuario_requestIDator($projeto->id_criador)->username ?>
+			</a>
             <h2><?= $projeto->nome ?></h2>
             <p><?= $projeto->descricao ?></p>
-            <p class="autorDeProjeto">carregado por <?= usuario_requestIDator($projeto->id_criador)->username ?></p>
           </div>
         <?php endforeach ?>
 

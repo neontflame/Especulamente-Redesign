@@ -252,10 +252,10 @@ a img {
   float: right;
 }
 
-.autorDeProjeto { /* css jank capitulo 1 */
-  float: right;
+.autorDeProjeto { /* seria um capitulo de css jank mas eu descobri um design melhor */
   color: #C9DAFF;
-  margin-right: -90px;
+  margin-right: 12px;
+  text-decoration: none;
 }
 
 /* el paginado */
