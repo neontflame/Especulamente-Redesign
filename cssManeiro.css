@@ -256,6 +256,18 @@ a img {
   float: right;
 }
 
+.projeto h2 a {
+  float: none;
+  color: black;
+  text-decoration: none;
+}
+
+.projeto h2 a:hover {
+  float: none;
+  color: black;
+  text-decoration: underline;
+}
+
 .autorDeProjeto { /* seria um capitulo de css jank mas eu descobri um design melhor */
   color: #C9DAFF;
   margin-right: 12px;

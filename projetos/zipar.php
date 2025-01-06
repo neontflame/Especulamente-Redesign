@@ -19,10 +19,13 @@ $zipname = $projeto->nome . '.zip';
 $zip = new ZipArchive;
 $zip->open($zipname, ZipArchive::CREATE);
 foreach ($arquivos as $i => $arquivo) {
-	$zip->addFile($_SERVER['DOCUMENT_ROOT'] . '/static/projetos/' . $projeto->id . '/' . $arquivo, $arquivos_de_vdd[$i]);
+	$zip->addFile($_SERVER['DOCUMENT_ROOT'] . '/static/projetos/' . $projeto->id . '/' . $arquivo, '' . $arquivos_de_vdd[$i]);
 }
 $zip->close();
- 
+
+ob_clean();
+ob_end_flush(); // isso aqui arruma o zip - nao sei como funciona so achei no stackoverflow
+header("Cache-Control: no-cache, must-revalidate");
 header('Content-Type: application/zip');
 header('Content-disposition: attachment; filename='.$zipname);
 header('Content-Length: ' . filesize($zipname));

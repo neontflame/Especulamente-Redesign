@@ -21,11 +21,11 @@ $pages = projetos_tudo($projetos, $page);
       <div class="projetos">
         <?php foreach ($projetos as $projeto) : ?>
           <div class="projeto">
-            <a href="<?= $config['URL'] ?>/projetos/ver.php?id=<?= $projeto->id ?>"><img src="/elementos/botaoTransferir.png"></a>
+            <a href="<?= $config['URL'] ?>/projetos/zipar.php?id=<?= $projeto->id ?>"><img src="/elementos/botaoTransferir.png"></a>
             <a class="autorDeProjeto" href="<?= $config['URL'] ?>/usuarios/<?= usuario_requestIDator($projeto->id_criador)->username ?>">
 			feito por <?= usuario_requestIDator($projeto->id_criador)->username ?>
 			</a>
-            <h2><?= $projeto->nome ?></h2>
+            <h2><a href="<?= $config['URL'] ?>/projetos/ver.php?id=<?= $projeto->id ?>"><?= $projeto->nome ?></a></h2>
             <p><?= $projeto->descricao ?></p>
           </div>
         <?php endforeach ?>
