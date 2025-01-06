@@ -28,6 +28,8 @@ $arquivos_de_vdd = explode('\n', $projeto->arquivos_de_vdd);
             <li><a href="<?= $config['URL'] ?>/static/projetos/<?= $projeto->id ?>/<?= $arquivo ?>" download="<?= $arquivos_de_vdd[$i] ?>"><?= $arquivos_de_vdd[$i] ?></a></li>
           <?php endforeach ?>
         </ul>
+		
+		<a href="<?= $config['URL'] ?>/projetos/zipar.php?id=<?= $projeto->id ?>">Baixar todos os arquivos!</a>
       <?php endif ?>
 
       <?php if (str_ends_with($arquivos[0], '.sb2')) : ?>
