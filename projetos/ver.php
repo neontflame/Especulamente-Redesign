@@ -35,7 +35,7 @@ $arquivos_de_vdd = explode('\n', $projeto->arquivos_de_vdd);
 	  
       <?php if ($projeto->tipo == 'md') : ?>
 	  <!-- midia -->
-        <object width="600" height="360" data="/elementos/vedorDImagem.swf"><param name="flashvars" value="server=<?= $config['URL'] ?>/&projectid=<?= $projeto->id ?>"/></object>
+        <object width="600" height="360" data="/elementos/vedorDImagem.swf" allowfullscreen="true"><param name="flashvars" value="server=<?= $config['URL'] ?>/&projectid=<?= $projeto->id ?>"/></object>
 		
 		<a href="<?= $config['URL'] ?>/projetos/zipar.php?id=<?= $projeto->id ?>">Baixar todos os arquivos!</a>
       <?php endif ?>
