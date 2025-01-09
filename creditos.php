@@ -4,6 +4,8 @@ $creditados = [
 				['Fupicat', 'codigo, puxar cordas'],
 				['neontflame', 'html css e codigo, desenhos, puxar cordas'],
 				['Sushi', 'banners e chars'],
+				['Sketcher', 'banner'],
+				['Hawnt', 'banner'],
 				];
 ?>
 <?php include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
@@ -25,7 +27,7 @@ $creditados = [
 			<?php endforeach ?>
 		</div>
 		
-		<p style="display: block; margin-top: 160px; text-align: center;">uma salva de palmas aos individuos envolvidos!!!</p>
+		<p style="display: block; margin-top: 0px; text-align: center;">uma salva de palmas aos individuos envolvidos!!!</p>
     </div>
   </div>
 </div>
