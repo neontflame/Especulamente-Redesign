@@ -301,3 +301,31 @@ a img {
 .textinhoClaro {
   color: #BBBBFF;
 }
+
+.creditos {
+  margin-top: -5px;
+  margin-bottom: 10px;
+}
+
+.credito img {
+  float: left;
+  margin-left: 5px;
+  margin-right: 10px;
+}
+
+.credito a {
+  text-decoration: none;
+  color: #45609E;
+}
+
+.credito h2 {
+  color: black;
+  font-weight: normal;
+  margin-top:4px;
+  margin-bottom:-4px;
+}
+
+.credito p {
+  color: #7896DB;
+  margin-top:-10px;
+}

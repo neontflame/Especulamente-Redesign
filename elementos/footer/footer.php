@@ -26,7 +26,7 @@ $char = $chars[array_rand($chars)];
     <br />
     <br />
     <a href="">TERMOS DE USO</a> -
-    <a href="">REGRAS PARA PESTINHAS COMO VOCÊ</a> - <a href="">CRÉDITOS</a>
+    <a href="">REGRAS PARA PESTINHAS COMO VOCÊ</a> - <a href="/creditos.php">CRÉDITOS</a>
   </div>
   <img id="character" src="/elementos/footer/chars/<?= $char ?>" />
 </div>
