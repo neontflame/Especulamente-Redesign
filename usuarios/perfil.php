@@ -13,7 +13,7 @@ $perfil = usuario_requestinator($username);
 if (isset($_POST)) {
   // O comentario acima vai aqui nao ali então imagine q está aqui
   if (isset($_FILES['pfp_fnf'])) {
-    $pfp_rtn = subir_arquivo($_FILES['pfp_fnf'], '/static/pfps/', 'usuarios', $usuario->id, 'pfp', ['png', 'jpg', 'jpeg', 'gif', 'bmp'], 1024 * 1024);
+    $pfp_rtn = subir_arquivo($_FILES['pfp_fnf'], '/static/pfps/', 'usuarios', $usuario->id, 'pfp', ['png', 'jpg', 'jpeg', 'gif', 'bmp', 'PNG', 'JPG', 'JPEG', 'GIF', 'BMP'], 1024 * 1024);
     if (str_starts_with($pfp_rtn, '§')) {
       array_push($erro, substr($pfp_rtn, 1));
     }
@@ -21,7 +21,7 @@ if (isset($_POST)) {
 
   // carregar Bnr
   if (isset($_FILES['bnr_fnf'])) {
-    $bnr_rtn = subir_arquivo($_FILES['bnr_fnf'], '/static/banners/', 'usuarios', $usuario->id, 'banner', ['png', 'jpg', 'jpeg', 'gif', 'bmp'], 1024 * 1024);
+    $bnr_rtn = subir_arquivo($_FILES['bnr_fnf'], '/static/banners/', 'usuarios', $usuario->id, 'banner', ['png', 'jpg', 'jpeg', 'gif', 'bmp', 'PNG', 'JPG', 'JPEG', 'GIF', 'BMP'], 1024 * 1024);
     if (str_starts_with($bnr_rtn, '§')) {
       array_push($erro, substr($bnr_rtn, 1));
     }
