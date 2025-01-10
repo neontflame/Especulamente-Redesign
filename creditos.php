@@ -1,11 +1,13 @@
 <?php 
 include $_SERVER['DOCUMENT_ROOT'] . '/shhhh/autoload.php'; 
+// TODO: trocar isso pelos ids de usuarios
 $creditados = [
 				['Fupicat', 'codigo, puxar cordas'],
 				['neontflame', 'html css e codigo, desenhos, puxar cordas'],
 				['Sushi', 'banners e chars'],
 				['Sketcher', 'banner'],
 				['Hawnt', 'banner'],
+				['henry.guy', 'banner'],
 				];
 ?>
 <?php include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
@@ -16,7 +18,7 @@ $creditados = [
   <div class="page_content" style="height: 486px">
   <img src="/elementos/pagetitles/creditos.png" class="inside_page_content" style="padding: 0px; margin-bottom: 7px;">
   
-    <div class="inside_page_content" style="height: 414px; background-image: url(/elementos/chillmaia.png); background-position: right bottom; background-repeat: no-repeat;">
+    <div class="inside_page_content" style="background-image: url(/elementos/chillmaia.png); background-position: right bottom; background-repeat: no-repeat;">
 		<div class="creditos">
 			<?php foreach ($creditados as $credado) : ?>
 			<div class="credito">
@@ -27,7 +29,7 @@ $creditados = [
 			<?php endforeach ?>
 		</div>
 		
-		<p style="display: block; margin-top: 0px; text-align: center;">uma salva de palmas aos individuos envolvidos!!!</p>
+		<p style="display: block; text-align: center;">uma salva de palmas aos individuos envolvidos!!!</p>
     </div>
   </div>
 </div>
