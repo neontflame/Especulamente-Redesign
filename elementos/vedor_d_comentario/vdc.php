@@ -80,7 +80,7 @@ function vedor_d_comentario($tipo, $id, $temTudo, &$usuario)
                   <p class="texto" style="float:none"><?= responde_clickers($resposta->texto); ?></p>
 		  <!-- e assim que se responde comentarios -->
 				<?php if (isset($usuario)) { ?>
-				  <div id="respondedor_<?= $resposta->id ?>" style="display: none; padding-top: 24px; margin-bottom: 8px;">
+				  <div id="respondedor_<?= $resposta->id ?>" style="display: none; padding-top: 8px; margin-bottom: 8px;">
 					<textarea name="resposta_fnf_<?= $resposta->id ?>" id="resposta_fnf_<?= $resposta->id ?>" style="width: 425px; max-width: 603px; height: 150px;">&gt;&gt;<?= $resposta->id ?></textarea>
 					<br>
 					<button type="submit" onclick="postarComentario('<?= $tipo ?>', <?= $id ?>, document.getElementById('resposta_fnf_<?= $resposta->id ?>').value, <?= $resposta->fio ?>);" class="coolButt">
