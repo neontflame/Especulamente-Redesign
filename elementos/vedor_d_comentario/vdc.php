@@ -2,14 +2,14 @@
 <?php
 // $tipo é o tipo da coisa que tem os comentários (projeto ou perfil)
 // $id é o id da coisa que tem os comentários
-function vedor_d_comentario($tipo, $id, $temTudo)
+function vedor_d_comentario($tipo, $id, $temTudo, &$usuario)
 {	
 	$comentarios = comentario_requestinator($tipo, $id);
 	if ($temTudo == true) {
 		echo '<div class="areaDeComentarios">' ;
 
 		// php despedaçado quem diria !
-		if (!isset($usuario)) {
+		if (isset($usuario)) {
 ?>
 	<textarea name="comment_fnf" id="comment_fnf" style="width: 425px; max-width: 613px; height: 150px;"></textarea>
 	<br>
@@ -74,11 +74,12 @@ function vedor_d_comentario($tipo, $id, $temTudo)
                       <img src="<?= pfp($respondente) ?>" alt="<?= $respondente->username; ?>" style="width: 50px; height: 50px">
                       <?= $respondente->username; ?></a> em <?= velhificar_data($resposta->data); ?>
 					  <a class="linkmentario" onclick="document.getElementById('comment_fnf').value += '>><?= $resposta->id ?>'">&gt;&gt;<?= $resposta->id ?></a>
-					  <button class="coolButt verde" onclick="document.getElementById('respondedor_<?= $resposta->id ?>').style.display='block';">Responder</button>
+					  <?php if (isset($usuario)) { ?> <button class="coolButt verde" onclick="document.getElementById('respondedor_<?= $resposta->id ?>').style.display='block';">Responder</button> <?php } ?>
                     </a>
                   </p>
                   <p class="texto" style="float:none"><?= responde_clickers($resposta->texto); ?></p>
 		  <!-- e assim que se responde comentarios -->
+				<?php if (isset($usuario)) { ?>
 				  <div id="respondedor_<?= $resposta->id ?>" style="display: none;">
 					<textarea name="resposta_fnf_<?= $resposta->id ?>" id="resposta_fnf_<?= $resposta->id ?>" style="width: 425px; max-width: 603px; height: 150px;">&gt;&gt;<?= $resposta->id ?></textarea>
 					<br>
@@ -91,7 +92,7 @@ function vedor_d_comentario($tipo, $id, $temTudo)
 						  </button>
 					 <br>
 				  </div>
-				  
+				  <?php } ?>
                 </li>
               <?php } ?>
             </ul>

@@ -46,7 +46,7 @@ $arquivos_de_vdd = explode('\n', $projeto->arquivos_de_vdd);
         <iframe src="https://turbowarp.org/embed?project_url=<?= $config['URL'] ?>/static/projetos/<?= $projeto->id ?>/<?= $arquivos[0] ?>" width="482" height="412" allowtransparency="true" frameborder="0" scrolling="no" allowfullscreen></iframe>
       <?php endif ?>
 
-      <?php vedor_d_comentario('projeto', $projeto->id, true); ?>
+      <?php vedor_d_comentario('projeto', $projeto->id, true, $usuario); ?>
     </div>
   </div>
 </div>
