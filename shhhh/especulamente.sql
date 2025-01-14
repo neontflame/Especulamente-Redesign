@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Tempo de geração: 02/01/2025 às 20:26
+-- Tempo de geração: 14/01/2025 às 00:03
 -- Versão do servidor: 8.3.0
 -- Versão do PHP: 8.2.18
 
@@ -20,6 +20,24 @@ SET time_zone = "+00:00";
 --
 -- Banco de dados: `especulamente`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `comentarios`
+--
+
+DROP TABLE IF EXISTS `comentarios`;
+CREATE TABLE IF NOT EXISTS `comentarios` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `id_comentador` int NOT NULL,
+  `id_coisa` int NOT NULL,
+  `tipo_de_coisa` enum('perfil','projeto') NOT NULL,
+  `texto` varchar(1024) NOT NULL,
+  `fio` int DEFAULT NULL,
+  `data` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 

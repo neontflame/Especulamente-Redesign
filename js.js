@@ -24,3 +24,24 @@ window.addEventListener("click", function () {
     headerMenu.classList.remove("ativo");
   }
 });
+
+console.log(
+  `%c
+             ,´\`.
+           ,'    '.
+         ,'        '.
+       ,'            '.     ei
+     ,'                '.
+   ,'                    '.
+ ,'                        '.
+<             :]             >
+ '.                        ,'
+   '.                    ,'
+     '.                ,'
+       '.            ,'      oqq tu pensa
+         '.        ,'     q tá procurando?
+           '.    ,'
+             '.,'
+`,
+  "color: #375bfd"
+);

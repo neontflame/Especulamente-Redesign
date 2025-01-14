@@ -63,7 +63,7 @@ function projetos_tudo(&$array, $page = 1, $perPage = 10)
 
   $pages = ceil($count / $perPage);
   $offset = ($page - 1) * $perPage;
-  
+
   $rows = $db->prepare("SELECT * FROM projetos ORDER BY id DESC LIMIT ? OFFSET ?");
   $rows->bindParam(1, $perPage, PDO::PARAM_INT);
   $rows->bindParam(2, $offset, PDO::PARAM_INT);
@@ -482,4 +482,47 @@ function criar_projeto($id_criador, $nome, $descricao, $tipo, $arquivos)
   }
 
   return projeto_requestIDator($id);
+}
+
+function comentario_requestinator($tipo, $id)
+{
+  global $db;
+
+  $rows = $db->prepare("SELECT * FROM comentarios WHERE tipo_de_coisa = ? AND id_coisa = ? AND fio IS NULL ORDER BY data DESC");
+  $rows->bindParam(1, $tipo);
+  $rows->bindParam(2, $id);
+  $rows->execute();
+
+  $comentarios = [];
+
+  while ($row = $rows->fetch(PDO::FETCH_OBJ)) {
+    array_push($comentarios, $row);
+  }
+
+  return $comentarios;
+}
+
+function respostas_requestinator($id_topico)
+{
+  global $db;
+
+  $rows = $db->prepare("SELECT * FROM comentarios WHERE fio = ? ORDER BY data ASC");
+  $rows->bindParam(1, $id_topico);
+  $rows->execute();
+
+  $comentarios = [];
+
+  while ($row = $rows->fetch(PDO::FETCH_OBJ)) {
+    array_push($comentarios, $row);
+  }
+
+  return $comentarios;
+}
+
+// subtrai data ya mané
+function velhificar_data($datetime)
+{
+  $date = date_create($datetime);
+  date_sub($date, date_interval_create_from_date_string("17 years"));
+  return date_format($date, "d/m/Y") . " às " . date_format($date, "H:i");
 }

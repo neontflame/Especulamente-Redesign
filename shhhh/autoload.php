@@ -2,6 +2,7 @@
 include 'config.php';
 include 'db.php';
 include 'login_coisos.php';
+include '../elementos/vedor_d_comentario/vdc.php';
 
 function redirect($location)
 {
