@@ -523,6 +523,7 @@ function respostas_requestinator($id_topico)
 function velhificar_data($datetime)
 {
   $date = date_create($datetime);
-  date_sub($date, date_interval_create_from_date_string("17 years"));
+  // horario de brasilia, 2008
+  date_sub($date, date_interval_create_from_date_string("17 years + 3 hours"));
   return date_format($date, "d/m/Y") . " às " . date_format($date, "H:i");
 }
