@@ -317,9 +317,9 @@ a img {
 
 .comentario .texto {
   margin-top: -6px;
+  padding-left: 60px;
   color: black;
   white-space: pre-line;
-  float:left;
   word-wrap: break-word;
 }
 
