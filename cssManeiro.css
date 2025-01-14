@@ -275,6 +275,54 @@ a img {
   margin-top: 4px;
 }
 
+/* comentarios !!! uhul */
+.comentario {
+  min-height: 40px;
+  margin-left: -30px;
+  display: inline-block;
+  list-style-type: none;
+}
+
+.resposta {
+  margin-left: 64px;
+  display: inline-block;
+}
+
+.resposta .comentario {
+  margin-top: -13px;
+}
+
+.linkmentario {
+  color: #9EBBFF !important;
+}
+
+.comentario img {
+  padding-right:10px;
+  float:left;
+}
+
+.comentario p {
+  display: block;
+}
+
+.comentario .nome {
+  color: #AAAAAA;
+}
+
+.comentario .nome a {
+  color: #4F6BAD;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.comentario .texto {
+  margin-top: -6px;
+  color: black;
+  white-space: pre-line;
+  float:left;
+  word-wrap: break-word;
+}
+
 /* el paginado */
 
 .pagination {

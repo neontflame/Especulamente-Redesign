@@ -488,7 +488,7 @@ function comentario_requestinator($tipo, $id)
 {
   global $db;
 
-  $rows = $db->prepare("SELECT * FROM comentarios WHERE tipo_de_coisa = ? AND id_coisa = ? AND fio IS NULL ORDER BY data DESC");
+  $rows = $db->prepare("SELECT * FROM comentarios WHERE tipo_de_coisa = ? AND id_coisa = ? AND fio = 0 ORDER BY data DESC");
   $rows->bindParam(1, $tipo);
   $rows->bindParam(2, $id);
   $rows->execute();
