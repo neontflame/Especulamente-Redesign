@@ -288,10 +288,12 @@ a img {
 }
 
 .comentario .nome {
+  font-size: 10px;
   color: #AAAAAA;
 }
 
 .comentario .nome a {
+  font-size: 13px;
   color: #4F6BAD;
   text-decoration: none;
   font-weight: bold;
@@ -305,12 +307,12 @@ a img {
   word-wrap: break-word;
 }
 .resposta {
-  margin-left: 64px;
+  margin-left: 24px;
   display: inline-block;
 }
 
 .resposta .comentario {
-  margin-top: -13px;
+  margin-top: -8px;
 }
 
 .linkmentario {
