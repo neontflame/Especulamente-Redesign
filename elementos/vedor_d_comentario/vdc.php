@@ -11,8 +11,8 @@ function vedor_d_comentario($tipo, $id, $temTudo, &$usuario)
 		// php despedaçado quem diria !
 		if (isset($usuario)) {
 ?>
-    <img src="<?= pfp($usuario) ?>" alt="<?= $usuario->username; ?>" style="width: 50px; height: 50px; float:left; padding-left:10px; padding-right:10px;">
-	<div class="sayYourPrayers" style="display:inline-block;">
+    <img src="<?= pfp($usuario) ?>" alt="<?= $usuario->username; ?>" class="pfpComentarios" style="padding-left:10px;">
+	<div class="sayYourPrayers">
 		<textarea name="comment_fnf" id="comment_fnf" style="width: 425px; max-width: 613px; height: 150px;"></textarea>
 		<br>
 		<button type="submit" onclick="postarComentario('<?= $tipo ?>', <?= $id ?>, document.getElementById('comment_fnf').value, 0);" class="coolButt">
@@ -44,7 +44,7 @@ function vedor_d_comentario($tipo, $id, $temTudo, &$usuario)
         <li id="comentario_<?= $comentario->id ?>" class="comentario">
           <p class="nome">
             <a href="/usuarios/<?= $comentador->username; ?>">
-              <img src="<?= pfp($comentador) ?>" alt="<?= $comentador->username; ?>" style="width: 50px; height: 50px; float:left; padding-right:10px;">
+              <img src="<?= pfp($comentador) ?>" alt="<?= $comentador->username; ?>" class="pfpComentarios">
               <?= $comentador->username; ?></a> em <?= velhificar_data($comentario->data); ?>
 			  <a class="linkmentario" onclick="document.getElementById('comment_fnf').value += '>><?= $comentario->id ?>'">&gt;&gt;<?= $comentario->id ?></a>
 			  <button class="coolButt verde" onclick="document.getElementById('respondedor_<?= $comentario->id ?>').style.display='block';">Responder</button>
@@ -74,7 +74,7 @@ function vedor_d_comentario($tipo, $id, $temTudo, &$usuario)
                 <li id="comentario_<?= $resposta->id ?>" class="comentario">
                   <p class="nome">
                     <a href="/usuarios/<?= $respondente->username; ?>">
-                      <img src="<?= pfp($respondente) ?>" alt="<?= $respondente->username; ?>" style="width: 50px; height: 50px; float:left; padding-right:10px;">
+                      <img src="<?= pfp($respondente) ?>" alt="<?= $respondente->username; ?>" class="pfpComentarios">
                       <?= $respondente->username; ?></a> em <?= velhificar_data($resposta->data); ?>
 					  <a class="linkmentario" onclick="document.getElementById('comment_fnf').value += '>><?= $resposta->id ?>'">&gt;&gt;<?= $resposta->id ?></a>
 					  <?php if (isset($usuario)) { ?> <button class="coolButt verde" onclick="document.getElementById('respondedor_<?= $resposta->id ?>').style.display='block';">Responder</button> <?php } ?>
