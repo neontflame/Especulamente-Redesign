@@ -117,7 +117,7 @@ function responde_clickers($texto)
 			foreach ($handle as $target) {
 					if (!in_array($target, [".", ".."])) {
 							// exemplo:  _meow_ | <img src="/elementos/emoticons/_meow_.png">
-							$replace += ['/' . pathinfo($dir . $target, PATHINFO_FILENAME) . '/' => '<img src="/elementos/emoticons/' . $target . '">'];
+							$replace += ['/' . pathinfo($dir . $target, PATHINFO_FILENAME) . '/' => '<img src="/elementos/emoticons/' . $target . '" alt="' . pathinfo($dir . $target, PATHINFO_FILENAME) . '">'];
 					}
 			}
 	}
