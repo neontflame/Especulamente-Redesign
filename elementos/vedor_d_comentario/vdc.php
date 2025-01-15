@@ -11,16 +11,19 @@ function vedor_d_comentario($tipo, $id, $temTudo, &$usuario)
 		// php despedaçado quem diria !
 		if (isset($usuario)) {
 ?>
-	<textarea name="comment_fnf" id="comment_fnf" style="width: 425px; max-width: 613px; height: 150px;"></textarea>
-	<br>
-	<button type="submit" onclick="postarComentario('<?= $tipo ?>', <?= $id ?>, document.getElementById('comment_fnf').value, 0);" class="coolButt">
-		  Enviar comentário
-		  </button>
-		  
-	<button class="coolButt vermelho" onclick="document.getElementById('comment_fnf').value = '';">
-		  Cancelar
-		  </button>
-	 <br>
+    <img src="<?= pfp($usuario) ?>" alt="<?= $usuario->username; ?>" style="width: 50px; height: 50px; float:left; padding-left:10px; padding-right:10px;">
+	<div class="sayYourPrayers" style="display:inline-block;">
+		<textarea name="comment_fnf" id="comment_fnf" style="width: 425px; max-width: 613px; height: 150px;"></textarea>
+		<br>
+		<button type="submit" onclick="postarComentario('<?= $tipo ?>', <?= $id ?>, document.getElementById('comment_fnf').value, 0);" class="coolButt">
+			  Enviar comentário
+			  </button>
+			  
+		<button class="coolButt vermelho" onclick="document.getElementById('comment_fnf').value = '';">
+			  Cancelar
+			  </button>
+		 <br>
+	</div>
 <?php
 		}
 		echo '<div id="osComentario">' ;
