@@ -13,7 +13,7 @@ function vedor_d_comentario($tipo, $id, $temTudo, &$usuario)
 ?>
     <img src="<?= pfp($usuario) ?>" alt="<?= $usuario->username; ?>" class="pfpComentarios" style="padding-left:10px;">
 	<div class="sayYourPrayers">
-		<textarea name="comment_fnf" id="comment_fnf" style="width: 425px; max-width: 613px; height: 150px;"></textarea>
+		<textarea name="comment_fnf" id="comment_fnf" style="width: 353px; max-width: 353px; height: 150px;"></textarea>
 		<br>
 		<button type="submit" onclick="postarComentario('<?= $tipo ?>', <?= $id ?>, document.getElementById('comment_fnf').value, 0);" class="coolButt">
 			  Enviar comentário
@@ -52,8 +52,8 @@ function vedor_d_comentario($tipo, $id, $temTudo, &$usuario)
           </p>
           <p class="texto"><?= responde_clickers($comentario->texto); ?></p>
 		  <!-- e assim que se responde comentarios -->
-		  <div id="respondedor_<?= $comentario->id ?>" style="display: none; padding-top: 24px; margin-bottom: 8px;">
-		  	<textarea name="resposta_fnf_<?= $comentario->id ?>" id="resposta_fnf_<?= $comentario->id ?>" style="width: 425px; max-width: 603px; height: 150px;">&gt;&gt;<?= $comentario->id ?></textarea>
+		  <div id="respondedor_<?= $comentario->id ?>" style="display: none; padding-top: 8px; margin-bottom: 8px;">
+		  	<textarea name="resposta_fnf_<?= $comentario->id ?>" id="resposta_fnf_<?= $comentario->id ?>" style="width: 414px; max-width: 414px; height: 75px;">&gt;&gt;<?= $comentario->id ?></textarea>
 			<br>
 			<button type="submit" onclick="postarComentario('<?= $tipo ?>', <?= $id ?>, document.getElementById('resposta_fnf_<?= $comentario->id ?>').value, <?= $comentario->id ?>);" class="coolButt">
 				  Enviar comentário
@@ -84,7 +84,7 @@ function vedor_d_comentario($tipo, $id, $temTudo, &$usuario)
 		  <!-- e assim que se responde comentarios -->
 				<?php if (isset($usuario)) { ?>
 				  <div id="respondedor_<?= $resposta->id ?>" style="display: none; padding-top: 8px; margin-bottom: 8px;">
-					<textarea name="resposta_fnf_<?= $resposta->id ?>" id="resposta_fnf_<?= $resposta->id ?>" style="width: 425px; max-width: 603px; height: 150px;">&gt;&gt;<?= $resposta->id ?></textarea>
+					<textarea name="resposta_fnf_<?= $resposta->id ?>" id="resposta_fnf_<?= $resposta->id ?>" style="width: 338px; max-width: 338px; height: 150px;">&gt;&gt;<?= $resposta->id ?></textarea>
 					<br>
 					<button type="submit" onclick="postarComentario('<?= $tipo ?>', <?= $id ?>, document.getElementById('resposta_fnf_<?= $resposta->id ?>').value, <?= $resposta->fio ?>);" class="coolButt">
 						  Enviar comentário
