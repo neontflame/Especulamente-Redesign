@@ -11,7 +11,7 @@ function vedor_d_comentario($tipo, $id, $temTudo, &$usuario)
 		// php despedaçado quem diria !
 		if (isset($usuario)) {
 ?>
-    <img src="<?= pfp($usuario) ?>" alt="<?= $usuario->username; ?>" class="pfpComentarios" style="padding-left:10px;">
+    <img src="<?= pfp($usuario) ?>" alt="<?= $usuario->username; ?>" class="pfpComentarios">
 	<div class="sayYourPrayers">
 		<textarea name="comment_fnf" id="comment_fnf" style="width: 353px; max-width: 353px; height: 150px;"></textarea>
 		<br>

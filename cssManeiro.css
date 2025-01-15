@@ -278,9 +278,11 @@ a img {
 /* comentarios !!! uhul */
 .comentario {
   min-height: 40px;
-  margin-left: -30px;
+  margin-left: -40px;
   display: inline-block;
   list-style-type: none;
+  
+  border-top: solid 1px #9ebbff;
 }
 
 .comentario p {
@@ -288,7 +290,7 @@ a img {
 }
 
 .comentario .nome {
-  font-size: 10px;
+  font-size: 9px;
   color: #AAAAAA;
 }
 
@@ -312,6 +314,7 @@ a img {
 }
 
 .resposta .comentario {
+  border-color: #BEDDFF;
   margin-top: -8px;
 }
 
