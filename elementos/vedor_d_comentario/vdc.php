@@ -94,12 +94,12 @@ function vedor_d_comentario($tipo, $id, $temTudo, &$usuario)
 											<?php } ?>
 										<?php } ?>
 									</div>
-									<!-- e assim que se responde comentarios -->
+									<!-- e assim que se responde respostas -->
 									<?php if (isset($usuario)) { ?>
 										<div id="respondedor_<?= $resposta->id ?>" style="display: none; padding-top: 8px; margin-bottom: 8px;">
 											<textarea name="resposta_fnf_<?= $resposta->id ?>" id="resposta_fnf_<?= $resposta->id ?>" style="width: 338px; max-width: 338px; height: 150px;">&gt;&gt;<?= $resposta->id ?> </textarea>
 											<br>
-											<button type="submit" onclick="postarComentario('<?= $tipo ?>', <?= $id ?>, document.getElementById('resposta_fnf_<?= $resposta->id ?>').value, <?= $resposta->fio ?>);" class="coolButt">
+											<button type="submit" onclick="postarComentario('<?= $tipo ?>', <?= $id ?>, document.getElementById('resposta_fnf_<?= $resposta->id ?>').value, <?= $resposta->fio ?>, this);" class="coolButt">
 												Enviar comentário
 											</button>
 
