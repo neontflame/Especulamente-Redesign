@@ -25,32 +25,78 @@ window.addEventListener("click", function () {
   }
 });
 
-function postarComentario(tipo, id, ocomentario, thread) {
-	var osNegocios = new FormData();
-	
-	osNegocios.append('tipo', tipo);
-	osNegocios.append('id', id);
-	osNegocios.append('comentario', ocomentario);
-	osNegocios.append('fio', thread);
-	
-	const xhttp = new XMLHttpRequest();
-	xhttp.open("POST", "/elementos/vedor_d_comentario/postarComentario.php", true);
+function postarComentario(tipo, id, ocomentario, thread, that) {
+  var osNegocios = new FormData();
 
-	xhttp.onload = function() {
-		carregarComentarios(tipo, id);
-		document.getElementById("osComentario").value = '';
-	}
-	
-	xhttp.send(osNegocios);
+  var bototes = that.parentElement.getElementsByTagName("button");
+
+  for (var i = 0; i < bototes.length; i++) {
+    bototes[i].disabled = true;
+  }
+
+  osNegocios.append("tipo", tipo);
+  osNegocios.append("id", id);
+  osNegocios.append("comentario", ocomentario);
+  osNegocios.append("fio", thread);
+
+  var xhttp = new XMLHttpRequest();
+  xhttp.open(
+    "POST",
+    "/elementos/vedor_d_comentario/postarComentario.php",
+    true
+  );
+
+  xhttp.onload = function () {
+    carregarComentarios(tipo, id);
+    that.parentElement.getElementsByTagName("textarea")[0].value = "";
+
+    for (let i = 0; i < bototes.length; i++) {
+      bototes[i].disabled = false;
+    }
+  };
+
+  xhttp.send(osNegocios);
 }
 
 function carregarComentarios(tipo, id) {
-	const xhttp = new XMLHttpRequest();
-	xhttp.onload = function() {
-		document.getElementById("osComentario").innerHTML = this.responseText;
-	}
-	xhttp.open("GET", "/elementos/vedor_d_comentario/obterComentarios.php?tipo=" + tipo + "&id=" + id, true);
-	xhttp.send();
+  var xhttp = new XMLHttpRequest();
+  xhttp.onload = function () {
+    document.getElementById("osComentario").innerHTML = this.responseText;
+  };
+  xhttp.open(
+    "GET",
+    "/elementos/vedor_d_comentario/obterComentarios.php?tipo=" +
+      tipo +
+      "&id=" +
+      id,
+    true
+  );
+  xhttp.send();
+}
+
+function deletarComentario(tipo, id_projeto, id_comentario, that) {
+  if (confirm("Tem certeza que quer deletar esse comentário??")) {
+    var bototes = that.parentElement.getElementsByTagName("button");
+    for (var i = 0; i < bototes.length; i++) {
+      bototes[i].disabled = true;
+    }
+
+    var osNegocios = new FormData();
+    osNegocios.append("id", id_comentario);
+
+    var xhttp = new XMLHttpRequest();
+    xhttp.open(
+      "POST",
+      "/elementos/vedor_d_comentario/deletarComentario.php",
+      true
+    );
+
+    xhttp.onload = function () {
+      carregarComentarios(tipo, id_projeto);
+    };
+
+    xhttp.send(osNegocios);
+  }
 }
 
 console.log(

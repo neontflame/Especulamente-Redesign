@@ -5,3 +5,5 @@ esse projeto usa §-based detecção de erros, a mais avançada tecnologia de §
 livel == legível por humanoss
 
 fio = fio
+
+fnf = qualquer coisa q envia

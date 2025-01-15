@@ -187,51 +187,51 @@ a img {
 /* woaw botoes ! */
 
 .coolButt {
-	margin-top: 3px;
-	background-color: #D6EBFF;
-	border-style: solid;
-	border-width: 1px;
-	border-color: #5d85e2;
-	
-	font-family: Verdana;
+  margin-top: 3px;
+  background-color: #d6ebff;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #5d85e2;
+
+  font-family: Verdana;
 }
 
 .coolButt:hover {
-	background-color: aliceblue;
+  background-color: aliceblue;
 }
 
 .coolButt:active {
-	background-color: #B5DCFF;
+  background-color: #b5dcff;
 }
 
-    .vermelho {
-	background-color: #FFB7B2;
-	border-color: #E2665D;
+.vermelho {
+  background-color: #ffb7b2;
+  border-color: #e2665d;
 }
 
 .vermelho:hover {
-	background-color: #FFF0F2;
+  background-color: #fff0f2;
 }
 
 .vermelho:active {
-	background-color: #FF938C;
+  background-color: #ff938c;
 }
 
 .verde {
-	background-color: #B2FFD3;
-	border-color: #4DE287;
+  background-color: #b2ffd3;
+  border-color: #4de287;
 }
 
 .verde:hover {
-	background-color: #DDFFEB;
+  background-color: #ddffeb;
 }
 
 .verde:active {
-	background-color: #60FFA0;
+  background-color: #60ffa0;
 }
 
 .grandissimo {
-      width: 99%;
+  width: 99%;
 }
 
 /* grah fuck your botoes ... */
@@ -242,14 +242,14 @@ a img {
 
 .projeto {
   border-bottom: solid 1px;
-  border-bottom-color: #9EBBFF;
+  border-bottom-color: #9ebbff;
 }
 
 .projeto h2 {
   color: black;
   font-weight: normal;
-  margin-top:4px;
-  margin-bottom:-4px;
+  margin-top: 4px;
+  margin-bottom: -4px;
 }
 
 .projeto a {
@@ -268,21 +268,30 @@ a img {
   text-decoration: underline;
 }
 
-.autorDeProjeto { /* seria um capitulo de css jank mas eu descobri um design melhor */
-  color: #C9DAFF;
+.autorDeProjeto {
+  /* seria um capitulo de css jank mas eu descobri um design melhor */
+  color: #c9daff;
   margin-right: 12px;
   text-decoration: none;
   margin-top: 4px;
 }
 
 /* comentarios !!! uhul */
+#osComentario ul {
+  padding-left: 0;
+}
+
 .comentario {
+  width: 100%;
   min-height: 40px;
-  margin-left: -40px;
   display: inline-block;
   list-style-type: none;
-  
+
   border-top: solid 1px #9ebbff;
+}
+
+.comentario.livel {
+  background-color: #fcffd9;
 }
 
 .comentario p {
@@ -291,46 +300,59 @@ a img {
 
 .comentario .nome {
   font-size: 9px;
-  color: #AAAAAA;
+  color: #aaaaaa;
 }
 
 .comentario .nome a {
   font-size: 13px;
-  color: #4F6BAD;
+  color: #4f6bad;
   text-decoration: none;
   font-weight: bold;
 }
 
+.comentario .conteudo {
+  padding-left: 60px;
+  padding-bottom: 8px;
+}
+
 .comentario .texto {
   margin-top: -6px;
-  padding-left: 60px;
   color: black;
   white-space: pre-line;
   word-wrap: break-word;
+
+  margin-bottom: 6px;
 }
+
 .resposta {
-  margin-left: 24px;
+  background-color: white;
   display: inline-block;
+
+  width: 100%;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  padding-left: 24px !important;
 }
 
 .resposta .comentario {
-  border-color: #BEDDFF;
-  margin-bottom: -4px;
+  border-color: #beddff;
+  margin-bottom: 4px;
 }
 
 .linkmentario {
-  color: #9EBBFF !important;
+  color: #9ebbff !important;
 }
 
 .pfpComentarios {
-	width: 50px; 
-	height: 50px; 
-	float: left; 
-	padding-right: 10px;
+  width: 50px;
+  height: 50px;
+  float: left;
+  padding-right: 10px;
 }
 
 .sayYourPrayers {
-	display:inline-block;
+  display: inline-block;
 }
 
 /* el paginado */
@@ -343,21 +365,22 @@ a img {
   margin-left: 45px; /* css jank capitulo 2 */
 }
 
-.pagination a, p {
+.pagination a,
+p {
   display: inline-block;
 }
 
 .pagination a {
-  color: #5757E6;
+  color: #5757e6;
   text-decoration: none;
 }
 
 .pagination a:hover {
-  color: #2525C4;
+  color: #2525c4;
 }
 
 .textinhoClaro {
-  color: #BBBBFF;
+  color: #bbbbff;
 }
 
 .creditos {
@@ -373,17 +396,17 @@ a img {
 
 .credito a {
   text-decoration: none;
-  color: #45609E;
+  color: #45609e;
 }
 
 .credito h2 {
   color: black;
   font-weight: normal;
-  margin-top:4px;
-  margin-bottom:-4px;
+  margin-top: 4px;
+  margin-bottom: -4px;
 }
 
 .credito p {
-  color: #7896DB;
-  margin-top:-10px;
+  color: #7896db;
+  margin-top: -10px;
 }
