@@ -41,7 +41,7 @@ function vedor_d_comentario($tipo, $id, $temTudo, &$usuario)
         <li id="comentario_<?= $comentario->id ?>" class="comentario">
           <p class="nome">
             <a href="/usuarios/<?= $comentador->username; ?>">
-              <img src="<?= pfp($comentador) ?>" alt="<?= $comentador->username; ?>" style="width: 50px; height: 50px">
+              <img src="<?= pfp($comentador) ?>" alt="<?= $comentador->username; ?>" style="width: 50px; height: 50px; float:left; padding-right:10px;">
               <?= $comentador->username; ?></a> em <?= velhificar_data($comentario->data); ?>
 			  <a class="linkmentario" onclick="document.getElementById('comment_fnf').value += '>><?= $comentario->id ?>'">&gt;&gt;<?= $comentario->id ?></a>
 			  <button class="coolButt verde" onclick="document.getElementById('respondedor_<?= $comentario->id ?>').style.display='block';">Responder</button>
@@ -71,7 +71,7 @@ function vedor_d_comentario($tipo, $id, $temTudo, &$usuario)
                 <li id="comentario_<?= $resposta->id ?>" class="comentario">
                   <p class="nome">
                     <a href="/usuarios/<?= $respondente->username; ?>">
-                      <img src="<?= pfp($respondente) ?>" alt="<?= $respondente->username; ?>" style="width: 50px; height: 50px">
+                      <img src="<?= pfp($respondente) ?>" alt="<?= $respondente->username; ?>" style="width: 50px; height: 50px; float:left; padding-right:10px;">
                       <?= $respondente->username; ?></a> em <?= velhificar_data($resposta->data); ?>
 					  <a class="linkmentario" onclick="document.getElementById('comment_fnf').value += '>><?= $resposta->id ?>'">&gt;&gt;<?= $resposta->id ?></a>
 					  <?php if (isset($usuario)) { ?> <button class="coolButt verde" onclick="document.getElementById('respondedor_<?= $resposta->id ?>').style.display='block';">Responder</button> <?php } ?>
@@ -108,12 +108,23 @@ function vedor_d_comentario($tipo, $id, $temTudo, &$usuario)
 
 function responde_clickers($texto)
 {
-  $texto = htmlspecialchars($texto);
-  return preg_replace('/&gt;&gt;(\d+)/', '<a href="#comentario_$1">&gt;&gt;$1</a>', $texto);
-  /*return preg_replace_callback('/>>(\d+)/', function ($matches) {
-    $comment_id = $matches[1];
-    return '<a href="#comentario_' . $comment_id . '">>>' . $comment_id . '</a>';
-  }, $texto);*/
+	$replace = [
+		'/&gt;&gt;(\d+)/' => '<a href="#comentario_$1">&gt;&gt;$1</a>'
+	];
+	
+	$dir = $_SERVER['DOCUMENT_ROOT'] . "/elementos/emoticons/";
+	if ($handle = scandir($dir)) {
+			foreach ($handle as $target) {
+					if (!in_array($target, [".", ".."])) {
+							// exemplo:  _meow_ | <img src="/elementos/emoticons/_meow_.png">
+							$replace += ['/' . pathinfo($dir . $target, PATHINFO_FILENAME) . '/' => '<img src="/elementos/emoticons/' . $target . '">'];
+					}
+			}
+	}
+
+	$texto = htmlspecialchars($texto);
+  
+	return preg_replace(array_keys($replace), array_values($replace), $texto);
 }
 /* por algum motivo o mario quebra o vedor D imagem entao ele vai ter que ficar aqui :(
  ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⣤⣶⠶⠒⠂⠀⠐⠶⠶⠶⣶⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
