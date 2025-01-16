@@ -51,7 +51,7 @@ function vedor_d_comentario($tipo, $id, $temTudo, &$usuario)
 					<div class="conteudo">
 						<p class="texto"><?= responde_clickers($comentario->texto); ?></p>
 						<?php if (isset($usuario)) { ?>
-							<button class="coolButt verde" onclick="document.getElementById('respondedor_<?= $comentario->id ?>').style.display='block';">Responder</button>
+							<button class="coolButt verde" onclick="desesconderResposting(<?= $comentario->id ?>)">Responder</button>
 							<?php if ($usuario->id == $comentador->id) { ?>
 								<button class="coolButt vermelho" onclick="deletarComentario('<?= $tipo ?>', <?= $id ?>, <?= $comentario->id ?>, this)">Deletar</button>
 							<?php } ?>
@@ -88,7 +88,7 @@ function vedor_d_comentario($tipo, $id, $temTudo, &$usuario)
 									<div class="conteudo">
 										<p class="texto" style="float:none"><?= responde_clickers($resposta->texto); ?></p>
 										<?php if (isset($usuario)) { ?>
-											<button class="coolButt verde" onclick="document.getElementById('respondedor_<?= $resposta->id ?>').style.display='block';">Responder</button>
+											<button class="coolButt verde" onclick="desesconderResposting(<?= $resposta->id ?>)">Responder</button>
 											<?php if ($usuario->id == $respondente->id) { ?>
 												<button class="coolButt vermelho" onclick="deletarComentario('<?= $tipo ?>', <?= $id ?>, <?= $resposta->id ?>, this)">Deletar</button>
 											<?php } ?>

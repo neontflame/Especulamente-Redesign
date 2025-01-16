@@ -99,6 +99,17 @@ function deletarComentario(tipo, id_projeto, id_comentario, that) {
   }
 }
 
+function desesconderResposting(id) {
+  document.getElementById("respondedor_" + id).style.display = "block";
+  var textarea = document
+    .getElementById("respondedor_" + id)
+    .getElementsByTagName("textarea")[0];
+
+  var length = textarea.value.length;
+  textarea.focus();
+  textarea.setSelectionRange(length, length);
+}
+
 console.log(
   `%c
              ,´\`.

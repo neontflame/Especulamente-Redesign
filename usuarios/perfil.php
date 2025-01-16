@@ -34,38 +34,6 @@ if (isset($_POST)) {
     mudar_usuario($usuario->id, ['bio' => $bio]);
   }
 
-  // carregar Mito
-  if (isset($_POST['mitar'])) {
-    $mitar = $_POST['mitar'];
-
-    if ($mitar) {
-      $count = reagir($usuario->id, $perfil->id, 'perfil', 'mitada');
-      if ($count == -1) {
-        $count = desreagir($usuario->id, $perfil->id, 'perfil', 'mitada');
-        echo $count;
-      } else {
-        echo $count;
-      }
-      die();
-    }
-  }
-
-  // carregar Soja
-  if (isset($_POST['sojar'])) {
-    $sojar = $_POST['sojar'];
-
-    if ($sojar) {
-      $count = reagir($usuario->id, $perfil->id, 'perfil', 'sojada');
-      if ($count == -1) {
-        $count = desreagir($usuario->id, $perfil->id, 'perfil', 'sojada');
-        echo $count;
-      } else {
-        echo $count;
-      }
-      die();
-    }
-  }
-
   $perfil = usuario_requestinator($username);
 }
 
@@ -124,25 +92,25 @@ $perfil_e_meu = $usuario ? ($usuario->id == $perfil->id) : false;
       .bioEditavel:active {
         background-color: #FFEEAA;
       }
-	  
-	  .bioButt {
-		  margin-top: 3px;
-		  width: 100%;
-		  background-color: #D6EBFF;
-		  border-style: solid;
-		  border-width: 1px;
-		  border-color: #5d85e2;
-		  
-		  font-family: Verdana;
-		}
 
-		.bioButt:hover {
-		  background-color: aliceblue;
-		}
-		
-		.bioButt:active {
-		  background-color: #B5DCFF;
-		}
+      .bioButt {
+        margin-top: 3px;
+        width: 100%;
+        background-color: #D6EBFF;
+        border-style: solid;
+        border-width: 1px;
+        border-color: #5d85e2;
+
+        font-family: Verdana;
+      }
+
+      .bioButt:hover {
+        background-color: aliceblue;
+      }
+
+      .bioButt:active {
+        background-color: #B5DCFF;
+      }
     </style>
     <?php if ($erro) : ?>
       <div class="erro" style="color: red; background: black; text-align: center;">
@@ -152,6 +120,7 @@ $perfil_e_meu = $usuario ? ($usuario->id == $perfil->id) : false;
       </div>
     <?php endif; ?>
 
+    <!-- Foto de perfil -->
     <?php if ($perfil_e_meu) : ?>
       <button onclick="pfp_fnf.click()" class="coolBorderyEditable" style="margin-bottom: 6px;">
       <?php endif; ?>
@@ -169,6 +138,7 @@ $perfil_e_meu = $usuario ? ($usuario->id == $perfil->id) : false;
       </form>
     <?php endif; ?>
 
+    <!-- Banner -->
     <?php if ($perfil_e_meu) : ?>
       <button onclick="bnr_fnf.click()" class="coolBorderyEditable" style="float: right;">
       <?php endif; ?>
@@ -187,6 +157,7 @@ $perfil_e_meu = $usuario ? ($usuario->id == $perfil->id) : false;
     <?php endif; ?>
 
     <div class="inside_page_content">
+      <!-- Bio -->
       <?php if ($perfil_e_meu) : ?>
         <button class="bioEditavel" onclick="form_bio.style.display = 'block'; bio.style.display = 'none'">
         <?php endif; ?>
@@ -198,65 +169,21 @@ $perfil_e_meu = $usuario ? ($usuario->id == $perfil->id) : false;
         <form action="" method="post" enctype="multipart/form-data" id="form_bio" style="display: none;">
           <textarea name="bio_fnf" id="bio_fnf" style="width: 425px; height: 150px;"><?= htmlspecialchars($perfil->bio) ?></textarea>
           <button type="submit" class="bioButt">
-		  Salvar bio
-		  </button>
+            Salvar bio
+          </button>
         </form>
       <?php endif; ?>
 
-      <p>
-        Esse usuário tem
-        <span id="mitadas_cnt"><?= $perfil->mitadas ?></span> mitadas e
-        <span id="sojadas_cnt"><?= $perfil->sojadas ?></span> sojadas.
-      </p>
-
-      <?php if (!$perfil_e_meu && isset($usuario)) : ?>
-        <?php
-        $ja_mitou = ja_reagiu($usuario->id, $perfil->id, 'perfil', 'mitada');
-        $ja_sojou = ja_reagiu($usuario->id, $perfil->id, 'perfil', 'sojada');
-        ?>
-        <button onclick="mitar(this)"><?= $ja_mitou ? 'Desmitar' : 'Mitar' ?></button>
-        <button onclick="sojar(this)"><?= $ja_sojou ? 'Dessojar' : 'Sojar' ?></button>
-
-        <script>
-          function mitar(element) {
-            const req = new XMLHttpRequest();
-            req.addEventListener("load", function() {
-              if (this.responseText == "null") {
-                alert("Erro ao mitar");
-              } else {
-                mitadas_cnt.innerText = this.responseText;
-                element.innerText = element.innerText == "Mitar" ? "Desmitar" : "Mitar";
-              }
-            });
-            const formData = new FormData();
-            formData.append("mitar", "true");
-
-            req.open("POST", "/usuarios/<?php echo $perfil->username ?>");
-            req.send(formData);
-          }
-
-          function sojar(element) {
-            const req = new XMLHttpRequest();
-            req.addEventListener("load", function() {
-              if (this.responseText == "-1") {
-                alert("Erro ao sojar");
-              } else {
-                sojadas_cnt.innerText = this.responseText;
-                element.innerText = element.innerText == "Sojar" ? "Dessojar" : "Sojar";
-              }
-            });
-            const formData = new FormData();
-            formData.append("sojar", "true");
-
-            req.open("POST", "/usuarios/<?php echo $perfil->username ?>");
-            req.send(formData);
-          }
-        </script>
-      <?php endif; ?>
-
-
       <h1><?= $perfil->username ?></h1>
 
+      <?php reajor_d_reagida('perfil', $perfil, $usuario) ?>
+
+    </div>
+  </div>
+
+  <div class="page_content" style="min-height: 486px;">
+    <div class="inside_page_content">
+      <?php vedor_d_comentario('perfil', $perfil->id, true, $usuario); ?>
     </div>
   </div>
 </div>

@@ -46,16 +46,17 @@ $arquivos_de_vdd = explode('\n', $projeto->arquivos_de_vdd);
         <iframe src="https://turbowarp.org/embed?project_url=<?= $config['URL'] ?>/static/projetos/<?= $projeto->id ?>/<?= $arquivos[0] ?>" width="482" height="412" allowtransparency="true" frameborder="0" scrolling="no" allowfullscreen></iframe>
       <?php endif ?>
 
-      
+      <?php reajor_d_reagida('projeto', $projeto, $usuario) ?>
+
     </div>
   </div>
-  
+
   <?php include $_SERVER['DOCUMENT_ROOT'] . '/elementos/sidebar/sidebar.php'; ?>
-   
+
   <div class="page_content" style="min-height: 486px;">
-	<div class="inside_page_content">
-		<?php vedor_d_comentario('projeto', $projeto->id, true, $usuario); ?>
-	</div>
+    <div class="inside_page_content">
+      <?php vedor_d_comentario('projeto', $projeto->id, true, $usuario); ?>
+    </div>
   </div>
 </div>
 
