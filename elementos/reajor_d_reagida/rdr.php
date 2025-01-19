@@ -12,7 +12,8 @@ function reajor_d_reagida($tipo, &$coisa, &$usuario)
   $ja_mitou = (isset($usuario) && $usuario) ? ja_reagiu($usuario->id, $coisa->id, $tipo, 'mitada') : false;
   $ja_sojou = (isset($usuario) && $usuario) ? ja_reagiu($usuario->id, $coisa->id, $tipo, 'sojada') : false;
 ?>
-  <div>
+  <div class="reajorDReagida">
+	<div class="oReajorEmSi">
     <button onclick="mitar()" title="Mitar" id="mitar" <?= $ja_mitou ? "style='display: none;'" : "" ?>>
       <img src="/elementos/reajor_d_reagida/mitada_cinza.png" alt="mitada">
     </button>
@@ -28,9 +29,10 @@ function reajor_d_reagida($tipo, &$coisa, &$usuario)
     <button onclick="sojar()" title="Dessojar" id="dessojar" <?= $ja_sojou ? "" : "style='display: none;'" ?>>
       <img src="/elementos/reajor_d_reagida/sojada.png" alt="sojada">
     </button>
+	</div>
   </div>
 
-  <?php if (!$coisa_e_minha && isset($usuario)) : ?>
+  <?php if (isset($usuario)) : ?>
     <script>
       var ja_mitou = <?= $ja_mitou ? 'true' : 'false' ?>;
       var ja_sojou = <?= $ja_sojou ? 'true' : 'false' ?>;

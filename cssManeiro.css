@@ -410,3 +410,39 @@ p {
   color: #7896db;
   margin-top: -10px;
 }
+
+/* reator de negocinhos !!!! */
+.reajorDReagida {
+  margin-left: -5px;
+  margin-right: -5px;
+  margin-bottom: -5px;
+  margin-top: 5px;
+  padding: 0px 4px 0px 4px;
+  border-top: solid 1px #9ebbff;
+  background-image: url("/elementos/reajor_d_reagida/reajorbg.png");
+}
+
+.reajorDReagida .oReajorEmSi {
+  width: fit-content;
+  padding-left: 8px;
+  padding-top: 3px;
+  padding-right: 8px;
+  border-right: solid 1px #9ebbff;
+}
+
+.reajorDReagida .oReajorEmSi span {
+  vertical-align: middle;
+  padding-bottom: 13px;
+  color: #A5C0FF;
+}
+
+.reajorDReagida #mitadas_cnt, #sojadas_cnt {
+  color: #4f6bad;
+  font-weight: bold;
+}
+
+.reajorDReagida button {
+  padding: 0px;
+  border: 0px;
+  background-color: transparent;
+}
