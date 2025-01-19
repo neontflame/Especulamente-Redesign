@@ -431,12 +431,12 @@ p {
 }
 
 .reajorDReagida .oReajorEmSi span {
-  vertical-align: middle;
-  padding-bottom: 13px;
-  color: #A5C0FF;
+  vertical-align: super;
+  color: #a5c0ff;
 }
 
-.reajorDReagida #mitadas_cnt, #sojadas_cnt {
+.reajorDReagida #mitadas_cnt,
+#sojadas_cnt {
   color: #4f6bad;
   font-weight: bold;
 }
@@ -445,4 +445,6 @@ p {
   padding: 0px;
   border: 0px;
   background-color: transparent;
+
+  cursor: pointer;
 }

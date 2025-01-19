@@ -4,7 +4,8 @@ login_obrigatorio($usuario);
 ?>
 <?php
 $erro = [];
-$tipo = $_GET['tipo'] ?? null;
+$id = $_GET['id'] ?? null;
+$projeto = projeto_requestIDator($id);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
   if (isset($_POST['tipo'])) {
@@ -58,60 +59,59 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
     <?php endif; ?>
 
     <div class="inside_page_content" style="padding-right: 0px;">
-      <?php if ($tipo == null) : ?>
-        <img src="/elementos/pagetitles/projeto-criator.png" style="margin-top: -5px; margin-left: -5px; text-decoration: none;">
-        <h1 style="text-align: center; font-style: italic; font-weight: normal;">O que você quer criar hoje...?</h1>
-
-        <!-- Coiso Downloadável -->
-        <a href="/projetos/criar.php?tipo=dl" style="margin-left: -5px; margin-right:-4px; text-decoration: none;">
-          <img src="/elementos/projetos/dl.png" onmouseover="this.src='/elementos/projetos/dl-hover.png';" onmouseout="this.src='/elementos/projetos/dl.png';">
-        </a>
-
-        <a href="/projetos/criar.php?tipo=jg" style="margin-right:-4px; text-decoration: none;">
-          <img src="/elementos/projetos/jogo.png" onmouseover="this.src='/elementos/projetos/jogo-hover.png';" onmouseout="this.src='/elementos/projetos/jogo.png';">
-        </a>
-        <a href="/projetos/criar.php?tipo=md" style="margin-right:-5px; text-decoration: none;">
-          <img src="/elementos/projetos/midia.png" onmouseover="this.src='/elementos/projetos/midia-hover.png';" onmouseout="this.src='/elementos/projetos/midia.png';">
-        </a>
-        <a href="/projetos/criar.php?tipo=bg" style="margin-right:-4px; text-decoration: none;">
-          <img src="/elementos/projetos/blog.png" onmouseover="this.src='/elementos/projetos/blog-hover.png';" onmouseout="this.src='/elementos/projetos/blog.png';">
-        </a>
-        <a href="/projetos/criar.php?tipo=rt" style="text-decoration: none;">
-          <img src="/elementos/projetos/resto.png" onmouseover="this.src='/elementos/projetos/resto-hover.png';" onmouseout="this.src='/elementos/projetos/resto.png';">
-        </a>
-      <?php endif; ?>
-
-      <?php if ($tipo == 'jg' || $tipo == 'md' || $tipo == 'bg' || $tipo == 'rt') : ?>
-
-        <h1 style="text-align: center; font-style: italic; font-weight: normal;">isso ainda nao existe :(</h1>
-      <?php endif; ?>
-
-      <?php if ($tipo == 'dl') : ?>
+      <?php if ($id == null) : ?>
+        <p>wtf</p>
+      <?php else : ?>
         <!-- Downloadável -->
         <a href="/projetos/criar.php"><img style="margin-left: -5px; margin-top: -5px;" src="/elementos/voltar.png"></a>
-        <h1 style="text-align: center; font-style: italic;">Downloadável!</h1>
-        <p><i>Esse tipo de projeto oferece arquivos para descarga. Os usuários podem transferir as suas coisas para seus discos rígidos.</i></p>
+        <h1 style="text-align: center; font-style: italic;">Editando projeto</h1>
 
-        <form action="/projetos/criar.php" method="post" enctype="multipart/form-data">
-          <input type="hidden" name="tipo" value="dl">
+        <form action="/projetos/editar.php" method="post" enctype="multipart/form-data">
+          <input type="hidden" name="tipo" value="<?= $projeto->tipo ?>">
+          <input type="hidden" name="id" value="<?= $projeto->id ?>">
 
-          <label for="nome">nome do downloadável</label>
-          <input type="text" style="width: 97%" id="nome" name="nome" required>
+          <label for="nome">nome</label>
+          <input type="text" style="width: 97%" id="nome" name="nome" value="<?= $projeto->nome ?>" required>
           <br>
 
-          <label for="descricao">descrição do seu downloadável</label>
-          <textarea style="width: 97%" name="descricao" id="descricao"></textarea>
+          <label for="descricao">descrição</label>
+          <textarea style="width: 97%" name="descricao" id="descricao"><?= $projeto->descricao ?></textarea>
           <br>
 
-          <label for="arquivos">arquivos de seu downloadável</label>
+          <label>arquivos</label>
           <div id="multiFileUploader" style="margin-bottom: 10px;">
             <ul class="files">
-
+              <?php foreach (explode('\n', $projeto->arquivos) as $i => $arquivo) : ?>
+                <li>
+                  <p style="width: 253px; margin: 0"><?= $arquivo ?></p>
+                  <button type="button" class="coolButt vermelho" onclick="
+                    if (this.parentElement.parentElement.children.length > 1) {
+                      marcarParaRemoção(this.parentElement);
+                    }
+                  ">Remover</button>
+                  <button type="button" class="coolButt" onclick="
+                    var prev = this.parentElement.previousElementSibling;
+                    if (prev) {
+                      prev.before(this.parentElement);
+                    }
+                  ">^</button>
+                  <button type="button" class="coolButt" onclick="
+                    var next = this.parentElement.nextElementSibling;
+                    if (next) {
+                      next.after(this.parentElement);
+                    }
+                  ">v</button>
+                </li>
+              <?php endforeach ?>
             </ul>
             <button class="coolButt grandissimo" type="button" onclick="addMais1()">+ Adicionar mais um</button>
           </div>
 
           <button type="submit" class="coolButt verde grandissimo">Criar</button>
+        </form>
+        <form action="/projetos/deletar.php" method="post">
+          <input type="hidden" name="id" value="<?= $projeto->id ?>">
+          <button type="submit" class="coolButt vermelho grandissimo">DELETAR PROJETO ???!?</button>
         </form>
 
         <div id="fileTemplate" style="display: none;">
@@ -142,6 +142,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
   </div>
 </div>
 
+<style>
+  .removido p {
+    text-decoration: line-through;
+    font-style: italic;
+    opacity: 0.5;
+  }
+</style>
+
 <script>
   function addMais1() {
     var template = document.getElementById('fileTemplate').getElementsByTagName('li')[0];
@@ -150,7 +158,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
     document.getElementById('multiFileUploader').getElementsByClassName('files')[0].appendChild(clone);
   }
 
-  addMais1();
+  function marcarParaRemoção(elemento) {
+    var input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = 'remover[]';
+    input.value = elemento.children[0].innerText;
+    document.getElementById('multiFileUploader').appendChild(input);
+
+    elemento.className = 'removido';
+
+    var remover = elemento.getElementsByTagName('button')[0];
+    remover.innerText = 'Adicionar';
+    remover.onclick = function() {
+      marcarParaDesremoção(elemento);
+    }
+  }
+
+  function marcarParaDesremoção(elemento) {
+    var input = document.querySelector('input[value="' + elemento.children[0].innerText + '"]');
+    input.remove();
+
+    elemento.className = '';
+
+    var remover = elemento.getElementsByTagName('button')[0];
+    remover.innerText = 'Remover';
+    remover.onclick = function() {
+      marcarParaRemoção(elemento);
+    }
+  }
 </script>
 
 <?php include $_SERVER['DOCUMENT_ROOT'] . '/elementos/footer/footer.php'; ?>

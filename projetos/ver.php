@@ -11,6 +11,8 @@ $projeto = projeto_requestIDator($id);
 // EXPLODIR HOSTINGER
 $arquivos = explode('\n', $projeto->arquivos);
 $arquivos_de_vdd = explode('\n', $projeto->arquivos_de_vdd);
+
+$projeto_e_meu = $projeto->id_criador == $usuario->id;
 ?>
 
 <?php include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
@@ -20,6 +22,10 @@ $arquivos_de_vdd = explode('\n', $projeto->arquivos_de_vdd);
 
   <div class="page_content" style="min-height: 120px; margin-left: 0">
     <div class="inside_page_content">
+      <?php if ($projeto_e_meu) : ?>
+        <a href="<?= $config['URL'] ?>/projetos/editar.php?id=<?= $projeto->id ?>">Editar projeto</a>
+      <?php endif ?>
+
       <h1><?= $projeto->nome ?></h1>
 
       <?php if ($projeto->tipo == 'dl') : ?>
