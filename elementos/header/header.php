@@ -3,11 +3,11 @@
 $banners = array();
 $dir = $_SERVER['DOCUMENT_ROOT'] . "/elementos/header/headers/";
 if ($handle = scandir($dir)) {
-        foreach ($handle as $target) {
-                if (!in_array($target, [".", ".."])) {
-                        $banners[] = $target;
-                }
-        }
+  foreach ($handle as $target) {
+    if (!in_array($target, [".", ".."])) {
+      $banners[] = $target;
+    }
+  }
 }
 
 $banner = $banners[array_rand($banners)];
@@ -20,7 +20,7 @@ $banner = $banners[array_rand($banners)];
   <meta content="pt-br" http-equiv="Content-Language" />
   <title><?= $titulo ?? "[PORTAL ESPECULAMENTE]" ?></title>
   <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
-  <link href="/cssManeiro.css" rel="stylesheet" type="text/css" />
+  <link href="/cssManeiro.css?v2" rel="stylesheet" type="text/css" />
   <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 </head>
 

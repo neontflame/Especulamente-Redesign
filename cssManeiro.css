@@ -196,6 +196,15 @@ a img {
   font-family: Verdana;
 }
 
+a.coolButt {
+  display: inline-block;
+  box-sizing: border-box;
+  text-decoration: none;
+  padding: 1px 6px;
+  text-align: center;
+  color: black;
+}
+
 .coolButt:hover {
   background-color: aliceblue;
 }
@@ -366,7 +375,7 @@ a img {
 }
 
 .pagination a,
-p {
+.pagination p {
   display: inline-block;
 }
 

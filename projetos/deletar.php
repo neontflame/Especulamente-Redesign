@@ -8,28 +8,15 @@ $id = $_GET['id'] ?? null;
 $projeto = projeto_requestIDator($id);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
-  $tipo = $_POST['tipo'];
+  $id = $_POST['id'];
 
-  if ($tipo == 'dl') {
-    $id = $_POST['id'];
-    $nome = $_POST['nome'];
-    $descricao = $_POST['descricao'];
-    $arquivos = $_FILES['arquivos'] ?? [];
-    $remover = $_POST['remover'] ?? [];
-    $ordem = $_POST['ordem'];
+  $projeto_rtn = deletar_projeto($usuario->id, $id);
+  if (is_string($projeto)) {
+    array_push($erro, $projeto);
+  }
 
-    if (strlen($nome) < 3) {
-      array_push($erro, "O nome do projeto é muito curto.");
-    }
-
-    $projeto_rtn = editar_projeto($usuario->id, $id, $nome, $descricao, $arquivos, $remover, $ordem);
-    if (is_string($projeto)) {
-      array_push($erro, $projeto);
-    }
-
-    if (count($erro) == 0) {
-      $projeto = $projeto_rtn;
-    }
+  if (count($erro) == 0) {
+    header('Location: /projetos');
   }
 }
 ?>
@@ -65,56 +52,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
       <?php else : ?>
         <!-- Downloadável -->
         <a href="/projetos/ver.php?id=<?= $id ?>"><img style="margin-left: -5px; margin-top: -5px;" src="/elementos/voltar.png"></a>
-        <h1 style="text-align: center; font-style: italic;">Editando projeto</h1>
+        <h1 style="text-align: center; font-style: italic;">Deletando projeto...???!</h1>
 
-        <form action="/projetos/editar.php" method="post" enctype="multipart/form-data">
-          <input type="hidden" name="tipo" value="<?= $projeto->tipo ?>">
+        <form action="/projetos/deletar.php" method="post" enctype="multipart/form-data">
           <input type="hidden" name="id" value="<?= $projeto->id ?>">
+          <p>Tem certeza que quer deletar o projeto <?= $projeto->nome ?>??</p>
+          <p>você NUNCA mais vai conseguir acessá-lo.</p>
+          <p>Isso é irreversível.</p>
+          <p>Pense bem.</p>
+          <br><br><br><br>
 
-          <label for="nome">nome</label>
-          <input type="text" style="width: 97%" id="nome" name="nome" value="<?= $projeto->nome ?>" required>
-          <br>
+          <img src="ilusaodeoticaoquevoceve.png" style="width: 100%" alt="">
 
-          <label for="descricao">descrição</label>
-          <textarea style="width: 97%" name="descricao" id="descricao"><?= $projeto->descricao ?></textarea>
-          <br>
-
-          <label>arquivos</label>
-          <input type="hidden" name="ordem" value="<?= $projeto->arquivos_de_vdd ?>">
-          <div id="multiFileUploader" style="margin-bottom: 10px;">
-            <ul class="files">
-              <?php foreach (explode('\n', $projeto->arquivos_de_vdd) as $i => $arquivo) : ?>
-                <li data-filename="<?= $arquivo ?>">
-                  <p style="width: 253px; margin: 0; display: inline-block"><?= $arquivo ?></p>
-                  <button type="button" class="coolButt vermelho" onclick="
-                    if (this.parentElement.parentElement.children.length > 1) {
-                      marcarParaRemoção(this.parentElement);
-                      recalcularOrdem()
-                    }
-                  ">Remover</button>
-                  <button type="button" class="coolButt" onclick="
-                    var prev = this.parentElement.previousElementSibling;
-                    if (prev) {
-                      prev.before(this.parentElement);
-                      recalcularOrdem();
-                    }
-                  ">^</button>
-                  <button type="button" class="coolButt" onclick="
-                    var next = this.parentElement.nextElementSibling;
-                    if (next) {
-                      next.after(this.parentElement);
-                      recalcularOrdem();
-                    }
-                  ">v</button>
-                </li>
-              <?php endforeach ?>
-            </ul>
-            <button class="coolButt grandissimo" type="button" onclick="addMais1()">+ Adicionar mais um</button>
-          </div>
-
-          <button type="submit" class="coolButt verde grandissimo">Editar</button>
+          <br><br><br><br>
+          <button class="coolButt vermelho grandissimo" style="font-size: 80px;">SIM. DELETAR.</button>
         </form>
-        <a href="/projetos/deletar.php?id=<?= $projeto->id ?>" class="coolButt vermelho grandissimo">DELETAR PROJETO ???!?</a>
 
         <div id="fileTemplate" style="display: none;">
           <li data-filename="">

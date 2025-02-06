@@ -212,7 +212,7 @@ function subir_arquivo($file, $pasta, $tabela, $id, $coluna, $extensoes_permitid
   return $filename;
 }
 
-function subir_arquivoses($files, $pasta, $tabela, $id, $coluna, $extensoes_permitidas, $max_FILE_Sisz, $max_FILE_cont)
+function subir_arquivoses($files, $pasta, $tabela, $id, $coluna, $extensoes_permitidas, $max_FILE_Sisz, $max_FILE_cont, $deletar_tudo = false)
 {
   global $db;
 
@@ -254,15 +254,22 @@ function subir_arquivoses($files, $pasta, $tabela, $id, $coluna, $extensoes_perm
     array_push($filenames, $filename);
   }
 
-  $rows = $db->prepare("SELECT $coluna FROM $tabela WHERE id = ?");
-  $rows->bindParam(1, $id);
-  $rows->execute();
-  $old_files = $rows->fetch(PDO::FETCH_OBJ)->$coluna;
-  if (!empty($old_files)) {
-    $old_files = explode('\n', $old_files);
-    foreach ($old_files as $old_file) {
-      unlink($_SERVER['DOCUMENT_ROOT'] . $pasta . $old_file);
+  if ($deletar_tudo == true) {
+    $rows = $db->prepare("SELECT $coluna FROM $tabela WHERE id = ?");
+    $rows->bindParam(1, $id);
+    $rows->execute();
+    $old_files = $rows->fetch(PDO::FETCH_OBJ)->$coluna;
+    if (!empty($old_files)) {
+      $old_files = explode('\n', $old_files);
+      foreach ($old_files as $old_file) {
+        unlink($_SERVER['DOCUMENT_ROOT'] . $pasta . $old_file);
+      }
     }
+  }
+
+  $relacao_livel_ilivel = [];
+  for ($i = 0; $i < count($files['name']); $i++) {
+    $relacao_livel_ilivel[$files['name'][$i]] = $filenames[$i];
   }
 
   $filenames = implode('\n', $filenames);
@@ -272,7 +279,7 @@ function subir_arquivoses($files, $pasta, $tabela, $id, $coluna, $extensoes_perm
   $rows->bindParam(2, $id);
   $rows->execute();
 
-  return $filenames;
+  return $relacao_livel_ilivel;
 }
 
 // Campos é uma array [campo => valor]
@@ -477,11 +484,127 @@ function criar_projeto($id_criador, $nome, $descricao, $tipo, $arquivos)
   mkdir($_SERVER['DOCUMENT_ROOT'] . '/static/projetos/' . $id);
 
   $rtn = subir_arquivoses($arquivos, '/static/projetos/' . $id, "projetos", $id, "arquivos", [], 1024 * 1024 * 1024, 50);
-  if (str_starts_with($rtn, "§")) {
+  if (is_string($rtn) && str_starts_with($rtn, "§")) {
     return substr($rtn, 1);
   }
 
   return projeto_requestIDator($id);
+}
+
+function editar_projeto($id_criador, $id_projeto, $nome, $descricao, $arquivos_novos, $remover, $ordem)
+{
+  global $db;
+
+  // -1: Checar se eu posso ter um super salsicha sandwich ei scoob (nome muito curto)
+  $rows = $db->prepare("SELECT id_criador FROM projetos WHERE id = ?");
+  $rows->bindParam(1, $id_projeto);
+  $rows->execute();
+  $row = $rows->fetch(PDO::FETCH_OBJ);
+  if ($row->id_criador != $id_criador) {
+    return "§Sua edição é: <em>inválida edição!</em>";
+  }
+
+  // <ZERO></ZERO>: Alterar nome e descrição
+  $rows = $db->prepare("UPDATE projetos SET nome = ?, descricao = ? WHERE id = ?");
+  $rows->bindParam(1, $nome);
+  $rows->bindParam(2, $descricao);
+  $rows->bindParam(3, $id_projeto);
+  $rows->execute();
+
+  // <PRIMEIRO></PRIMEIRO>: Eu quero um super salsicha sandwich
+  // Ei Scoob, eu acho que o <SEGUNDO></SEGUNDO> está <TERCEIRO></TERCEIRO>!
+  // AKA: Obter nomes reais dos arquivos
+  $relacao_livel_ilivel = [];
+  $rows = $db->prepare("SELECT arquivos_de_vdd, arquivos FROM projetos WHERE id = ?");
+  $rows->bindParam(1, $id_projeto);
+  $rows->execute();
+  $row = $rows->fetch(PDO::FETCH_OBJ);
+
+  $arquivos_de_vdd = explode('\n', $row->arquivos_de_vdd);
+  $arquivos = explode('\n', $row->arquivos);
+
+  for ($i = 0; $i < count($arquivos); $i++) {
+    $relacao_livel_ilivel[$arquivos_de_vdd[$i]] = $arquivos[$i];
+  }
+
+  // <SEGUNDA></SEGUNDA>: Remover arquivos
+  foreach ($remover as $removido) {
+    unlink($_SERVER['DOCUMENT_ROOT'] . '/static/projetos/' . $id_projeto . '/' . $relacao_livel_ilivel[$removido]);
+    unset($relacao_livel_ilivel[$removido]);
+  }
+
+  $arquivos = [];
+  $arquivos_de_vdd = [];
+  foreach ($relacao_livel_ilivel as $livel => $ilivel) {
+    array_push($arquivos, $ilivel);
+    array_push($arquivos_de_vdd, $livel);
+  }
+  $arquivos = implode('\n', $arquivos);
+  $arquivos_de_vdd = implode('\n', $arquivos_de_vdd);
+
+  $rows = $db->prepare("UPDATE projetos SET arquivos = ?, arquivos_de_vdd = ? WHERE id = ?");
+  $rows->bindParam(1, $arquivos);
+  $rows->bindParam(2, $arquivos_de_vdd);
+  $rows->bindParam(3, $id_projeto);
+  $rows->execute();
+
+  // TERÇ<A></A>: Adicionar arquivos novos
+  if (count($arquivos_novos) > 0) {
+    $rtn = subir_arquivoses($arquivos_novos, '/static/projetos/' . $id_projeto, "projetos", $id_projeto, "arquivos", [], 1024 * 1024 * 1024, 50);
+    if (is_string($rtn) && str_starts_with($rtn, "§")) {
+      return substr($rtn, 1);
+    }
+
+    $relacao_livel_ilivel = array_merge($relacao_livel_ilivel, $rtn);
+  }
+
+  // <qwuarta></qwuarta>: Reordenar arquivos
+  // EXPLODIR HOSTINGER ----- hostinger: hey :( dont do that
+  $ordem = explode('\n', $ordem);
+  $arquivos = [];
+  $arquivos_de_vdd = [];
+  foreach ($ordem as $arquivo) {
+    array_push($arquivos, $relacao_livel_ilivel[$arquivo]);
+    array_push($arquivos_de_vdd, $arquivo);
+  }
+  $arquivos = implode('\n', $arquivos);
+  $arquivos_de_vdd = implode('\n', $arquivos_de_vdd);
+
+  $rows = $db->prepare("UPDATE projetos SET arquivos = ?, arquivos_de_vdd = ? WHERE id = ?");
+  $rows->bindParam(1, $arquivos);
+  $rows->bindParam(2, $arquivos_de_vdd);
+  $rows->bindParam(3, $id_projeto);
+  $rows->execute();
+
+  return projeto_requestIDator($id_projeto);
+}
+
+function deletar_projeto($id_criador, $id_projeto)
+{
+  global $db;
+
+  // -1: Checar se eu posso ter um super salsicha sandwich ei scoob (nome muito curto)
+  $rows = $db->prepare("SELECT id_criador FROM projetos WHERE id = ? AND id_criador = ?");
+  $rows->bindParam(1, $id_projeto);
+  $rows->bindParam(2, $id_criador);
+  $rows->execute();
+  $row = $rows->fetch(PDO::FETCH_OBJ);
+  if ($row == false) {
+    return "§Sua deleção é: <em>inválida deleção!</em>";
+  }
+
+  $rows = $db->prepare("DELETE FROM projetos WHERE id = ? AND id_criador = ?");
+  $rows->bindParam(1, $id_projeto);
+  $rows->bindParam(2, $id_criador);
+  $rows->execute();
+
+  $rows = $db->prepare("DELETE FROM reacoes WHERE tipo_de_reagido = 'projeto' AND id_reagido = ?");
+  $rows->bindParam(1, $id_projeto);
+  $rows->execute();
+
+  $rows = $db->prepare("DELETE FROM comentarios WHERE tipo_de_coisa = 'projeto' AND id_coisa = ?");
+  $rows->bindParam(1, $id_projeto);
+  $rows->execute();
 }
 
 function comentario_requestinator($tipo, $id)
