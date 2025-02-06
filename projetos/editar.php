@@ -4,6 +4,7 @@ login_obrigatorio($usuario);
 ?>
 <?php
 $erro = [];
+$sucesso = "";
 $id = $_GET['id'] ?? null;
 $projeto = projeto_requestIDator($id);
 
@@ -28,6 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 
   if (count($erro) == 0) {
     $projeto = $projeto_rtn;
+    $sucesso = "Projeto editado com sucesso! :]";
   }
 }
 ?>
@@ -54,6 +56,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
         <img src="/static/skull-and-cross.gif" width="24" height="24" />
         <?= $erro ?>
         <img src="/static/skull-and-cross.gif" width="24" height="24" />
+      </div>
+    <?php endif; ?>
+    <?php if ($sucesso) : ?>
+      <div class="sucesso" style="color: green; text-align: center;">
+        <?= $sucesso ?>
       </div>
     <?php endif; ?>
 
