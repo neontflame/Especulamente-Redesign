@@ -10,26 +10,24 @@ $projeto = projeto_requestIDator($id);
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
   $tipo = $_POST['tipo'];
 
-  if ($tipo == 'dl') {
-    $id = $_POST['id'];
-    $nome = $_POST['nome'];
-    $descricao = $_POST['descricao'];
-    $arquivos = $_FILES['arquivos'] ?? [];
-    $remover = $_POST['remover'] ?? [];
-    $ordem = $_POST['ordem'];
+  $id = $_POST['id'];
+  $nome = $_POST['nome'];
+  $descricao = $_POST['descricao'];
+  $arquivos = $_FILES['arquivos'] ?? [];
+  $remover = $_POST['remover'] ?? [];
+  $ordem = $_POST['ordem'];
 
-    if (strlen($nome) < 3) {
-      array_push($erro, "O nome do projeto é muito curto.");
-    }
+  if (strlen($nome) < 3) {
+    array_push($erro, "O nome do projeto é muito curto.");
+  }
 
-    $projeto_rtn = editar_projeto($usuario->id, $id, $nome, $descricao, $arquivos, $remover, $ordem);
-    if (is_string($projeto)) {
-      array_push($erro, $projeto);
-    }
+  $projeto_rtn = editar_projeto($usuario->id, $id, $nome, $descricao, $arquivos, $remover, $ordem);
+  if (is_string($projeto)) {
+    array_push($erro, $projeto);
+  }
 
-    if (count($erro) == 0) {
-      $projeto = $projeto_rtn;
-    }
+  if (count($erro) == 0) {
+    $projeto = $projeto_rtn;
   }
 }
 ?>
