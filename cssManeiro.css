@@ -457,3 +457,29 @@ a.coolButt {
 
   cursor: pointer;
 }
+
+/* Erros.......... */
+.erro {
+  text-align: center;
+}
+
+.erro img {
+  margin-bottom: 32px;
+}
+
+.erro h1 {
+  color: black;
+}
+
+.erro p {
+  color: #777777;
+  margin: 0px;
+}
+
+.erro a {
+  font-size: 16px;
+  text-decoration: none;
+}
+.erro a:hover {
+  text-decoration: underline;
+}
