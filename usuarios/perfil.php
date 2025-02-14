@@ -175,7 +175,7 @@ $perfil_e_meu = $usuario ? ($usuario->id == $perfil->id) : false;
       <?php endif; ?>
 
       <h1><?= $perfil->username ?></h1>
-
+	  <p>Esse usuário tem <?= $perfil->davecoins ?> davecoins</p>
       <?php reajor_d_reagida('perfil', $perfil, $usuario) ?>
 
     </div>
