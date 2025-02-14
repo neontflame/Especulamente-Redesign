@@ -1,5 +1,6 @@
 <?php 
 include $_SERVER['DOCUMENT_ROOT'] . '/shhhh/autoload.php'; 
+login_obrigatorio($usuario);
 
 if (!isset($_GET['id'])) {
   erro_404();

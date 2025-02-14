@@ -1,4 +1,7 @@
-<?php include $_SERVER['DOCUMENT_ROOT'] . '/shhhh/autoload.php'; ?>
+<?php 
+include $_SERVER['DOCUMENT_ROOT'] . '/shhhh/autoload.php';
+login_obrigatorio($usuario);
+?>
 
 <?php
 $titulo = "[Loja de Davecoins <> PORTAL ESPECULAMENTE]";
