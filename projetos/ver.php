@@ -12,7 +12,12 @@ $projeto = projeto_requestIDator($id);
 $arquivos = explode('\n', $projeto->arquivos);
 $arquivos_de_vdd = explode('\n', $projeto->arquivos_de_vdd);
 
-$projeto_e_meu = $projeto->id_criador == $usuario->id;
+// bug q a gente surpreendentemente nao tinha pego
+$projeto_e_meu = false;
+
+if (isset($usuario)) {
+	$projeto_e_meu = $projeto->id_criador == $usuario->id;
+}
 ?>
 
 <?php include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>

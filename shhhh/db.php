@@ -52,19 +52,35 @@ function projeto_requestIDator($id)
   return $proj;
 }
 
-// Retorna o número de páginas
-function projetos_tudo(&$array, $page = 1, $perPage = 10)
+// Daveitenc por id
+function daveitem_requestIDator($id)
 {
   global $db;
 
-  $rows = $db->prepare("SELECT COUNT(*) as count FROM projetos");
+  $rows = $db->prepare("SELECT * FROM daveitens WHERE id = ?");
+  $rows->bindParam(1, $id);
+  $rows->execute();
+  $dav = $rows->fetch(PDO::FETCH_OBJ);
+
+  if ($dav == false) {
+    return null;
+  }
+
+  return $dav;
+}
+// Retorna o número de páginas (agora tweaked pra ter suporte pra DaveItens)
+function coisos_tudo(&$array, $table, $page = 1, $perPage = 10)
+{
+  global $db;
+
+  $rows = $db->prepare("SELECT COUNT(*) as count FROM " . $table);
   $rows->execute();
   $count = $rows->fetch(PDO::FETCH_OBJ)->count;
 
   $pages = ceil($count / $perPage);
   $offset = ($page - 1) * $perPage;
 
-  $rows = $db->prepare("SELECT * FROM projetos ORDER BY id DESC LIMIT ? OFFSET ?");
+  $rows = $db->prepare("SELECT * FROM " . $table . " ORDER BY id DESC LIMIT ? OFFSET ?");
   $rows->bindParam(1, $perPage, PDO::PARAM_INT);
   $rows->bindParam(2, $offset, PDO::PARAM_INT);
   $rows->execute();

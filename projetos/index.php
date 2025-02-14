@@ -5,7 +5,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/shhhh/autoload.php';
 $page = $_GET['page'] ?? 1;
 $projetos = [];
 
-$pages = projetos_tudo($projetos, $page);
+$pages = coisos_tudo($projetos, 'projetos', $page);
 ?>
 
 <?php include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>

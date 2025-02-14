@@ -59,6 +59,32 @@ CREATE TABLE IF NOT EXISTS `convites` (
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `daveitens`
+--
+
+CREATE TABLE `daveitens` (
+  `id` int(11) NOT NULL,
+  `nome` varchar(255) NOT NULL,
+  `descricao` text NOT NULL,
+  `daveprice` int(11) NOT NULL,
+  `compravel` tinyint(1) NOT NULL DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `inventario`
+--
+
+CREATE TABLE `inventario` (
+  `id` int(11) NOT NULL,
+  `id_usuario` int(11) NOT NULL,
+  `id_item` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura para tabela `projetos`
 --
 
