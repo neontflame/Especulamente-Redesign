@@ -50,7 +50,7 @@ function postarComentario(tipo, id, ocomentario, thread, that) {
     carregarComentarios(tipo, id);
     that.parentElement.getElementsByTagName("textarea")[0].value = "";
 
-    for (let i = 0; i < bototes.length; i++) {
+    for (var i = 0; i < bototes.length; i++) {
       bototes[i].disabled = false;
     }
   };
