@@ -105,6 +105,38 @@ $titulo = "[Criar conta <> PORTAL ESPECULAMENTE]";
 include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
 ?>
 
+<style>
+    .inside_page_content {
+      text-align-last: center;
+      color: #898989;
+    }
+
+    .inside_page_content form {
+      text-align-last: right;
+      margin-right: 80px;
+      color: #566C9E;
+    }
+
+    .inside_page_content form input {
+      text-align-last: left;
+      margin-top: 4px;
+    }
+
+
+    .inside_page_content form button {
+      margin-top: 16px;
+      margin-right: 118px;
+      text-align-last: left;
+    }
+
+    .inside_page_content h1 {
+      color: #0055DA;
+    }
+
+    .inside_page_content a {
+      text-decoration: none;
+    }
+</style>
 <div class="container">
   <?php
   $esconder_ad = true;
@@ -130,7 +162,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
           <label for="senha">senha</label>
           <input name="senha" id="senha" type="password" required>
           <br>
-          <button>Registrar</button>
+          <button class="coolButt">Registrar</button>
         </form>
         <p>já tem uma conta? então <a href="/entrar.php">entre</a></p>
       <?php endif ?>

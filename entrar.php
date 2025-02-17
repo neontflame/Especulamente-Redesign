@@ -84,7 +84,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
         <label for="senha">senha</label>
         <input name="senha" id="senha" type="password" required>
         <br>
-        <button>Entrar</button>
+        <button class="coolButt">Entrar</button>
       </form>
       <p><a href="/esqueci.php">esqueceu a senha?</a></p>
       <p>não tem uma conta ainda? <a href="/registrar.php" title="ou morra tentando">crie uma aqui</a></p>
