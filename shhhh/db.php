@@ -720,5 +720,5 @@ function the_filetype_image($filename, $fileCoiso) {
 		'gmx' => 'gamemaker',
 	];
 
-	return $filetipos[the_filetype($filename, $fileCoiso)] || 'text';
+	return $filetipos[the_filetype($filename, $fileCoiso)] ?? 'text';
 }
