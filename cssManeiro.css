@@ -285,6 +285,36 @@ a.coolButt {
   margin-top: 4px;
 }
 
+.projTitulo {
+  margin-bottom: 8px;
+  width: 631px;
+  background-image: url("/elementos/coolassGradiente.png");
+  border-style: solid;
+  border-width: 1px;
+  border-color: #9ebbff;
+  background-color: white;
+  color: #4f6bad;
+}
+
+.projTitulo h1 {
+	margin: 8px;
+	margin-bottom: 4px;
+}
+
+.projTitulo p {
+	color: #A4B8E7;
+	margin: 4px;
+	margin-left: 8px;
+}
+
+.projTitulo p a {
+	color: #4f6bad;
+	text-decoration: none;
+}
+
+.projTitulo p a:hover {
+	text-decoration: underline;
+}
 /* comentarios !!! uhul */
 #osComentario ul {
   padding-left: 0;

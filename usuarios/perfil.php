@@ -50,7 +50,7 @@ $perfil_e_meu = $usuario ? ($usuario->id == $perfil->id) : false;
 <div class="container">
   <?php include $_SERVER['DOCUMENT_ROOT'] . '/elementos/sidebar/sidebar.php'; ?>
 
-  <div class="page_content" style="min-height: 486px">
+  <div class="page_content" style="margin-bottom: 6px;">
     <style>
       .coolBorderyNormal {
         border: solid;
@@ -181,7 +181,7 @@ $perfil_e_meu = $usuario ? ($usuario->id == $perfil->id) : false;
     </div>
   </div>
 
-  <div class="page_content" style="min-height: 486px;">
+  <div class="page_content" style="min-height: 268px;">
     <div class="inside_page_content">
       <?php vedor_d_comentario('perfil', $perfil->id, true, $usuario); ?>
     </div>

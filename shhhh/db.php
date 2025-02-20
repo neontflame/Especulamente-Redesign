@@ -666,3 +666,59 @@ function velhificar_data($datetime)
   date_sub($date, date_interval_create_from_date_string("17 years + 3 hours"));
   return date_format($date, "d/m/Y") . " às " . date_format($date, "H:i");
 }
+
+// coisos de filetype
+// eu ia fazer a funçao pra isso mas eu achei uma nota no manual de php de filesize que fazia o que eu queria so que bem melhor
+// agradeço-lhe rommel de rommelsantor dot com
+function human_filesize($filename, $fileCoiso, $decimals = 2) {
+	$bytes = filesize($_SERVER['DOCUMENT_ROOT'] . $fileCoiso . '/' . $filename);
+	$sz = 'BKMGTP';
+	$factor = floor((strlen($bytes) - 1) / 3);
+	return sprintf("%.{$decimals}f", $bytes / pow(1024, $factor)) . ' ' . @$sz[$factor] . 'B';
+}
+
+function the_filetype($filename, $fileCoiso) {
+	return strtolower(pathinfo($_SERVER['DOCUMENT_ROOT'] . $fileCoiso . '/' . $filename, PATHINFO_EXTENSION));
+}
+
+function the_filetype_image($filename, $fileCoiso) {
+	$filetipos = [
+		'png' => 'img',
+		'jpg' => 'img',
+		'jpeg' => 'img',
+		'gif' => 'img',
+		// 'webp' => 'img',
+		'mp4' => 'vid',
+		'avi' => 'vid',
+		'mkv' => 'vid',
+		'wmv' => 'vid',
+		// 'webm' => 'vid',
+		'ogg' => 'audio',
+		'mp3' => 'audio',
+		'wav' => 'audio',
+		'flac' => 'audio',
+		'wma' => 'audio',
+		'aac' => 'audio',
+		'aiff' => 'audio',
+		'doc' => 'word',
+		'docx' => 'word',
+		'ppt' => 'ppt',
+		'pptx' => 'ppt',
+		'fla' => 'flash',
+		'swf' => 'shockwave',
+		'sb' => 'scratch',
+		'sb2' => 'scratch2',
+		'sb3' => 'scratch3',
+		'capx' => 'construct2',
+		'caproj' => 'construct2',
+		'gm5' => 'gamemaker',
+		'gm6' => 'gamemaker',
+		'gm7' => 'gamemaker',
+		'gm8' => 'gamemaker',
+		'gm81' => 'gamemaker',
+		'gmk' => 'gamemaker',
+		'gmx' => 'gamemaker',
+	];
+
+	return $filetipos[the_filetype($filename, $fileCoiso)];
+}
