@@ -2,10 +2,17 @@
 include $_SERVER['DOCUMENT_ROOT'] . '/shhhh/autoload.php';
 ?>
 <?php
+$query = $_GET['q'] ?? '';
 $page = $_GET['page'] ?? 1;
 $projetos = [];
 
-$pages = coisos_tudo($projetos, 'projetos', $page);
+$pages = coisos_tudo($projetos, 'projetos', $page, $query);
+
+if ($query != '') { 
+	$coisodepagina = '?q='.$query.'&'; 
+} else { 
+	$coisodepagina = '?'; 
+}
 ?>
 
 <?php include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
@@ -18,6 +25,8 @@ $pages = coisos_tudo($projetos, 'projetos', $page);
   <div class="page_content" style="min-height: 486px;">
     <div class="inside_page_content">
 	
+	<?php if ($query != '') { ?>
+		<div class="pesquisaThing">Resultados da pesquisa por <b>"<?php echo htmlspecialchars($query) . '"</b></div>'; } ?>
       <div class="projetos">
         <?php foreach ($projetos as $projeto) : ?>
           <div class="projeto">
@@ -33,9 +42,9 @@ $pages = coisos_tudo($projetos, 'projetos', $page);
 		<!-- here be pagination -->
         <div class="pagination">
           <?php if ($page > 1) : ?>
-            <a href="<?= $config['URL'] ?>/projetos/?page=1">Início</a>
+            <a href="<?= $config['URL'] ?>/projetos/<?= $coisodepagina ?>page=1">Início</a>
 			<p class="textinhoClaro">~</p>
-            <a href="<?= $config['URL'] ?>/projetos/?page=<?= $page - 1 ?>">« Anterior</a>
+            <a href="<?= $config['URL'] ?>/projetos/<?= $coisodepagina ?>page=<?= $page - 1 ?>">« Anterior</a>
 			<p class="textinhoClaro">~</p>
           <?php endif ?>
 		  <?php if ($page == 1) : ?>
@@ -46,9 +55,9 @@ $pages = coisos_tudo($projetos, 'projetos', $page);
 		  
           <?php if ($page < $pages) : ?>
 			<p class="textinhoClaro">~</p>
-            <a href="<?= $config['URL'] ?>/projetos/?page=<?= $page + 1 ?>">Próximo »</a>
+            <a href="<?= $config['URL'] ?>/projetos/<?= $coisodepagina ?>page=<?= $page + 1 ?>">Próximo »</a>
 			<p class="textinhoClaro">~</p>
-            <a href="<?= $config['URL'] ?>/projetos/?page=<?= $pages ?>">Fim</a>
+            <a href="<?= $config['URL'] ?>/projetos/<?= $coisodepagina ?>page=<?= $pages ?>">Fim</a>
           <?php endif ?>
 		  <?php if ($page == $pages) : ?>
 		    <p class="textinhoClaro"> ~ Próximo » ~ Fim</a>

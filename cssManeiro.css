@@ -244,6 +244,11 @@ a.coolButt {
 }
 
 /* grah fuck your botoes ... */
+.pesquisaThing {
+  border-bottom: 1px solid #9EBBFF;
+  padding-bottom: 4px;
+  margin-bottom: 8px;
+}
 
 .projetos {
   margin-top: -4px;

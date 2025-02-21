@@ -20,7 +20,7 @@ $banner = $banners[array_rand($banners)];
   <meta content="pt-br" http-equiv="Content-Language" />
   <title><?= $titulo ?? "[PORTAL ESPECULAMENTE]" ?></title>
   <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
-  <link href="/cssManeiro.css?v4" rel="stylesheet" type="text/css" />
+  <link href="/cssManeiro.css?v5" rel="stylesheet" type="text/css" />
   <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 </head>
 
@@ -38,7 +38,11 @@ $banner = $banners[array_rand($banners)];
             <a href="">BLOGS</a>
             <a href="">"O resto..."</a>
           </div>
-          <input type="text" id="search" name="search" placeholder="Pesquise algo lol" class="coolSearchBar" style="height: 18px; width: 201px" />
+          <input type="text" id="search" name="search" placeholder="Pesquise algo lol" class="coolSearchBar" style="height: 18px; width: 200px; float:left; margin-right: 3px;" />
+		  <img src="/elementos/header/pesquisa.png" 
+		  style="cursor:pointer;"
+		  onclick="window.location.href = '/projetos/?q=' +  document.getElementById('search').value;"
+		  >
         </div>
         <!-- FIM DOS LINKS DO TOPO DO HEADER-->
 
