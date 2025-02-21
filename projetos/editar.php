@@ -8,6 +8,16 @@ $sucesso = "";
 $id = $_GET['id'] ?? null;
 $projeto = projeto_requestIDator($id);
 
+$projeto_e_meu = false;
+
+if (isset($usuario)) {
+	$projeto_e_meu = $projeto->id_criador == $usuario->id;
+	
+	if (!$projeto_e_meu) {
+		header('Location: 403.php');
+	}
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
   $tipo = $_POST['tipo'];
 
