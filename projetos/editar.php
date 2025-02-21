@@ -14,7 +14,7 @@ if (isset($usuario)) {
 	$projeto_e_meu = $projeto->id_criador == $usuario->id;
 	
 	if (!$projeto_e_meu) {
-		header('Location: 403.php');
+		header('Location: /403.php');
 	}
 }
 
