@@ -14,7 +14,8 @@
 		  
 		  <small>Quando a água ferve, eu dou um grito<br>
 Incline assim, está servido</small>
-		  
+		  <br>
+		  <br>
 		  
 		  <a href="/projetos">Ver projetos?</a>
 		</div>
