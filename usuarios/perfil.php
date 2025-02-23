@@ -181,7 +181,7 @@ $perfil_e_meu = $usuario ? ($usuario->id == $perfil->id) : false;
     </div>
   </div>
 
-  <div class="page_content" style="min-height: 268px;">
+  <div class="page_content" style="min-height: 294px;">
     <div class="inside_page_content">
       <?php vedor_d_comentario('perfil', $perfil->id, true, $usuario); ?>
     </div>
