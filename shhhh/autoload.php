@@ -14,13 +14,11 @@ function redirect($location)
 function erro_404()
 {
   include '../404.php';
-  if(!isset($_SESSION)) { session_start(); }
   die();
 }
 
 function erro_403()
 {
   include '../403.php';
-  if(!isset($_SESSION)) { session_start(); }
   die();
 }
