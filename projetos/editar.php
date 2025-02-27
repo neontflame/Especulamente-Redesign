@@ -1,5 +1,5 @@
 <?php
-include $_SERVER['DOCUMENT_ROOT'] . '/shhhh/autoload.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/shhhh/autoload.php';
 login_obrigatorio($usuario);
 ?>
 <?php
@@ -11,11 +11,11 @@ $projeto = projeto_requestIDator($id);
 $projeto_e_meu = false;
 
 if (isset($usuario)) {
-	$projeto_e_meu = $projeto->id_criador == $usuario->id;
-	
-	if (!$projeto_e_meu) {
-		header('Location: /403.php');
-	}
+  $projeto_e_meu = $projeto->id_criador == $usuario->id;
+
+  if (!$projeto_e_meu) {
+    erro_403();
+  }
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
@@ -79,6 +79,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
         <p>wtf</p>
       <?php else : ?>
         <!-- Downloadável -->
+        <?php if ($projeto->tipo == 'jg') : ?>
+          <h1>ATENÇÃO voce NÃO pode editar seus jogos *ainda* (estamos trabalhando), não toque em nada aqui para não excluir todos os seus arquivos</h1>
+        <?php endif; ?>
         <a href="/projetos/ver.php?id=<?= $id ?>"><img style="margin-left: -5px; margin-top: -5px;" src="/elementos/voltar.png"></a>
         <h1 style="text-align: center; font-style: italic;">Editando projeto</h1>
 

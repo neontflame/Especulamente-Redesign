@@ -1,5 +1,5 @@
-<?php 
-include $_SERVER['DOCUMENT_ROOT'] . '/shhhh/autoload.php';
+<?php
+include_once $_SERVER['DOCUMENT_ROOT'] . '/shhhh/autoload.php';
 
 $id = $_GET['id'];
 $item = daveitem_requestIDator($id);
@@ -11,5 +11,4 @@ $rows->execute();
 
 mudar_usuario($usuario->id, ['davecoins' => $usuario->davecoins - $item->daveprice]);
 
-header("Location: /daveloja");  
-?>
+header("Location: /daveloja");

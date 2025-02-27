@@ -1,4 +1,4 @@
-<?php include $_SERVER['DOCUMENT_ROOT'] . '/shhhh/autoload.php'; ?>
+<?php include_once $_SERVER['DOCUMENT_ROOT'] . '/shhhh/autoload.php'; ?>
 <?php
 if (!isset($_GET['username'])) {
   erro_404();
@@ -175,7 +175,7 @@ $perfil_e_meu = $usuario ? ($usuario->id == $perfil->id) : false;
       <?php endif; ?>
 
       <h1><?= $perfil->username ?></h1>
-	  <p>Esse usuário tem <?= $perfil->davecoins ?> davecoins</p>
+      <p>Esse usuário tem <?= $perfil->davecoins ?> davecoins</p>
       <?php reajor_d_reagida('perfil', $perfil, $usuario) ?>
 
     </div>

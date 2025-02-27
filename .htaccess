@@ -1,6 +1,6 @@
 ErrorDocument 403 /403.php
 ErrorDocument 404 /404.php
-ErrorDocument 418 /418.php
+# ErrorDocument 418 /418.php
 
 # Bloquear acesso às coisas do git
 RedirectMatch 404 /\.git.*

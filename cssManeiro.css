@@ -245,7 +245,7 @@ a.coolButt {
 
 /* grah fuck your botoes ... */
 .pesquisaThing {
-  border-bottom: 1px solid #9EBBFF;
+  border-bottom: 1px solid #9ebbff;
   padding-bottom: 4px;
   margin-bottom: 8px;
 }
@@ -257,6 +257,10 @@ a.coolButt {
 .projeto {
   border-bottom: solid 1px;
   border-bottom-color: #9ebbff;
+}
+
+.projeto:last-child {
+  border-bottom: 0;
 }
 
 .projeto h2 {
@@ -302,23 +306,23 @@ a.coolButt {
 }
 
 .projTitulo h1 {
-	margin: 8px;
-	margin-bottom: 4px;
+  margin: 8px;
+  margin-bottom: 4px;
 }
 
 .projTitulo p {
-	color: #A4B8E7;
-	margin: 4px;
-	margin-left: 8px;
+  color: #a4b8e7;
+  margin: 4px;
+  margin-left: 8px;
 }
 
 .projTitulo p a {
-	color: #4f6bad;
-	text-decoration: none;
+  color: #4f6bad;
+  text-decoration: none;
 }
 
 .projTitulo p a:hover {
-	text-decoration: underline;
+  text-decoration: underline;
 }
 /* comentarios !!! uhul */
 #osComentario ul {

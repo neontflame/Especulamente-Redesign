@@ -38,11 +38,12 @@ $banner = $banners[array_rand($banners)];
             <a href="">BLOGS</a>
             <a href="">"O resto..."</a>
           </div>
-          <input type="text" id="search" name="search" placeholder="Pesquise algo lol" class="coolSearchBar" style="height: 18px; width: 200px; float:left; margin-right: 3px;" />
-		  <img src="/elementos/header/pesquisa.png" 
-		  style="cursor:pointer;"
-		  onclick="window.location.href = '/projetos/?q=' +  document.getElementById('search').value;"
-		  >
+          <form action="/projetos">
+            <input type="text" id="search" name="q" placeholder="Pesquise algo lol" class="coolSearchBar" style="height: 18px; width: 200px; float:left; margin-right: 3px;" />
+            <button style="cursor:pointer; display: inline-block; padding: 0; border: 0;">
+              <img src="/elementos/header/pesquisa.png">
+            </button>
+          </form>
         </div>
         <!-- FIM DOS LINKS DO TOPO DO HEADER-->
 

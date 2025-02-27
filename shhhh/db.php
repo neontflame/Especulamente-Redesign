@@ -65,16 +65,16 @@ function daveitem_requestIDator($id)
 	if ($dav == false) {
 		return null;
 	}
-	
+
 	return $dav;
 }
 // Retorna o número de páginas (agora tweaked pra ter suporte pra DaveItens)
 function coisos_tudo(&$array, $table, $page = 1, $searchy = '', $perPage = 10)
-{	
+{
 	global $db;
-	
+
 	$search = $db->quote('%' . $searchy . '%');
-	
+
 	if ($searchy != '') {
 		$searchQuery = " WHERE nome LIKE " . $search . " OR descricao LIKE " . $search . " OR arquivos_de_vdd LIKE "  . $search . " ";
 	} else {
@@ -215,12 +215,14 @@ function subir_arquivo($file, $pasta, $tabela, $id, $coluna, $extensoes_permitid
 	}
 
 	// DELETAR aqruivo antigo
-	$rows = $db->prepare("SELECT $coluna FROM $tabela WHERE id = ?");
-	$rows->bindParam(1, $id);
-	$rows->execute();
-	$old_file = $rows->fetch(PDO::FETCH_OBJ)->$coluna;
-	if (!empty($old_file)) {
-		unlink($_SERVER['DOCUMENT_ROOT'] . $pasta . $old_file);
+	if ($tabela != null && $id != null && $coluna != null) {
+		$rows = $db->prepare("SELECT $coluna FROM $tabela WHERE id = ?");
+		$rows->bindParam(1, $id);
+		$rows->execute();
+		$old_file = $rows->fetch(PDO::FETCH_OBJ)->$coluna;
+		if (!empty($old_file)) {
+			unlink($_SERVER['DOCUMENT_ROOT'] . $pasta . $old_file);
+		}
 	}
 
 	// Sube arquivo novo
@@ -228,10 +230,12 @@ function subir_arquivo($file, $pasta, $tabela, $id, $coluna, $extensoes_permitid
 	$file_path = $_SERVER['DOCUMENT_ROOT'] . $pasta . $filename;
 	move_uploaded_file($file['tmp_name'], $file_path);
 
-	$rows = $db->prepare("UPDATE $tabela SET $coluna = ? WHERE id = ?");
-	$rows->bindParam(1, $filename);
-	$rows->bindParam(2, $id);
-	$rows->execute();
+	if ($tabela != null || $id != null || $coluna != null) {
+		$rows = $db->prepare("UPDATE $tabela SET $coluna = ? WHERE id = ?");
+		$rows->bindParam(1, $filename);
+		$rows->bindParam(2, $id);
+		$rows->execute();
+	}
 
 	return $filename;
 }
@@ -488,12 +492,22 @@ function desreagir($id_reator, $id_reagido, $tipo_de_reagido, $tipo_de_reacao)
 	return $count;
 }
 
-function criar_projeto($id_criador, $nome, $descricao, $tipo, $arquivos)
+// Arquivo vivel == o arquivo do jogo q roda no navegador
+function criar_projeto($id_criador, $nome, $descricao, $tipo, $arquivos, $arquivoVivel)
 {
 	global $db;
 
 	// EXPLODIR HOSTINGER
-	$arquivos_de_vdd = implode('\n', $arquivos['name']);
+	$arquivos_de_vdd = $arquivos != null ? implode('\n', $arquivos['name']) : '';
+
+	if ($arquivos == null && $arquivoVivel == null) {
+		return "Comeram seus arquivos?";
+	}
+
+	$arquivoVivelLivelEIlivel = null;
+	if ($arquivoVivel != null) {
+		$arquivoVivelLivelEIlivel = $arquivoVivel['name'] . '\n';
+	}
 
 	$rows = $db->prepare("INSERT INTO projetos (id_criador, nome, descricao, tipo, arquivos_de_vdd) VALUES (?, ?, ?, ?, ?)");
 	$rows->bindParam(1, $id_criador);
@@ -507,9 +521,45 @@ function criar_projeto($id_criador, $nome, $descricao, $tipo, $arquivos)
 
 	mkdir($_SERVER['DOCUMENT_ROOT'] . '/static/projetos/' . $id);
 
-	$rtn = subir_arquivoses($arquivos, '/static/projetos/' . $id, "projetos", $id, "arquivos", [], 1024 * 1024 * 1024, 50);
-	if (is_string($rtn) && str_starts_with($rtn, "§")) {
-		return substr($rtn, 1);
+	if ($arquivos != null) {
+		$rtn = subir_arquivoses($arquivos, '/static/projetos/' . $id, "projetos", $id, "arquivos", [], 1024 * 1024 * 1024, 50);
+		if (is_string($rtn) && str_starts_with($rtn, "§")) {
+			return substr($rtn, 1);
+		}
+	}
+
+	if ($arquivoVivel != null) {
+		if (str_ends_with($arquivoVivel['name'], ".zip")) {
+			$zip = new ZipArchive;
+			$res = $zip->open($arquivoVivel['tmp_name']);
+			if ($res === TRUE) {
+				// Check if index.html inside
+				$index = false;
+				for ($i = 0; $i < $zip->numFiles; $i++) {
+					$filename = $zip->getNameIndex($i);
+					if (str_ends_with($filename, "index.html")) {
+						$index = true;
+						break;
+					}
+				}
+				if ($index == false) {
+					return "Arquivo .zip não contém index.html!";
+				}
+
+				$zip->extractTo($_SERVER['DOCUMENT_ROOT'] . '/static/projetos/' . $id . '/jogo/');
+				$zip->close();
+			}
+		}
+		$rtn = subir_arquivo($arquivoVivel, '/static/projetos/' . $id, null, null, null, ["swf", "zip", "html", "sb", "sb2", "sb3"], 1024 * 1024 * 1024);
+		if (is_string($rtn) && str_starts_with($rtn, "§")) {
+			return substr($rtn, 1);
+		}
+		$arquivoVivelLivelEIlivel .= $rtn;
+		$rows = $db->prepare("UPDATE projetos SET arquivo_vivel = ? WHERE id_criador = ? AND id = ?");
+		$rows->bindParam(1, $arquivoVivelLivelEIlivel);
+		$rows->bindParam(2, $id_criador);
+		$rows->bindParam(3, $id);
+		$rows->execute();
 	}
 
 	return projeto_requestIDator($id);
@@ -678,18 +728,21 @@ function velhificar_data($datetime)
 // coisos de filetype
 // eu ia fazer a funçao pra isso mas eu achei uma nota no manual de php de filesize que fazia o que eu queria so que bem melhor
 // agradeço-lhe rommel de rommelsantor dot com
-function human_filesize($filename, $fileCoiso, $decimals = 2) {
+function human_filesize($filename, $fileCoiso, $decimals = 2)
+{
 	$bytes = filesize($_SERVER['DOCUMENT_ROOT'] . $fileCoiso . '/' . $filename);
 	$sz = 'BKMGTP';
 	$factor = floor((strlen($bytes) - 1) / 3);
 	return sprintf("%.{$decimals}f", $bytes / pow(1024, $factor)) . ' ' . @$sz[$factor] . 'B';
 }
 
-function the_filetype($filename, $fileCoiso) {
+function the_filetype($filename, $fileCoiso)
+{
 	return strtolower(pathinfo($_SERVER['DOCUMENT_ROOT'] . $fileCoiso . '/' . $filename, PATHINFO_EXTENSION));
 }
 
-function the_filetype_image($filename, $fileCoiso) {
+function the_filetype_image($filename, $fileCoiso)
+{
 	$filetipos = [
 		'png' => 'img',
 		'jpg' => 'img',

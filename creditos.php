@@ -1,5 +1,5 @@
 <?php
-include $_SERVER['DOCUMENT_ROOT'] . '/shhhh/autoload.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/shhhh/autoload.php';
 // TODO: trocar isso pelos ids de usuarios
 $creditados = [
 	['Fupicat', 'codigo, puxar cordas'],

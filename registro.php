@@ -1,4 +1,4 @@
-<?php include $_SERVER['DOCUMENT_ROOT'] . '/shhhh/autoload.php'; ?>
+<?php include_once $_SERVER['DOCUMENT_ROOT'] . '/shhhh/autoload.php'; ?>
 <?php
 if (isset($usuario)) {
   redirect('/');
@@ -106,36 +106,36 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
 ?>
 
 <style>
-    .inside_page_content {
-      text-align-last: center;
-      color: #898989;
-    }
+  .inside_page_content {
+    text-align-last: center;
+    color: #898989;
+  }
 
-    .inside_page_content form {
-      text-align-last: right;
-      margin-right: 80px;
-      color: #566C9E;
-    }
+  .inside_page_content form {
+    text-align-last: right;
+    margin-right: 80px;
+    color: #566C9E;
+  }
 
-    .inside_page_content form input {
-      text-align-last: left;
-      margin-top: 4px;
-    }
+  .inside_page_content form input {
+    text-align-last: left;
+    margin-top: 4px;
+  }
 
 
-    .inside_page_content form button {
-      margin-top: 16px;
-      margin-right: 118px;
-      text-align-last: left;
-    }
+  .inside_page_content form button {
+    margin-top: 16px;
+    margin-right: 118px;
+    text-align-last: left;
+  }
 
-    .inside_page_content h1 {
-      color: #0055DA;
-    }
+  .inside_page_content h1 {
+    color: #0055DA;
+  }
 
-    .inside_page_content a {
-      text-decoration: none;
-    }
+  .inside_page_content a {
+    text-decoration: none;
+  }
 </style>
 <div class="container">
   <?php

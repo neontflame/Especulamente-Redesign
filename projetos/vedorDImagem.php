@@ -1,5 +1,5 @@
 <?php
-include $_SERVER['DOCUMENT_ROOT'] . '/shhhh/autoload.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/shhhh/autoload.php';
 ?>
 
 <?php
@@ -7,7 +7,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/shhhh/autoload.php';
 $tipos = array('.png', '.bmp', '.jpg', 'jpeg', '.gif', '.PNG', '.BMP', '.JPG', 'JPEG', '.GIF');
 
 if (!isset($_GET['id'])) {
-  erro_404();
+	erro_404();
 }
 $id = $_GET['id'];
 

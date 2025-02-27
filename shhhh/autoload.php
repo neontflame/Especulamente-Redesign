@@ -16,3 +16,9 @@ function erro_404()
   include '../404.php';
   die();
 }
+
+function erro_403()
+{
+  include '../403.php';
+  die();
+}
