@@ -7,3 +7,5 @@ livel == legível por humanoss
 fio = fio
 
 fnf = qualquer coisa q envia
+
+vível = visível

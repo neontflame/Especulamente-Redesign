@@ -85,7 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
         <a href="/projetos/ver.php?id=<?= $id ?>"><img style="margin-left: -5px; margin-top: -5px;" src="/elementos/voltar.png"></a>
         <h1 style="text-align: center; font-style: italic;">Editando projeto</h1>
 
-        <form action="/projetos/editar.php" method="post" enctype="multipart/form-data">
+        <form action="/projetos/editar.php?id=<?= $id ?>" method="post" enctype="multipart/form-data">
           <input type="hidden" name="tipo" value="<?= $projeto->tipo ?>">
           <input type="hidden" name="id" value="<?= $projeto->id ?>">
 

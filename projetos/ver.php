@@ -84,7 +84,7 @@ if (isset($usuario)) {
     </div>
 
     <div class="inside_page_content" style="margin-top: 8px; margin-bottom: 8px;">
-      <?= $projeto->descricao ?>
+      <div class="descricao" style="white-space:pre-line"><?= $projeto->descricao ?></div>
       <?php reajor_d_reagida('projeto', $projeto, $usuario) ?>
     </div>
 

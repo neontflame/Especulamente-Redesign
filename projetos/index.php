@@ -27,7 +27,7 @@ if ($query != '') {
 
       <?php if ($query != '') { ?>
         <div class="pesquisaThing">Resultados da pesquisa por <b>"<?php echo htmlspecialchars($query) . '"</b></div>';
-                                                                } ?>
+			} ?>
             <div class="projetos">
               <?php foreach ($projetos as $projeto) : ?>
                 <div class="projeto">
@@ -36,7 +36,7 @@ if ($query != '') {
                     feito por <?= usuario_requestIDator($projeto->id_criador)->username ?>
                   </a>
                   <h2><a href="<?= $config['URL'] ?>/projetos/ver.php?id=<?= $projeto->id ?>"><?= $projeto->nome ?></a></h2>
-                  <p><?= $projeto->descricao ?></p>
+                  <p><?= explode("\n", $projeto->descricao)[0] ?></p>
                 </div>
               <?php endforeach ?>
 
