@@ -1,6 +1,22 @@
 <?php
 $db = new PDO("mysql:host=" . $config['DB_HOST'] . ";dbname=" . $config['DB_NAME'], $config['DB_USER'], $config['DB_PASS']);
 
+function remover_pasta_inteira($dir)
+{
+	if (!is_dir($dir)) {
+		return false;
+	}
+
+	$files = array_diff(scandir($dir), array('.', '..'));
+
+	foreach ($files as $file) {
+
+		(is_dir("$dir/$file")) ? remover_pasta_inteira("$dir/$file") : unlink("$dir/$file");
+	}
+
+	return rmdir($dir);
+}
+
 // Por username
 function usuario_requestinator($username)
 {
@@ -504,11 +520,6 @@ function criar_projeto($id_criador, $nome, $descricao, $tipo, $arquivos, $arquiv
 		return "Comeram seus arquivos?";
 	}
 
-	$arquivoVivelLivelEIlivel = null;
-	if ($arquivoVivel != null) {
-		$arquivoVivelLivelEIlivel = $arquivoVivel['name'] . '\n';
-	}
-
 	$rows = $db->prepare("INSERT INTO projetos (id_criador, nome, descricao, tipo, arquivos_de_vdd) VALUES (?, ?, ?, ?, ?)");
 	$rows->bindParam(1, $id_criador);
 	$rows->bindParam(2, $nome);
@@ -523,49 +534,65 @@ function criar_projeto($id_criador, $nome, $descricao, $tipo, $arquivos, $arquiv
 
 	if ($arquivos != null) {
 		$rtn = subir_arquivoses($arquivos, '/static/projetos/' . $id, "projetos", $id, "arquivos", [], 1024 * 1024 * 1024, 50);
-		if (is_string($rtn) && str_starts_with($rtn, "§")) {
-			return substr($rtn, 1);
+		if (is_string($rtn)) {
+			return $rtn;
 		}
 	}
 
 	if ($arquivoVivel != null) {
-		if (str_ends_with($arquivoVivel['name'], ".zip")) {
-			$zip = new ZipArchive;
-			$res = $zip->open($arquivoVivel['tmp_name']);
-			if ($res === TRUE) {
-				// Check if index.html inside
-				$index = false;
-				for ($i = 0; $i < $zip->numFiles; $i++) {
-					$filename = $zip->getNameIndex($i);
-					if (str_ends_with($filename, "index.html")) {
-						$index = true;
-						break;
-					}
-				}
-				if ($index == false) {
-					return "Arquivo .zip não contém index.html!";
-				}
-
-				$zip->extractTo($_SERVER['DOCUMENT_ROOT'] . '/static/projetos/' . $id . '/jogo/');
-				$zip->close();
-			}
+		$rtn = subir_arquivo_vivel($arquivoVivel, $id, $id_criador);
+		if (is_string($rtn)) {
+			return $rtn;
 		}
-		$rtn = subir_arquivo($arquivoVivel, '/static/projetos/' . $id, null, null, null, ["swf", "zip", "html", "sb", "sb2", "sb3"], 1024 * 1024 * 1024);
-		if (is_string($rtn) && str_starts_with($rtn, "§")) {
-			return substr($rtn, 1);
-		}
-		$arquivoVivelLivelEIlivel .= $rtn;
-		$rows = $db->prepare("UPDATE projetos SET arquivo_vivel = ? WHERE id_criador = ? AND id = ?");
-		$rows->bindParam(1, $arquivoVivelLivelEIlivel);
-		$rows->bindParam(2, $id_criador);
-		$rows->bindParam(3, $id);
-		$rows->execute();
 	}
 
 	return projeto_requestIDator($id);
 }
 
-function editar_projeto($id_criador, $id_projeto, $nome, $descricao, $arquivos_novos, $remover, $ordem)
+function subir_arquivo_vivel($arquivoVivel, $id, $id_criador)
+{
+	global $db;
+
+	$arquivoVivelLivelEIlivel = null;
+	if ($arquivoVivel != null) {
+		$arquivoVivelLivelEIlivel = $arquivoVivel['name'] . '\n';
+	}
+
+	if (str_ends_with($arquivoVivel['name'], ".zip")) {
+		$zip = new ZipArchive;
+		$res = $zip->open($arquivoVivel['tmp_name']);
+		if ($res === TRUE) {
+			// Check if index.html inside
+			$index = false;
+			for ($i = 0; $i < $zip->numFiles; $i++) {
+				$filename = $zip->getNameIndex($i);
+				if (str_ends_with($filename, "index.html")) {
+					$index = true;
+					break;
+				}
+			}
+			if ($index == false) {
+				return "§Arquivo .zip não contém index.html!";
+			}
+
+			$zip->extractTo($_SERVER['DOCUMENT_ROOT'] . '/static/projetos/' . $id . '/jogo/');
+			$zip->close();
+		}
+	}
+	$rtn = subir_arquivo($arquivoVivel, '/static/projetos/' . $id, null, null, null, ["swf", "zip", "html", "sb", "sb2", "sb3"], 1024 * 1024 * 1024);
+	if (is_string($rtn) && str_starts_with($rtn, "§")) {
+		return $rtn;
+	}
+	$arquivoVivelLivelEIlivel .= $rtn;
+	$rows = $db->prepare("UPDATE projetos SET arquivo_vivel = ? WHERE id_criador = ? AND id = ?");
+	$rows->bindParam(1, $arquivoVivelLivelEIlivel);
+	$rows->bindParam(2, $id_criador);
+	$rows->bindParam(3, $id);
+	$rows->execute();
+}
+
+// Arquivo vivel == o arquivo do jogo q roda no navegador
+function editar_projeto($id_criador, $id_projeto, $nome, $descricao, $arquivos_novos, $remover, $ordem, $arquivoVivel, $removerArquivoVivel)
 {
 	global $db;
 
@@ -634,7 +661,7 @@ function editar_projeto($id_criador, $id_projeto, $nome, $descricao, $arquivos_n
 
 	// <qwuarta></qwuarta>: Reordenar arquivos
 	// EXPLODIR HOSTINGER ----- hostinger: hey :( dont do that
-	$ordem = explode('\n', $ordem);
+	$ordem = $ordem ? explode('\n', $ordem) : [];
 	$arquivos = [];
 	$arquivos_de_vdd = [];
 	foreach ($ordem as $arquivo) {
@@ -649,6 +676,33 @@ function editar_projeto($id_criador, $id_projeto, $nome, $descricao, $arquivos_n
 	$rows->bindParam(2, $arquivos_de_vdd);
 	$rows->bindParam(3, $id_projeto);
 	$rows->execute();
+
+	// <AGORA></AGORA>: arquivo vivel.
+	$rows = $db->prepare("SELECT arquivo_vivel FROM projetos WHERE id = ?");
+	$rows->bindParam(1, $id_projeto);
+	$rows->execute();
+	$row = $rows->fetch(PDO::FETCH_OBJ);
+	$arquivoVivelLivelEIlivel = $row->arquivo_vivel;
+	$arquivoVivelIlivel = $arquivoVivelLivelEIlivel == "" ? "" : explode('\n', $arquivoVivelLivelEIlivel)[1];
+
+	if ($removerArquivoVivel) {
+		if (file_exists($_SERVER['DOCUMENT_ROOT'] . '/static/projetos/' . $id_projeto . '/' . $arquivoVivelIlivel)) {
+			unlink($_SERVER['DOCUMENT_ROOT'] . '/static/projetos/' . $id_projeto . '/' . $arquivoVivelIlivel);
+		}
+		remover_pasta_inteira($_SERVER['DOCUMENT_ROOT'] . '/static/projetos/' . $id_projeto . '/jogo');
+		$arquivoVivelLivelEIlivel = "";
+		$rows = $db->prepare("UPDATE projetos SET arquivo_vivel = '' WHERE id_criador = ? AND id = ?");
+		$rows->bindParam(1, $id_criador);
+		$rows->bindParam(2, $id_projeto);
+		$rows->execute();
+	} else {
+		if ($arquivoVivel['size'] > 0) {
+			$rtn = subir_arquivo_vivel($arquivoVivel, $id_projeto, $id_criador);
+			if (is_string($rtn) && str_starts_with($rtn, "§")) {
+				return substr($rtn, 1);
+			}
+		}
+	}
 
 	return projeto_requestIDator($id_projeto);
 }
@@ -679,6 +733,8 @@ function deletar_projeto($id_criador, $id_projeto)
 	$rows = $db->prepare("DELETE FROM comentarios WHERE tipo_de_coisa = 'projeto' AND id_coisa = ?");
 	$rows->bindParam(1, $id_projeto);
 	$rows->execute();
+
+	remover_pasta_inteira($_SERVER['DOCUMENT_ROOT'] . '/static/projetos/' . $id_projeto);
 }
 
 function comentario_requestinator($tipo, $id)

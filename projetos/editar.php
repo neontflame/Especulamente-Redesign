@@ -27,14 +27,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
   $arquivos = $_FILES['arquivos'] ?? [];
   $remover = $_POST['remover'] ?? [];
   $ordem = $_POST['ordem'];
+  $arquivoVivel = $_FILES['arquivoJogavel'] ?? [];
+  $removerArquivoVivel = $_POST['removerArquivoJogavel'] ?? null;
 
   if (strlen($nome) < 3) {
     array_push($erro, "O nome do projeto é muito curto.");
   }
 
-  $projeto_rtn = editar_projeto($usuario->id, $id, $nome, $descricao, $arquivos, $remover, $ordem);
-  if (is_string($projeto)) {
-    array_push($erro, $projeto);
+  $projeto_rtn = editar_projeto($usuario->id, $id, $nome, $descricao, $arquivos, $remover, $ordem, $arquivoVivel, $removerArquivoVivel);
+  if (is_string($projeto_rtn)) {
+    array_push($erro, $projeto_rtn);
   }
 
   if (count($erro) == 0) {
@@ -64,7 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
     <?php if ($erro) : ?>
       <div class="erro" style="color: red; background: black; text-align: center;">
         <img src="/static/skull-and-cross.gif" width="24" height="24" />
-        <?= $erro ?>
+        <?= $erro[0] ?>
         <img src="/static/skull-and-cross.gif" width="24" height="24" />
       </div>
     <?php endif; ?>
@@ -79,9 +81,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
         <p>wtf</p>
       <?php else : ?>
         <!-- Downloadável -->
-        <?php if ($projeto->tipo == 'jg') : ?>
-          <h1>ATENÇÃO voce NÃO pode editar seus jogos *ainda* (estamos trabalhando), não toque em nada aqui para não excluir todos os seus arquivos</h1>
-        <?php endif; ?>
         <a href="/projetos/ver.php?id=<?= $id ?>"><img style="margin-left: -5px; margin-top: -5px;" src="/elementos/voltar.png"></a>
         <h1 style="text-align: center; font-style: italic;">Editando projeto</h1>
 
@@ -97,35 +96,63 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
           <textarea style="width: 97%" name="descricao" id="descricao"><?= $projeto->descricao ?></textarea>
           <br>
 
-          <label>arquivos</label>
+          <?php if ($projeto->tipo == 'jg') : ?>
+            <label for="arquivoJogavel">mudar arquivo de seu jogo para navegadores</label>
+            <p>Deixe em branco para deixar o mesmo arquivo que está agora.</p>
+            <p>Esse arquivo deve ser:</p>
+            <ul>
+              <li>Um arquivo .swf/.sb/.sb2/.sb3 contendo seu jogo inteiro;</li>
+              <li>OU um arquivo .zip com um index.html dentro que tenha o seu jogo;</li>
+              <li>OU apenas um index.html</li>
+            </ul>
+            <input type="file" name="arquivoJogavel" id="arquivoJogavel" accept=".swf,.zip,.html,.sb,.sb2,.sb3">
+            <p>Limite: <b>1GB</b></p>
+
+            <input type="checkbox" name="removerArquivoJogavel" id="removerArquivoJogavel" onchange="
+              if (this.checked) {
+                document.getElementById('arquivoJogavel').setAttribute('disabled', 'disabled');
+              } else {
+                document.getElementById('arquivoJogavel').removeAttribute('disabled');
+              }">
+            <label for="removerArquivoJogavel" style="display: inline-block; font-size: 12px;">remover arquivo jogável</label>
+          <?php endif; ?>
+
+          <label>arquivos <?= $projeto->tipo == 'jg' ? 'downloadáveis do seu jogo' : '' ?></label>
           <input type="hidden" name="ordem" value="<?= $projeto->arquivos_de_vdd ?>">
           <div id="multiFileUploader" style="margin-bottom: 10px;">
             <ul class="files">
-              <?php foreach (explode('\n', $projeto->arquivos_de_vdd) as $i => $arquivo) : ?>
-                <li data-filename="<?= $arquivo ?>">
-                  <p style="width: 253px; margin: 0; display: inline-block"><?= $arquivo ?></p>
-                  <button type="button" class="coolButt vermelho" onclick="
+              <?php if ($projeto->arquivos_de_vdd != '') : ?>
+                <?php foreach (explode('\n', $projeto->arquivos_de_vdd) as $i => $arquivo) : ?>
+                  <li data-filename="<?= $arquivo ?>">
+                    <p style="width: 253px; margin: 0; display: inline-block"><?= $arquivo ?></p>
+                    <button type="button" class="coolButt vermelho" onclick="
+                    <?php if ($projeto->tipo != 'jg') : ?>
                     if (this.parentElement.parentElement.children.length > 1) {
+                    <?php endif; ?>
                       marcarParaRemoção(this.parentElement);
                       recalcularOrdem()
+                    <?php if ($projeto->tipo != 'jg') : ?>
                     }
+                    <?php endif; ?>
+                    // eu me recuso
                   ">Remover</button>
-                  <button type="button" class="coolButt" onclick="
+                    <button type="button" class="coolButt" onclick="
                     var prev = this.parentElement.previousElementSibling;
                     if (prev) {
                       prev.before(this.parentElement);
                       recalcularOrdem();
                     }
                   ">^</button>
-                  <button type="button" class="coolButt" onclick="
+                    <button type="button" class="coolButt" onclick="
                     var next = this.parentElement.nextElementSibling;
                     if (next) {
                       next.after(this.parentElement);
                       recalcularOrdem();
                     }
                   ">v</button>
-                </li>
-              <?php endforeach ?>
+                  </li>
+                <?php endforeach ?>
+              <?php endif ?>
             </ul>
             <button class="coolButt grandissimo" type="button" onclick="addMais1()">+ Adicionar mais um</button>
           </div>
@@ -138,11 +165,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
           <li data-filename="">
             <input type="file" name="arquivos[]" id="arquivos" required onchange="this.parentElement.setAttribute('data-filename', this.files[0].name); recalcularOrdem()">
             <button type="button" class="coolButt vermelho" onclick="
+              <?php if ($projeto->tipo != 'jg') : ?>
               if (this.parentElement.parentElement.children.length > 1) {
+              <?php endif; ?>
                 if (!confirm('Tem certeza que deseja remover este arquivo?')) return;
                 this.parentElement.remove()
                 recalcularOrdem()
+              <?php if ($projeto->tipo != 'jg') : ?>
               }
+              <?php endif; ?>
+              // ^ esse código tem ALMA tambpen (ver php para entender piada: https://github.com/neontflame/Especulamente-Redesign/blob/main/projetos/editar.php)
             ">Remover</button>
             <button type="button" class="coolButt" onclick="
               var prev = this.parentElement.previousElementSibling;

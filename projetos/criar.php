@@ -61,7 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
     <?php if ($erro) : ?>
       <div class="erro" style="color: red; background: black; text-align: center;">
         <img src="/static/skull-and-cross.gif" width="24" height="24" />
-        <?= $erro ?>
+        <?= $erro[0] ?>
         <img src="/static/skull-and-cross.gif" width="24" height="24" />
       </div>
     <?php endif; ?>
