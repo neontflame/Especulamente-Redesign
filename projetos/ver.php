@@ -40,7 +40,7 @@ if (isset($usuario)) {
       <?php endif ?>
 
       <h1><i><?= $projeto->nome ?></i></h1>
-      <p>por <a href=""><?= usuario_requestIDator($projeto->id_criador)->username ?></a></p>
+      <p>por <a href="/usuarios/<?= usuario_requestIDator($projeto->id_criador)->username ?>"><?= usuario_requestIDator($projeto->id_criador)->username ?></a></p>
     </div>
     <div class="inside_page_content">
       <?php if ($projeto->tipo == 'jg') : ?>
