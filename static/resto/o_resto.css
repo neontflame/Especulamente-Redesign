@@ -1,0 +1,48 @@
+﻿/* CSS layout */
+body {
+  margin: auto;
+  padding: 0px;
+}
+
+#masthead {
+  background-image: url("header/headerBagulhoEspecifico.png");
+  height: 24px;
+}
+
+#insideMasthead {
+  width: 633px;
+  margin: auto;
+}
+
+#insideMasthead .link {
+  float: left;
+  display: inline;
+}
+
+#insideMasthead .link a {
+  vertical-align: middle;
+  color: #ffffff;
+  font-family: "Verdana";
+  font-weight: bold;
+  font-size: 12px;
+  margin-left: 32px;
+  text-decoration: none;
+}
+
+#insideMasthead .twoink {
+  float: right;
+  display: inline;
+}
+
+#insideMasthead .twoink a {
+  vertical-align: middle;
+  color: #ffffff;
+  font-family: "Verdana";
+  font-weight: bold;
+  font-size: 12px;
+  margin-left: 8px;
+  text-decoration: none;
+}
+
+#page_content {
+}
