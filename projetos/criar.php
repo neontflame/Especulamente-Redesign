@@ -20,15 +20,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
     if ($tipo == 'dl') {
       $arquivos = $_FILES['arquivos'];
 
-      $projeto = criar_projeto($usuario->id, $nome, $descricao, $tipo, $arquivos, null);
+      $projeto = criar_projeto($usuario->id, $nome, $descricao, $tipo, $arquivos, null, null);
       if (is_string($projeto)) {
         array_push($erro, $projeto);
       }
     } else if ($tipo == 'jg') {
       $arquivoJogavel = $_FILES['arquivoJogavel'];
+      $thumb = $_FILES['thumb'];
       $arquivos = $_FILES['arquivos'];
 
-      $projeto = criar_projeto($usuario->id, $nome, $descricao, $tipo, $arquivos, $arquivoJogavel);
+      $projeto = criar_projeto($usuario->id, $nome, $descricao, $tipo, $arquivos, $arquivoJogavel, $thumb);
       if (is_string($projeto)) {
         array_push($erro, $projeto);
       }
@@ -106,15 +107,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
         <form action="/projetos/criar.php" method="post" enctype="multipart/form-data">
           <input type="hidden" name="tipo" value="dl">
 
-          <label for="nome">nome do downloadável</label>
+          <label for="nome" class="labelManeira">>> NOME</label>
           <input type="text" style="width: 97%" id="nome" name="nome" required>
           <br>
 
-          <label for="descricao">descrição do seu downloadável</label>
+          <label for="descricao" class="labelManeira">>> DESCRIÇÃO</label>
           <textarea style="width: 97%" name="descricao" id="descricao"></textarea>
           <br>
-
-          <label for="arquivos">arquivos de seu downloadável</label>
+			<div class="separador"></div>
+          <label for="arquivos" class="labelManeira">>> ARQUIVOS</label>
           <div id="multiFileUploader" style="margin-bottom: 10px;">
             <ul class="files">
 
@@ -134,15 +135,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
         <form action="/projetos/criar.php" method="post" enctype="multipart/form-data">
           <input type="hidden" name="tipo" value="jg">
 
-          <label for="nome">nome do jogo</label>
+          <label for="nome" class="labelManeira">>> NOME</label>
           <input type="text" style="width: 97%" id="nome" name="nome" required>
           <br>
 
-          <label for="descricao">descrição do seu jogo</label>
+          <label for="descricao" class="labelManeira">>> DESCRIÇÃO</label>
           <textarea style="width: 97%" name="descricao" id="descricao"></textarea>
           <br>
-
-          <label for="arquivoJogavel">arquivo de seu jogo para navegadores</label>
+			<div class="separador"></div>
+          <label for="arquivoJogavel" class="labelManeira">>> ARQUIVO PRA NAVEGADORES</label>
           <p>Esse arquivo deve ser:</p>
           <ul>
             <li>Um arquivo .swf/.sb/.sb2/.sb3 contendo seu jogo inteiro;</li>
@@ -152,10 +153,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
           <p>Se o seu jogo não rodar em navegador, deixe em branco.</p>
           <input type="file" name="arquivoJogavel" id="arquivoJogavel" accept=".swf,.zip,.html,.sb,.sb2,.sb3">
           <p>Limite: <b>1GB</b></p>
-
+		  
+			<div class="separador"></div>
+		  <label for="arquivoJogavel" class="labelManeira">>> THUMBNAIL</label>
+		  <p>A resolução dessa imagem pode ser qualquer uma, mas preferencialmente 92x76!</p>
+          <input type="file" name="thumb" id="thumb" accept=".png,.jpg,.jpeg,.gif,.bmp">
           <!-- ^ esse código tem ALMA -->
-
-          <label for="arquivos">arquivos downloadáveis do seu jogo</label>
+		
+			<div class="separador"></div>
+			
+          <label for="arquivos" class="labelManeira">>> ARQUIVOS DOWNLOADÁVEIS</label>
           <p>CASO o seu jogo possa ser baixado, ou tenha versão baixável, ou seja apenas baixável, suba aqui. Caso contrário, deixe em branco</p>
           <div id="multiFileUploader" style="margin-bottom: 10px;">
             <ul class="files">

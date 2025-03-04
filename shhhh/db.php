@@ -85,7 +85,7 @@ function daveitem_requestIDator($id)
 	return $dav;
 }
 // Retorna o número de páginas (agora tweaked pra ter suporte pra DaveItens)
-function coisos_tudo(&$array, $table, $page = 1, $searchy = '', $perPage = 10)
+function coisos_tudo(&$array, $table, $page = 1, $searchy = '', $queryAdicional = '', $perPage = 10)
 {
 	global $db;
 
@@ -104,7 +104,7 @@ function coisos_tudo(&$array, $table, $page = 1, $searchy = '', $perPage = 10)
 	$pages = ceil($count / $perPage);
 	$offset = ($page - 1) * $perPage;
 
-	$rows = $db->prepare("SELECT * FROM " . $table . $searchQuery . " ORDER BY id DESC LIMIT ? OFFSET ?");
+	$rows = $db->prepare("SELECT * FROM " . $table . $searchQuery . $queryAdicional . " ORDER BY id DESC LIMIT ? OFFSET ?");
 	$rows->bindParam(1, $perPage, PDO::PARAM_INT);
 	$rows->bindParam(2, $offset, PDO::PARAM_INT);
 	$rows->execute();
@@ -236,11 +236,14 @@ function subir_arquivo($file, $pasta, $tabela, $id, $coluna, $extensoes_permitid
 		$rows->bindParam(1, $id);
 		$rows->execute();
 		$old_file = $rows->fetch(PDO::FETCH_OBJ)->$coluna;
-		if (!empty($old_file)) {
+		if (!empty($old_file) && file_exists($_SERVER['DOCUMENT_ROOT'] . $pasta . $old_file)) {
 			unlink($_SERVER['DOCUMENT_ROOT'] . $pasta . $old_file);
 		}
 	}
-
+	// so pra ter certeza
+	if (!file_exists($_SERVER['DOCUMENT_ROOT'] . $pasta)) {
+		mkdir($_SERVER['DOCUMENT_ROOT'] . $pasta);
+	}
 	// Sube arquivo novo
 	$filename = uniqid() . '.' . $extension;
 	$file_path = $_SERVER['DOCUMENT_ROOT'] . $pasta . $filename;
@@ -509,7 +512,7 @@ function desreagir($id_reator, $id_reagido, $tipo_de_reagido, $tipo_de_reacao)
 }
 
 // Arquivo vivel == o arquivo do jogo q roda no navegador
-function criar_projeto($id_criador, $nome, $descricao, $tipo, $arquivos, $arquivoVivel)
+function criar_projeto($id_criador, $nome, $descricao, $tipo, $arquivos, $arquivoVivel, $thumb)
 {
 	global $db;
 
@@ -531,7 +534,8 @@ function criar_projeto($id_criador, $nome, $descricao, $tipo, $arquivos, $arquiv
 	$id = $db->lastInsertId();
 
 	mkdir($_SERVER['DOCUMENT_ROOT'] . '/static/projetos/' . $id);
-
+	mkdir($_SERVER['DOCUMENT_ROOT'] . '/static/projetos/' . $id . '/thumb');
+	
 	if ($arquivos != null) {
 		$rtn = subir_arquivoses($arquivos, '/static/projetos/' . $id, "projetos", $id, "arquivos", [], 1024 * 1024 * 1024, 50);
 		if (is_string($rtn)) {
@@ -541,6 +545,13 @@ function criar_projeto($id_criador, $nome, $descricao, $tipo, $arquivos, $arquiv
 
 	if ($arquivoVivel != null) {
 		$rtn = subir_arquivo_vivel($arquivoVivel, $id, $id_criador);
+		if (is_string($rtn)) {
+			return $rtn;
+		}
+	}
+	
+	if ($thumb != null) {
+		$rtn = subir_arquivo($thumb, '/static/projetos/' . $id . '/thumb', "projetos", $id, "thumbnail", ["png", "gif", "jpg", "jpeg", "bmp"], 1024 * 1024 * 10); //nao tem como uma imagem ser maior que 10 mb
 		if (is_string($rtn)) {
 			return $rtn;
 		}
@@ -592,7 +603,7 @@ function subir_arquivo_vivel($arquivoVivel, $id, $id_criador)
 }
 
 // Arquivo vivel == o arquivo do jogo q roda no navegador
-function editar_projeto($id_criador, $id_projeto, $nome, $descricao, $arquivos_novos, $remover, $ordem, $arquivoVivel, $removerArquivoVivel)
+function editar_projeto($id_criador, $id_projeto, $nome, $descricao, $arquivos_novos, $remover, $ordem, $arquivoVivel, $removerArquivoVivel, $thumb, $removerThumb)
 {
 	global $db;
 
@@ -703,7 +714,32 @@ function editar_projeto($id_criador, $id_projeto, $nome, $descricao, $arquivos_n
 			}
 		}
 	}
-
+	
+	// <AGORA DENOVO></AGORA DENOVO>: thumbnailery
+	// nao tem copilot no notepad++ entao nao da pra fazer o <c></c>oiso
+	$rows = $db->prepare("SELECT thumbnail FROM projetos WHERE id = ?");
+	$rows->bindParam(1, $id_projeto);
+	$rows->execute();
+	$row = $rows->fetch(PDO::FETCH_OBJ);
+	$thumbestNail = $row->thumbnail;
+	
+	if ($removerThumb) {
+		if (file_exists($_SERVER['DOCUMENT_ROOT'] . '/static/projetos/' . $id_projeto . '/thumb/' . $thumbestNail)) {
+			unlink($_SERVER['DOCUMENT_ROOT'] . '/static/projetos/' . $id_projeto . '/thumb/' . $thumbestNail);
+		}
+		$rows = $db->prepare("UPDATE projetos SET thumbnail = '' WHERE id_criador = ? AND id = ?");
+		$rows->bindParam(1, $id_criador);
+		$rows->bindParam(2, $id_projeto);
+		$rows->execute();
+	} else {
+		if ($thumb['size'] > 0) {
+			$rtn = subir_arquivo($thumb, '/static/projetos/' . $id_projeto . '/thumb', "projetos", $id_projeto, "thumbnail", ["png", "gif", "jpg", "jpeg", "bmp"], 1024 * 1024 * 10); //nao tem como uma imagem ser maior que 10 mb
+			if (is_string($rtn) && str_starts_with($rtn, "§")) {
+				return substr($rtn, 1);
+			}
+		}
+	}
+	
 	return projeto_requestIDator($id_projeto);
 }
 

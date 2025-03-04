@@ -25,8 +25,9 @@ $char = $chars[array_rand($chars)];
     <a href="https://feldspargamer.github.io/AssociaDouga/index.html"><img src="/elementos/footer/associates.png"></a>
     <br />
     <br />
-    <a href="">TERMOS DE USO</a> -
-    <a href="">REGRAS PARA PESTINHAS COMO VOCÊ</a> - <a href="/creditos.php">CRÉDITOS</a>
+    <a href="/termos.php">TERMOS DE USO</a> -
+    <a href="/regras.php">REGRAS PARA PESTINHAS COMO VOCÊ</a> - 
+	<a href="/creditos.php">CRÉDITOS</a>
   </div>
   <img id="character" src="/elementos/footer/chars/<?= $char ?>" />
 </div>

@@ -184,6 +184,18 @@ a img {
   text-decoration: underline;
 }
 
+.separador {
+  border-top: 1px solid #9ebbff;
+  margin-top: 8px;
+  margin-right: 6px;
+}
+
+.labelManeira {
+  font-style: italic;
+  color: #9EBBFF;
+  text-shadow: aliceblue 4px 0;
+}
+
 /* woaw botoes ! */
 
 .coolButt {

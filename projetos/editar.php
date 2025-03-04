@@ -29,12 +29,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
   $ordem = $_POST['ordem'];
   $arquivoVivel = $_FILES['arquivoJogavel'] ?? [];
   $removerArquivoVivel = $_POST['removerArquivoJogavel'] ?? null;
+  
+  $thumb = $_FILES['thumb'] ?? [];
+  $removerThumb = $_POST['removerThumb'] ?? null;
 
   if (strlen($nome) < 3) {
     array_push($erro, "O nome do projeto é muito curto.");
   }
 
-  $projeto_rtn = editar_projeto($usuario->id, $id, $nome, $descricao, $arquivos, $remover, $ordem, $arquivoVivel, $removerArquivoVivel);
+  $projeto_rtn = editar_projeto($usuario->id, $id, $nome, $descricao, $arquivos, $remover, $ordem, $arquivoVivel, $removerArquivoVivel, $thumb, $removerThumb);
   if (is_string($projeto_rtn)) {
     array_push($erro, $projeto_rtn);
   }
@@ -88,16 +91,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
           <input type="hidden" name="tipo" value="<?= $projeto->tipo ?>">
           <input type="hidden" name="id" value="<?= $projeto->id ?>">
 
-          <label for="nome">nome</label>
+          <label for="nome" class="labelManeira">>> NOME</label>
           <input type="text" style="width: 97%" id="nome" name="nome" value="<?= $projeto->nome ?>" required>
           <br>
 
-          <label for="descricao">descrição</label>
+          <label for="descricao" class="labelManeira">>> DESCRIÇÃO</label>
           <textarea style="width: 97%" name="descricao" id="descricao"><?= $projeto->descricao ?></textarea>
           <br>
-
+		  
+		<div class="separador"></div>
           <?php if ($projeto->tipo == 'jg') : ?>
-            <label for="arquivoJogavel">mudar arquivo de seu jogo para navegadores</label>
+            <label for="arquivoJogavel" class="labelManeira">>> ARQUIVO DO JOGO</label>
             <p>Deixe em branco para deixar o mesmo arquivo que está agora.</p>
             <p>Esse arquivo deve ser:</p>
             <ul>
@@ -107,7 +111,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
             </ul>
             <input type="file" name="arquivoJogavel" id="arquivoJogavel" accept=".swf,.zip,.html,.sb,.sb2,.sb3">
             <p>Limite: <b>1GB</b></p>
-
+			
             <input type="checkbox" name="removerArquivoJogavel" id="removerArquivoJogavel" onchange="
               if (this.checked) {
                 document.getElementById('arquivoJogavel').setAttribute('disabled', 'disabled');
@@ -115,9 +119,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
                 document.getElementById('arquivoJogavel').removeAttribute('disabled');
               }">
             <label for="removerArquivoJogavel" style="display: inline-block; font-size: 12px;">remover arquivo jogável</label>
+			
+			<div class="separador"></div>
+			
+			<label for="arquivoJogavel" class="labelManeira">>> THUMBNAIL</label>
+			<input type="file" name="thumb" id="thumb" accept=".png,.jpg,.jpeg,.gif,.bmp">
+			
+            <p>Novamente, deixe em branco para deixar a mesma thumbnail que está agora.</p>
+
+            <input type="checkbox" name="removerThumb" id="removerThumb" onchange="
+              if (this.checked) {
+                document.getElementById('thumb').setAttribute('disabled', 'disabled');
+              } else {
+                document.getElementById('thumb').removeAttribute('disabled');
+              }">
+            <label for="removerThumb" style="display: inline-block; font-size: 12px;">remover thumbnail</label>
+			
+			<div class="separador"></div>
           <?php endif; ?>
 
-          <label>arquivos <?= $projeto->tipo == 'jg' ? 'downloadáveis do seu jogo' : '' ?></label>
+          <label class="labelManeira">>> ARQUIVOS <?= $projeto->tipo == 'jg' ? 'DOWNLOADÁVEIS' : '' ?></label>
           <input type="hidden" name="ordem" value="<?= $projeto->arquivos_de_vdd ?>">
           <div id="multiFileUploader" style="margin-bottom: 10px;">
             <ul class="files">
