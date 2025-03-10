@@ -20,7 +20,7 @@ if ($query != '') {
 <div class="container">
   <?php include $_SERVER['DOCUMENT_ROOT'] . '/elementos/sidebar/sidebar.php'; ?>
 
-  <img src="/elementos/pagetitles/projetos.png" class="inside_page_content" style="padding: 0px; margin-left: 4px; margin-bottom: 7px;">
+  <img src="/elementos/pagetitles/jogos.png" class="inside_page_content" style="padding: 0px; margin-left: 4px; margin-bottom: 7px;">
 
   <div class="page_content" style="min-height: 486px;">
     <div class="inside_page_content">
