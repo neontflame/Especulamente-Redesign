@@ -339,7 +339,7 @@ a.coolButt {
 
 /* holy fucking imagens */
 #imagemAtual {
-  height: 480px;
+  max-width: 620px;
   margin: auto;
   display: block;
 }
