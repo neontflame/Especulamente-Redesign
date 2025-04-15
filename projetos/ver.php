@@ -103,7 +103,7 @@ if (isset($usuario)) {
 			<?php if ($projeto->tipo == 'md') : ?>
 				<!-- midia -->
 				<div class="vedorDImagem">
-					<img src="/elementos/chillmaia.png" id="imagemAtual">
+					<img src="/elementos/chillmaia.png" id="imagemAtual" onclick="window.open(this.src, '_blank').focus();">
 					
 					<br>
 					
