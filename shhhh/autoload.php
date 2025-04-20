@@ -1,4 +1,5 @@
 <?php
+include $_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php';
 include $_SERVER['DOCUMENT_ROOT'] . '/shhhh/config.php';
 include $_SERVER['DOCUMENT_ROOT'] . '/shhhh/db.php';
 include $_SERVER['DOCUMENT_ROOT'] . '/shhhh/login_coisos.php';

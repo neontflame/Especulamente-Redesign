@@ -157,12 +157,13 @@ $perfil_e_meu = $usuario ? ($usuario->id == $perfil->id) : false;
     <?php endif; ?>
 
     <div class="inside_page_content">
+      <h1 style="margin: 0;"><?= $perfil->username ?></h1>
       <!-- Bio -->
       <?php if ($perfil_e_meu) : ?>
         <button class="bioEditavel" onclick="form_bio.style.display = 'block'; bio.style.display = 'none'">
         <?php endif; ?>
 
-        <p id="bio" style="margin-top: 0px; white-space: pre-line;"><?= htmlspecialchars($perfil->bio) ?></p>
+        <p id="bio" style="margin-top: 0px; white-space: pre-line;"><?= responde_clickers($perfil->bio) ?></p>
 
         <?php if ($perfil_e_meu) : ?>
         </button>
@@ -173,8 +174,6 @@ $perfil_e_meu = $usuario ? ($usuario->id == $perfil->id) : false;
           </button>
         </form>
       <?php endif; ?>
-
-      <h1><?= $perfil->username ?></h1>
       <p>Esse usuário tem <?= $perfil->davecoins ?> davecoins</p>
       <?php reajor_d_reagida('perfil', $perfil, $usuario) ?>
 
