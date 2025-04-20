@@ -573,7 +573,7 @@ function criar_projeto($id_criador, $nome, $descricao, $tipo, $arquivos, $arquiv
 		file_put_contents($_SERVER['DOCUMENT_ROOT'] . '/static/projetos/' . $id . '/index.html', '<html><head><title>Meu site foda</title></head><body><h1>Coloque HTML aqui!! :]</h1></body></html>');
 	}
 
-	if ($thumb != null) {
+	if ($thumb != null && $thumb['size'] > 0) {
 		$rtn = subir_arquivo($thumb, '/static/projetos/' . $id . '/thumb', "projetos", $id, "thumbnail", ["png", "gif", "jpg", "jpeg", "bmp"], 1024 * 1024 * 10); //nao tem como uma imagem ser maior que 10 mb
 		if (is_string($rtn) && str_starts_with($rtn, "§")) {
 			return $rtn;
