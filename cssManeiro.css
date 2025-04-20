@@ -192,7 +192,7 @@ a img {
 
 .labelManeira {
   font-style: italic;
-  color: #9EBBFF;
+  color: #9ebbff;
   text-shadow: aliceblue 4px 0;
 }
 
@@ -535,7 +535,8 @@ a.coolButt {
 }
 
 .erro img {
-  margin-bottom: 32px;
+  /* grah.. FUCK your margens! 
+  /* margin-bottom: 32px; */
 }
 
 .erro h1 {

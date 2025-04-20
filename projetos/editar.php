@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
   $ordem = $_POST['ordem'];
   $arquivoVivel = $_FILES['arquivoJogavel'] ?? [];
   $removerArquivoVivel = $_POST['removerArquivoJogavel'] ?? null;
-  
+
   $thumb = $_FILES['thumb'] ?? [];
   $removerThumb = $_POST['removerThumb'] ?? null;
 
@@ -98,9 +98,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
           <label for="descricao" class="labelManeira">>> DESCRIÇÃO</label>
           <textarea style="width: 97%" name="descricao" id="descricao"><?= $projeto->descricao ?></textarea>
           <br>
-		  
-		<div class="separador"></div>
+
           <?php if ($projeto->tipo == 'jg') : ?>
+            <div class="separador"></div>
             <label for="arquivoJogavel" class="labelManeira">>> ARQUIVO DO JOGO</label>
             <p>Deixe em branco para deixar o mesmo arquivo que está agora.</p>
             <p>Esse arquivo deve ser:</p>
@@ -111,7 +111,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
             </ul>
             <input type="file" name="arquivoJogavel" id="arquivoJogavel" accept=".swf,.zip,.html,.sb,.sb2,.sb3">
             <p>Limite: <b>1GB</b></p>
-			
+
             <input type="checkbox" name="removerArquivoJogavel" id="removerArquivoJogavel" onchange="
               if (this.checked) {
                 document.getElementById('arquivoJogavel').setAttribute('disabled', 'disabled');
@@ -119,13 +119,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
                 document.getElementById('arquivoJogavel').removeAttribute('disabled');
               }">
             <label for="removerArquivoJogavel" style="display: inline-block; font-size: 12px;">remover arquivo jogável</label>
-			
-			<div class="separador"></div>
-			
-			<label for="arquivoJogavel" class="labelManeira">>> THUMBNAIL</label>
-			<input type="file" name="thumb" id="thumb" accept=".png,.jpg,.jpeg,.gif,.bmp">
-			
-            <p>Novamente, deixe em branco para deixar a mesma thumbnail que está agora.</p>
+
+          <?php endif; ?>
+
+          <?php if ($projeto->tipo == 'jg' || $projeto->tipo == 'rt') : ?>
+            <div class="separador"></div>
+            <label for="thumb" class="labelManeira">>> THUMBNAIL</label>
+            <input type="file" name="thumb" id="thumb" accept=".png,.jpg,.jpeg,.gif,.bmp">
+
+            <p>Deixe em branco para deixar a mesma thumbnail que está agora.</p>
 
             <input type="checkbox" name="removerThumb" id="removerThumb" onchange="
               if (this.checked) {
@@ -134,19 +136,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
                 document.getElementById('thumb').removeAttribute('disabled');
               }">
             <label for="removerThumb" style="display: inline-block; font-size: 12px;">remover thumbnail</label>
-			
-			<div class="separador"></div>
+
           <?php endif; ?>
 
-          <label class="labelManeira">>> ARQUIVOS <?= $projeto->tipo == 'jg' ? 'DOWNLOADÁVEIS' : '' ?></label>
-          <input type="hidden" name="ordem" value="<?= $projeto->arquivos_de_vdd ?>">
-          <div id="multiFileUploader" style="margin-bottom: 10px;">
-            <ul class="files">
-              <?php if ($projeto->arquivos_de_vdd != '') : ?>
-                <?php foreach (explode('\n', $projeto->arquivos_de_vdd) as $i => $arquivo) : ?>
-                  <li data-filename="<?= $arquivo ?>">
-                    <p style="width: 253px; margin: 0; display: inline-block"><?= $arquivo ?></p>
-                    <button type="button" class="coolButt vermelho" onclick="
+          <?php if ($projeto->tipo != 'rt'): ?>
+            <div class="separador"></div>
+            <label class="labelManeira">>> ARQUIVOS <?= $projeto->tipo == 'jg' ? 'DOWNLOADÁVEIS' : '' ?></label>
+            <input type="hidden" name="ordem" value="<?= $projeto->arquivos_de_vdd ?>">
+            <div id="multiFileUploader" style="margin-bottom: 10px;">
+              <ul class="files">
+                <?php if ($projeto->arquivos_de_vdd != '') : ?>
+                  <?php foreach (explode('\n', $projeto->arquivos_de_vdd) as $i => $arquivo) : ?>
+                    <li data-filename="<?= $arquivo ?>">
+                      <p style="width: 253px; margin: 0; display: inline-block"><?= $arquivo ?></p>
+                      <button type="button" class="coolButt vermelho" onclick="
                     <?php if ($projeto->tipo != 'jg') : ?>
                     if (this.parentElement.parentElement.children.length > 1) {
                     <?php endif; ?>
@@ -157,28 +160,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
                     <?php endif; ?>
                     // eu me recuso
                   ">Remover</button>
-                    <button type="button" class="coolButt" onclick="
+                      <button type="button" class="coolButt" onclick="
                     var prev = this.parentElement.previousElementSibling;
                     if (prev) {
                       prev.before(this.parentElement);
                       recalcularOrdem();
                     }
                   ">^</button>
-                    <button type="button" class="coolButt" onclick="
+                      <button type="button" class="coolButt" onclick="
                     var next = this.parentElement.nextElementSibling;
                     if (next) {
                       next.after(this.parentElement);
                       recalcularOrdem();
                     }
                   ">v</button>
-                  </li>
-                <?php endforeach ?>
-              <?php endif ?>
-            </ul>
-            <button class="coolButt grandissimo" type="button" onclick="addMais1()">+ Adicionar mais um</button>
-          </div>
+                    </li>
+                  <?php endforeach ?>
+                <?php endif ?>
+              </ul>
+              <button class="coolButt grandissimo" type="button" onclick="addMais1()">+ Adicionar mais um</button>
+            </div>
+          <?php endif; ?>
 
-          <button type="submit" class="coolButt verde grandissimo">Editar</button>
+          <?php if ($projeto->tipo == 'rt'): ?>
+            <a href="/gerenciator/index.php?pasta=<?= $projeto->arquivos_de_vdd ?>" target="_blank" class="coolButt grandissimo" style="font-size: 30px; margin-bottom: 20px">Editar site!!!</a>
+          <?php endif; ?>
+
+          <button type="submit" class="coolButt verde grandissimo">Salvar mudanças</button>
         </form>
         <a href="/projetos/deletar.php?id=<?= $projeto->id ?>" class="coolButt vermelho grandissimo">DELETAR PROJETO ???!?</a>
 

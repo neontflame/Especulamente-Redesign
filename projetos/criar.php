@@ -20,19 +20,43 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
     if ($tipo == 'dl') {
       $arquivos = $_FILES['arquivos'];
 
-      $projeto = criar_projeto($usuario->id, $nome, $descricao, $tipo, $arquivos, null, null);
-      if (is_string($projeto)) {
-        array_push($erro, $projeto);
+      if (count($erro) == 0) {
+        $projeto = criar_projeto($usuario->id, $nome, $descricao, $tipo, $arquivos, null, null);
+        if (is_string($projeto)) {
+          array_push($erro, $projeto);
+        }
       }
     } else if ($tipo == 'jg') {
       $arquivoJogavel = $_FILES['arquivoJogavel'];
       $thumb = $_FILES['thumb'];
       $arquivos = $_FILES['arquivos'];
 
-      $projeto = criar_projeto($usuario->id, $nome, $descricao, $tipo, $arquivos, $arquivoJogavel, $thumb);
-      if (is_string($projeto)) {
-        array_push($erro, $projeto);
+      if (count($erro) == 0) {
+        $projeto = criar_projeto($usuario->id, $nome, $descricao, $tipo, $arquivos, $arquivoJogavel, $thumb);
+        if (is_string($projeto)) {
+          array_push($erro, $projeto);
+        }
       }
+    } else if ($tipo == 'rt') {
+      $pasta = $_POST['pasta'];
+      $thumb = $_FILES['thumb'];
+
+      if (strlen($pasta) < 3) {
+        array_push($erro, "O nome da pasta é muito curto.");
+      }
+
+      if (!preg_match('/^[a-zA-Z0-9_-]+$/', $pasta)) {
+        array_push($erro, "NÃO use acentos, nem espaços, nem caracteres especiais.");
+      }
+
+      if (count($erro) == 0) {
+        $projeto = criar_projeto($usuario->id, $nome, $descricao, $tipo, $pasta, null, $thumb);
+        if (is_string($projeto)) {
+          array_push($erro, $projeto);
+        }
+      }
+    } else {
+      array_push($erro, "Tipo de projeto inválido.");
     }
 
     if (count($erro) == 0) {
@@ -95,7 +119,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
         </a>
       <?php endif; ?>
 
-      <?php if ($tipo == 'md' || $tipo == 'bg' || $tipo == 'rt') : ?>
+      <?php if ($tipo == 'md' || $tipo == 'bg') : ?>
         <h1 style="text-align: center; font-style: italic; font-weight: normal;">isso ainda nao existe :(</h1>
       <?php endif; ?>
 
@@ -108,13 +132,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
           <input type="hidden" name="tipo" value="dl">
 
           <label for="nome" class="labelManeira">>> NOME</label>
-          <input type="text" style="width: 97%" id="nome" name="nome" required>
+          <input type="text" style="width: 97%" id="nome" name="nome" required value="<?= $nome ?? "" ?>">
           <br>
 
           <label for="descricao" class="labelManeira">>> DESCRIÇÃO</label>
-          <textarea style="width: 97%" name="descricao" id="descricao"></textarea>
+          <textarea style="width: 97%" name="descricao" id="descricao"><?= $descricao ?? "" ?></textarea>
           <br>
-			<div class="separador"></div>
+          <div class="separador"></div>
           <label for="arquivos" class="labelManeira">>> ARQUIVOS</label>
           <div id="multiFileUploader" style="margin-bottom: 10px;">
             <ul class="files">
@@ -136,13 +160,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
           <input type="hidden" name="tipo" value="jg">
 
           <label for="nome" class="labelManeira">>> NOME</label>
-          <input type="text" style="width: 97%" id="nome" name="nome" required>
+          <input type="text" style="width: 97%" id="nome" name="nome" required value="<?= $nome ?? "" ?>">
           <br>
 
           <label for="descricao" class="labelManeira">>> DESCRIÇÃO</label>
-          <textarea style="width: 97%" name="descricao" id="descricao"></textarea>
+          <textarea style="width: 97%" name="descricao" id="descricao"><?= $descricao ?? "" ?></textarea>
           <br>
-			<div class="separador"></div>
+          <div class="separador"></div>
           <label for="arquivoJogavel" class="labelManeira">>> ARQUIVO PRA NAVEGADORES</label>
           <p>Esse arquivo deve ser:</p>
           <ul>
@@ -153,15 +177,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
           <p>Se o seu jogo não rodar em navegador, deixe em branco.</p>
           <input type="file" name="arquivoJogavel" id="arquivoJogavel" accept=".swf,.zip,.html,.sb,.sb2,.sb3">
           <p>Limite: <b>1GB</b></p>
-		  
-			<div class="separador"></div>
-		  <label for="arquivoJogavel" class="labelManeira">>> THUMBNAIL</label>
-		  <p>A resolução dessa imagem pode ser qualquer uma, mas preferencialmente 92x76!</p>
+
+          <div class="separador"></div>
+          <label for="thumb" class="labelManeira">>> THUMBNAIL</label>
+          <p>A resolução dessa imagem pode ser qualquer uma, mas preferencialmente 92x76!</p>
           <input type="file" name="thumb" id="thumb" accept=".png,.jpg,.jpeg,.gif,.bmp">
           <!-- ^ esse código tem ALMA -->
-		
-			<div class="separador"></div>
-			
+
+          <div class="separador"></div>
+
           <label for="arquivos" class="labelManeira">>> ARQUIVOS DOWNLOADÁVEIS</label>
           <p>CASO o seu jogo possa ser baixado, ou tenha versão baixável, ou seja apenas baixável, suba aqui. Caso contrário, deixe em branco</p>
           <div id="multiFileUploader" style="margin-bottom: 10px;">
@@ -171,6 +195,40 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
             <button class="coolButt grandissimo" type="button" onclick="addMais1()">+ Adicionar mais um</button>
           </div>
           <p>Limite: <b>continua 1GB</b></p>
+
+          <button type="submit" class="coolButt verde grandissimo">Criar</button>
+        </form>
+
+
+      <?php endif; ?>
+
+      <?php if ($tipo == 'rt') : ?>
+        <!-- JÓgos -->
+        <h1 style="text-align: center; font-style: italic;">O Resto!</h1>
+        <p><i>O resto é tipo o "geocities" (seja lá oq isso seja). Aqui vc pode criar e hospedar seus PRÓPRIOS sites {html, sem php!! (nem aspx (nem ruby)) :(}</i></p>
+
+        <form action="/projetos/criar.php" method="post" enctype="multipart/form-data">
+          <input type="hidden" name="tipo" value="rt">
+
+          <label for="nome" class="labelManeira">>> NOME</label>
+          <input type="text" style="width: 97%" id="nome" name="nome" required value="<?= $nome ?? "" ?>">
+          <br>
+
+          <label for=" descricao" class="labelManeira">>> DESCRIÇÃO</label>
+          <textarea style="width: 97%" name="descricao" id="descricao"><?= $descricao ?? "" ?></textarea>
+          <br>
+
+          <label for="pasta" class="labelManeira">>> NOME DA PASTA</label>
+          <p>Sem espaços nem acentos, nem qlq coisa esquisita.</p>
+          <p>Seu site estará disponível na página /~[nome_da_pasta]</p>
+          <input type="text" style="width: 97%" id="pasta" name="pasta" required pattern="[a-zA-Z0-9_-]+" value="<?= $pasta ?? "" ?>">
+          <br>
+
+          <div class="separador"></div>
+          <label for="thumb" class="labelManeira">>> THUMBNAIL</label>
+          <p>A resolução dessa imagem pode ser qualquer uma, mas preferencialmente 92x76!</p>
+          <input type="file" name="thumb" id="thumb" accept=".png,.jpg,.jpeg,.gif,.bmp">
+          <!-- ^ esse código tem ALMA -->
 
           <button type="submit" class="coolButt verde grandissimo">Criar</button>
         </form>

@@ -68,6 +68,23 @@ function projeto_requestIDator($id)
 	return $proj;
 }
 
+// Porjtoej por arquivosdevdd
+function projeto_requestARQUIVOSDEVDDator($pasta)
+{
+	global $db;
+
+	$rows = $db->prepare("SELECT * FROM projetos WHERE arquivos_de_vdd = ?");
+	$rows->bindParam(1, $pasta);
+	$rows->execute();
+	$proj = $rows->fetch(PDO::FETCH_OBJ);
+
+	if ($proj == false) {
+		return null;
+	}
+
+	return $proj;
+}
+
 // Daveitenc por id
 function daveitem_requestIDator($id)
 {
@@ -512,14 +529,16 @@ function desreagir($id_reator, $id_reagido, $tipo_de_reagido, $tipo_de_reacao)
 }
 
 // Arquivo vivel == o arquivo do jogo q roda no navegador
+// SE o tipo for rt, $arquivos é == a $pasta
 function criar_projeto($id_criador, $nome, $descricao, $tipo, $arquivos, $arquivoVivel, $thumb)
 {
 	global $db;
 
 	// EXPLODIR HOSTINGER
-	$arquivos_de_vdd = $arquivos != null ? implode('\n', $arquivos['name']) : '';
+	// se for rt ele coloca o nome da pasta em $arquivos_de_vdd
+	$arquivos_de_vdd = ($arquivos != null && !is_string($arquivos)) ? implode('\n', $arquivos['name']) : (is_string($arquivos) ? $arquivos : null);
 
-	if ($arquivos == null && $arquivoVivel == null) {
+	if ($arquivos == null && $arquivoVivel == null && $tipo != 'rt') {
 		return "Comeram seus arquivos?";
 	}
 
@@ -535,24 +554,28 @@ function criar_projeto($id_criador, $nome, $descricao, $tipo, $arquivos, $arquiv
 
 	mkdir($_SERVER['DOCUMENT_ROOT'] . '/static/projetos/' . $id);
 	mkdir($_SERVER['DOCUMENT_ROOT'] . '/static/projetos/' . $id . '/thumb');
-	
-	if ($arquivos != null) {
-		$rtn = subir_arquivoses($arquivos, '/static/projetos/' . $id, "projetos", $id, "arquivos", [], 1024 * 1024 * 1024, 50);
-		if (is_string($rtn)) {
-			return $rtn;
+
+	if ($tipo != 'rt') {
+		if ($arquivos != null) {
+			$rtn = subir_arquivoses($arquivos, '/static/projetos/' . $id, "projetos", $id, "arquivos", [], 1024 * 1024 * 1024, 50);
+			if (is_string($rtn)) {
+				return $rtn;
+			}
 		}
+
+		if ($arquivoVivel != null) {
+			$rtn = subir_arquivo_vivel($arquivoVivel, $id, $id_criador);
+			if (is_string($rtn)) {
+				return $rtn;
+			}
+		}
+	} else {
+		file_put_contents($_SERVER['DOCUMENT_ROOT'] . '/static/projetos/' . $id . '/index.html', '<html><head><title>Meu site foda</title></head><body><h1>Coloque HTML aqui!! :]</h1></body></html>');
 	}
 
-	if ($arquivoVivel != null) {
-		$rtn = subir_arquivo_vivel($arquivoVivel, $id, $id_criador);
-		if (is_string($rtn)) {
-			return $rtn;
-		}
-	}
-	
 	if ($thumb != null) {
 		$rtn = subir_arquivo($thumb, '/static/projetos/' . $id . '/thumb', "projetos", $id, "thumbnail", ["png", "gif", "jpg", "jpeg", "bmp"], 1024 * 1024 * 10); //nao tem como uma imagem ser maior que 10 mb
-		if (is_string($rtn)) {
+		if (is_string($rtn) && str_starts_with($rtn, "§")) {
 			return $rtn;
 		}
 	}
@@ -714,7 +737,7 @@ function editar_projeto($id_criador, $id_projeto, $nome, $descricao, $arquivos_n
 			}
 		}
 	}
-	
+
 	// <AGORA DENOVO></AGORA DENOVO>: thumbnailery
 	// nao tem copilot no notepad++ entao nao da pra fazer o <c></c>oiso
 	$rows = $db->prepare("SELECT thumbnail FROM projetos WHERE id = ?");
@@ -722,7 +745,7 @@ function editar_projeto($id_criador, $id_projeto, $nome, $descricao, $arquivos_n
 	$rows->execute();
 	$row = $rows->fetch(PDO::FETCH_OBJ);
 	$thumbestNail = $row->thumbnail;
-	
+
 	if ($removerThumb) {
 		if (file_exists($_SERVER['DOCUMENT_ROOT'] . '/static/projetos/' . $id_projeto . '/thumb/' . $thumbestNail)) {
 			unlink($_SERVER['DOCUMENT_ROOT'] . '/static/projetos/' . $id_projeto . '/thumb/' . $thumbestNail);
@@ -739,7 +762,7 @@ function editar_projeto($id_criador, $id_projeto, $nome, $descricao, $arquivos_n
 			}
 		}
 	}
-	
+
 	return projeto_requestIDator($id_projeto);
 }
 

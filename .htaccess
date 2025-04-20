@@ -14,3 +14,8 @@ RedirectMatch 404 /\.shhhh.*
 RewriteEngine on
 RewriteCond %{REQUEST_URI} !^/usuarios/perfil\.php$
 RewriteRule ^usuarios/([^/]+) /usuarios/perfil.php?username=$1 [L,QSA]
+
+# Requests para /~[pasta]/[path] redirecionam para /projetos/visualizarResto.php?pasta=[pasta]&path=[path]
+# Se não houver path, redireciona para /projetos/visualizarResto.php?pasta=[pasta]
+RewriteCond %{REQUEST_URI} ^/~([^/]+)(/.*)?$ [NC]
+RewriteRule ^~([^/]+)(/.*)?$ /projetos/visualizarResto.php?pasta=$1&path=$2 [L,QSA]
