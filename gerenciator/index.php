@@ -1,6 +1,6 @@
 <?php
 //Default Configuration
-$CONFIG = '{"lang":"pt","error_reporting":false,"show_hidden":false,"hide_Cols":false,"theme":"light"}';
+$CONFIG = '{"lang":"pt","error_reporting":false,"show_hidden":false,"hide_Cols":true,"theme":"light"}';
 
 include $_SERVER['DOCUMENT_ROOT'] . '/shhhh/autoload.php';
 login_obrigatorio($usuario);
