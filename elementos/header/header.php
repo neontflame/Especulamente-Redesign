@@ -35,7 +35,7 @@ global $usuario;
         <div class="coolOrganizationy">
           <div class="coolLinkery">
             <a href="/projetos/">PROJETOS</a>
-            <a href="">JOGOS</a>
+            <a href="/jogos.php">JOGOS</a>
             <a href="">MÍDIA</a>
             <a href="">BLOGS</a>
             <a href="">"O resto..."</a>
@@ -69,7 +69,7 @@ global $usuario;
             <?php if (isset($usuario)) : ?>
               <a href="/projetos/criar.php" style="color: forestgreen;">+ CRIAR</a>
             <?php endif ?>
-            <a href="/usuarios.php">AMIGOS</a>
+            <a href="/usuarios/">AMIGOS</a>
             <a href="https://1604chan.fupi.cat" target="_blank">BOARDS</a>
           </div>
 
