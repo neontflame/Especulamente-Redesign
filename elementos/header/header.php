@@ -38,7 +38,7 @@ global $usuario;
             <a href="/jogos.php">JOGOS</a>
             <a href="">MÍDIA</a>
             <a href="">BLOGS</a>
-            <a href="">"O resto..."</a>
+            <a href="/resto.php">"O resto..."</a>
           </div>
           <form action="/projetos">
             <input type="text" id="search" name="q" placeholder="Pesquise algo lol" class="coolSearchBar" style="height: 18px; width: 200px; float:left; margin-right: 3px;" />
