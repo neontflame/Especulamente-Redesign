@@ -41,6 +41,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
       $pasta = $_POST['pasta'];
       $thumb = $_FILES['thumb'];
 
+	  $checadorDeCoiso = $db->prepare("SELECT * FROM projetos WHERE arquivos_de_vdd = ?");
+	  $checadorDeCoiso->bindParam(1, $pasta);
+	  $checadorDeCoiso->execute();
+		  
+	  if ($checadorDeCoiso->rowCount() != 0) {
+        array_push($erro, "Cadê a originalidade? Esse nome de pasta JÁ existe.");
+      }
+
       if (strlen($pasta) < 3) {
         array_push($erro, "O nome da pasta é muito curto.");
       }
