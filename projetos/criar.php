@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
       array_push($erro, "O nome do projeto é muito curto.");
     }
 
-    if ($tipo == 'dl') {
+    if ($tipo == 'dl' || $tipo == 'md') {
       $arquivos = $_FILES['arquivos'];
 
       if (count($erro) == 0) {
@@ -41,10 +41,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
       $pasta = $_POST['pasta'];
       $thumb = $_FILES['thumb'];
 
-	  $checadorDeCoiso = $db->prepare("SELECT * FROM projetos WHERE arquivos_de_vdd = ?");
-	  $checadorDeCoiso->bindParam(1, $pasta);
-	  $checadorDeCoiso->execute();
-		  
+      $checadorDeCoiso = $db->prepare("SELECT * FROM projetos WHERE arquivos_de_vdd = ?");
+      $checadorDeCoiso->bindParam(1, $pasta);
+      $checadorDeCoiso->execute();
+	  
 	  if ($checadorDeCoiso->rowCount() != 0) {
         array_push($erro, "Cadê a originalidade? Esse nome de pasta JÁ existe.");
       }
@@ -125,9 +125,53 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
         <a href="/projetos/criar.php?tipo=rt" style="text-decoration: none;">
           <img src="/elementos/projetos/resto.png" onmouseover="this.src='/elementos/projetos/resto-hover.png';" onmouseout="this.src='/elementos/projetos/resto.png';">
         </a>
-      <?php endif; ?>
+		
+		<?php 
+		$projetos = [];
+		
+		// grandes numeros para grandes coisas
+		$projejos = coisos_tudo($projetos, 'projetos', 1, null, ' WHERE id_criador = ' . $usuario->id, 10000000);
+		
+		if (count($projetos) > 0) { ?>
+		<style>
+		.itemditavel {
+			text-decoration: none; 
+			font-size: 16px;
+		}
 
-      <?php if ($tipo == 'md' || $tipo == 'bg') : ?>
+		.itemditavel:hover {
+			text-decoration: underline;
+		}
+		
+		.tipodl {
+			color: #FF003B;
+		}
+		
+		.tipojg {
+			color: #EFAF6F;
+		}
+		
+		.tipomd {
+			color: #4DC13E;
+		}
+		
+		.tipobg {
+			color: #56A5EA;
+		}
+		
+		.tiport {
+			color: #878787;
+		}
+		</style>
+		<h2 style="color: #000000; text-align: center; font-style: italic; font-weight: normal;">...ou talvez editar?</h2>
+		<?php foreach ($projetos as $projeto) :  ?>
+			<a class="itemditavel tipo<?= $projeto->tipo ?>" href="<?= $config['URL'] ?>/projetos/ver.php?id=<?= $projeto->id ?>">[<?= $projeto->tipo ?>] <?= $projeto->nome ?></a>
+			<br>
+      <?php endforeach;
+		} ?>
+	  <?php endif; ?>
+
+      <?php if ($tipo == 'bg') : ?>
         <h1 style="text-align: center; font-style: italic; font-weight: normal;">isso ainda nao existe :(</h1>
       <?php endif; ?>
 
@@ -162,7 +206,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
       <?php if ($tipo == 'jg') : ?>
         <!-- JÓgos -->
         <h1 style="text-align: center; font-style: italic;">Jogos!</h1>
-        <p><i>Esse tipo de projeto ofereece Diversão e Brincadeiras diretamente na telinha do seu microcomputador. Usuários podem Jogar.</i></p>
+        <p><i>Esse tipo de projeto oferece Diversão e Brincadeiras diretamente na telinha do seu microcomputador. Usuários podem Jogar.</i></p>
 
         <form action="/projetos/criar.php" method="post" enctype="multipart/form-data">
           <input type="hidden" name="tipo" value="jg">
@@ -209,7 +253,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 
 
       <?php endif; ?>
+	  
+      <?php if ($tipo == 'md') : ?>
+        <!-- Downloadável -->
+        <h1 style="text-align: center; font-style: italic;">Mídia!</h1>
+        <p><i>Esse tipo de projeto oferece as imagens (dentre outras coisas) que você carregar aqui como se fosse um pequeno álbum!!</i></p>
 
+        <form action="/projetos/criar.php" method="post" enctype="multipart/form-data">
+          <input type="hidden" name="tipo" value="md">
+
+          <label for="nome" class="labelManeira">>> NOME</label>
+          <input type="text" style="width: 97%" id="nome" name="nome" required value="<?= $nome ?? "" ?>">
+          <br>
+
+          <label for="descricao" class="labelManeira">>> DESCRIÇÃO</label>
+          <textarea style="width: 97%" name="descricao" id="descricao"><?= $descricao ?? "" ?></textarea>
+          <br>
+          <div class="separador"></div>
+          <label for="arquivos" class="labelManeira">>> IMAGENS E VÍDEOS</label>
+          <div id="multiFileUploader" style="margin-bottom: 10px;">
+            <ul class="files">
+
+            </ul>
+            <button class="coolButt grandissimo" type="button" onclick="addMais1()">+ Adicionar mais um</button>
+          </div>
+
+          <button type="submit" class="coolButt verde grandissimo">Criar</button>
+        </form>
+      <?php endif; ?>
+	  
       <?php if ($tipo == 'rt') : ?>
         <!-- JÓgos -->
         <h1 style="text-align: center; font-style: italic;">O Resto!</h1>
