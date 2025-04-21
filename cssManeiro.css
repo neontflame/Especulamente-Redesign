@@ -75,7 +75,7 @@ a img {
   color: #4f6bad;
   font-family: "Verdana";
   font-size: 10px;
-  padding: 20px;
+  padding: 20px 20px 0px 20px;
 }
 
 .insideBodyFooter a {
