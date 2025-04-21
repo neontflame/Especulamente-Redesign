@@ -165,7 +165,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 		</style>
 		<h2 style="color: #000000; text-align: center; font-style: italic; font-weight: normal;">...ou talvez editar?</h2>
 		<?php foreach ($projetos as $projeto) :  ?>
-			<a class="itemditavel tipo<?= $projeto->tipo ?>" href="<?= $config['URL'] ?>/projetos/ver.php?id=<?= $projeto->id ?>">[<?= $projeto->tipo ?>] <?= $projeto->nome ?></a>
+			<a class="itemditavel tipo<?= $projeto->tipo ?>" href="<?= $config['URL'] ?>/projetos/editar.php?id=<?= $projeto->id ?>">[<?= strtoupper($projeto->tipo) ?>] <?= $projeto->nome ?></a>
 			<br>
       <?php endforeach;
 		} ?>
