@@ -103,6 +103,23 @@ if (isset($usuario)) {
 			<?php if ($projeto->tipo == 'md') : ?>
 				<!-- midia -->
 				<div class="vedorDImagem">
+					<div class="pagination" style="width: 620px; margin: 0 0 0 0;">
+						<style>
+							a {
+								cursor: pointer;
+							}
+						</style>
+						<a onclick="comecoCoisa()">Início</a>
+						<p class="textinhoClaro">~</p>
+						<a onclick="anteriorCoisa()">« Anterior</a>
+						<p class="textinhoClaro">~</p>
+						<p id="paginacio">Página 1 de 2</p>
+						<p class="textinhoClaro">~</p>
+						<a onclick="proximoCoisa()">Próximo »</a>
+						<p class="textinhoClaro">~</p>
+						<a onclick="fimCoisa()">Fim</a>
+					</div>
+												  
 					<video id="videoAtual" width="620" autoplay="false" controls="true">
 					Seu navegador não tem suporte pra tag de vídeo!!
 					</video> 
@@ -118,6 +135,8 @@ if (isset($usuario)) {
 						var re = /(?:\.([^.]+))?$/; // obrigado tomalak from stack overflow
 						var projid = 0;
 						var imagens = ["img1.png", "img2.png", "img3.png"];
+						
+						var curSelected = 0;
 
 						function fazONegocioDasImagens() {
 							for (var imgcoiso = 0; imgcoiso < imagens.length; imgcoiso++) {
@@ -146,7 +165,9 @@ if (isset($usuario)) {
 						}
 
 						function clicCoiso(id) {
+							// codigo com alma ?
 							console.log('clic');
+							
 							if (tiposDeVideo.includes(re.exec(imagens[id])[1])) {
 								document.getElementById("videoAtual").style.display = "block";
 								document.getElementById("videoAtual").src = "/static/projetos/" + projid + "/" + imagens[id];
@@ -157,6 +178,15 @@ if (isset($usuario)) {
 								document.getElementById("imagemAtual").src = "/static/projetos/" + projid + "/" + imagens[id];
 								document.getElementById("imagemAtual").style.display = "block";
 							}
+							
+							var quiamsas = document.getElementsByClassName('outrasImagens')[0].children;
+
+							for (var kid = 0; kid < quiamsas.length; kid++) {
+								quiamsas[kid].className = "imagemCoiso";
+							}
+							quiamsas[id].className = "imagemCoiso desopaco";
+							
+							document.getElementById("paginacio").innerText = "Página " + (id+1) + " de " + imagens.length;
 						}
 
 
@@ -176,6 +206,31 @@ if (isset($usuario)) {
 								true
 							);
 							xhttp.send();
+						}
+						
+						// paginacios
+						function comecoCoisa() {
+							curSelected = 0;
+							clicCoiso(curSelected);
+						}
+						
+						function anteriorCoisa() {
+							if (curSelected > 0) {
+								curSelected -= 1;
+								clicCoiso(curSelected);
+							}
+						}
+						
+						function proximoCoisa() {
+							if (curSelected < imagens.length - 1) {
+								curSelected += 1;
+								clicCoiso(curSelected);
+							}
+						}
+						
+						function fimCoisa() {
+							curSelected = imagens.length - 1;
+							clicCoiso(curSelected);
 						}
 
 						carregarImagens(<?= $projeto->id ?>);
