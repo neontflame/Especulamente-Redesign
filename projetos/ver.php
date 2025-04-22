@@ -103,6 +103,9 @@ if (isset($usuario)) {
 			<?php if ($projeto->tipo == 'md') : ?>
 				<!-- midia -->
 				<div class="vedorDImagem">
+					<video id="videoAtual" width="620" autoplay="false" controls="true">
+					Seu navegador não tem suporte pra tag de vídeo!!
+					</video> 
 					<img src="/elementos/chillmaia.png" id="imagemAtual" onclick="window.open(this.src, '_blank').focus();">
 
 					<br>
@@ -111,13 +114,20 @@ if (isset($usuario)) {
 					</div>
 
 					<script>
+						var tiposDeVideo = ['mp4', 'ogg', 'avi', 'mkv'];
+						var re = /(?:\.([^.]+))?$/; // obrigado tomalak from stack overflow
 						var projid = 0;
 						var imagens = ["img1.png", "img2.png", "img3.png"];
 
 						function fazONegocioDasImagens() {
 							for (var imgcoiso = 0; imgcoiso < imagens.length; imgcoiso++) {
+								
 								var img = document.createElement("img");
-								img.src = "/static/projetos/" + projid + "/" + imagens[imgcoiso];
+								if (tiposDeVideo.includes(re.exec(imagens[imgcoiso])[1])) {
+									img.src = "/static/video_coiso.png";
+								} else {
+									img.src = "/static/projetos/" + projid + "/" + imagens[imgcoiso];
+								}
 								img.className = "imagemCoiso";
 								img.id = imgcoiso;
 								img.onclick = function() {
@@ -132,12 +142,21 @@ if (isset($usuario)) {
 								document.getElementsByClassName("outrasImagens")[0].appendChild(img);
 							}
 
-							document.getElementById("imagemAtual").src = "/static/projetos/" + projid + "/" + imagens[0];
+							clicCoiso(0);
 						}
 
 						function clicCoiso(id) {
 							console.log('clic');
-							document.getElementById("imagemAtual").src = "/static/projetos/" + projid + "/" + imagens[id];
+							if (tiposDeVideo.includes(re.exec(imagens[id])[1])) {
+								document.getElementById("videoAtual").style.display = "block";
+								document.getElementById("videoAtual").src = "/static/projetos/" + projid + "/" + imagens[id];
+								document.getElementById("imagemAtual").style.display = "none";
+							} else {
+								document.getElementById("videoAtual").pause();
+								document.getElementById("videoAtual").style.display = "none";
+								document.getElementById("imagemAtual").src = "/static/projetos/" + projid + "/" + imagens[id];
+								document.getElementById("imagemAtual").style.display = "block";
+							}
 						}
 
 
@@ -179,7 +198,7 @@ if (isset($usuario)) {
 		</div>
 
 		<div class="inside_page_content" style="margin-top: 8px; margin-bottom: 8px;">
-			<div class="descricao" style="white-space:pre-line"><?= $projeto->descricao ?></div>
+			<div class="descricao" style="white-space:pre-line"><?= responde_clickers($projeto->descricao) ?></div>
 			<?php reajor_d_reagida('projeto', $projeto, $usuario) ?>
 		</div>
 

@@ -4,7 +4,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/shhhh/autoload.php';
 
 <?php
 // isso aqui e uma api Ok !
-$tipos = array('.png', '.bmp', '.jpg', 'jpeg', '.gif', '.PNG', '.BMP', '.JPG', 'JPEG', '.GIF');
+$tipos = array('.png', '.bmp', '.jpg', 'jpeg', '.gif', '.mp4');
 
 if (!isset($_GET['id'])) {
 	erro_404();
@@ -20,7 +20,8 @@ $arquivos = explode('\n', $projeto->arquivos);
 $arquivos_de_vdd = explode('\n', $projeto->arquivos_de_vdd);
 
 if ($_GET['modo'] == "internal") {
-	foreach ($arquivos as $i => $arquivo) {
+	foreach ($arquivos as $i => $archivo) {
+		$arquivo = strtolower($archivo);
 		if (in_array(substr($arquivo, -4), $tipos)) {
 			echo $arquivo . "\n";
 		}
@@ -28,7 +29,8 @@ if ($_GET['modo'] == "internal") {
 }
 
 if ($_GET['modo'] == "outer") {
-	foreach ($arquivos_de_vdd as $i => $arquivo) {
+	foreach ($arquivos_de_vdd as $i => $archivo) {
+		$arquivo = strtolower($archivo);
 		if (in_array(substr($arquivo, -4), $tipos)) {
 			echo $arquivo . "\n";
 		}

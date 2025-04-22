@@ -123,7 +123,7 @@ function vedor_d_comentario($tipo, $id, $temTudo, &$usuario)
 	}
 }
 
-
+// achei lowkey smart o responde_clickers ficar aqui
 function responde_clickers($texto)
 {
 	$Parsedown = new Parsedown();
