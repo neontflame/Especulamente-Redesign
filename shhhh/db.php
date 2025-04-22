@@ -235,7 +235,7 @@ function subir_arquivo($file, $pasta, $tabela, $id, $coluna, $extensoes_permitid
 	}
 
 	$extension = pathinfo($file['name'], PATHINFO_EXTENSION);
-	if (count($extensoes_permitidas) > 0 && !in_array($extension, $extensoes_permitidas)) {
+	if (count($extensoes_permitidas) > 0 && !in_array(strtolower($extension), $extensoes_permitidas)) {
 		return "§Extensão não permitida!";
 	}
 
@@ -298,7 +298,7 @@ function subir_arquivoses($files, $pasta, $tabela, $id, $coluna, $extensoes_perm
 		}
 
 		$extension = pathinfo($files['name'][$i], PATHINFO_EXTENSION);
-		if (count($extensoes_permitidas) > 0 && !in_array($extension, $extensoes_permitidas)) {
+		if (count($extensoes_permitidas) > 0 && !in_array(strtolower($extension), $extensoes_permitidas)) {
 			return "§Extensão não permitida!";
 		}
 
@@ -530,7 +530,7 @@ function desreagir($id_reator, $id_reagido, $tipo_de_reagido, $tipo_de_reacao)
 
 // Arquivo vivel == o arquivo do jogo q roda no navegador
 // SE o tipo for rt, $arquivos é == a $pasta
-function criar_projeto($id_criador, $nome, $descricao, $tipo, $arquivos, $arquivoVivel, $thumb)
+function criar_projeto($id_criador, $nome, $descricao, $tipo, $arquivos, $arquivoVivel, $thumb, $extensoes_permitidas = [])
 {
 	global $db;
 
@@ -557,7 +557,7 @@ function criar_projeto($id_criador, $nome, $descricao, $tipo, $arquivos, $arquiv
 
 	if ($tipo != 'rt') {
 		if ($arquivos != null) {
-			$rtn = subir_arquivoses($arquivos, '/static/projetos/' . $id, "projetos", $id, "arquivos", [], 1024 * 1024 * 1024, 50);
+			$rtn = subir_arquivoses($arquivos, '/static/projetos/' . $id, "projetos", $id, "arquivos", $extensoes_permitidas, 1024 * 1024 * 1024, 50);
 			if (is_string($rtn)) {
 				return $rtn;
 			}

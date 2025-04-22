@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
       $arquivos = $_FILES['arquivos'];
 
       if (count($erro) == 0) {
-        $projeto = criar_projeto($usuario->id, $nome, $descricao, $tipo, $arquivos, null, null);
+        $projeto = criar_projeto($usuario->id, $nome, $descricao, $tipo, $arquivos, null, null, ($tipo == 'md' ? ['png', 'bmp', 'jpg', 'jpeg', 'gif', 'mp4', 'avi', 'wmv', 'mkv'] : []));
         if (is_string($projeto)) {
           array_push($erro, $projeto);
         }
@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
       $arquivos = $_FILES['arquivos'];
 
       if (count($erro) == 0) {
-        $projeto = criar_projeto($usuario->id, $nome, $descricao, $tipo, $arquivos, $arquivoJogavel, $thumb);
+        $projeto = criar_projeto($usuario->id, $nome, $descricao, $tipo, $arquivos, $arquivoJogavel, $thumb, []);
         if (is_string($projeto)) {
           array_push($erro, $projeto);
         }
@@ -58,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
       }
 
       if (count($erro) == 0) {
-        $projeto = criar_projeto($usuario->id, $nome, $descricao, $tipo, $pasta, null, $thumb);
+        $projeto = criar_projeto($usuario->id, $nome, $descricao, $tipo, $pasta, null, $thumb, []);
         if (is_string($projeto)) {
           array_push($erro, $projeto);
         }
