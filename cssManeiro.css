@@ -15,8 +15,7 @@ body {
   padding-left: 4px;
   padding-right: 4px;
   background-image: url("/elementos/CoolAssFundo.png");
-  background-color: #f6fbff;
-  background-repeat: no-repeat;
+  background-size: 100% 100%;
 }
 
 .headerAwesome {
