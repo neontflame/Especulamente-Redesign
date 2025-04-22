@@ -23,7 +23,7 @@ if ($_GET['modo'] == "internal") {
 	foreach ($arquivos as $i => $archivo) {
 		$arquivo = strtolower($archivo);
 		if (in_array(substr($arquivo, -4), $tipos)) {
-			echo $arquivo . "\n";
+			echo $archivo . "\n";
 		}
 	}
 }
@@ -32,7 +32,7 @@ if ($_GET['modo'] == "outer") {
 	foreach ($arquivos_de_vdd as $i => $archivo) {
 		$arquivo = strtolower($archivo);
 		if (in_array(substr($arquivo, -4), $tipos)) {
-			echo $arquivo . "\n";
+			echo $archivo . "\n";
 		}
 	}
 }
