@@ -4,7 +4,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/shhhh/autoload.php';
 
 <?php
 // isso aqui e uma api Ok !
-$tipos = array('.png', '.bmp', '.jpg', 'jpeg', '.gif', '.mp4');
+$tipos = array('.png', '.bmp', '.jpg', 'jpeg', '.gif', '.mp4', '.ogg', '.avi', '.wmv', '.mkv');
 
 if (!isset($_GET['id'])) {
 	erro_404();
