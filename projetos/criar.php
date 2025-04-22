@@ -17,11 +17,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
       array_push($erro, "O nome do projeto é muito curto.");
     }
 
+	$tiposBons = ($tipo == 'md' ? ['png', 'bmp', 'jpg', 'jpeg', 'gif', 'mp4', 'avi', 'wmv', 'mkv'] : []);
+
     if ($tipo == 'dl' || $tipo == 'md') {
       $arquivos = $_FILES['arquivos'];
 
       if (count($erro) == 0) {
-        $projeto = criar_projeto($usuario->id, $nome, $descricao, $tipo, $arquivos, null, null, ($tipo == 'md' ? ['png', 'bmp', 'jpg', 'jpeg', 'gif', 'mp4', 'avi', 'wmv', 'mkv'] : []));
+        $projeto = criar_projeto($usuario->id, $nome, $descricao, $tipo, $arquivos, null, null, $tiposBons);
         if (is_string($projeto)) {
           array_push($erro, $projeto);
         }

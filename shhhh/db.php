@@ -626,7 +626,7 @@ function subir_arquivo_vivel($arquivoVivel, $id, $id_criador)
 }
 
 // Arquivo vivel == o arquivo do jogo q roda no navegador
-function editar_projeto($id_criador, $id_projeto, $nome, $descricao, $arquivos_novos, $remover, $ordem, $arquivoVivel, $removerArquivoVivel, $thumb, $removerThumb)
+function editar_projeto($id_criador, $id_projeto, $nome, $descricao, $arquivos_novos, $remover, $ordem, $arquivoVivel, $removerArquivoVivel, $thumb, $removerThumb, $extensoes_permitidas = [])
 {
 	global $db;
 
@@ -685,7 +685,7 @@ function editar_projeto($id_criador, $id_projeto, $nome, $descricao, $arquivos_n
 
 	// TERÇ<A></A>: Adicionar arquivos novos
 	if (count($arquivos_novos) > 0) {
-		$rtn = subir_arquivoses($arquivos_novos, '/static/projetos/' . $id_projeto, "projetos", $id_projeto, "arquivos", [], 1024 * 1024 * 1024, 50);
+		$rtn = subir_arquivoses($arquivos_novos, '/static/projetos/' . $id_projeto, "projetos", $id_projeto, "arquivos", $extensoes_permitidas, 1024 * 1024 * 1024, 50);
 		if (is_string($rtn) && str_starts_with($rtn, "§")) {
 			return substr($rtn, 1);
 		}
