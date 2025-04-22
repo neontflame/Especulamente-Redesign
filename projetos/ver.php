@@ -142,7 +142,7 @@ if (isset($usuario)) {
 							for (var imgcoiso = 0; imgcoiso < imagens.length; imgcoiso++) {
 								
 								var img = document.createElement("img");
-								if (tiposDeVideo.includes(re.exec(imagens[imgcoiso])[1])) {
+								if (tiposDeVideo.indexOf(re.exec(imagens[imgcoiso])[1]) !== -1) {
 									img.src = "/static/video_coiso.png";
 								} else {
 									img.src = "/static/projetos/" + projid + "/" + imagens[imgcoiso];
@@ -168,7 +168,7 @@ if (isset($usuario)) {
 							// codigo com alma ?
 							console.log('clic');
 							
-							if (tiposDeVideo.includes(re.exec(imagens[id])[1])) {
+							if (tiposDeVideo.indexOf(re.exec(imagens[id])[1]) !== -1) {
 								document.getElementById("videoAtual").style.display = "block";
 								document.getElementById("videoAtual").src = "/static/projetos/" + projid + "/" + imagens[id];
 								document.getElementById("imagemAtual").style.display = "none";
@@ -186,7 +186,9 @@ if (isset($usuario)) {
 							}
 							quiamsas[id].className = "imagemCoiso desopaco";
 							
-							document.getElementById("paginacio").innerText = "Página " + (id+1) + " de " + imagens.length;
+							curSelected = id;
+							
+							document.getElementById("paginacio").innerText = "Página " + (parseInt(id)+1) + " de " + imagens.length;
 						}
 
 
