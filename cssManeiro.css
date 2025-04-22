@@ -3,6 +3,9 @@
 
 body {
   background-color: #bae2ff;
+  background-image: url('/elementos/murais/PoC.png');
+  background-position: top;
+  background-repeat: no-repeat;
   width: 641px;
   margin: auto;
   padding: 0px;
