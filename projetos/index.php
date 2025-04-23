@@ -40,22 +40,16 @@ if ($query != '') {
                   <p><?= explode("\n", $projeto->descricao)[0] ?></p>
                 </div>
 				<?php endif ?>
-				<?php if ($projeto->tipo == 'jg') : ?>
+				<?php if ($projeto->tipo == 'jg' || $projeto->tipo == 'rt') : ?>
                 <div class="projeto" style="min-height:84px">
-                  <a href="<?= $config['URL'] ?>/projetos/ver.php?id=<?= $projeto->id ?>" style="float:left; margin-right: 8px"><img style="width:96px; height:72px" src="
-				  <?php if ($projeto->thumbnail != null) { ?>/static/projetos/<?= ($projeto->id) ?>/thumb/<?= ($projeto->thumbnail) ?>
-				  <?php } else { ?>/static/thumb_padrao.png<?php } ?>
-				  "></a>
-                  <a class="autorDeProjeto" href="<?= $config['URL'] ?>/usuarios/<?= usuario_requestIDator($projeto->id_criador)->username ?>">
-                    por <?= usuario_requestIDator($projeto->id_criador)->username ?>
-                  </a>
-                  <h2><a href="<?= $config['URL'] ?>/projetos/ver.php?id=<?= $projeto->id ?>"><?= $projeto->nome ?></a></h2>
-                  <p><?= explode("\n", $projeto->descricao)[0] ?></p>
-                </div>
-				<?php endif ?>
-				<?php if ($projeto->tipo == 'rt') : ?>
-                <div class="projeto" style="min-height:84px">
+				  <?php if ($projeto->tipo == 'rt') : ?>
 				  <a href="<?= $config['URL'] ?>/~<?= $projeto->arquivos_de_vdd ?>"><img src="/elementos/botaoVerResto.png"></a>
+				  <?php endif ?>
+				  
+				  <?php if ($projeto->tipo == 'jg') : ?>
+				  <a href="<?= $config['URL'] ?>/projetos/ver.php?id=<?= $projeto->id ?>"><img src="/elementos/botaoJogar.png"></a>
+				  <?php endif ?>
+				  
                   <a href="<?= $config['URL'] ?>/projetos/ver.php?id=<?= $projeto->id ?>" style="float:left; margin-right: 8px"><img style="width:96px; height:72px" src="
 				  <?php if ($projeto->thumbnail != null) { ?>/static/projetos/<?= ($projeto->id) ?>/thumb/<?= ($projeto->thumbnail) ?>
 				  <?php } else { ?>/static/thumb_padrao.png<?php } ?>
