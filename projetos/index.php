@@ -30,6 +30,7 @@ if ($query != '') {
 			} ?>
             <div class="projetos">
               <?php foreach ($projetos as $projeto) : ?>
+				<?php if ($projeto->tipo == 'dl' || $projeto->tipo == 'md' || $projeto->tipo == 'bg') : ?>
                 <div class="projeto">
                   <a href="<?= $config['URL'] ?>/projetos/zipar.php?id=<?= $projeto->id ?>"><img src="/elementos/botaoTransferir.png"></a>
                   <a class="autorDeProjeto" href="<?= $config['URL'] ?>/usuarios/<?= usuario_requestIDator($projeto->id_criador)->username ?>">
@@ -38,6 +39,34 @@ if ($query != '') {
                   <h2><a href="<?= $config['URL'] ?>/projetos/ver.php?id=<?= $projeto->id ?>"><?= $projeto->nome ?></a></h2>
                   <p><?= explode("\n", $projeto->descricao)[0] ?></p>
                 </div>
+				<?php endif ?>
+				<?php if ($projeto->tipo == 'jg') : ?>
+                <div class="projeto" style="min-height:84px">
+                  <a href="<?= $config['URL'] ?>/projetos/ver.php?id=<?= $projeto->id ?>" style="float:left; margin-right: 8px"><img style="width:96px; height:72px" src="
+				  <?php if ($projeto->thumbnail != null) { ?>/static/projetos/<?= ($projeto->id) ?>/thumb/<?= ($projeto->thumbnail) ?>
+				  <?php } else { ?>/static/thumb_padrao.png<?php } ?>
+				  "></a>
+                  <a class="autorDeProjeto" href="<?= $config['URL'] ?>/usuarios/<?= usuario_requestIDator($projeto->id_criador)->username ?>">
+                    por <?= usuario_requestIDator($projeto->id_criador)->username ?>
+                  </a>
+                  <h2><a href="<?= $config['URL'] ?>/projetos/ver.php?id=<?= $projeto->id ?>"><?= $projeto->nome ?></a></h2>
+                  <p><?= explode("\n", $projeto->descricao)[0] ?></p>
+                </div>
+				<?php endif ?>
+				<?php if ($projeto->tipo == 'rt') : ?>
+                <div class="projeto" style="min-height:84px">
+				  <a href="<?= $config['URL'] ?>/~<?= $projeto->arquivos_de_vdd ?>"><img src="/elementos/botaoVerResto.png"></a>
+                  <a href="<?= $config['URL'] ?>/projetos/ver.php?id=<?= $projeto->id ?>" style="float:left; margin-right: 8px"><img style="width:96px; height:72px" src="
+				  <?php if ($projeto->thumbnail != null) { ?>/static/projetos/<?= ($projeto->id) ?>/thumb/<?= ($projeto->thumbnail) ?>
+				  <?php } else { ?>/static/thumb_padrao.png<?php } ?>
+				  "></a>
+                  <a class="autorDeProjeto" href="<?= $config['URL'] ?>/usuarios/<?= usuario_requestIDator($projeto->id_criador)->username ?>">
+                    por <?= usuario_requestIDator($projeto->id_criador)->username ?>
+                  </a>
+                  <h2><a href="<?= $config['URL'] ?>/projetos/ver.php?id=<?= $projeto->id ?>"><?= $projeto->nome ?></a></h2>
+                  <p><?= explode("\n", $projeto->descricao)[0] ?></p>
+                </div>
+				<?php endif ?>
               <?php endforeach ?>
 
               <!-- here be pagination -->
