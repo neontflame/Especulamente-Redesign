@@ -184,9 +184,9 @@ if (isset($usuario)) {
 							for (var kid = 0; kid < quiamsas.length; kid++) {
 								quiamsas[kid].className = "imagemCoiso";
 							}
-							quiamsas[id].className = "imagemCoiso desopaco";
+							if (quiamsas[id] != undefined) quiamsas[id].className = "imagemCoiso desopaco";
 							
-							curSelected = id;
+							curSelected = parseInt(id);
 							
 							document.getElementById("paginacio").innerText = "Página " + (parseInt(id)+1) + " de " + imagens.length;
 						}
