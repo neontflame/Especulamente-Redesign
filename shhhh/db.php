@@ -730,7 +730,7 @@ function editar_projeto($id_criador, $id_projeto, $nome, $descricao, $arquivos_n
 		$rows->bindParam(2, $id_projeto);
 		$rows->execute();
 	} else {
-		if ($arquivoVivel['size'] > 0) {
+		if ($arquivoVivel != null && $arquivoVivel['size'] > 0) {
 			$rtn = subir_arquivo_vivel($arquivoVivel, $id_projeto, $id_criador);
 			if (is_string($rtn) && str_starts_with($rtn, "§")) {
 				return substr($rtn, 1);
@@ -755,7 +755,7 @@ function editar_projeto($id_criador, $id_projeto, $nome, $descricao, $arquivos_n
 		$rows->bindParam(2, $id_projeto);
 		$rows->execute();
 	} else {
-		if ($thumb['size'] > 0) {
+		if ($thumb != null && $thumb['size'] > 0) {
 			$rtn = subir_arquivo($thumb, '/static/projetos/' . $id_projeto . '/thumb', "projetos", $id_projeto, "thumbnail", ["png", "gif", "jpg", "jpeg", "bmp"], 1024 * 1024 * 10); //nao tem como uma imagem ser maior que 10 mb
 			if (is_string($rtn) && str_starts_with($rtn, "§")) {
 				return substr($rtn, 1);

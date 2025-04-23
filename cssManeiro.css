@@ -3,7 +3,7 @@
 
 body {
   background-color: #bae2ff;
-  background-image: url('/elementos/murais/PoC.png');
+  background-image: url("/elementos/murais/PoC.png");
   background-position: top;
   background-repeat: no-repeat;
   width: 641px;
@@ -337,25 +337,6 @@ a.coolButt {
 
 .projTitulo p a:hover {
   text-decoration: underline;
-}
-
-/* holy fucking imagens */
-#imagemAtual {
-  max-width: 620px;
-  margin: auto;
-  display: block;
-}
-
-.imagemCoiso {
-  width: 48px;
-  height: 48px;
-  margin-right: 4px;
-  margin-bottom: 4px;
-  opacity: 50%;
-}
-
-.desopaco {
-  opacity: 100%;
 }
 
 /* comentarios !!! uhul */

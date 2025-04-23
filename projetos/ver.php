@@ -103,139 +103,196 @@ if (isset($usuario)) {
 			<?php if ($projeto->tipo == 'md') : ?>
 				<!-- midia -->
 				<div class="vedorDImagem">
-					<div class="pagination" style="width: 620px; margin: 0 0 0 0;">
-						<style>
-							a {
-								cursor: pointer;
-							}
-						</style>
-						<a onclick="comecoCoisa()">Início</a>
-						<p class="textinhoClaro">~</p>
-						<a onclick="anteriorCoisa()">« Anterior</a>
-						<p class="textinhoClaro">~</p>
-						<p id="paginacio">Página 1 de 2</p>
-						<p class="textinhoClaro">~</p>
-						<a onclick="proximoCoisa()">Próximo »</a>
-						<p class="textinhoClaro">~</p>
-						<a onclick="fimCoisa()">Fim</a>
+					<p id="paginacio">Mídia 1 de <?= count($arquivos) ?></p>
+
+					<button id="pagprimeiro" onclick="comecoCoisa()" style="float: left; margin: 14px 5px 0 0;" disabled>
+						<img src="/elementos/vedor_d_imagem/botaoPrimeiro.png" alt="Início">
+					</button>
+					<button id="paganterior" onclick="anteriorCoisa()" style="float: left; margin: 14px 6px 0 0;" disabled>
+						<img src="/elementos/vedor_d_imagem/botaoAnterior.png" alt="Anterior">
+					</button>
+					<button id="pagultimo" onclick="fimCoisa()" style="float: right; margin: 14px 0 0 5px;" <?= count($arquivos) == 1 ? "disabled" : "" ?>>
+						<img src="/elementos/vedor_d_imagem/botaoUltimo.png" alt="Último">
+					</button>
+					<button id="pagproximo" onclick="proximoCoisa()" style="float: right; margin: 14px 0 0 5px;" <?= count($arquivos) == 1 ? "disabled" : "" ?>>
+						<img src="/elementos/vedor_d_imagem/botaoProximo.png" alt="Próximo">
+					</button>
+					<div id="outrasImagens">
+						<?php $tiposDeVideo = ['mp4', 'ogg', 'avi', 'mkv']; ?>
+						<?php foreach ($arquivos as $i => $arquivo) : ?>
+							<?php $eh_um_video = in_array(pathinfo($arquivo, PATHINFO_EXTENSION), $tiposDeVideo); ?>
+							<button
+								data-url="/static/projetos/<?= $projeto->id ?>/<?= $arquivo ?>"
+								<?= $eh_um_video ? "data-video='true'" : "" ?>
+								onclick="clicCoiso(<?= $i ?>)"
+								style="<?= $i > 8 ? "display: none;" : "" ?>"
+								class="<?= $i == 0 ? "essa-imagem" : "" ?>">
+								<img
+									src="<?= $eh_um_video ? '/elementos/vedor_d_imagem/video_coiso.png' : "/static/projetos/" . $projeto->id . "/" . $arquivo ?>"
+									alt="<?= $arquivo ?>"
+									width="48px"
+									height="48px">
+							</button>
+						<?php endforeach ?>
 					</div>
-												  
-					<video id="videoAtual" width="620" autoplay="false" controls="true">
-					Seu navegador não tem suporte pra tag de vídeo!!
-					</video> 
-					<img src="/elementos/chillmaia.png" id="imagemAtual" onclick="window.open(this.src, '_blank').focus();">
 
 					<br>
 
-					<div class="outrasImagens">
-					</div>
+					<video id="videoAtual" width="620" autoplay="false" controls="true" style="display: none;">
+						Seu navegador não tem suporte pra tag de vídeo!!
+					</video>
+					<a href="/elementos/chillmaia.png" target="_blank" id="imagemAtual" style="display: none;">
+						<img src="/elementos/chillmaia.png">
+					</a>
+
+					<style>
+						/* holy fucking imagens */
+						#imagemAtual {
+							display: block;
+						}
+
+						#paginacio {
+							text-align: center;
+							margin: 4px auto 8px;
+						}
+
+						#imagemAtual img {
+							max-width: 620px;
+							margin: auto;
+							display: block;
+						}
+
+						.vedorDImagem button {
+							padding: 0;
+							background: none;
+							border: none;
+							cursor: pointer;
+						}
+
+						.vedorDImagem button:disabled {
+							cursor: unset;
+							opacity: 0.5;
+						}
+
+						#outrasImagens {
+							margin: auto;
+							width: -moz-fit-content;
+							width: intrinsic;
+							width: -webkit-fit-content;
+							width: fit-content;
+						}
+
+						#outrasImagens button {
+							background-color: rgba(0, 0, 0, 0.4);
+						}
+
+						#outrasImagens button img {
+							opacity: 0.15;
+						}
+
+						#outrasImagens button.essa-imagem img {
+							opacity: 1;
+						}
+					</style>
 
 					<script>
-						var tiposDeVideo = ['mp4', 'ogg', 'avi', 'mkv'];
-						var re = /(?:\.([^.]+))?$/; // obrigado tomalak from stack overflow
-						var projid = 0;
-						var imagens = ["img1.png", "img2.png", "img3.png"];
-						
+						var totalImagens = <?= count($arquivos) ?>;
 						var curSelected = 0;
-
-						function fazONegocioDasImagens() {
-							for (var imgcoiso = 0; imgcoiso < imagens.length; imgcoiso++) {
-								
-								var img = document.createElement("img");
-								if (tiposDeVideo.indexOf(re.exec(imagens[imgcoiso])[1]) !== -1) {
-									img.src = "/static/video_coiso.png";
-								} else {
-									img.src = "/static/projetos/" + projid + "/" + imagens[imgcoiso];
-								}
-								img.className = "imagemCoiso";
-								img.id = imgcoiso;
-								img.onclick = function() {
-									var quiamsas = document.getElementsByClassName('outrasImagens')[0].children;
-
-									for (var kid = 0; kid < quiamsas.length; kid++) {
-										quiamsas[kid].className = "imagemCoiso";
-									}
-									clicCoiso(this.id)
-									this.className = "imagemCoiso desopaco";
-								};
-								document.getElementsByClassName("outrasImagens")[0].appendChild(img);
-							}
-
-							clicCoiso(0);
-						}
 
 						function clicCoiso(id) {
 							// codigo com alma ?
+							// sim;.
 							console.log('clic');
-							
-							if (tiposDeVideo.indexOf(re.exec(imagens[id])[1]) !== -1) {
+
+							var imgs = document.getElementById("outrasImagens").children;
+
+							var imgAnterior = imgs[curSelected];
+							imgAnterior.className = "";
+							document.getElementById("paginacio").innerText = "Mídia " + (id + 1) + " de " + totalImagens;
+
+							var img = imgs[id];
+							img.className = "essa-imagem";
+
+							if (img.getAttribute('data-video') == 'true') {
 								document.getElementById("videoAtual").style.display = "block";
-								document.getElementById("videoAtual").src = "/static/projetos/" + projid + "/" + imagens[id];
+								document.getElementById("videoAtual").src = img.getAttribute('data-url');
 								document.getElementById("imagemAtual").style.display = "none";
 							} else {
 								document.getElementById("videoAtual").pause();
 								document.getElementById("videoAtual").style.display = "none";
-								document.getElementById("imagemAtual").src = "/static/projetos/" + projid + "/" + imagens[id];
+								document.getElementById("imagemAtual").href = img.getAttribute('data-url');
+								document.getElementById("imagemAtual").getElementsByTagName('img')[0].src = img.getAttribute('data-url');
 								document.getElementById("imagemAtual").style.display = "block";
 							}
-							
-							var quiamsas = document.getElementsByClassName('outrasImagens')[0].children;
 
-							for (var kid = 0; kid < quiamsas.length; kid++) {
-								quiamsas[kid].className = "imagemCoiso";
+							// paginacio
+							if (id == 0) {
+								document.getElementById("pagprimeiro").disabled = true;
+								document.getElementById("paganterior").disabled = true;
+							} else {
+								document.getElementById("pagprimeiro").disabled = false;
+								document.getElementById("paganterior").disabled = false;
 							}
-							if (quiamsas[id] != undefined) quiamsas[id].className = "imagemCoiso desopaco";
-							
-							curSelected = parseInt(id);
-							
-							document.getElementById("paginacio").innerText = "Página " + (parseInt(id)+1) + " de " + imagens.length;
+							if (id == totalImagens - 1) {
+								document.getElementById("pagultimo").disabled = true;
+								document.getElementById("pagproximo").disabled = true;
+							} else {
+								document.getElementById("pagultimo").disabled = false;
+								document.getElementById("pagproximo").disabled = false;
+							}
+
+							// esconde e mostra os botoes
+							for (var i = 0; i < imgs.length; i++) {
+								if (i == id) {
+									imgs[i].style.display = "inline-block";
+								} else {
+									imgs[i].style.display = "none";
+								}
+							}
+							var testando = 1;
+							for (var i = 1; i < 9;) {
+								var achou_um = false;
+								if (id - testando >= 0) {
+									imgs[id - testando].style.display = "inline-block";
+									i++;
+									achou_um = true;
+								}
+								if (id + testando < totalImagens) {
+									imgs[id + testando].style.display = "inline-block";
+									i++;
+									achou_um = true;
+								}
+								if (!achou_um) {
+									break;
+								}
+								testando++;
+							}
+
+							curSelected = id;
 						}
 
-
-						function carregarImagens(id) {
-							var xhttp = new XMLHttpRequest();
-							xhttp.onload = function() {
-								projid = id;
-								imagens = this.responseText.split("\n");
-								imagens.shift();
-								imagens.pop();
-								fazONegocioDasImagens();
-							};
-							xhttp.open(
-								"GET",
-								"/projetos/vedorDImagem.php?id=" +
-								id + "&modo=internal",
-								true
-							);
-							xhttp.send();
-						}
-						
 						// paginacios
 						function comecoCoisa() {
-							curSelected = 0;
-							clicCoiso(curSelected);
-						}
-						
-						function anteriorCoisa() {
-							if (curSelected > 0) {
-								curSelected -= 1;
-								clicCoiso(curSelected);
-							}
-						}
-						
-						function proximoCoisa() {
-							if (curSelected < imagens.length - 1) {
-								curSelected += 1;
-								clicCoiso(curSelected);
-							}
-						}
-						
-						function fimCoisa() {
-							curSelected = imagens.length - 1;
-							clicCoiso(curSelected);
+							clicCoiso(0);
 						}
 
-						carregarImagens(<?= $projeto->id ?>);
+						function anteriorCoisa() {
+							if (curSelected > 0) {
+								clicCoiso(curSelected - 1);
+							}
+						}
+
+						function proximoCoisa() {
+							if (curSelected < totalImagens - 1) {
+								clicCoiso(curSelected + 1);
+							}
+						}
+
+						function fimCoisa() {
+							clicCoiso(totalImagens - 1);
+						}
+
+						clicCoiso(0);
 					</script>
 				</div>
 				<!--
