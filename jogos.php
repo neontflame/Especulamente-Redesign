@@ -46,9 +46,9 @@ if ($query != '') {
               <!-- here be pagination -->
               <div class="pagination">
                 <?php if ($page > 1) : ?>
-                  <a href="<?= $config['URL'] ?>/projetos/<?= $coisodepagina ?>page=1">Início</a>
+                  <a href="<?= $config['URL'] ?>/jogos.php<?= $coisodepagina ?>page=1">Início</a>
                   <p class="textinhoClaro">~</p>
-                  <a href="<?= $config['URL'] ?>/projetos/<?= $coisodepagina ?>page=<?= $page - 1 ?>">« Anterior</a>
+                  <a href="<?= $config['URL'] ?>/jogos.php<?= $coisodepagina ?>page=<?= $page - 1 ?>">« Anterior</a>
                   <p class="textinhoClaro">~</p>
                 <?php endif ?>
                 <?php if ($page == 1) : ?>
@@ -59,9 +59,9 @@ if ($query != '') {
 
                   <?php if ($page < $pages) : ?>
                     <p class="textinhoClaro">~</p>
-                    <a href="<?= $config['URL'] ?>/projetos/<?= $coisodepagina ?>page=<?= $page + 1 ?>">Próximo »</a>
+                    <a href="<?= $config['URL'] ?>/jogos.php<?= $coisodepagina ?>page=<?= $page + 1 ?>">Próximo »</a>
                     <p class="textinhoClaro">~</p>
-                    <a href="<?= $config['URL'] ?>/projetos/<?= $coisodepagina ?>page=<?= $pages ?>">Fim</a>
+                    <a href="<?= $config['URL'] ?>/jogos.php<?= $coisodepagina ?>page=<?= $pages ?>">Fim</a>
                   <?php endif ?>
                   <?php if ($page == $pages) : ?>
                     <p class="textinhoClaro"> ~ Próximo » ~ Fim</a>

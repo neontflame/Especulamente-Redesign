@@ -114,7 +114,7 @@ function coisos_tudo(&$array, $table, $page = 1, $searchy = '', $queryAdicional 
 		$searchQuery = "";
 	}
 
-	$rows = $db->prepare("SELECT COUNT(*) as count FROM " . $table);
+	$rows = $db->prepare("SELECT COUNT(*) as count FROM " . $table . $queryAdicional);
 	$rows->execute();
 	$count = $rows->fetch(PDO::FETCH_OBJ)->count;
 
