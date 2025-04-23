@@ -3,6 +3,7 @@ $ads = [
   ['ad1.png', 'https://www.google.com.br/search?q=cabelo'],
   ['ad2.png', 'https://store.steampowered.com/app/2161700/Persona_3_Reload/'],
   ['ad3.png', 'https://especulamente.com.br'],
+  ['ad4.gif', 'https://fupi.cat/arte/feiocore/'],
 ];
 $ad = $ads[array_rand($ads)];
 ?>
