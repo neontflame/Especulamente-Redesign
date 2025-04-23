@@ -631,13 +631,15 @@ function editar_projeto($id_criador, $id_projeto, $nome, $descricao, $arquivos_n
 	global $db;
 
 	// -1: Checar se eu posso ter um super salsicha sandwich ei scoob (nome muito curto)
-	$rows = $db->prepare("SELECT id_criador FROM projetos WHERE id = ?");
+	$rows = $db->prepare("SELECT id_criador, tipo FROM projetos WHERE id = ?");
 	$rows->bindParam(1, $id_projeto);
 	$rows->execute();
 	$row = $rows->fetch(PDO::FETCH_OBJ);
 	if ($row->id_criador != $id_criador) {
 		return "§Sua edição é: <em>inválida edição!</em>";
 	}
+
+	$tipo = $row->tipo;
 
 	// <ZERO></ZERO>: Alterar nome e descrição
 	$rows = $db->prepare("UPDATE projetos SET nome = ?, descricao = ? WHERE id = ?");
@@ -646,94 +648,96 @@ function editar_projeto($id_criador, $id_projeto, $nome, $descricao, $arquivos_n
 	$rows->bindParam(3, $id_projeto);
 	$rows->execute();
 
-	// <PRIMEIRO></PRIMEIRO>: Eu quero um super salsicha sandwich
-	// Ei Scoob, eu acho que o <SEGUNDO></SEGUNDO> está <TERCEIRO></TERCEIRO>!
-	// AKA: Obter nomes reais dos arquivos
-	$relacao_livel_ilivel = [];
-	$rows = $db->prepare("SELECT arquivos_de_vdd, arquivos FROM projetos WHERE id = ?");
-	$rows->bindParam(1, $id_projeto);
-	$rows->execute();
-	$row = $rows->fetch(PDO::FETCH_OBJ);
-
-	$arquivos_de_vdd = explode('\n', $row->arquivos_de_vdd);
-	$arquivos = explode('\n', $row->arquivos);
-
-	for ($i = 0; $i < count($arquivos); $i++) {
-		$relacao_livel_ilivel[$arquivos_de_vdd[$i]] = $arquivos[$i];
-	}
-
-	// <SEGUNDA></SEGUNDA>: Remover arquivos
-	foreach ($remover as $removido) {
-		unlink($_SERVER['DOCUMENT_ROOT'] . '/static/projetos/' . $id_projeto . '/' . $relacao_livel_ilivel[$removido]);
-		unset($relacao_livel_ilivel[$removido]);
-	}
-
-	$arquivos = [];
-	$arquivos_de_vdd = [];
-	foreach ($relacao_livel_ilivel as $livel => $ilivel) {
-		array_push($arquivos, $ilivel);
-		array_push($arquivos_de_vdd, $livel);
-	}
-	$arquivos = implode('\n', $arquivos);
-	$arquivos_de_vdd = implode('\n', $arquivos_de_vdd);
-
-	$rows = $db->prepare("UPDATE projetos SET arquivos = ?, arquivos_de_vdd = ? WHERE id = ?");
-	$rows->bindParam(1, $arquivos);
-	$rows->bindParam(2, $arquivos_de_vdd);
-	$rows->bindParam(3, $id_projeto);
-	$rows->execute();
-
-	// TERÇ<A></A>: Adicionar arquivos novos
-	if (count($arquivos_novos) > 0) {
-		$rtn = subir_arquivoses($arquivos_novos, '/static/projetos/' . $id_projeto, "projetos", $id_projeto, "arquivos", $extensoes_permitidas, 1024 * 1024 * 1024, 50);
-		if (is_string($rtn) && str_starts_with($rtn, "§")) {
-			return substr($rtn, 1);
-		}
-
-		$relacao_livel_ilivel = array_merge($relacao_livel_ilivel, $rtn);
-	}
-
-	// <qwuarta></qwuarta>: Reordenar arquivos
-	// EXPLODIR HOSTINGER ----- hostinger: hey :( dont do that
-	$ordem = $ordem ? explode('\n', $ordem) : [];
-	$arquivos = [];
-	$arquivos_de_vdd = [];
-	foreach ($ordem as $arquivo) {
-		array_push($arquivos, $relacao_livel_ilivel[$arquivo]);
-		array_push($arquivos_de_vdd, $arquivo);
-	}
-	$arquivos = implode('\n', $arquivos);
-	$arquivos_de_vdd = implode('\n', $arquivos_de_vdd);
-
-	$rows = $db->prepare("UPDATE projetos SET arquivos = ?, arquivos_de_vdd = ? WHERE id = ?");
-	$rows->bindParam(1, $arquivos);
-	$rows->bindParam(2, $arquivos_de_vdd);
-	$rows->bindParam(3, $id_projeto);
-	$rows->execute();
-
-	// <AGORA></AGORA>: arquivo vivel.
-	$rows = $db->prepare("SELECT arquivo_vivel FROM projetos WHERE id = ?");
-	$rows->bindParam(1, $id_projeto);
-	$rows->execute();
-	$row = $rows->fetch(PDO::FETCH_OBJ);
-	$arquivoVivelLivelEIlivel = $row->arquivo_vivel;
-	$arquivoVivelIlivel = $arquivoVivelLivelEIlivel == "" ? "" : explode('\n', $arquivoVivelLivelEIlivel)[1];
-
-	if ($removerArquivoVivel) {
-		if (file_exists($_SERVER['DOCUMENT_ROOT'] . '/static/projetos/' . $id_projeto . '/' . $arquivoVivelIlivel)) {
-			unlink($_SERVER['DOCUMENT_ROOT'] . '/static/projetos/' . $id_projeto . '/' . $arquivoVivelIlivel);
-		}
-		remover_pasta_inteira($_SERVER['DOCUMENT_ROOT'] . '/static/projetos/' . $id_projeto . '/jogo');
-		$arquivoVivelLivelEIlivel = "";
-		$rows = $db->prepare("UPDATE projetos SET arquivo_vivel = '' WHERE id_criador = ? AND id = ?");
-		$rows->bindParam(1, $id_criador);
-		$rows->bindParam(2, $id_projeto);
+	if ($tipo != 'rt') {
+		// <PRIMEIRO></PRIMEIRO>: Eu quero um super salsicha sandwich
+		// Ei Scoob, eu acho que o <SEGUNDO></SEGUNDO> está <TERCEIRO></TERCEIRO>!
+		// AKA: Obter nomes reais dos arquivos
+		$relacao_livel_ilivel = [];
+		$rows = $db->prepare("SELECT arquivos_de_vdd, arquivos FROM projetos WHERE id = ?");
+		$rows->bindParam(1, $id_projeto);
 		$rows->execute();
-	} else {
-		if ($arquivoVivel != null && $arquivoVivel['size'] > 0) {
-			$rtn = subir_arquivo_vivel($arquivoVivel, $id_projeto, $id_criador);
+		$row = $rows->fetch(PDO::FETCH_OBJ);
+
+		$arquivos_de_vdd = explode('\n', $row->arquivos_de_vdd);
+		$arquivos = explode('\n', $row->arquivos);
+
+		for ($i = 0; $i < count($arquivos); $i++) {
+			$relacao_livel_ilivel[$arquivos_de_vdd[$i]] = $arquivos[$i];
+		}
+
+		// <SEGUNDA></SEGUNDA>: Remover arquivos
+		foreach ($remover as $removido) {
+			unlink($_SERVER['DOCUMENT_ROOT'] . '/static/projetos/' . $id_projeto . '/' . $relacao_livel_ilivel[$removido]);
+			unset($relacao_livel_ilivel[$removido]);
+		}
+
+		$arquivos = [];
+		$arquivos_de_vdd = [];
+		foreach ($relacao_livel_ilivel as $livel => $ilivel) {
+			array_push($arquivos, $ilivel);
+			array_push($arquivos_de_vdd, $livel);
+		}
+		$arquivos = implode('\n', $arquivos);
+		$arquivos_de_vdd = implode('\n', $arquivos_de_vdd);
+
+		$rows = $db->prepare("UPDATE projetos SET arquivos = ?, arquivos_de_vdd = ? WHERE id = ?");
+		$rows->bindParam(1, $arquivos);
+		$rows->bindParam(2, $arquivos_de_vdd);
+		$rows->bindParam(3, $id_projeto);
+		$rows->execute();
+
+		// TERÇ<A></A>: Adicionar arquivos novos
+		if (count($arquivos_novos) > 0) {
+			$rtn = subir_arquivoses($arquivos_novos, '/static/projetos/' . $id_projeto, "projetos", $id_projeto, "arquivos", $extensoes_permitidas, 1024 * 1024 * 1024, 50);
 			if (is_string($rtn) && str_starts_with($rtn, "§")) {
 				return substr($rtn, 1);
+			}
+
+			$relacao_livel_ilivel = array_merge($relacao_livel_ilivel, $rtn);
+		}
+
+		// <qwuarta></qwuarta>: Reordenar arquivos
+		// EXPLODIR HOSTINGER ----- hostinger: hey :( dont do that
+		$ordem = $ordem ? explode('\n', $ordem) : [];
+		$arquivos = [];
+		$arquivos_de_vdd = [];
+		foreach ($ordem as $arquivo) {
+			array_push($arquivos, $relacao_livel_ilivel[$arquivo]);
+			array_push($arquivos_de_vdd, $arquivo);
+		}
+		$arquivos = implode('\n', $arquivos);
+		$arquivos_de_vdd = implode('\n', $arquivos_de_vdd);
+
+		$rows = $db->prepare("UPDATE projetos SET arquivos = ?, arquivos_de_vdd = ? WHERE id = ?");
+		$rows->bindParam(1, $arquivos);
+		$rows->bindParam(2, $arquivos_de_vdd);
+		$rows->bindParam(3, $id_projeto);
+		$rows->execute();
+
+		// <AGORA></AGORA>: arquivo vivel.
+		$rows = $db->prepare("SELECT arquivo_vivel FROM projetos WHERE id = ?");
+		$rows->bindParam(1, $id_projeto);
+		$rows->execute();
+		$row = $rows->fetch(PDO::FETCH_OBJ);
+		$arquivoVivelLivelEIlivel = $row->arquivo_vivel;
+		$arquivoVivelIlivel = $arquivoVivelLivelEIlivel == "" ? "" : explode('\n', $arquivoVivelLivelEIlivel)[1];
+
+		if ($removerArquivoVivel) {
+			if (file_exists($_SERVER['DOCUMENT_ROOT'] . '/static/projetos/' . $id_projeto . '/' . $arquivoVivelIlivel)) {
+				unlink($_SERVER['DOCUMENT_ROOT'] . '/static/projetos/' . $id_projeto . '/' . $arquivoVivelIlivel);
+			}
+			remover_pasta_inteira($_SERVER['DOCUMENT_ROOT'] . '/static/projetos/' . $id_projeto . '/jogo');
+			$arquivoVivelLivelEIlivel = "";
+			$rows = $db->prepare("UPDATE projetos SET arquivo_vivel = '' WHERE id_criador = ? AND id = ?");
+			$rows->bindParam(1, $id_criador);
+			$rows->bindParam(2, $id_projeto);
+			$rows->execute();
+		} else {
+			if ($arquivoVivel != null && $arquivoVivel['size'] > 0) {
+				$rtn = subir_arquivo_vivel($arquivoVivel, $id_projeto, $id_criador);
+				if (is_string($rtn) && str_starts_with($rtn, "§")) {
+					return substr($rtn, 1);
+				}
 			}
 		}
 	}

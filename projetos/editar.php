@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
   $descricao = $_POST['descricao'];
   $arquivos = $_FILES['arquivos'] ?? [];
   $remover = $_POST['remover'] ?? [];
-  $ordem = $_POST['ordem'];
+  $ordem = $_POST['ordem'] ?? 0;
   $arquivoVivel = $_FILES['arquivoJogavel'] ?? [];
   $removerArquivoVivel = $_POST['removerArquivoJogavel'] ?? null;
 
