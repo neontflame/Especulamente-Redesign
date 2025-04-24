@@ -21,9 +21,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 
     if ($tipo == 'dl' || $tipo == 'md') {
       $arquivos = $_FILES['arquivos'];
+      $thumb = $_FILES['thumb'] ?? null;
 
       if (count($erro) == 0) {
-        $projeto = criar_projeto($usuario->id, $nome, $descricao, $tipo, $arquivos, null, null, $tiposBons);
+        $projeto = criar_projeto($usuario->id, $nome, $descricao, $tipo, $arquivos, null, $thumb, $tiposBons);
         if (is_string($projeto)) {
           array_push($erro, $projeto);
         }
@@ -270,7 +271,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 
           <label for="descricao" class="labelManeira">>> DESCRIÇÃO</label>
           <textarea style="width: 97%" name="descricao" id="descricao"><?= $descricao ?? "" ?></textarea>
-          <br>
+          <br>		  
+		  
+          <div class="separador"></div>
+          <label for="thumb" class="labelManeira">>> THUMBNAIL</label>
+          <p>A resolução dessa imagem pode ser qualquer uma, mas preferencialmente 124x124px!</p>
+          <input type="file" name="thumb" id="thumb" accept=".png,.jpg,.jpeg,.gif,.bmp">
+          <!-- ^ esse código tem ALMA -->
+		  
           <div class="separador"></div>
           <label for="arquivos" class="labelManeira">>> IMAGENS E VÍDEOS</label>
           <div id="multiFileUploader" style="margin-bottom: 10px;">
@@ -279,6 +287,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
             </ul>
             <button class="coolButt grandissimo" type="button" onclick="addMais1()">+ Adicionar mais um</button>
           </div>
+
 
           <button type="submit" class="coolButt verde grandissimo">Criar</button>
         </form>

@@ -40,10 +40,14 @@ if ($query != '') {
 					$arquivo = explode('\n', $projeto->arquivos)[0];
 					$eh_um_video = in_array(pathinfo($arquivo, PATHINFO_EXTENSION), $tiposDeVideo);
 					
-					if ($eh_um_video) {
-						echo '/elementos/vedor_d_imagem/video_coiso.png';
+					if ($projeto->thumbnail != null) {
+						echo '/static/projetos/' . $projeto->id . '/thumb/' . $projeto->thumbnail;
 					} else {
-						echo '/static/projetos/' . $projeto->id . '/' . $arquivo;
+						if ($eh_um_video) {
+							echo '/elementos/vedor_d_imagem/video_coiso.png';
+						} else {
+							echo '/static/projetos/' . $projeto->id . '/' . $arquivo;
+						}
 					}
 					
 					?>
