@@ -22,7 +22,7 @@ global $usuario;
   <meta content="pt-br" http-equiv="Content-Language" />
   <title><?= $titulo ?? "[PORTAL ESPECULAMENTE]" ?></title>
   <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
-  <link href="/cssManeiro.css?v8" rel="stylesheet" type="text/css" />
+  <link href="/cssManeiro.css?v9" rel="stylesheet" type="text/css" />
   <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 </head>
 
@@ -36,7 +36,7 @@ global $usuario;
           <div class="coolLinkery">
             <a href="/projetos/">PROJETOS</a>
             <a href="/jogos.php">JOGOS</a>
-            <a href="">MÍDIA</a>
+            <a href="/midia.php">MÍDIA</a>
             <a href="">BLOGS</a>
             <a href="/resto.php">"O resto..."</a>
           </div>
