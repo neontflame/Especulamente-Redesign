@@ -339,6 +339,40 @@ a.coolButt {
   text-decoration: underline;
 }
 
+/* itens midiaticos!
+copiei do meu site to com preguiça -neon */
+
+.item {
+	float:left;
+	width: 143px;
+	height: 189px;
+	text-align: center;
+	border-color: #9EBBFF !important;
+	border-right: 1px solid;
+	border-bottom: 1px solid;
+	white-space: pre-line;
+	overflow: hidden;
+}
+
+.item a {
+	color: #3F65CC;
+	font-weight: bold;
+	text-decoration: none;
+	font-size: 12px;
+}
+
+.item .autorItem {
+	font-size: 11px;
+	font-weight: normal;
+	color: #c9daff;
+}
+.item img {
+	max-width: 112px;
+	max-height: 124px;
+	margin-top: 8px;
+	margin-bottom: 4px;
+}
+
 /* comentarios !!! uhul */
 #osComentario ul {
   padding-left: 0;
