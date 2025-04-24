@@ -124,9 +124,11 @@ function vedor_d_comentario($tipo, $id, $temTudo, &$usuario)
 }
 
 // achei lowkey smart o responde_clickers ficar aqui
+// obrigado houve 0 pensamento envolvido -fup
 function responde_clickers($texto)
 {
 	$Parsedown = new Parsedown();
+	$Parsedown->setSafeMode(true);
 
 	$replace = [
 		'/&gt;&gt;(\d+)/' => '<a href="#comentario_$1" onmouseenter="document.getElementById(\'comentario_$1\').className=\'comentario livel\'" onmouseleave="document.getElementById(\'comentario_$1\').className=\'comentario\'">&gt;&gt;$1</a>'
@@ -143,7 +145,7 @@ function responde_clickers($texto)
 
 	$texto = htmlspecialchars($texto);
 
-	return $Parsedown->text(preg_replace(array_keys($replace), array_values($replace), $texto));
+	return preg_replace(array_keys($replace), array_values($replace), $Parsedown->text($texto));
 }
 /* por algum motivo o mario quebra o vedor D imagem entao ele vai ter que ficar aqui :(
 		^ pior dia da minha vida
