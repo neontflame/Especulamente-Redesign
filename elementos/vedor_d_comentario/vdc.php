@@ -130,7 +130,12 @@ function responde_clickers($texto)
 	$Parsedown = new Parsedown();
 	$Parsedown->setSafeMode(true);
 
-	$replace = [];
+	$replace = [
+		'/(\s)@([a-zA-Z0-9_.]+)/' => '$1[@$2](/usuarios/$2)',
+		'/^@([a-zA-Z0-9_.]+)/' => '[@$1](/usuarios/$1)',
+		'/(\s)#(\w+)/' => '$1[#$2](/projetos/?q=%23$2)',
+		'/^#(\w+)/' => '[#$1](/projetos/?q=%23$1)',
+	];
 
 	// Emotes!
 	$dir = $_SERVER['DOCUMENT_ROOT'] . "/elementos/emoticons/";
