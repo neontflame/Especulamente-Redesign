@@ -37,7 +37,7 @@ if ($query != '') {
 					<a href="<?= $config['URL'] ?>/projetos/ver.php?id=<?= $projeto->id ?>"><img src="
 					<?php 
 					$tiposDeVideo = ['mp4', 'ogg', 'avi', 'mkv'];
-					$arquivo = explode("\n", $projeto->arquivos)[0];
+					$arquivo = explode('\n', $projeto->arquivos)[0];
 					$eh_um_video = in_array(pathinfo($arquivo, PATHINFO_EXTENSION), $tiposDeVideo);
 					
 					if ($eh_um_video) {
