@@ -130,22 +130,27 @@ function responde_clickers($texto)
 	$Parsedown = new Parsedown();
 	$Parsedown->setSafeMode(true);
 
-	$replace = [
-		'/&gt;&gt;(\d+)/' => '<a href="#comentario_$1" onmouseenter="document.getElementById(\'comentario_$1\').className=\'comentario livel\'" onmouseleave="document.getElementById(\'comentario_$1\').className=\'comentario\'">&gt;&gt;$1</a>'
-	];
+	$replace = [];
 
+	// Emotes!
 	$dir = $_SERVER['DOCUMENT_ROOT'] . "/elementos/emoticons/";
 	if ($handle = scandir($dir)) {
 		foreach ($handle as $target) {
 			if (!in_array($target, [".", ".."])) {
-				$replace += ['/' . pathinfo($dir . $target, PATHINFO_FILENAME) . '/' => '<img src="/elementos/emoticons/' . $target . '" alt="' . pathinfo($dir . $target, PATHINFO_FILENAME) . '">'];
+				$replace += ['/' . pathinfo($dir . $target, PATHINFO_FILENAME) . '/' => '![' . pathinfo($dir . $target, PATHINFO_FILENAME) . '](/elementos/emoticons/' . $target . ')'];
 			}
 		}
 	}
 
-	$texto = htmlspecialchars($texto);
+	$texto = $Parsedown->text(preg_replace(array_keys($replace), array_values($replace), htmlspecialchars($texto)));
 
-	return preg_replace(array_keys($replace), array_values($replace), $Parsedown->text($texto));
+	// Só a partir daqui podemos incluir HTML em segurança
+	$replace = [
+		'/&gt;&gt;(\d+)/' => '<a href="#comentario_$1" onmouseenter="document.getElementById(\'comentario_$1\').className=\'comentario livel\'" onmouseleave="document.getElementById(\'comentario_$1\').className=\'comentario\'">&gt;&gt;$1</a>'
+	];
+	$texto = preg_replace(array_keys($replace), array_values($replace), $texto);
+
+	return $texto;
 }
 /* por algum motivo o mario quebra o vedor D imagem entao ele vai ter que ficar aqui :(
 		^ pior dia da minha vida
