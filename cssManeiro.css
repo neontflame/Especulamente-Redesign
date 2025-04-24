@@ -367,7 +367,8 @@ copiei do meu site to com preguiça -neon */
 	color: #c9daff;
 }
 .item img {
-	max-width: 128px;
+	max-width: 112px;
+	max-height: 124px;
 	margin-bottom: 4px;
 }
 
