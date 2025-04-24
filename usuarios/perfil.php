@@ -74,7 +74,7 @@ $perfil_e_meu = $usuario ? ($usuario->id == $perfil->id) : false;
       }
 
       .bioEditavel {
-        background-color: #FFFFFF;
+        background-color: #FFFFFF00;
         border: none;
         position: relative;
         padding: 1px 1px;
