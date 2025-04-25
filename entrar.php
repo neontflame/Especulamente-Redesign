@@ -81,9 +81,9 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
         <label for="senha">senha</label>
         <input name="senha" id="senha" type="password" required>
         <br>
-		<?php if (isset($erro)) : ?><p style="color: #FF0000;"><?= $erro ?></p><?php endif ?>
         <button class="coolButt">Entrar</button>
       </form>
+	  <?php if (isset($erro)) : ?><p style="color: #FF0000;"><?= $erro ?></p><?php endif ?>
       <p><a href="/esqueci.php">esqueceu a senha?</a></p>
       <p>não tem uma conta ainda? <a href="/registrar.php" title="ou morra tentando">crie uma aqui</a></p>
     </div>
