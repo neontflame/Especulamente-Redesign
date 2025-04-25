@@ -163,7 +163,9 @@ $perfil_e_meu = $usuario ? ($usuario->id == $perfil->id) : false;
         <button class="bioEditavel" onclick="form_bio.style.display = 'block'; bio.style.display = 'none'">
         <?php endif; ?>
 
-        <p id="bio" style="margin-top: 0px; white-space: pre-line;"><?= responde_clickers($perfil->bio) ?></p>
+        <p id="bio" style="margin-top: 0px; white-space: pre-line;">
+		<?php if ($perfil_e_meu && ($perfil->bio == null or $perfil->bio == '')) : ?>vazio - insira algo aqui!<?php endif;?>
+		<?= responde_clickers($perfil->bio) ?></p>
 
         <?php if ($perfil_e_meu) : ?>
         </button>
