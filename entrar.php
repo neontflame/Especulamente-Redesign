@@ -73,9 +73,6 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
 
   <div class="page_content" style="height: 254px">
     <div class="inside_page_content">
-      <?php if (isset($erro)) : ?>
-        <p><?= $erro ?></p>
-      <?php endif ?>
       <img src="elementos/ola.png" style="margin-top: -5px; margin-left: -5px;">
       <form action="" method="post">
         <label for="username">nome de usuário</label>
@@ -88,6 +85,9 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
       </form>
       <p><a href="/esqueci.php">esqueceu a senha?</a></p>
       <p>não tem uma conta ainda? <a href="/registrar.php" title="ou morra tentando">crie uma aqui</a></p>
+	  <?php if (isset($erro)) : ?>
+      <p><?= $erro ?></p>
+      <?php endif ?>
     </div>
   </div>
 </div>
