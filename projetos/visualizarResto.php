@@ -111,9 +111,9 @@ if (str_ends_with($full_path, '.html') || str_ends_with($full_path, '.htm') || s
   preg_match('/<body[^>]*>(.*)<\/body>/si', $contents, $matches);
   if (isset($matches[1])) {
     $body = $matches[1];
-    $contents = str_replace($body, $cabecalho . (isset($usuario) ? "<div style=\"padding-top: 24px;\">" : "<div>") . $body . "</div>", $contents);
+    $contents = str_replace($body, $cabecalho . (isset($usuario) ? "<div id=\"ESPECULAMENTE_site\" style=\"padding-top: 24px;\">" : "<div>") . $body . "</div>", $contents);
   } else {
-    $contents = $cabecalho . (isset($usuario) ? "<div style=\"padding-top: 24px;\">" : "<div>") .  $contents . "</div>";
+    $contents = $cabecalho . (isset($usuario) ? "<div id=\"ESPECULAMENTE_site\" style=\"padding-top: 24px;\">" : "<div>") .  $contents . "</div>";
   }
   echo $contents;
 } else {
