@@ -123,6 +123,10 @@ if (str_ends_with($full_path, '.html') || str_ends_with($full_path, '.htm') || s
 
 function getFileMimeType($file)
 {
+  if (str_ends_with($file, '.css')) {
+    return 'text/css';
+  }
+
   if (function_exists('finfo_file')) {
     $finfo = finfo_open(FILEINFO_MIME_TYPE);
     $type = finfo_file($finfo, $file);
