@@ -132,21 +132,6 @@ function getFileMimeType($file)
     $type = mime_content_type($file);
   }
 
-  if (!$type || in_array($type, array('application/octet-stream', 'text/plain'))) {
-    $secondOpinion = exec('file -b --mime-type ' . escapeshellarg($file), $foo, $returnCode);
-    if ($returnCode === 0 && $secondOpinion) {
-      $type = $secondOpinion;
-    }
-  }
-
-  if (!$type || in_array($type, array('application/octet-stream', 'text/plain'))) {
-    require_once 'mime.php';
-    $exifImageType = exif_imagetype($file);
-    if ($exifImageType !== false) {
-      $type = image_type_to_mime_type($exifImageType);
-    }
-  }
-
   return $type;
 }
 ?>
