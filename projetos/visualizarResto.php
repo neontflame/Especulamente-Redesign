@@ -123,8 +123,23 @@ if (str_ends_with($full_path, '.html') || str_ends_with($full_path, '.htm') || s
 
 function getFileMimeType($file)
 {
-  if (str_ends_with($file, '.css')) {
+  if (str_ends_with(strtolower($file), '.css')) {
     return 'text/css';
+  }
+  if (str_ends_with(strtolower($file), '.js')) {
+    return 'application/javascript';
+  }
+  if (str_ends_with(strtolower($file), '.mjs')) {
+    return 'application/javascript';
+  }
+  if (str_ends_with(strtolower($file), '.json')) {
+    return 'application/json';
+  }
+  if (str_ends_with(strtolower($file), '.xml')) {
+    return 'application/xml';
+  }
+  if (str_ends_with(strtolower($file), '.svg')) {
+    return 'image/svg+xml';
   }
 
   if (function_exists('finfo_file')) {
