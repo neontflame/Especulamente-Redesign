@@ -33,7 +33,7 @@ if ($query != '') {
 				<?php if ($projeto->tipo == 'dl' || $projeto->tipo == 'bg') : ?>
                 <div class="projeto">
 				  <?php if ($projeto->tipo == 'dl') : ?>
-                  <a href="<?= $config['URL'] ?>/projetos/zipar.php?id=<?= $projeto->id ?>"><img src="/elementos/botaoTransferirProjeto.png"></a>
+                  <a href="<?= $config['URL'] ?>/projetos/zipar.php?id=<?= $projeto->id ?>"><img src="/elementos/botaoTransferirProjetos.png"></a>
                   <?php endif ?>
 				  <?php if ($projeto->tipo == 'bg') : ?>
                   <a href="<?= $config['URL'] ?>/projetos/ver.php?id=<?= $projeto->id ?>"><img src="/elementos/botaoLerBlog.png"></a>
