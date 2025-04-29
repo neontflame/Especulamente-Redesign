@@ -59,7 +59,7 @@ if ($query != '') {
 				  <a href="<?= $config['URL'] ?>/projetos/ver.php?id=<?= $projeto->id ?>"><img src="/elementos/botaoVerMidia.png"></a>
 				  <?php endif ?>
 				  
-                  <a href="<?= $config['URL'] ?>/projetos/ver.php?id=<?= $projeto->id ?>" style="float:left; margin-right: 8px"><img style="width:96px; height:96px" src="
+                  <a href="<?= $config['URL'] ?>/projetos/ver.php?id=<?= $projeto->id ?>" style="float:left; margin-right: 8px"><img style="width:96px; max-height:96px" src="
 				  <?php if ($projeto->thumbnail != null) { ?>/static/projetos/<?= ($projeto->id) ?>/thumb/<?= ($projeto->thumbnail) ?>
 				  <?php } else { ?>/static/thumb_padrao.png<?php } ?>
 				  "></a>
