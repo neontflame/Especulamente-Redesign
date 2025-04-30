@@ -31,7 +31,7 @@ if ($query != '') {
             <div class="projetos">
               <?php foreach ($projetos as $projeto) : ?>
                 <div class="projeto" style="min-height:84px">
-                  <a href="<?= $config['URL'] ?>/projetos/ver.php?id=<?= $projeto->id ?>" style="float:left; margin-right: 8px"><img style="width:96px; height:72px" src="
+                  <a href="<?= $config['URL'] ?>/projetos/ver.php?id=<?= $projeto->id ?>" style="float:left; margin-right: 8px"><img style="max-width:96px; max-height:72px" src="
 				  <?php if ($projeto->thumbnail != null) { ?>/static/projetos/<?= ($projeto->id) ?>/thumb/<?= ($projeto->thumbnail) ?>
 				  <?php } else { ?>/static/thumb_padrao.png<?php } ?>
 				  "></a>

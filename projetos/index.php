@@ -59,10 +59,10 @@ if ($query != '') {
 				  <a href="<?= $config['URL'] ?>/projetos/ver.php?id=<?= $projeto->id ?>"><img src="/elementos/botaoVerMidia.png"></a>
 				  <?php endif ?>
 				  
-                  <a href="<?= $config['URL'] ?>/projetos/ver.php?id=<?= $projeto->id ?>" style="float:left; margin-right: 8px"><img style="max-width:96px; height:72px" src="
-				  <?php if ($projeto->thumbnail != null) { ?>/static/projetos/<?= ($projeto->id) ?>/thumb/<?= ($projeto->thumbnail) ?>
-				  <?php } else { ?>/static/thumb_padrao.png<?php } ?>
-				  "></a>
+				  <!-- nem tudo precisa ter uma thumbnail! -->
+				  <?php if ($projeto->thumbnail != null) { ?>
+                  <a href="<?= $config['URL'] ?>/projetos/ver.php?id=<?= $projeto->id ?>" style="float:left; margin-right: 8px"><img style="max-width:96px; height:72px" src="/static/projetos/<?= ($projeto->id) ?>/thumb/<?= ($projeto->thumbnail) ?>"></a>
+				  <?php } ?>
                   <a class="autorDeProjeto" href="<?= $config['URL'] ?>/usuarios/<?= usuario_requestIDator($projeto->id_criador)->username ?>">
                     por <?= usuario_requestIDator($projeto->id_criador)->username ?>
                   </a>
