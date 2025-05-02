@@ -177,6 +177,7 @@ $perfil_e_meu = $usuario ? ($usuario->id == $perfil->id) : false;
           </button>
         </form>
       <?php endif; ?>
+	  <div class="separador"></div>
       <p>Esse usuário tem <?= $perfil->davecoins ?> davecoins</p>
       <?php reajor_d_reagida('perfil', $perfil, $usuario) ?>
 
