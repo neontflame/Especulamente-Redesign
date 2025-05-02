@@ -118,17 +118,22 @@ if (isset($usuario)) {
 						<img src="/elementos/vedor_d_imagem/botaoProximo.png" alt="Próximo">
 					</button>
 					<div id="outrasImagens">
-						<?php $tiposDeVideo = ['mp4', 'ogg', 'avi', 'mkv']; ?>
+						<?php $tiposDeVideo = ['mp4', 'ogg', 'avi', 'mkv'];
+							  $tiposDeFlash = ['swf']; // provavelmente nao existe mais tipos de flash do que swf mas eu fiquei com preguiça e vai que minha hipotese e desprovada eventualmente					
+							  ?>
 						<?php foreach ($arquivos as $i => $arquivo) : ?>
-							<?php $eh_um_video = in_array(pathinfo($arquivo, PATHINFO_EXTENSION), $tiposDeVideo); ?>
+							<?php $eh_um_video = in_array(pathinfo($arquivo, PATHINFO_EXTENSION), $tiposDeVideo); 
+								  $eh_um_flash = in_array(pathinfo($arquivo, PATHINFO_EXTENSION), $tiposDeFlash);
+								  ?>
 							<button
 								data-url="/static/projetos/<?= $projeto->id ?>/<?= $arquivo ?>"
 								<?= $eh_um_video ? "data-video='true'" : "" ?>
+								<?= $eh_um_flash ? "data-flash='true'" : "" ?>
 								onclick="clicCoiso(<?= $i ?>)"
 								style="<?= $i > 8 ? "display: none;" : "" ?>"
 								class="<?= $i == 0 ? "essa-imagem" : "" ?>">
 								<img
-									src="<?= $eh_um_video ? '/elementos/vedor_d_imagem/video_coiso.png' : "/static/projetos/" . $projeto->id . "/" . $arquivo ?>"
+									src="<?= $eh_um_video ? '/elementos/vedor_d_imagem/video_coiso.png' : ($eh_um_flash ? '/elementos/vedor_d_imagem/flash_coiso.png' : "/static/projetos/" . $projeto->id . "/" . $arquivo) ?>"
 									alt="<?= $arquivo ?>"
 									width="48px"
 									height="48px">
@@ -141,6 +146,9 @@ if (isset($usuario)) {
 					<video id="videoAtual" width="620" autoplay="false" controls="true" style="display: none;">
 						Seu navegador não tem suporte pra tag de vídeo!!
 					</video>
+					<embed id="flashAtual" type="application/x-shockwave-flash" src="" width="620" height="465">
+					</embed>
+				
 					<a href="/elementos/chillmaia.png" target="_blank" id="imagemAtual" style="display: none;">
 						<img src="/elementos/chillmaia.png">
 					</a>
@@ -216,10 +224,28 @@ if (isset($usuario)) {
 							if (img.getAttribute('data-video') == 'true') {
 								document.getElementById("videoAtual").style.display = "block";
 								document.getElementById("videoAtual").src = img.getAttribute('data-url');
+								if (typeof document.getElementById("flashAtual").pause === 'function') {
+									document.getElementById("flashAtual").pause();
+								} else {
+									if (document.getElementById("flashAtual").src != "/elementos/placery.swf") document.getElementById("flashAtual").src = "/elementos/placery.swf";
+								}
+								document.getElementById("flashAtual").style.display = "none";
+								document.getElementById("imagemAtual").style.display = "none";
+							} else if (img.getAttribute('data-flash') == 'true') {
+								document.getElementById("videoAtual").pause();
+								document.getElementById("videoAtual").style.display = "none";
+								document.getElementById("flashAtual").src = img.getAttribute('data-url');
+								document.getElementById("flashAtual").style.display = "block";
 								document.getElementById("imagemAtual").style.display = "none";
 							} else {
 								document.getElementById("videoAtual").pause();
 								document.getElementById("videoAtual").style.display = "none";
+								if (typeof document.getElementById("flashAtual").pause === 'function') {
+									document.getElementById("flashAtual").pause();
+								} else {
+									if (document.getElementById("flashAtual").src != "/elementos/placery.swf") document.getElementById("flashAtual").src = "/elementos/placery.swf";
+								}
+								document.getElementById("flashAtual").style.display = "none";
 								document.getElementById("imagemAtual").href = img.getAttribute('data-url');
 								document.getElementById("imagemAtual").getElementsByTagName('img')[0].src = img.getAttribute('data-url');
 								document.getElementById("imagemAtual").style.display = "block";

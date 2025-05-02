@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
       array_push($erro, "O nome do projeto é muito curto.");
     }
 
-	$tiposBons = ($tipo == 'md' ? ['png', 'bmp', 'jpg', 'jpeg', 'gif', 'mp4', 'ogg', 'avi', 'wmv', 'mkv'] : []);
+	$tiposBons = ($tipo == 'md' ? ['png', 'bmp', 'jpg', 'jpeg', 'gif', 'mp4', 'ogg', 'avi', 'wmv', 'mkv', 'swf'] : []);
 
     if ($tipo == 'dl' || $tipo == 'md') {
       $arquivos = $_FILES['arquivos'];
