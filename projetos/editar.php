@@ -201,7 +201,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
             <input type="file" name="arquivos[]" id="arquivos" <?php if ($projeto->tipo != 'bg') { ?> required <?php } ?> oninput="inputComico(this)" onchange="this.parentElement.setAttribute('data-filename', this.files[0].name); recalcularOrdem()">
             <button type="button" class="coolButt vermelho" onclick="
               <?php if ($projeto->tipo != 'jg') : ?>
-              if (this.parentElement.parentElement.children.length > <?php ($projeto->tipo != 'bg') ? 0 : 1 ?>) {
+              if (this.parentElement.parentElement.children.length > <?= ($projeto->tipo != 'bg') ? 0 : 1 ?>) {
               <?php endif; ?>
                 if (!confirm('Tem certeza que deseja remover este arquivo?')) return;
                 this.parentElement.remove()
