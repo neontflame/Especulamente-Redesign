@@ -158,6 +158,7 @@ $perfil_e_meu = $usuario ? ($usuario->id == $perfil->id) : false;
 
     <div class="inside_page_content">
       <h1 style="margin: 0;"><?= $perfil->username ?></h1>
+	  <div class="separador"></div>
       <!-- Bio -->
       <?php if ($perfil_e_meu) : ?>
         <button class="bioEditavel" onclick="form_bio.style.display = 'block'; bio.style.display = 'none'">
