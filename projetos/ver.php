@@ -40,13 +40,14 @@ if (isset($usuario)) {
 			<?php if ($projeto_e_meu) : ?>
 				<a href="<?= $config['URL'] ?>/projetos/editar.php?id=<?= $projeto->id ?>" style="float:right; margin:8px;"><img src="/elementos/botaoEditar.png"></a>
 			<?php endif ?>
-			<?php if ($arquivos[0] != '') : ?>
+			<?php if ($arquivos[0] != '' && $projeto->tipo != 'bg') : ?>
 				<a href="<?= $config['URL'] ?>/projetos/zipar.php?id=<?= $projeto->id ?>" style="float:right; margin:8px;"><img src="/elementos/botaoTransferir.png"></a>
 			<?php endif ?>
 
 			<h1><i><?= $projeto->nome ?></i></h1>
 			<p>por <a href="/usuarios/<?= usuario_requestIDator($projeto->id_criador)->username ?>"><?= usuario_requestIDator($projeto->id_criador)->username ?></a></p>
 		</div>
+		<?php if ($projeto->tipo != 'bg') : ?>
 		<div class="inside_page_content">
 			<?php if ($projeto->tipo == 'jg') : ?>
 				<!-- Embed -->
@@ -336,9 +337,33 @@ if (isset($usuario)) {
 				</div>
 			<?php endif; ?>
 		</div>
-
+		<?php endif; ?>
+		
+		<style>
+		.descricao img {
+			max-width: 620px;
+		}
+		</style>
 		<div class="inside_page_content" style="margin-top: 8px; margin-bottom: 8px;">
-			<div class="descricao" style="white-space:pre-line"><?= responde_clickers($projeto->descricao) ?></div>
+			<?php
+				function trocadorDeImagemCoiso($texto) {
+					global $arquivos;
+					global $arquivos_de_vdd;
+					global $id;
+					
+					$trocador = [];
+					
+					foreach ($arquivos as $i => $arquivo) {
+						$trocador += [
+						'^!\[(.*?)\]\(' . $arquivos_de_vdd[$i] . '\)^' => '![$1](/static/projetos/' . $id . '/' . $arquivos[$i] . ')'
+						];
+					}
+					$texto = preg_replace(array_keys($trocador), array_values($trocador), $texto);
+					
+					return $texto;
+				}
+			?>
+			<div class="descricao" style="white-space:pre-line"><?= responde_clickers(trocadorDeImagemCoiso($projeto->descricao)) ?></div>
 			<?php reajor_d_reagida('projeto', $projeto, $usuario) ?>
 		</div>
 

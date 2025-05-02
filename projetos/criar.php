@@ -17,10 +17,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
       array_push($erro, "O nome do projeto é muito curto.");
     }
 
-	$tiposBons = ($tipo == 'md' ? ['png', 'bmp', 'jpg', 'jpeg', 'gif', 'mp4', 'ogg', 'avi', 'wmv', 'mkv', 'swf'] : []);
+	$tiposBons = (($tipo == 'md') ? ['png', 'bmp', 'jpg', 'jpeg', 'gif', 'mp4', 'ogg', 'avi', 'wmv', 'mkv', 'swf'] : (($tipo == 'bg') ? ['png', 'bmp', 'jpg', 'jpeg', 'gif', 'mp4', 'ogg', ''] : []));
 
-    if ($tipo == 'dl' || $tipo == 'md') {
-      $arquivos = $_FILES['arquivos'];
+    if ($tipo == 'dl' || $tipo == 'md' || $tipo == 'bg') {
+      $arquivos = $_FILES['arquivos'] ?? null;
       $thumb = $_FILES['thumb'] ?? null;
 
       if (count($erro) == 0) {
@@ -175,7 +175,49 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 	  <?php endif; ?>
 
       <?php if ($tipo == 'bg') : ?>
-        <h1 style="text-align: center; font-style: italic; font-weight: normal;">isso ainda nao existe :(</h1>
+		<script>
+		function extractFilename(path) {
+		  if (path.substr(0, 12) == "C:\\fakepath\\")
+			return path.substr(12); // modern browser
+		  var x;
+		  x = path.lastIndexOf('/');
+		  if (x >= 0) // Unix-based path
+			return path.substr(x+1);
+		  x = path.lastIndexOf('\\');
+		  if (x >= 0) // Windows-based path
+			return path.substr(x+1);
+		  return path; // just the filename
+		}
+
+		function inputComico(valor) {
+			document.getElementById("descricao").value += '\n![](' + extractFilename(valor.value) + ')';
+		}
+		</script>
+        <!-- Blogs -->
+        <h1 style="text-align: center; font-style: italic;">Blog!</h1>
+        <p><i>Escreva qualquer coisa aqui e publique para que qualquer pessoa na rede mundial de computadores possa ler o que você escreveu!!</i></p>
+
+        <form action="/projetos/criar.php" method="post" enctype="multipart/form-data">
+          <input type="hidden" name="tipo" value="bg">
+
+          <label for="nome" class="labelManeira">>> NOME</label>
+          <input type="text" style="width: 97%" id="nome" name="nome" required value="<?= $nome ?? "" ?>">
+          <br>
+
+          <label for="descricao" class="labelManeira">>> POSTAGEM</label>
+          <textarea style="width: 97%" name="descricao" id="descricao"><?= $descricao ?? "" ?></textarea>
+          <br>
+          <div class="separador"></div>
+          <label for="arquivos" class="labelManeira">>> ANEXOS NO POST</label>
+          <div id="multiFileUploader" style="margin-bottom: 10px;">
+            <ul class="files">
+
+            </ul>
+            <button class="coolButt grandissimo" type="button" onclick="addMais1()">+ Adicionar mais um</button>
+          </div>
+
+          <button type="submit" class="coolButt verde grandissimo">Criar</button>
+        </form>
       <?php endif; ?>
 
       <?php if ($tipo == 'dl') : ?>
@@ -184,7 +226,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
         <p><i>Esse tipo de projeto oferece arquivos para descarga. Os usuários podem transferir as suas coisas para seus discos rígidos.</i></p>
 
         <form action="/projetos/criar.php" method="post" enctype="multipart/form-data">
-          <input type="hidden" name="tipo" value="dl">
+          <input type="hidden" name="tipo" value="bg">
 
           <label for="nome" class="labelManeira">>> NOME</label>
           <input type="text" style="width: 97%" id="nome" name="nome" required value="<?= $nome ?? "" ?>">
@@ -258,7 +300,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
       <?php endif; ?>
 	  
       <?php if ($tipo == 'md') : ?>
-        <!-- Downloadável -->
+        <!-- Mídias -->
         <h1 style="text-align: center; font-style: italic;">Mídia!</h1>
         <p><i>Esse tipo de projeto oferece as imagens (dentre outras coisas) que você carregar aqui como se fosse um pequeno álbum!!</i></p>
 
@@ -329,7 +371,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 
       <div id="fileTemplate" style="display: none;">
         <li>
-          <input type="file" name="arquivos[]" id="arquivos" required>
+          <input type="file" name="arquivos[]" id="arquivos" oninput="inputComico(this)" <?php if ($tipo != 'bg') { ?> required <?php } ?>>
           <button type="button" class="coolButt vermelho" onclick="
             <?php if ($tipo != 'jg') : ?>
             if (this.parentElement.parentElement.children.length > 1) {

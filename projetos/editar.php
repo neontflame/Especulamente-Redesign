@@ -96,8 +96,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
           <label for="nome" class="labelManeira">>> NOME</label>
           <input type="text" style="width: 97%" id="nome" name="nome" value="<?= $projeto->nome ?>" required>
           <br>
-
-          <label for="descricao" class="labelManeira">>> DESCRIÇÃO</label>
+		
+          <label for="descricao" class="labelManeira">>> <?= ($projeto->tipo == 'bg') ? 'POSTAGEM' : 'DESCRIÇÃO'?></label>
           <textarea style="width: 97%" name="descricao" id="descricao"><?= $projeto->descricao ?></textarea>
           <br>
 
@@ -143,7 +143,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 
           <?php if ($projeto->tipo != 'rt'): ?>
             <div class="separador"></div>
+			<?php if ($projeto->tipo == 'bg') { ?>
+			<label class="labelManeira">>> ANEXOS NO POST</label>
+			<?php } else { ?>
             <label class="labelManeira">>> ARQUIVOS <?= $projeto->tipo == 'jg' ? 'DOWNLOADÁVEIS' : '' ?></label>
+			<?php } ?>
             <input type="hidden" name="ordem" value="<?= $projeto->arquivos_de_vdd ?>">
             <div id="multiFileUploader" style="margin-bottom: 10px;">
               <ul class="files">
@@ -194,10 +198,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 
         <div id="fileTemplate" style="display: none;">
           <li data-filename="">
-            <input type="file" name="arquivos[]" id="arquivos" required onchange="this.parentElement.setAttribute('data-filename', this.files[0].name); recalcularOrdem()">
+            <input type="file" name="arquivos[]" id="arquivos" <?php if ($projeto->tipo != 'bg') { ?> required <?php } ?> oninput="inputComico(this)" onchange="this.parentElement.setAttribute('data-filename', this.files[0].name); recalcularOrdem()">
             <button type="button" class="coolButt vermelho" onclick="
               <?php if ($projeto->tipo != 'jg') : ?>
-              if (this.parentElement.parentElement.children.length > 1) {
+              if (this.parentElement.parentElement.children.length > <?php ($projeto->tipo != 'bg') ? 0 : 1 ?>) {
               <?php endif; ?>
                 if (!confirm('Tem certeza que deseja remover este arquivo?')) return;
                 this.parentElement.remove()
@@ -287,6 +291,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 
     document.querySelector('input[name="ordem"]').value = ordem.join('\\n');
   }
+  
+  <?php if ($projeto->tipo == 'bg') { ?>
+  	function extractFilename(path) {
+	  if (path.substr(0, 12) == "C:\\fakepath\\")
+		return path.substr(12); // modern browser
+	  var x;
+	  x = path.lastIndexOf('/');
+	  if (x >= 0) // Unix-based path
+		return path.substr(x+1);
+	  x = path.lastIndexOf('\\');
+	  if (x >= 0) // Windows-based path
+		return path.substr(x+1);
+	  return path; // just the filename
+	}
+
+	function inputComico(valor) {
+		document.getElementById("descricao").value += '\n![](' + extractFilename(valor.value) + ')';
+	}
+  <?php } ?>
 </script>
 
 <?php include $_SERVER['DOCUMENT_ROOT'] . '/elementos/footer/footer.php'; ?>
