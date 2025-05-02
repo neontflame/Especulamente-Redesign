@@ -11,7 +11,7 @@ $ad = $ads[array_rand($ads)];
   <a href="/projetos/"><img src="/elementos/sidebar/projetosInativo.png" onmouseover="this.src='/elementos/sidebar/projetosAtivo.png';" onmouseout="this.src='/elementos/sidebar/projetosInativo.png';" /></a><br />
   <a href="/jogos.php"><img src="/elementos/sidebar/jogosInativo.png" onmouseover="this.src='/elementos/sidebar/jogosAtivo.png';" onmouseout="this.src='/elementos/sidebar/jogosInativo.png';" /></a><br />
   <a href="/midia.php"><img src="/elementos/sidebar/midiaInativo.png" onmouseover="this.src='/elementos/sidebar/midiaAtivo.png';" onmouseout="this.src='/elementos/sidebar/midiaInativo.png';" /></a><br />
-  <a href=""><img src="/elementos/sidebar/blogsInativo.png" onmouseover="this.src='/elementos/sidebar/blogsAtivo.png';" onmouseout="this.src='/elementos/sidebar/blogsInativo.png';" /></a><br />
+  <a href="/blogs.php"><img src="/elementos/sidebar/blogsInativo.png" onmouseover="this.src='/elementos/sidebar/blogsAtivo.png';" onmouseout="this.src='/elementos/sidebar/blogsInativo.png';" /></a><br />
   <a href="/resto.php"><img src="/elementos/sidebar/orestoInativo.png" style="margin-top: 8px;" onmouseover="this.src='/elementos/sidebar/orestoAtivo.png';" onmouseout="this.src='/elementos/sidebar/orestoInativo.png';" /></a>
   <?php if (!($esconder_ad ?? false)) : ?>
     <br />

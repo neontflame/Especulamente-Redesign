@@ -6,7 +6,7 @@ $query = $_GET['q'] ?? '';
 $page = $_GET['page'] ?? 1;
 $projetos = [];
 
-$pages = coisos_tudo($projetos, 'projetos', $page, $query, ' WHERE tipo = "jg"');
+$pages = coisos_tudo($projetos, 'projetos', $page, $query, ' WHERE tipo = "bg"');
 
 if ($query != '') {
   $coisodepagina = '?q=' . $query . '&';
@@ -15,14 +15,14 @@ if ($query != '') {
 }
 ?>
 
-<?php
-$titulo = "[Jogos <> PORTAL ESPECULAMENTE]";
+<?php 
+$titulo = "[Blogs <> PORTAL ESPECULAMENTE]";
 include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 
 <div class="container">
   <?php include $_SERVER['DOCUMENT_ROOT'] . '/elementos/sidebar/sidebar.php'; ?>
 
-  <img src="/elementos/pagetitles/jogos.png" class="inside_page_content" style="padding: 0px; margin-left: 4px; margin-bottom: 7px;">
+  <img src="/elementos/pagetitles/blogs.png" class="inside_page_content" style="padding: 0px; margin-left: 4px; margin-bottom: 7px;">
 
   <div class="page_content" style="min-height: 486px;">
     <div class="inside_page_content">
@@ -33,10 +33,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
             <div class="projetos">
               <?php foreach ($projetos as $projeto) : ?>
                 <div class="projeto" style="min-height:84px">
-                  <a href="<?= $config['URL'] ?>/projetos/ver.php?id=<?= $projeto->id ?>" style="float:left; margin-right: 8px"><img style="max-width:96px; max-height:72px" src="
-				  <?php if ($projeto->thumbnail != null) { ?>/static/projetos/<?= ($projeto->id) ?>/thumb/<?= ($projeto->thumbnail) ?>
-				  <?php } else { ?>/static/thumb_padrao.png<?php } ?>
-				  "></a>
+				  <a href="<?= $config['URL'] ?>/projetos/ver.php?id=<?= $projeto->id ?>"><img src="/elementos/botaoLerBlog.png"></a>
                   <a class="autorDeProjeto" href="<?= $config['URL'] ?>/usuarios/<?= usuario_requestIDator($projeto->id_criador)->username ?>">
                     por <?= usuario_requestIDator($projeto->id_criador)->username ?>
                   </a>
@@ -48,9 +45,9 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
               <!-- here be pagination -->
               <div class="pagination">
                 <?php if ($page > 1) : ?>
-                  <a href="<?= $config['URL'] ?>/jogos.php<?= $coisodepagina ?>page=1">Início</a>
+                  <a href="<?= $config['URL'] ?>/blogs.php<?= $coisodepagina ?>page=1">Início</a>
                   <p class="textinhoClaro">~</p>
-                  <a href="<?= $config['URL'] ?>/jogos.php<?= $coisodepagina ?>page=<?= $page - 1 ?>">« Anterior</a>
+                  <a href="<?= $config['URL'] ?>/blogs.php<?= $coisodepagina ?>page=<?= $page - 1 ?>">« Anterior</a>
                   <p class="textinhoClaro">~</p>
                 <?php endif ?>
                 <?php if ($page == 1) : ?>
@@ -61,9 +58,9 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 
                   <?php if ($page < $pages) : ?>
                     <p class="textinhoClaro">~</p>
-                    <a href="<?= $config['URL'] ?>/jogos.php<?= $coisodepagina ?>page=<?= $page + 1 ?>">Próximo »</a>
+                    <a href="<?= $config['URL'] ?>/blogs.php<?= $coisodepagina ?>page=<?= $page + 1 ?>">Próximo »</a>
                     <p class="textinhoClaro">~</p>
-                    <a href="<?= $config['URL'] ?>/jogos.php<?= $coisodepagina ?>page=<?= $pages ?>">Fim</a>
+                    <a href="<?= $config['URL'] ?>/blogs.php<?= $coisodepagina ?>page=<?= $pages ?>">Fim</a>
                   <?php endif ?>
                   <?php if ($page == $pages) : ?>
                     <p class="textinhoClaro"> ~ Próximo » ~ Fim</a>

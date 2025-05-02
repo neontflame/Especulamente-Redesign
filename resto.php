@@ -15,7 +15,9 @@ if ($query != '') {
 }
 ?>
 
-<?php include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
+<?php
+$titulo = "[O resto... <> PORTAL ESPECULAMENTE]";
+include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 
 <div class="container">
   <?php include $_SERVER['DOCUMENT_ROOT'] . '/elementos/sidebar/sidebar.php'; ?>

@@ -25,7 +25,9 @@ if (isset($usuario)) {
 
 ?>
 
-<?php include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
+<?php
+$titulo = "[" . $projeto->nome . "<> PORTAL ESPECULAMENTE]";
+include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 
 <style>
 	.jogo {

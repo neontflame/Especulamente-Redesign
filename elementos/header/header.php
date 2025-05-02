@@ -37,7 +37,7 @@ global $usuario;
             <a href="/projetos/">PROJETOS</a>
             <a href="/jogos.php">JOGOS</a>
             <a href="/midia.php">MÍDIA</a>
-            <a href="">BLOGS</a>
+            <a href="/blogs.php">BLOGS</a>
             <a href="/resto.php">"O resto..."</a>
           </div>
           <form action="/projetos">
