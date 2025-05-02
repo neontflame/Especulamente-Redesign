@@ -157,7 +157,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
                       <p style="width: 253px; margin: 0; display: inline-block"><?= $arquivo ?></p>
                       <button type="button" class="coolButt vermelho" onclick="
                     <?php if ($projeto->tipo != 'jg') : ?>
-                    if (this.parentElement.parentElement.children.length > 1) {
+                    if (this.parentElement.parentElement.children.length > <?= ($projeto->tipo == 'bg') ? 0 : 1 ?>) {
                     <?php endif; ?>
                       marcarParaRemoção(this.parentElement);
                       recalcularOrdem()
