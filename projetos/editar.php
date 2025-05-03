@@ -124,23 +124,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 
           <?php endif; ?>
 
-          <?php if ($projeto->tipo == 'jg' || $projeto->tipo == 'rt' ||  $projeto->tipo == 'md') : ?>
-            <div class="separador"></div>
-            <label for="thumb" class="labelManeira">>> THUMBNAIL</label>
-            <input type="file" name="thumb" id="thumb" accept=".png,.jpg,.jpeg,.gif,.bmp">
-
-            <p>Deixe em branco para deixar a mesma thumbnail que está agora.</p>
-
-            <input type="checkbox" name="removerThumb" id="removerThumb" onchange="
-              if (this.checked) {
-                document.getElementById('thumb').setAttribute('disabled', 'disabled');
-              } else {
-                document.getElementById('thumb').removeAttribute('disabled');
-              }">
-            <label for="removerThumb" style="display: inline-block; font-size: 12px;">remover thumbnail</label>
-
-          <?php endif; ?>
-
           <?php if ($projeto->tipo != 'rt'): ?>
             <div class="separador"></div>
 			<?php if ($projeto->tipo == 'bg') { ?>
@@ -192,6 +175,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
             <a href="/gerenciator/index.php?pasta=<?= $projeto->arquivos_de_vdd ?>" target="_blank" class="coolButt grandissimo" style="font-size: 30px; margin-bottom: 20px">Editar site!!!</a>
           <?php endif; ?>
 
+          <?php if ($projeto->tipo == 'jg' || $projeto->tipo == 'rt' ||  $projeto->tipo == 'md' ||  $projeto->tipo == 'bg') : ?>
+            <div class="separador"></div>
+            <label for="thumb" class="labelManeira">>> THUMBNAIL</label>
+            <input type="file" name="thumb" id="thumb" accept=".png,.jpg,.jpeg,.gif,.bmp">
+
+            <p>Deixe em branco para deixar a mesma thumbnail que está agora.</p>
+
+            <input type="checkbox" name="removerThumb" id="removerThumb" onchange="
+              if (this.checked) {
+                document.getElementById('thumb').setAttribute('disabled', 'disabled');
+              } else {
+                document.getElementById('thumb').removeAttribute('disabled');
+              }">
+            <label for="removerThumb" style="display: inline-block; font-size: 12px;">remover thumbnail</label>
+
+          <?php endif; ?>
+		  
           <button type="submit" class="coolButt verde grandissimo">Salvar mudanças</button>
         </form>
         <a href="/projetos/deletar.php?id=<?= $projeto->id ?>" class="coolButt vermelho grandissimo">DELETAR PROJETO ???!?</a>

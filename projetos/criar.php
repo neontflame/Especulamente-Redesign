@@ -215,7 +215,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
             </ul>
             <button class="coolButt grandissimo" type="button" onclick="addMais1()">+ Adicionar mais um</button>
           </div>
-
+		  
+          <div class="separador"></div>
+          <label for="thumb" class="labelManeira">>> THUMBNAIL (opcional)</label>
+          <p>A resolução dessa imagem pode ser qualquer uma, mas preferencialmente 92x76!</p>
+          <input type="file" name="thumb" id="thumb" accept=".png,.jpg,.jpeg,.gif,.bmp">
+		  
           <button type="submit" class="coolButt verde grandissimo">Criar</button>
         </form>
       <?php endif; ?>

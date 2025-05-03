@@ -34,6 +34,9 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
               <?php foreach ($projetos as $projeto) : ?>
                 <div class="projeto" style="min-height:84px">
 				  <a href="<?= $config['URL'] ?>/projetos/ver.php?id=<?= $projeto->id ?>"><img src="/elementos/botaoLerBlog.png"></a>
+				  <?php if ($projeto->thumbnail != null) { ?>
+                  <a href="<?= $config['URL'] ?>/projetos/ver.php?id=<?= $projeto->id ?>" style="float:left; margin-right: 8px"><img style="max-width:96px; height:72px" src="/static/projetos/<?= ($projeto->id) ?>/thumb/<?= ($projeto->thumbnail) ?>"></a>
+				  <?php } ?>
                   <a class="autorDeProjeto" href="<?= $config['URL'] ?>/usuarios/<?= usuario_requestIDator($projeto->id_criador)->username ?>">
                     por <?= usuario_requestIDator($projeto->id_criador)->username ?>
                   </a>
