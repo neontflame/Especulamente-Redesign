@@ -27,23 +27,15 @@
 	  ?>
             <div class="projetos">
               <?php foreach ($projetos as $projeto) : ?>
-				<?php if ($projeto->tipo == 'dl' || $projeto->tipo == 'bg') : ?>
-                <div class="projeto">
+                <div class="projeto" style="min-height:84px">
 				  <?php if ($projeto->tipo == 'dl') : ?>
                   <a href="<?= $config['URL'] ?>/projetos/zipar.php?id=<?= $projeto->id ?>"><img src="/elementos/botaoTransferirProjetos.png"></a>
                   <?php endif ?>
+				  
 				  <?php if ($projeto->tipo == 'bg') : ?>
                   <a href="<?= $config['URL'] ?>/projetos/ver.php?id=<?= $projeto->id ?>"><img src="/elementos/botaoLerBlog.png"></a>
                   <?php endif ?>
-				  <a class="autorDeProjeto" href="<?= $config['URL'] ?>/usuarios/<?= usuario_requestIDator($projeto->id_criador)->username ?>">
-                    feito por <?= usuario_requestIDator($projeto->id_criador)->username ?>
-                  </a>
-                  <h2><a href="<?= $config['URL'] ?>/projetos/ver.php?id=<?= $projeto->id ?>"><?= $projeto->nome ?></a></h2>
-                  <p><?= explode("\n", $projeto->descricao)[0] ?></p>
-                </div>
-				<?php endif ?>
-				<?php if ($projeto->tipo == 'jg' || $projeto->tipo == 'rt' || $projeto->tipo == 'md') : ?>
-                <div class="projeto" style="min-height:84px">
+				  
 				  <?php if ($projeto->tipo == 'rt') : ?>
 				  <a href="<?= $config['URL'] ?>/~<?= $projeto->arquivos_de_vdd ?>"><img src="/elementos/botaoVerResto.png"></a>
 				  <?php endif ?>
@@ -66,7 +58,6 @@
                   <h2><a href="<?= $config['URL'] ?>/projetos/ver.php?id=<?= $projeto->id ?>"><?= $projeto->nome ?></a></h2>
                   <p><?= explode("\n", $projeto->descricao)[0] ?></p>
                 </div>
-				<?php endif ?>
               <?php endforeach ?>
             </div>
     </div>
