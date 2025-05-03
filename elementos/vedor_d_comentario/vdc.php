@@ -157,6 +157,33 @@ function responde_clickers($texto)
 
 	return $texto;
 }
+
+class PlainTextParsedownExt extends Parsedown
+{
+	protected function element(array $Element)
+	{
+		$markup = '';
+
+		if (isset($Element['text'])) {
+			if (isset($Element['handler'])) {
+				$markup .= $this->{$Element['handler']}($Element['text']);
+			} else {
+				$markup .= $Element['text'];
+			}
+		} elseif (isset($Element['attributes']['alt'])) {
+			$markup .= $Element['attributes']['alt'];
+		}
+
+		return $markup;
+	}
+}
+
+function markdown_apenas_texto($texto)
+{
+	$Parsedown = new PlainTextParsedownExt();
+
+	return $Parsedown->text(htmlspecialchars($texto));
+}
 /* por algum motivo o mario quebra o vedor D imagem entao ele vai ter que ficar aqui :(
 		^ pior dia da minha vida
  ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⣤⣶⠶⠒⠂⠀⠐⠶⠶⠶⣶⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀

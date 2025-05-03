@@ -17,6 +17,7 @@ if ($query != '') {
 
 <?php
 $meta["titulo"] = "[Projetos <> PORTAL ESPECULAMENTE]";
+$meta["descricao"] = "Como todo bom ESPECULATIVO, nossa mesa está sempre transbordando de ideias, e às vezes essas ideias se tornam PROJETOS!! Veja aqui todos os melhores jogos, artes, vídeos e tudo mais já criados!";
 include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 
 <div class="container">
@@ -59,7 +60,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
                     por <?= usuario_requestIDator($projeto->id_criador)->username ?>
                   </a>
                   <h2><a href="/projetos/<?= $projeto->id ?>"><?= $projeto->nome ?></a></h2>
-                  <p><?= explode("\n", $projeto->descricao)[0] ?></p>
+                  <p><?= markdown_apenas_texto(explode("\n", $projeto->descricao)[0]) ?></p>
                 </div>
               <?php endforeach ?>
 

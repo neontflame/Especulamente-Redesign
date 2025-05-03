@@ -17,6 +17,7 @@ if ($query != '') {
 
 <?php
 $meta["titulo"] = "[O resto... <> PORTAL ESPECULAMENTE]";
+$meta["descricao"] = "Às vezes, um único site não é o suficiente. Ah, não não não. Os ESPECULATIVOS precisam de mais, nós precisamos conter O RESTO da nossa criatividade em um site próprio, criado em nossa própria imagem. Ide, meu filho, e criai o seu RESTO!";
 include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 
 <div class="container">
@@ -42,7 +43,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
                     por <?= usuario_requestIDator($projeto->id_criador)->username ?>
                   </a>
                   <h2><a href="/projetos/<?= $projeto->id ?>"><?= $projeto->nome ?></a></h2>
-                  <p><?= explode("\n", $projeto->descricao)[0] ?></p>
+                  <p><?= markdown_apenas_texto(explode("\n", $projeto->descricao)[0]) ?></p>
                 </div>
               <?php endforeach ?>
 

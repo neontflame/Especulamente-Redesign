@@ -26,7 +26,11 @@ if (isset($usuario)) {
 ?>
 
 <?php
-$meta["titulo"] = "[" . $projeto->nome . " <> PORTAL ESPECULAMENTE]";
+$meta["titulo"] = "[" . $projeto->nome . " <> " . ['dl' => 'Downloadável', 'md' => 'Mídia', 'jg' => 'Jogo', 'bg' => 'Blog', 'rt' => 'Website'][$projeto->tipo] . " no PORTAL ESPECULAMENTE]";
+$meta["descricao"] = str_replace("\n", " ", markdown_apenas_texto($projeto->descricao));
+$meta["type"] = ['dl' => 'website', 'md' => 'image', 'jg' => 'website', 'bg' => 'article', 'rt' => 'website'][$projeto->tipo];
+$meta["pagina"] = '/projetos/' . $projeto->id;
+$meta["imagem"] = $projeto->thumbnail ? '/static/projetos/' . $projeto->id . '/thumb/' . $projeto->thumbnail : null;
 include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 
 <style>
@@ -367,7 +371,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 				return $texto;
 			}
 			?>
-			<div class="descricao" style="white-space:pre-line"><?= responde_clickers(trocadorDeImagemCoiso($projeto->descricao)) ?></div>
+			<div class="descricao"><?= responde_clickers(trocadorDeImagemCoiso($projeto->descricao)) ?></div>
 			<?php reajor_d_reagida('projeto', $projeto, $usuario) ?>
 		</div>
 

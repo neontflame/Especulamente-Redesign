@@ -17,6 +17,7 @@ if ($query != '') {
 
 <?php
 $meta["titulo"] = "[Jogos <> PORTAL ESPECULAMENTE]";
+$meta["descricao"] = "Você já se sentiu tão entediado que poderia comer um cavalo? Pois bem, apresento a você o maravilhoso mundo dos VIDEOGAMES!! Divirta-se com os melhores jogos produzidos pelos ESPECULATIVOS!";
 include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 
 <div class="container">
@@ -41,7 +42,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
                     por <?= usuario_requestIDator($projeto->id_criador)->username ?>
                   </a>
                   <h2><a href="/projetos/<?= $projeto->id ?>"><?= $projeto->nome ?></a></h2>
-                  <p><?= explode("\n", $projeto->descricao)[0] ?></p>
+                  <p><?= markdown_apenas_texto(explode("\n", $projeto->descricao)[0]) ?></p>
                 </div>
               <?php endforeach ?>
 

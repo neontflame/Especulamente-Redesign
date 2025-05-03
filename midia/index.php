@@ -17,6 +17,7 @@ if ($query != '') {
 
 <?php
 $meta["titulo"] = "[Mídia <> PORTAL ESPECULAMENTE]";
+$meta["descricao"] = "A arte é a forma de expressão mais pura do ser humano. Através dessas lindas criações dos ESPECULATIVOS, você conhecerá o que cada um deles tem na cabeça, pelo bem ou pelo mal.";
 include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 
 <div class="container">
