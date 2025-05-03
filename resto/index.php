@@ -50,9 +50,9 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
               <!-- here be pagination -->
               <div class="pagination">
                 <?php if ($page > 1) : ?>
-                  <a href="/resto.php<?= $coisodepagina ?>page=1">Início</a>
+                  <a href="/resto<?= $coisodepagina ?>page=1">Início</a>
                   <p class="textinhoClaro">~</p>
-                  <a href="/resto.php<?= $coisodepagina ?>page=<?= $page - 1 ?>">« Anterior</a>
+                  <a href="/resto<?= $coisodepagina ?>page=<?= $page - 1 ?>">« Anterior</a>
                   <p class="textinhoClaro">~</p>
                 <?php endif ?>
                 <?php if ($page == 1) : ?>
@@ -63,9 +63,9 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 
                   <?php if ($page < $pages) : ?>
                     <p class="textinhoClaro">~</p>
-                    <a href="/resto.php<?= $coisodepagina ?>page=<?= $page + 1 ?>">Próximo »</a>
+                    <a href="/resto<?= $coisodepagina ?>page=<?= $page + 1 ?>">Próximo »</a>
                     <p class="textinhoClaro">~</p>
-                    <a href="/resto.php<?= $coisodepagina ?>page=<?= $pages ?>">Fim</a>
+                    <a href="/resto<?= $coisodepagina ?>page=<?= $pages ?>">Fim</a>
                   <?php endif ?>
                   <?php if ($page == $pages) : ?>
                     <p class="textinhoClaro"> ~ Próximo » ~ Fim</a>
