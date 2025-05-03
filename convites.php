@@ -32,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 ?>
 
 <?php
-$titulo = "[Seus convites <> PORTAL ESPECULAMENTE]";
+$meta["titulo"] = "[Seus convites <> PORTAL ESPECULAMENTE]";
 include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
 ?>
 

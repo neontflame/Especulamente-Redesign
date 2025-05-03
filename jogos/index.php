@@ -16,7 +16,7 @@ if ($query != '') {
 ?>
 
 <?php
-$titulo = "[Jogos <> PORTAL ESPECULAMENTE]";
+$meta["titulo"] = "[Jogos <> PORTAL ESPECULAMENTE]";
 include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 
 <div class="container">
@@ -29,18 +29,18 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 
       <?php if ($query != '') { ?>
         <div class="pesquisaThing">Resultados da pesquisa por <b>"<?php echo htmlspecialchars($query) . '"</b></div>';
-			} ?>
+                                                                } ?>
             <div class="projetos">
               <?php foreach ($projetos as $projeto) : ?>
                 <div class="projeto" style="min-height:84px">
-                  <a href="<?= $config['URL'] ?>/projetos/ver.php?id=<?= $projeto->id ?>" style="float:left; margin-right: 8px"><img style="max-width:96px; max-height:72px" src="
+                  <a href="/projetos/<?= $projeto->id ?>" style="float:left; margin-right: 8px"><img style="max-width:96px; max-height:72px" src="
 				  <?php if ($projeto->thumbnail != null) { ?>/static/projetos/<?= ($projeto->id) ?>/thumb/<?= ($projeto->thumbnail) ?>
 				  <?php } else { ?>/static/thumb_padrao.png<?php } ?>
 				  "></a>
-                  <a class="autorDeProjeto" href="<?= $config['URL'] ?>/usuarios/<?= usuario_requestIDator($projeto->id_criador)->username ?>">
+                  <a class="autorDeProjeto" href="/usuarios/<?= usuario_requestIDator($projeto->id_criador)->username ?>">
                     por <?= usuario_requestIDator($projeto->id_criador)->username ?>
                   </a>
-                  <h2><a href="<?= $config['URL'] ?>/projetos/ver.php?id=<?= $projeto->id ?>"><?= $projeto->nome ?></a></h2>
+                  <h2><a href="/projetos/<?= $projeto->id ?>"><?= $projeto->nome ?></a></h2>
                   <p><?= explode("\n", $projeto->descricao)[0] ?></p>
                 </div>
               <?php endforeach ?>
@@ -48,9 +48,9 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
               <!-- here be pagination -->
               <div class="pagination">
                 <?php if ($page > 1) : ?>
-                  <a href="<?= $config['URL'] ?>/jogos.php<?= $coisodepagina ?>page=1">Início</a>
+                  <a href="/jogos.php<?= $coisodepagina ?>page=1">Início</a>
                   <p class="textinhoClaro">~</p>
-                  <a href="<?= $config['URL'] ?>/jogos.php<?= $coisodepagina ?>page=<?= $page - 1 ?>">« Anterior</a>
+                  <a href="/jogos.php<?= $coisodepagina ?>page=<?= $page - 1 ?>">« Anterior</a>
                   <p class="textinhoClaro">~</p>
                 <?php endif ?>
                 <?php if ($page == 1) : ?>
@@ -61,9 +61,9 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 
                   <?php if ($page < $pages) : ?>
                     <p class="textinhoClaro">~</p>
-                    <a href="<?= $config['URL'] ?>/jogos.php<?= $coisodepagina ?>page=<?= $page + 1 ?>">Próximo »</a>
+                    <a href="/jogos.php<?= $coisodepagina ?>page=<?= $page + 1 ?>">Próximo »</a>
                     <p class="textinhoClaro">~</p>
-                    <a href="<?= $config['URL'] ?>/jogos.php<?= $coisodepagina ?>page=<?= $pages ?>">Fim</a>
+                    <a href="/jogos.php<?= $coisodepagina ?>page=<?= $pages ?>">Fim</a>
                   <?php endif ?>
                   <?php if ($page == $pages) : ?>
                     <p class="textinhoClaro"> ~ Próximo » ~ Fim</a>

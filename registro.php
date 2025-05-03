@@ -101,7 +101,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 ?>
 
 <?php
-$titulo = "[Criar conta <> PORTAL ESPECULAMENTE]";
+$meta["titulo"] = "[Criar conta <> PORTAL ESPECULAMENTE]";
 include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
 ?>
 

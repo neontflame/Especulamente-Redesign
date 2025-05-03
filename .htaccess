@@ -12,10 +12,28 @@ RedirectMatch 404 /\.git.*
 RedirectMatch 404 /\.shhhh.*
 
 RewriteEngine on
-RewriteCond %{REQUEST_URI} !^/usuarios/perfil\.php$
-RewriteRule ^usuarios/([^/]+) /usuarios/perfil.php?username=$1 [L,QSA]
 
 # Requests para /~[pasta]/[path] redirecionam para /projetos/visualizarResto.php?pasta=[pasta]&path=[path]
 # Se não houver path, redireciona para /projetos/visualizarResto.php?pasta=[pasta]
-RewriteCond %{REQUEST_URI} ^/~([^/]+)(/.*)?$ [NC]
 RewriteRule ^~([^/]+)(/.*)?$ /projetos/visualizarResto.php?pasta=$1&path=$2 [L,QSA]
+
+# Projetos
+RewriteCond %{REQUEST_URI} !^/projetos/ver\.php$
+RewriteRule ^projetos/([0-9]+)/?$ /projetos/ver.php?id=$1 [L,QSA]
+RewriteCond %{REQUEST_URI} !^/projetos/editar\.php$
+RewriteRule ^projetos/([0-9]+)/editar/?$ /projetos/editar.php?id=$1 [L,QSA]
+RewriteCond %{REQUEST_URI} !^/projetos/zipar\.php$
+RewriteRule ^projetos/([0-9]+)/zipar/?$ /projetos/zipar.php?id=$1 [L,QSA]
+RewriteRule ^projetos/?$ /projetos/index.php [L]
+RewriteCond %{REQUEST_URI} !^/projetos/file\.php$
+RewriteRule ^projetos/([0-9]+)/([^/]+)$ /projetos/file.php?id=$1&filename=$2 [L,QSA]
+
+# Criar
+RewriteRule ^criar/?$ /projetos/criar.php [L]
+RewriteCond %{REQUEST_URI} !^/projetos/criar\.php$
+RewriteRule ^criar/((dl)|(jg)|(md)|(bg)|(rt))/?$ /projetos/criar.php?tipo=$1 [L,QSA]
+
+# Usuários
+RewriteCond %{REQUEST_URI} !^/usuarios/perfil\.php$
+RewriteRule ^usuarios/([^/]+)/?$ /usuarios/perfil.php?username=$1 [L,QSA]
+RewriteRule ^usuarios/?$ /usuarios/index.php [L]

@@ -15,8 +15,9 @@ if ($query != '') {
 }
 ?>
 
-<?php 
-$titulo = "[Blogs <> PORTAL ESPECULAMENTE]";
+<?php
+$meta["titulo"] = "[Blogs <> PORTAL ESPECULAMENTE]";
+$meta["descricao"] = "Pensamentos estão em alta! Pense mais e leia mais com os BLOGS dos ESPECULATIVOS!!";
 include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 
 <div class="container">
@@ -29,18 +30,18 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 
       <?php if ($query != '') { ?>
         <div class="pesquisaThing">Resultados da pesquisa por <b>"<?php echo htmlspecialchars($query) . '"</b></div>';
-			} ?>
+                                                                } ?>
             <div class="projetos">
               <?php foreach ($projetos as $projeto) : ?>
                 <div class="projeto" style="min-height:84px">
-				  <a href="<?= $config['URL'] ?>/projetos/ver.php?id=<?= $projeto->id ?>"><img src="/elementos/botaoLerBlog.png"></a>
-				  <?php if ($projeto->thumbnail != null) { ?>
-                  <a href="<?= $config['URL'] ?>/projetos/ver.php?id=<?= $projeto->id ?>" style="float:left; margin-right: 8px"><img style="max-width:96px; height:72px" src="/static/projetos/<?= ($projeto->id) ?>/thumb/<?= ($projeto->thumbnail) ?>"></a>
-				  <?php } ?>
-                  <a class="autorDeProjeto" href="<?= $config['URL'] ?>/usuarios/<?= usuario_requestIDator($projeto->id_criador)->username ?>">
+                  <a href="/projetos/<?= $projeto->id ?>"><img src="/elementos/botaoLerBlog.png"></a>
+                  <?php if ($projeto->thumbnail != null) { ?>
+                    <a href="/projetos/<?= $projeto->id ?>" style="float:left; margin-right: 8px"><img style="max-width:96px; height:72px" src="/static/projetos/<?= ($projeto->id) ?>/thumb/<?= ($projeto->thumbnail) ?>"></a>
+                  <?php } ?>
+                  <a class="autorDeProjeto" href="/usuarios/<?= usuario_requestIDator($projeto->id_criador)->username ?>">
                     por <?= usuario_requestIDator($projeto->id_criador)->username ?>
                   </a>
-                  <h2><a href="<?= $config['URL'] ?>/projetos/ver.php?id=<?= $projeto->id ?>"><?= $projeto->nome ?></a></h2>
+                  <h2><a href="/projetos/<?= $projeto->id ?>"><?= $projeto->nome ?></a></h2>
                   <p><?= explode("\n", $projeto->descricao)[0] ?></p>
                 </div>
               <?php endforeach ?>
@@ -48,9 +49,9 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
               <!-- here be pagination -->
               <div class="pagination">
                 <?php if ($page > 1) : ?>
-                  <a href="<?= $config['URL'] ?>/blogs.php<?= $coisodepagina ?>page=1">Início</a>
+                  <a href="/blogs<?= $coisodepagina ?>page=1">Início</a>
                   <p class="textinhoClaro">~</p>
-                  <a href="<?= $config['URL'] ?>/blogs.php<?= $coisodepagina ?>page=<?= $page - 1 ?>">« Anterior</a>
+                  <a href="/blogs<?= $coisodepagina ?>page=<?= $page - 1 ?>">« Anterior</a>
                   <p class="textinhoClaro">~</p>
                 <?php endif ?>
                 <?php if ($page == 1) : ?>
@@ -61,9 +62,9 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 
                   <?php if ($page < $pages) : ?>
                     <p class="textinhoClaro">~</p>
-                    <a href="<?= $config['URL'] ?>/blogs.php<?= $coisodepagina ?>page=<?= $page + 1 ?>">Próximo »</a>
+                    <a href="/blogs<?= $coisodepagina ?>page=<?= $page + 1 ?>">Próximo »</a>
                     <p class="textinhoClaro">~</p>
-                    <a href="<?= $config['URL'] ?>/blogs.php<?= $coisodepagina ?>page=<?= $pages ?>">Fim</a>
+                    <a href="/blogs<?= $coisodepagina ?>page=<?= $pages ?>">Fim</a>
                   <?php endif ?>
                   <?php if ($page == $pages) : ?>
                     <p class="textinhoClaro"> ~ Próximo » ~ Fim</a>

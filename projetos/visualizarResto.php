@@ -120,45 +120,4 @@ if (str_ends_with($full_path, '.html') || str_ends_with($full_path, '.htm') || s
   header('Content-Type: ' . getFileMimeType($full_path));
   readfile($_SERVER['DOCUMENT_ROOT'] . '/static/projetos/' . $projeto->id . $path);
 }
-
-function getFileMimeType($file)
-{
-  if (str_ends_with(strtolower($file), '.css')) {
-    return 'text/css';
-  }
-  if (str_ends_with(strtolower($file), '.js')) {
-    return 'application/javascript';
-  }
-  if (str_ends_with(strtolower($file), '.mjs')) {
-    return 'application/javascript';
-  }
-  if (str_ends_with(strtolower($file), '.json')) {
-    return 'application/json';
-  }
-  if (str_ends_with(strtolower($file), '.xml')) {
-    return 'application/xml';
-  }
-  if (str_ends_with(strtolower($file), '.svg')) {
-    return 'image/svg+xml';
-  }
-
-  if (function_exists('finfo_file')) {
-    $finfo = finfo_open(FILEINFO_MIME_TYPE);
-    $type = finfo_file($finfo, $file);
-    finfo_close($finfo);
-  } else {
-    require_once 'mime.php';
-    $type = mime_content_type($file);
-  }
-
-  if (!$type || in_array($type, array('application/octet-stream', 'text/plain'))) {
-    require_once 'mime.php';
-    $exifImageType = exif_imagetype($file);
-    if ($exifImageType !== false) {
-      $type = image_type_to_mime_type($exifImageType);
-    }
-  }
-
-  return $type;
-}
 ?>

@@ -13,6 +13,7 @@ if ($handle = scandir($dir)) {
 $banner = $banners[array_rand($banners)];
 
 global $usuario;
+global $config;
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -20,10 +21,26 @@ global $usuario;
 
 <head>
   <meta content="pt-br" http-equiv="Content-Language" />
-  <title><?= $titulo ?? "[PORTAL ESPECULAMENTE]" ?></title>
   <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
   <link href="/cssManeiro.css?v10" rel="stylesheet" type="text/css" />
   <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+  <!-- Metas Tags -->
+  <title><?= $meta["titulo"] ?? "[PORTAL ESPECULAMENTE]" ?></title>
+  <meta name="description" content="<?= isset($meta["descricao"]) ? $meta["descricao"] . " <> " : "" ?>Sejam todos bem vindos ao ESPECULAMENTE!! O portal mais FODA da internet!!! Jogos, arte, animação e muito mais, criados por nós, os ESPECULATIVOS, artistas internéticos assim como você!">
+
+  <meta property="og:url" content="<?= $config["URL"] . ($meta["pagina"] ?? $_SERVER['REQUEST_URI']) ?>">
+  <meta property="og:type" content="<?= $meta["type"] ?? "website" ?>">
+  <meta property="og:title" content="<?= $meta["titulo"] ?? "[PORTAL ESPECULAMENTE]" ?>">
+  <meta property="og:description" content="<?= isset($meta["descricao"]) ? $meta["descricao"] . " <> " : "" ?>Sejam todos bem vindos ao ESPECULAMENTE!! O portal mais FODA da internet!!! Jogos, arte, animação e muito mais, criados por nós, os ESPECULATIVOS, artistas internéticos assim como você!">
+  <meta property="og:image" content="<?= $config["URL"] . ($meta["imagem"] ?? "/static/share_image.png") ?>">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta property="twitter:domain" content="<?= $config["URL"] ?>">
+  <meta property="twitter:url" content="<?= $config["URL"] . ($meta["pagina"] ?? $_SERVER['REQUEST_URI']) ?>">
+  <meta name="twitter:title" content="<?= $meta["titulo"] ?? "[PORTAL ESPECULAMENTE]" ?>">
+  <meta name="twitter:description" content="<?= isset($meta["descricao"]) ? $meta["descricao"] . " <> " : "" ?>Sejam todos bem vindos ao ESPECULAMENTE!! O portal mais FODA da internet!!! Jogos, arte, animação e muito mais, criados por nós, os ESPECULATIVOS, artistas internéticos assim como você!">
+  <meta name="twitter:image" content="<?= $config["URL"] . ($meta["imagem"] ?? "/static/share_image.png") ?>">
 </head>
 
 <body>
@@ -35,10 +52,10 @@ global $usuario;
         <div class="coolOrganizationy">
           <div class="coolLinkery">
             <a href="/projetos/">PROJETOS</a>
-            <a href="/jogos.php">JOGOS</a>
-            <a href="/midia.php">MÍDIA</a>
-            <a href="/blogs.php">BLOGS</a>
-            <a href="/resto.php">"O resto..."</a>
+            <a href="/jogos/">JOGOS</a>
+            <a href="/midia/">MÍDIA</a>
+            <a href="/blogs/">BLOGS</a>
+            <a href="/resto/">"O resto..."</a>
           </div>
           <form action="/projetos">
             <input type="text" id="search" name="q" placeholder="Pesquise algo lol" class="coolSearchBar" style="height: 18px; width: 200px; float:left; margin-right: 3px;" />
@@ -67,9 +84,9 @@ global $usuario;
         <div class="coolSubHeadery">
           <div class="coolLinkery">
             <?php if (isset($usuario)) : ?>
-              <a href="/projetos/criar.php" style="color: forestgreen;">+ CRIAR</a>
+              <a href="/criar" style="color: forestgreen;">+ CRIAR</a>
             <?php endif ?>
-            <a href="/usuarios/">AMIGOS</a>
+            <a href="/usuarios">AMIGOS</a>
             <a href="https://1604chan.fupi.cat" target="_blank">BOARDS</a>
           </div>
 

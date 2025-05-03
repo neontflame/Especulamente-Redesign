@@ -86,18 +86,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
         <p>wtf</p>
       <?php else : ?>
         <!-- Downloadável -->
-        <a href="/projetos/ver.php?id=<?= $id ?>"><img style="margin-left: -5px; margin-top: -5px;" src="/elementos/voltar.png"></a>
+        <a href="/projetos/<?= $id ?>"><img style="margin-left: -5px; margin-top: -5px;" src="/elementos/voltar.png"></a>
         <h1 style="text-align: center; font-style: italic;">Editando projeto</h1>
 
-        <form action="/projetos/editar.php?id=<?= $id ?>" method="post" enctype="multipart/form-data">
+        <form action="" method="post" enctype="multipart/form-data">
           <input type="hidden" name="tipo" value="<?= $projeto->tipo ?>">
           <input type="hidden" name="id" value="<?= $projeto->id ?>">
 
           <label for="nome" class="labelManeira">>> NOME</label>
           <input type="text" style="width: 97%" id="nome" name="nome" value="<?= $projeto->nome ?>" required>
           <br>
-		
-          <label for="descricao" class="labelManeira">>> <?= ($projeto->tipo == 'bg') ? 'POSTAGEM' : 'DESCRIÇÃO'?></label>
+
+          <label for="descricao" class="labelManeira">>> <?= ($projeto->tipo == 'bg') ? 'POSTAGEM' : 'DESCRIÇÃO' ?></label>
           <textarea style="width: 97%" name="descricao" id="descricao"><?= $projeto->descricao ?></textarea>
           <br>
 
@@ -126,11 +126,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 
           <?php if ($projeto->tipo != 'rt'): ?>
             <div class="separador"></div>
-			<?php if ($projeto->tipo == 'bg') { ?>
-			<label class="labelManeira">>> ANEXOS NO POST</label>
-			<?php } else { ?>
-            <label class="labelManeira">>> ARQUIVOS <?= $projeto->tipo == 'jg' ? 'DOWNLOADÁVEIS' : '' ?></label>
-			<?php } ?>
+            <?php if ($projeto->tipo == 'bg') { ?>
+              <label class="labelManeira">>> ANEXOS NO POST</label>
+            <?php } else { ?>
+              <label class="labelManeira">>> ARQUIVOS <?= $projeto->tipo == 'jg' ? 'DOWNLOADÁVEIS' : '' ?></label>
+            <?php } ?>
             <input type="hidden" name="ordem" value="<?= $projeto->arquivos_de_vdd ?>">
             <div id="multiFileUploader" style="margin-bottom: 10px;">
               <ul class="files">
@@ -191,7 +191,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
             <label for="removerThumb" style="display: inline-block; font-size: 12px;">remover thumbnail</label>
 
           <?php endif; ?>
-		  
+
           <button type="submit" class="coolButt verde grandissimo">Salvar mudanças</button>
         </form>
         <a href="/projetos/deletar.php?id=<?= $projeto->id ?>" class="coolButt vermelho grandissimo">DELETAR PROJETO ???!?</a>
@@ -291,24 +291,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 
     document.querySelector('input[name="ordem"]').value = ordem.join('\\n');
   }
-  
-  <?php if ($projeto->tipo == 'bg') { ?>
-  	function extractFilename(path) {
-	  if (path.substr(0, 12) == "C:\\fakepath\\")
-		return path.substr(12); // modern browser
-	  var x;
-	  x = path.lastIndexOf('/');
-	  if (x >= 0) // Unix-based path
-		return path.substr(x+1);
-	  x = path.lastIndexOf('\\');
-	  if (x >= 0) // Windows-based path
-		return path.substr(x+1);
-	  return path; // just the filename
-	}
 
-	function inputComico(valor) {
-		document.getElementById("descricao").value += '\n![](' + extractFilename(valor.value) + ')';
-	}
+  <?php if ($projeto->tipo == 'bg') { ?>
+
+    function extractFilename(path) {
+      if (path.substr(0, 12) == "C:\\fakepath\\")
+        return path.substr(12); // modern browser
+      var x;
+      x = path.lastIndexOf('/');
+      if (x >= 0) // Unix-based path
+        return path.substr(x + 1);
+      x = path.lastIndexOf('\\');
+      if (x >= 0) // Windows-based path
+        return path.substr(x + 1);
+      return path; // just the filename
+    }
+
+    function inputComico(valor) {
+      document.getElementById("descricao").value += '\n![](' + extractFilename(valor.value) + ')';
+    }
   <?php } ?>
 </script>
 

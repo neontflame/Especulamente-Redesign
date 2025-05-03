@@ -4,7 +4,7 @@ login_obrigatorio($usuario);
 ?>
 
 <?php
-$titulo = "[Loja de Davecoins <> PORTAL ESPECULAMENTE]";
+$meta["titulo"] = "[Loja de Davecoins <> PORTAL ESPECULAMENTE]";
 
 $page = $_GET['page'] ?? 1;
 $daveitens = [];
@@ -28,7 +28,7 @@ $pages = coisos_tudo($daveitens, 'daveitens', $page);
           <div class="projeto">
             <img src="/daveloja/itens/<?= $daveitem->id ?>.png" style="float: left; margin-right: 8px;">
             <?php if ($daveitem->compravel == 1) { ?>
-              <a href="<?= $config['URL'] ?>/daveloja/checkout.php?id=<?= $daveitem->id ?>"><img src="/elementos/comprar.png"></a>
+              <a href="/daveloja/checkout.php?id=<?= $daveitem->id ?>"><img src="/elementos/comprar.png"></a>
             <?php } else { ?>
               <img src="/elementos/semEstoque.png" style="float: right;">
             <?php } ?>
@@ -41,9 +41,9 @@ $pages = coisos_tudo($daveitens, 'daveitens', $page);
         <!-- here be pagination -->
         <div class="pagination">
           <?php if ($page > 1) : ?>
-            <a href="<?= $config['URL'] ?>/daveloja/?page=1">Início</a>
+            <a href="/daveloja/?page=1">Início</a>
             <p class="textinhoClaro">~</p>
-            <a href="<?= $config['URL'] ?>/daveloja/?page=<?= $page - 1 ?>">« Anterior</a>
+            <a href="/daveloja/?page=<?= $page - 1 ?>">« Anterior</a>
             <p class="textinhoClaro">~</p>
           <?php endif ?>
           <?php if ($page == 1) : ?>
@@ -54,9 +54,9 @@ $pages = coisos_tudo($daveitens, 'daveitens', $page);
 
             <?php if ($page < $pages) : ?>
               <p class="textinhoClaro">~</p>
-              <a href="<?= $config['URL'] ?>/daveloja/?page=<?= $page + 1 ?>">Próximo »</a>
+              <a href="/daveloja/?page=<?= $page + 1 ?>">Próximo »</a>
               <p class="textinhoClaro">~</p>
-              <a href="<?= $config['URL'] ?>/daveloja/?page=<?= $pages ?>">Fim</a>
+              <a href="/daveloja/?page=<?= $pages ?>">Fim</a>
             <?php endif ?>
             <?php if ($page == $pages) : ?>
               <p class="textinhoClaro"> ~ Próximo » ~ Fim</a>

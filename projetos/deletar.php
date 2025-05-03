@@ -51,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
         <p>wtf</p>
       <?php else : ?>
         <!-- Downloadável -->
-        <a href="/projetos/ver.php?id=<?= $id ?>"><img style="margin-left: -5px; margin-top: -5px;" src="/elementos/voltar.png"></a>
+        <a href="/projetos/<?= $id ?>"><img style="margin-left: -5px; margin-top: -5px;" src="/elementos/voltar.png"></a>
         <h1 style="text-align: center; font-style: italic;">Deletando projeto...???!</h1>
 
         <form action="/projetos/deletar.php" method="post" enctype="multipart/form-data">

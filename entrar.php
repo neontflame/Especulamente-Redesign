@@ -32,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 ?>
 
 <?php
-$titulo = "[Entrar <> PORTAL ESPECULAMENTE]";
+$meta["titulo"] = "[Entrar <> PORTAL ESPECULAMENTE]";
 include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
 ?>
 
@@ -83,9 +83,9 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
         <br>
         <button class="coolButt">Entrar</button>
       </form>
-	  <?php if (isset($erro)) : ?><p style="color: #FF0000;"><?= $erro ?></p><?php endif ?>
+      <?php if (isset($erro)) : ?><p style="color: #FF0000;"><?= $erro ?></p><?php endif ?>
       <p><a href="/esqueci.php">esqueceu a senha?</a></p>
-      <p>não tem uma conta ainda? <a href="/registrar.php" title="ou morra tentando">crie uma aqui</a></p>
+      <p>não tem uma conta ainda? <a href="/registro.php" title="ou morra tentando">crie uma aqui</a></p>
     </div>
   </div>
 </div>

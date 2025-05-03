@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
       array_push($erro, "O nome do projeto é muito curto.");
     }
 
-	$tiposBons = (($tipo == 'md') ? ['png', 'bmp', 'jpg', 'jpeg', 'gif', 'mp4', 'ogg', 'avi', 'wmv', 'mkv', 'swf'] : (($tipo == 'bg') ? ['png', 'bmp', 'jpg', 'jpeg', 'gif', 'mp4', 'ogg', ''] : []));
+    $tiposBons = (($tipo == 'md') ? ['png', 'bmp', 'jpg', 'jpeg', 'gif', 'mp4', 'ogg', 'avi', 'wmv', 'mkv', 'swf'] : (($tipo == 'bg') ? ['png', 'bmp', 'jpg', 'jpeg', 'gif', 'mp4', 'ogg', ''] : []));
 
     if ($tipo == 'dl' || $tipo == 'md' || $tipo == 'bg') {
       $arquivos = $_FILES['arquivos'] ?? null;
@@ -47,8 +47,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
       $checadorDeCoiso = $db->prepare("SELECT * FROM projetos WHERE arquivos_de_vdd = ?");
       $checadorDeCoiso->bindParam(1, $pasta);
       $checadorDeCoiso->execute();
-	  
-	  if ($checadorDeCoiso->rowCount() != 0) {
+
+      if ($checadorDeCoiso->rowCount() != 0) {
         array_push($erro, "Cadê a originalidade? Esse nome de pasta JÁ existe.");
       }
 
@@ -71,7 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
     }
 
     if (count($erro) == 0) {
-      header('Location: /projetos/ver.php?id=' . $projeto->id);
+      header('Location: /projetos/' . $projeto->id);
     }
   }
 }
@@ -104,7 +104,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 
     <div class="inside_page_content" style="padding-right: 0px;">
       <?php if ($tipo != null) : ?>
-        <a href="/projetos/criar.php"><img style="margin-left: -5px; margin-top: -5px;" src="/elementos/voltar.png"></a>
+        <a href="/criar"><img style="margin-left: -5px; margin-top: -5px;" src="/elementos/voltar.png"></a>
       <?php endif; ?>
 
       <?php if ($tipo == null) : ?>
@@ -112,92 +112,92 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
         <h1 style="text-align: center; font-style: italic; font-weight: normal;">O que você quer criar hoje...?</h1>
 
         <!-- Coiso Downloadável -->
-        <a href="/projetos/criar.php?tipo=dl" style="margin-left: -5px; margin-right:-4px; text-decoration: none;">
+        <a href="/criar/dl" style="margin-left: -5px; margin-right:-4px; text-decoration: none;">
           <img src="/elementos/projetos/dl.png" onmouseover="this.src='/elementos/projetos/dl-hover.png';" onmouseout="this.src='/elementos/projetos/dl.png';">
         </a>
 
-        <a href="/projetos/criar.php?tipo=jg" style="margin-right:-4px; text-decoration: none;">
+        <a href="/criar/jg" style="margin-right:-4px; text-decoration: none;">
           <img src="/elementos/projetos/jogo.png" onmouseover="this.src='/elementos/projetos/jogo-hover.png';" onmouseout="this.src='/elementos/projetos/jogo.png';">
         </a>
-        <a href="/projetos/criar.php?tipo=md" style="margin-right:-5px; text-decoration: none;">
+        <a href="/criar/md" style="margin-right:-5px; text-decoration: none;">
           <img src="/elementos/projetos/midia.png" onmouseover="this.src='/elementos/projetos/midia-hover.png';" onmouseout="this.src='/elementos/projetos/midia.png';">
         </a>
-        <a href="/projetos/criar.php?tipo=bg" style="margin-right:-4px; text-decoration: none;">
+        <a href="/criar/bg" style="margin-right:-4px; text-decoration: none;">
           <img src="/elementos/projetos/blog.png" onmouseover="this.src='/elementos/projetos/blog-hover.png';" onmouseout="this.src='/elementos/projetos/blog.png';">
         </a>
-        <a href="/projetos/criar.php?tipo=rt" style="text-decoration: none;">
+        <a href="/criar/rt" style="text-decoration: none;">
           <img src="/elementos/projetos/resto.png" onmouseover="this.src='/elementos/projetos/resto-hover.png';" onmouseout="this.src='/elementos/projetos/resto.png';">
         </a>
-		
-		<?php 
-		$projetos = [];
-		
-		// grandes numeros para grandes coisas
-		$projejos = coisos_tudo($projetos, 'projetos', 1, null, ' WHERE id_criador = ' . $usuario->id, 10000000);
-		
-		if (count($projetos) > 0) { ?>
-		<style>
-		.itemditavel {
-			text-decoration: none; 
-			font-size: 16px;
-		}
 
-		.itemditavel:hover {
-			text-decoration: underline;
-		}
-		
-		.tipodl {
-			color: #FF003B;
-		}
-		
-		.tipojg {
-			color: #EFAF6F;
-		}
-		
-		.tipomd {
-			color: #4DC13E;
-		}
-		
-		.tipobg {
-			color: #56A5EA;
-		}
-		
-		.tiport {
-			color: #878787;
-		}
-		</style>
-		<h2 style="color: #000000; text-align: center; font-style: italic; font-weight: normal;">...ou talvez editar?</h2>
-		<?php foreach ($projetos as $projeto) :  ?>
-			<a class="itemditavel tipo<?= $projeto->tipo ?>" href="<?= $config['URL'] ?>/projetos/editar.php?id=<?= $projeto->id ?>">[<?= strtoupper($projeto->tipo) ?>] <?= $projeto->nome ?></a>
-			<br>
-      <?php endforeach;
-		} ?>
-	  <?php endif; ?>
+        <?php
+        $projetos = [];
+
+        // grandes numeros para grandes coisas
+        $projejos = coisos_tudo($projetos, 'projetos', 1, null, ' WHERE id_criador = ' . $usuario->id, 10000000);
+
+        if (count($projetos) > 0) { ?>
+          <style>
+            .itemditavel {
+              text-decoration: none;
+              font-size: 16px;
+            }
+
+            .itemditavel:hover {
+              text-decoration: underline;
+            }
+
+            .tipodl {
+              color: #FF003B;
+            }
+
+            .tipojg {
+              color: #EFAF6F;
+            }
+
+            .tipomd {
+              color: #4DC13E;
+            }
+
+            .tipobg {
+              color: #56A5EA;
+            }
+
+            .tiport {
+              color: #878787;
+            }
+          </style>
+          <h2 style="color: #000000; text-align: center; font-style: italic; font-weight: normal;">...ou talvez editar?</h2>
+          <?php foreach ($projetos as $projeto) :  ?>
+            <a class="itemditavel tipo<?= $projeto->tipo ?>" href="/projetos/<?= $projeto->id ?>/editar">[<?= strtoupper($projeto->tipo) ?>] <?= $projeto->nome ?></a>
+            <br>
+        <?php endforeach;
+        } ?>
+      <?php endif; ?>
 
       <?php if ($tipo == 'bg') : ?>
-		<script>
-		function extractFilename(path) {
-		  if (path.substr(0, 12) == "C:\\fakepath\\")
-			return path.substr(12); // modern browser
-		  var x;
-		  x = path.lastIndexOf('/');
-		  if (x >= 0) // Unix-based path
-			return path.substr(x+1);
-		  x = path.lastIndexOf('\\');
-		  if (x >= 0) // Windows-based path
-			return path.substr(x+1);
-		  return path; // just the filename
-		}
+        <script>
+          function extractFilename(path) {
+            if (path.substr(0, 12) == "C:\\fakepath\\")
+              return path.substr(12); // modern browser
+            var x;
+            x = path.lastIndexOf('/');
+            if (x >= 0) // Unix-based path
+              return path.substr(x + 1);
+            x = path.lastIndexOf('\\');
+            if (x >= 0) // Windows-based path
+              return path.substr(x + 1);
+            return path; // just the filename
+          }
 
-		function inputComico(valor) {
-			document.getElementById("descricao").value += '\n![](' + extractFilename(valor.value) + ')';
-		}
-		</script>
+          function inputComico(valor) {
+            document.getElementById("descricao").value += '\n![](' + extractFilename(valor.value) + ')';
+          }
+        </script>
         <!-- Blogs -->
         <h1 style="text-align: center; font-style: italic;">Blog!</h1>
         <p><i>Escreva qualquer coisa aqui e publique para que qualquer pessoa na rede mundial de computadores possa ler o que você escreveu!!</i></p>
 
-        <form action="/projetos/criar.php" method="post" enctype="multipart/form-data">
+        <form action="" method="post" enctype="multipart/form-data">
           <input type="hidden" name="tipo" value="bg">
 
           <label for="nome" class="labelManeira">>> NOME</label>
@@ -215,12 +215,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
             </ul>
             <button class="coolButt grandissimo" type="button" onclick="addMais1()">+ Adicionar mais um</button>
           </div>
-		  
+
           <div class="separador"></div>
           <label for="thumb" class="labelManeira">>> THUMBNAIL (opcional)</label>
           <p>A resolução dessa imagem pode ser qualquer uma, mas preferencialmente 92x76!</p>
           <input type="file" name="thumb" id="thumb" accept=".png,.jpg,.jpeg,.gif,.bmp">
-		  
+
           <button type="submit" class="coolButt verde grandissimo">Criar</button>
         </form>
       <?php endif; ?>
@@ -230,8 +230,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
         <h1 style="text-align: center; font-style: italic;">Downloadável!</h1>
         <p><i>Esse tipo de projeto oferece arquivos para descarga. Os usuários podem transferir as suas coisas para seus discos rígidos.</i></p>
 
-        <form action="/projetos/criar.php" method="post" enctype="multipart/form-data">
-          <input type="hidden" name="tipo" value="bg">
+        <form action="" method="post" enctype="multipart/form-data">
+          <input type="hidden" name="tipo" value="dl">
 
           <label for="nome" class="labelManeira">>> NOME</label>
           <input type="text" style="width: 97%" id="nome" name="nome" required value="<?= $nome ?? "" ?>">
@@ -258,7 +258,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
         <h1 style="text-align: center; font-style: italic;">Jogos!</h1>
         <p><i>Esse tipo de projeto oferece Diversão e Brincadeiras diretamente na telinha do seu microcomputador. Usuários podem Jogar.</i></p>
 
-        <form action="/projetos/criar.php" method="post" enctype="multipart/form-data">
+        <form action="" method="post" enctype="multipart/form-data">
           <input type="hidden" name="tipo" value="jg">
 
           <label for="nome" class="labelManeira">>> NOME</label>
@@ -303,13 +303,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 
 
       <?php endif; ?>
-	  
+
       <?php if ($tipo == 'md') : ?>
         <!-- Mídias -->
         <h1 style="text-align: center; font-style: italic;">Mídia!</h1>
         <p><i>Esse tipo de projeto oferece as imagens (dentre outras coisas) que você carregar aqui como se fosse um pequeno álbum!!</i></p>
 
-        <form action="/projetos/criar.php" method="post" enctype="multipart/form-data">
+        <form action="" method="post" enctype="multipart/form-data">
           <input type="hidden" name="tipo" value="md">
 
           <label for="nome" class="labelManeira">>> NOME</label>
@@ -318,14 +318,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 
           <label for="descricao" class="labelManeira">>> DESCRIÇÃO</label>
           <textarea style="width: 97%" name="descricao" id="descricao"><?= $descricao ?? "" ?></textarea>
-          <br>		  
-		  
+          <br>
+
           <div class="separador"></div>
           <label for="thumb" class="labelManeira">>> THUMBNAIL</label>
           <p>A resolução dessa imagem pode ser qualquer uma, mas preferencialmente 124x124px!</p>
           <input type="file" name="thumb" id="thumb" accept=".png,.jpg,.jpeg,.gif,.bmp">
           <!-- ^ esse código tem ALMA -->
-		  
+
           <div class="separador"></div>
           <label for="arquivos" class="labelManeira">>> IMAGENS E VÍDEOS</label>
           <div id="multiFileUploader" style="margin-bottom: 10px;">
@@ -339,13 +339,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
           <button type="submit" class="coolButt verde grandissimo">Criar</button>
         </form>
       <?php endif; ?>
-	  
+
       <?php if ($tipo == 'rt') : ?>
         <!-- JÓgos -->
         <h1 style="text-align: center; font-style: italic;">O Resto!</h1>
         <p><i>O resto é tipo o "geocities" (seja lá oq isso seja). Aqui vc pode criar e hospedar seus PRÓPRIOS sites {html, sem php!! (nem aspx (nem ruby)) :(}</i></p>
 
-        <form action="/projetos/criar.php" method="post" enctype="multipart/form-data">
+        <form action="" method="post" enctype="multipart/form-data">
           <input type="hidden" name="tipo" value="rt">
 
           <label for="nome" class="labelManeira">>> NOME</label>
@@ -378,12 +378,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
         <li>
           <input type="file" name="arquivos[]" id="arquivos" oninput="inputComico(this)" <?php if ($tipo != 'bg') { ?> required <?php } ?>>
           <button type="button" class="coolButt vermelho" onclick="
-            <?php if ($tipo != 'jg') : ?>
+            <?php if ($tipo != 'jg' && $tipo != 'bg') : ?>
             if (this.parentElement.parentElement.children.length > 1) {
             <?php endif; ?>
               if (!confirm('Tem certeza que deseja remover este arquivo?')) return;
               this.parentElement.remove()
-            <?php if ($tipo != 'jg') : ?>
+            <?php if ($tipo != 'jg' && $tipo != 'bg') : ?>
             }
             <?php endif; ?>
             // ^ esse código tem ALMA tambpen (ver php para entender piada: https://github.com/neontflame/Especulamente-Redesign/blob/main/projetos/criar.php)

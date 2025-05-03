@@ -45,7 +45,9 @@ if (!$perfil) {
 $perfil_e_meu = $usuario ? ($usuario->id == $perfil->id) : false;
 ?>
 
-<?php include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
+<?php
+$meta["titulo"] = "[" . $perfil->username . " <> PORTAL ESPECULAMENTE]";
+include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 
 <div class="container">
   <?php include $_SERVER['DOCUMENT_ROOT'] . '/elementos/sidebar/sidebar.php'; ?>
@@ -158,15 +160,15 @@ $perfil_e_meu = $usuario ? ($usuario->id == $perfil->id) : false;
 
     <div class="inside_page_content">
       <h1 style="margin: 0;"><?= $perfil->username ?></h1>
-	  <div class="separador"></div>
+      <div class="separador"></div>
       <!-- Bio -->
       <?php if ($perfil_e_meu) : ?>
         <button class="bioEditavel" onclick="form_bio.style.display = 'block'; bio.style.display = 'none'">
         <?php endif; ?>
 
         <p id="bio" style="margin-top: 0px; white-space: pre-line;">
-		<?php if ($perfil_e_meu && ($perfil->bio == null or $perfil->bio == '')) : ?>vazio - insira algo aqui!<?php endif;?>
-		<?= responde_clickers($perfil->bio) ?></p>
+          <?php if ($perfil_e_meu && ($perfil->bio == null or $perfil->bio == '')) : ?>vazio - insira algo aqui!<?php endif; ?>
+          <?= responde_clickers($perfil->bio) ?></p>
 
         <?php if ($perfil_e_meu) : ?>
         </button>
@@ -177,7 +179,7 @@ $perfil_e_meu = $usuario ? ($usuario->id == $perfil->id) : false;
           </button>
         </form>
       <?php endif; ?>
-	  <div class="separador"></div>
+      <div class="separador"></div>
       <p>Esse usuário tem <?= $perfil->davecoins ?> davecoins</p>
       <?php reajor_d_reagida('perfil', $perfil, $usuario) ?>
 
