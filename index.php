@@ -26,39 +26,10 @@
 			$pages = coisos_tudo($projetos, 'projetos', 1, '', '', 3);
 			?>
 			<div class="projetos">
-				<?php foreach ($projetos as $projeto) : ?>
-					<div class="projeto" style="min-height:84px">
-						<?php if ($projeto->tipo == 'dl') : ?>
-							<a href="/projetos/<?= $projeto->id ?>/zipar"><img src="/elementos/botaoTransferirProjetos.png"></a>
-						<?php endif ?>
-
-						<?php if ($projeto->tipo == 'bg') : ?>
-							<a href="/projetos/<?= $projeto->id ?>"><img src="/elementos/botaoLerBlog.png"></a>
-						<?php endif ?>
-
-						<?php if ($projeto->tipo == 'rt') : ?>
-							<a href="/~<?= $projeto->arquivos_de_vdd ?>"><img src="/elementos/botaoVerResto.png"></a>
-						<?php endif ?>
-
-						<?php if ($projeto->tipo == 'jg') : ?>
-							<a href="/projetos/<?= $projeto->id ?>"><img src="/elementos/botaoJogar.png"></a>
-						<?php endif ?>
-
-						<?php if ($projeto->tipo == 'md') : ?>
-							<a href="/projetos/<?= $projeto->id ?>"><img src="/elementos/botaoVerMidia.png"></a>
-						<?php endif ?>
-
-						<!-- nem tudo precisa ter uma thumbnail! -->
-						<?php if ($projeto->thumbnail != null) { ?>
-							<a href="/projetos/<?= $projeto->id ?>" style="float:left; margin-right: 8px"><img style="max-width:96px; height:72px" src="/static/projetos/<?= ($projeto->id) ?>/thumb/<?= ($projeto->thumbnail) ?>"></a>
-						<?php } ?>
-						<a class="autorDeProjeto" href="/usuarios/<?= usuario_requestIDator($projeto->id_criador)->username ?>">
-							por <?= usuario_requestIDator($projeto->id_criador)->username ?>
-						</a>
-						<h2><a href="/projetos/<?= $projeto->id ?>"><?= $projeto->nome ?></a></h2>
-						<p><?= markdown_apenas_texto(explode("\n", $projeto->descricao)[0]) ?></p>
-					</div>
-				<?php endforeach ?>
+              <?php foreach ($projetos as $projeto) {
+				  renderarProjeto($projeto);
+			  }
+			  ?>
 			</div>
 		</div>
 	</div>

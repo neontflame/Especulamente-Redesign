@@ -32,19 +32,12 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
         <div class="pesquisaThing">Resultados da pesquisa por <b>"<?php echo htmlspecialchars($query) . '"</b></div>';
                                                                 } ?>
             <div class="projetos">
-              <?php foreach ($projetos as $projeto) : ?>
-                <div class="projeto" style="min-height:84px">
-                  <a href="/projetos/<?= $projeto->id ?>" style="float:left; margin-right: 8px"><img style="max-width:96px; max-height:72px" src="
-				  <?php if ($projeto->thumbnail != null) { ?>/static/projetos/<?= ($projeto->id) ?>/thumb/<?= ($projeto->thumbnail) ?>
-				  <?php } else { ?>/static/thumb_padrao.png<?php } ?>
-				  "></a>
-                  <a class="autorDeProjeto" href="/usuarios/<?= usuario_requestIDator($projeto->id_criador)->username ?>">
-                    por <?= usuario_requestIDator($projeto->id_criador)->username ?>
-                  </a>
-                  <h2><a href="/projetos/<?= $projeto->id ?>"><?= $projeto->nome ?></a></h2>
-                  <p><?= markdown_apenas_texto(explode("\n", $projeto->descricao)[0]) ?></p>
-                </div>
-              <?php endforeach ?>
+              <?php 
+				foreach ($projetos as $projeto) 
+				{
+					renderarProjeto($projeto, false, true);
+				}
+			  ?>
 
               <!-- here be pagination -->
               <div class="pagination">

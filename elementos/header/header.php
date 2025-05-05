@@ -22,7 +22,7 @@ global $config;
 <head>
   <meta content="pt-br" http-equiv="Content-Language" />
   <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
-  <link href="/cssManeiro.css?v10" rel="stylesheet" type="text/css" />
+  <link href="/cssManeiro.css?v11" rel="stylesheet" type="text/css" />
   <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 
   <!-- Metas Tags -->

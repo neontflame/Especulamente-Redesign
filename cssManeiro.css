@@ -285,7 +285,7 @@ a.coolButt {
 }
 
 .projeto a {
-  float: right;
+  /*! float: right; */
 }
 
 .projeto h2 a {
@@ -300,12 +300,24 @@ a.coolButt {
   text-decoration: underline;
 }
 
+.projetoSide {
+  float:right;
+  text-align:right;
+  margin-right: -8px;
+}
+
+.projetoSide img {
+  margin-right: 8px;
+  margin-bottom: 4px;
+}
+
 .autorDeProjeto {
   /* seria um capitulo de css jank mas eu descobri um design melhor */
   color: #c9daff;
   margin-right: 12px;
   text-decoration: none;
   margin-top: 4px;
+  font-size: 11px;
 }
 
 .projTitulo {
