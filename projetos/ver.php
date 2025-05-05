@@ -98,7 +98,9 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 					<div class=" projetos">
 						<?php foreach ($arquivos as $i => $arquivo) : ?>
 							<div class="projeto">
+								<div class="projetoSide">
 								<a href="/projetos/<?= $projeto->id ?>/<?= $arquivos_de_vdd[$i] ?>" download><img src="/elementos/botaoTransferirSingular.png"></a>
+								</div>
 								<img src="/elementos/filetypes/<?= the_filetype_image($arquivo, '/static/projetos/' . $projeto->id) ?>.png" style="float:left; margin-right: 8px;">
 								<h2><?= $arquivos_de_vdd[$i] ?></h2>
 								<p><?= human_filesize($arquivo, '/static/projetos/' . $projeto->id) ?></p>
