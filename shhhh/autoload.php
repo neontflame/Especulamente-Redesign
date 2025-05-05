@@ -96,7 +96,8 @@ function renderarProjeto($projeto, $botaoSim = true, $thumbObrigatoria = false) 
 					  </a>
 					  <br>
 					  <p class="autorDeProjeto">
-						<?= velhificar_data($projeto->data); ?>
+						<?php
+						if ($projeto->data != null) { velhificar_data($projeto->data); } else { echo 'data nula WTF???'; } ?>
 					  </p>
 					</div>
 				  <!-- nem tudo precisa ter uma thumbnail! -->
