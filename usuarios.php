@@ -29,7 +29,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
     <style>
 	.item {
 		width: 107px;
-		height: 129px;
+		height: 130px;
 	}
 	
 	.item img {
