@@ -5,14 +5,28 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/shhhh/autoload.php';
 $query = $_GET['q'] ?? '';
 $page = $_GET['page'] ?? 1;
 $projetos = [];
-
-$pages = coisos_tudo($projetos, 'projetos', $page, $query);
+$userQuery = '';
 
 if ($query != '') {
-  $coisodepagina = '?q=' . $query . '&';
+	$usuariosios = [];
+	
+	$usuRows = $db->prepare("SELECT * FROM usuarios WHERE username LIKE ?");
+	$usuRows->bindParam(1, $query, PDO::PARAM_STR);
+	$usuRows->execute();
+	while ($row = $usuRows->fetch(PDO::FETCH_OBJ)) {
+		array_push($usuariosios, $row);
+	}
+	
+	foreach ($usuariosios as $usario) {
+		$userQuery = $userQuery . " OR id_criador = " . $usario->id;
+	}
+	
+	$coisodepagina = '?q=' . $query . '&';
 } else {
-  $coisodepagina = '?';
+	$coisodepagina = '?';
 }
+
+$pages = coisos_tudo($projetos, 'projetos', $page, $query, $userQuery);
 ?>
 
 <?php
