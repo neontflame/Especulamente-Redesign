@@ -53,7 +53,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
                   echo '/static/pfp_padrao.png';
                 } ?>
 					"></a>
-                  <a href="/projetos/<?= $usuario->username ?>"><?= $usuario->username ?></a>
+                  <a href="/usuarios/<?= $usuario->username ?>"><?= $usuario->username ?></a>
                   <a class="autorItem">#<?= $usuario->id ?></a>
                 </div>
               <?php endforeach ?>
