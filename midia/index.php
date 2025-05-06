@@ -57,7 +57,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 					"></a>
                   <a href="/projetos/<?= $projeto->id ?>"><?= $projeto->nome ?></a>
                   <div><a class="autorItem" href="/usuarios/<?= usuario_requestIDator($projeto->id_criador)->username ?>">por <?= usuario_requestIDator($projeto->id_criador)->username ?></a>
-				  <p class="autorItem"><?php if (isset($projeto->data)) { echo velhificar_data($projeto->data); } else { echo 'data nula WTF???'; } ?></p></div>
+				  <a class="autorItem"><?php if (isset($projeto->data)) { echo velhificar_data($projeto->data); } else { echo 'data nula WTF???'; } ?></a></div>
                 </div>
               <?php endforeach ?>
 
