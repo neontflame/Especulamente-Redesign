@@ -42,6 +42,10 @@ if (!$perfil) {
   erro_404();
 }
 
+$projetos = [];
+$proejos = coisos_tudo($projetos, 'projetos', 1, '', ' WHERE id_criador = ' . $usuario->id, 2);
+// variaveis com alma ?
+
 $perfil_e_meu = $usuario ? ($usuario->id == $perfil->id) : false;
 ?>
 
@@ -180,7 +184,28 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
         </form>
       <?php endif; ?>
       <div class="separador"></div>
-      <p>Esse usuário tem <?= $perfil->davecoins ?> davecoins</p>
+	  			<style>
+				.labelManeira {
+					font-size: 15px;
+					font-weight: bold;
+					margin-top: 4px;
+					margin-bottom: 4px;
+				}
+			</style>
+	<?php if ($projetos != []) : ?>
+	  <p class="labelManeira">>> PROJETOS RECENTES</p>
+	  <div class="separador" style="border-color: #c7eaf9; margin-bottom: 8px;"></div>
+	  <div class="projetos">
+              <?php 
+			  foreach ($projetos as $projeto) { 
+				renderarProjeto($projeto);
+			  }
+			  ?>
+	  </div>
+	  <a class="autorDeProjeto" style="color: #9ebbff; font-weight:bold; text-align:right; display:block; margin-top:0px;"href="/projetos/?q=<?= $username ?>">ver mais projetos! >></a>
+      <div class="separador"></div>
+	<?php endif; ?>
+      <p>Esse usuário tem <b><?= $perfil->davecoins ?></b> davecoins</p>
       <?php reajor_d_reagida('perfil', $perfil, $usuario) ?>
 
     </div>
