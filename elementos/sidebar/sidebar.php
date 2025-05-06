@@ -4,6 +4,7 @@ $ads = [
   ['ad2.png', 'https://store.steampowered.com/app/2161700/Persona_3_Reload/'],
   ['ad3.png', 'https://especulamente.com.br'],
   ['ad4.gif', 'https://fupi.cat/arte/feiocore/'],
+  ['ad5.png', 'https://www.sentaifilmworks.com/blogs/catalog/magical-play'],
 ];
 $ad = $ads[array_rand($ads)];
 ?>
