@@ -36,4 +36,4 @@ RewriteRule ^criar/((dl)|(jg)|(md)|(bg)|(rt))/?$ /projetos/criar.php?tipo=$1 [L,
 # Usuários
 RewriteCond %{REQUEST_URI} !^/usuarios/perfil\.php$
 RewriteRule ^usuarios/([^/]+)/?$ /usuarios/perfil.php?username=$1 [L,QSA]
-RewriteRule ^usuarios/?$ /usuarios/index.php [L]
+RewriteRule ^usuarios/?$ /usuarios.php [L]
