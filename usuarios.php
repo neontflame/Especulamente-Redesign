@@ -33,8 +33,8 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 	}
 	
 	.item img {
-		max-width: 64px;
-		max-height: 64px;
+		width: 64px;
+		height: 64px;
 	}
     </style>
     <div class="inside_page_content">
