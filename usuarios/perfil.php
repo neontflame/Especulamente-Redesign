@@ -42,8 +42,9 @@ if (!$perfil) {
   erro_404();
 }
 
+echo ' WHERE id_criador = ' . $usuario->id;
 $projetos = [];
-$proejos = coisos_tudo($projetos, 'projetos', 1, '', ' WHERE id_criador = "' . $usuario->id . '"', 2);
+$proejos = coisos_tudo($projetos, 'projetos', 1, '', ' WHERE id_criador = ' . $usuario->id, 2);
 // variaveis com alma ?
 
 $perfil_e_meu = $usuario ? ($usuario->id == $perfil->id) : false;
