@@ -36,6 +36,9 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 		width: 64px;
 		height: 64px;
 	}
+	.item a {
+		line-break: anywhere;
+	}
     </style>
     <div class="inside_page_content">
 
