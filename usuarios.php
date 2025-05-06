@@ -6,7 +6,7 @@ $query = $_GET['q'] ?? '';
 $page = $_GET['page'] ?? 1;
 $usuarios = [];
 
-$pages = coisos_tudo($usuarios, 'usuarios', $page, $query, '', 9);
+$pages = coisos_tudo($usuarios, 'usuarios', $page, $query, '', 12);
 
 if ($query != '') {
   $coisodepagina = '?q=' . $query . '&';
@@ -29,7 +29,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
     <style>
 	.item {
 		width: 107px;
-		height: 128px;
+		height: 129px;
 	}
 	
 	.item img {
