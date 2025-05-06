@@ -6,8 +6,14 @@ $query = $_GET['q'] ?? '';
 $page = $_GET['page'] ?? 1;
 $projetos = [];
 $userQuery = '';
+$userOnly = false;
 
 if ($query != '') {
+	// PARTE UM DO FUNNY COISO COM O NOME DE USUARIO
+	if (substr($query, 0, 1) == '@') {
+		$query = substr($query, 1);
+		$userOnly = true;
+	}
 	$usuariosios = [];
 	
 	$usuRows = $db->prepare("SELECT * FROM usuarios WHERE username LIKE ?");
@@ -21,6 +27,9 @@ if ($query != '') {
 		$userQuery = $userQuery . " OR id_criador = " . $usario->id;
 	}
 	
+	if ($userOnly) {
+		$query = '@' . $query;
+	}
 	$coisodepagina = '?q=' . $query . '&';
 } else {
 	$coisodepagina = '?';

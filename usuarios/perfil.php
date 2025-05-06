@@ -202,7 +202,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 			  }
 			  ?>
 	  </div>
-	  <a class="autorDeProjeto" style="color: #9ebbff; font-weight:bold; text-align:right; display:block; margin-top:0px;"href="/projetos/?q=<?= $username ?>">ver mais projetos! >></a>
+	  <a class="autorDeProjeto" style="color: #9ebbff; font-weight:bold; text-align:right; display:block; margin-top:0px;"href="/projetos/?q=@<?= $username ?>">ver mais projetos! >></a>
       <div class="separador"></div>
 	<?php endif; ?>
       <p>Esse usuário tem <b><?= $perfil->davecoins ?></b> davecoins</p>
