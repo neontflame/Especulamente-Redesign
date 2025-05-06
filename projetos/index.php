@@ -6,6 +6,7 @@ $query = $_GET['q'] ?? '';
 $page = $_GET['page'] ?? 1;
 $projetos = [];
 $userQuery = '';
+$usuariosios = [];
 $userOnly = false;
 
 if ($query != '') {
@@ -14,7 +15,6 @@ if ($query != '') {
 		$query = substr($query, 1);
 		$userOnly = true;
 	}
-	$usuariosios = [];
 	
 	$usuRows = $db->prepare("SELECT * FROM usuarios WHERE username LIKE ?");
 	$usuRows->bindParam(1, $query, PDO::PARAM_STR);
@@ -36,6 +36,25 @@ if ($query != '') {
 }
 
 $pages = coisos_tudo($projetos, 'projetos', $page, $query, $userQuery);
+
+if ($userOnly) {
+	$projCount = 0;
+	foreach ($projetos as $projo) {
+		$projCount += 1;
+		$conteiro = 0;
+		
+		foreach ($usuariosios as $usario) {
+			if ($projo->id_criador == $usario->id) {
+				$conteiro += 1;
+			}
+		}
+		
+		if ($conteiro == 0) {
+			unset($projetos[$projCount - 1]);
+		}
+	}
+	array_values($projetos);
+}
 ?>
 
 <?php
