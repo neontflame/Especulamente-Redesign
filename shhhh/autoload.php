@@ -112,3 +112,35 @@ function renderarProjeto($projeto, $botaoSim = true, $thumbObrigatoria = false) 
 				<p><?= markdown_apenas_texto(explode("\n", $projeto->descricao)[0]) ?></p>
 			</div>
 <?php }
+function renderarProjGrade($projeto) { ?>
+                <div class="item">
+                  <a href="/projetos/<?= $projeto->id ?>"><img src="
+					<?php
+                $tiposDeImagem = ['png', 'jpg', 'jpeg', 'gif', 'bmp'];
+                $tiposDeVideo = ['mp4', 'ogg', 'avi', 'mkv'];
+                $arquivo = explode('\n', $projeto->arquivos)[0];
+                $eh_um_video = in_array(pathinfo($arquivo, PATHINFO_EXTENSION), $tiposDeVideo);
+                $eh_uma_imagem = in_array(pathinfo($arquivo, PATHINFO_EXTENSION), $tiposDeImagem);
+
+                if ($projeto->thumbnail != null) {
+                  echo '/static/projetos/' . $projeto->id . '/thumb/' . $projeto->thumbnail;
+                } else {
+                  if ($eh_um_video) {
+                    echo '/elementos/vedor_d_imagem/video_coiso.png';
+                  } else {
+					if ($eh_uma_imagem) {
+						echo '/static/projetos/' . $projeto->id . '/' . $arquivo;
+					} else {
+						echo '/static/thumb_padrao.png';
+					}
+                  }
+                }
+
+          ?>
+					"></a>
+                  <a href="/projetos/<?= $projeto->id ?>"><?= $projeto->nome ?></a>
+                  <div><a class="autorItem" href="/usuarios/<?= usuario_requestIDator($projeto->id_criador)->username ?>">por <?= usuario_requestIDator($projeto->id_criador)->username ?></a>
+				  <a class="autorItem"><?php if (isset($projeto->data)) { echo velhificar_data($projeto->data); } else { echo 'data nula WTF???'; } ?></a></div>
+                </div>
+				
+<?php }

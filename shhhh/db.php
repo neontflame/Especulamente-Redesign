@@ -109,7 +109,7 @@ function coisos_tudo(&$array, $table, $page = 1, $searchy = '', $queryAdicional 
 	$search = $db->quote('%' . $searchy . '%');
 
 	if ($searchy != '') {
-		$searchQuery = " WHERE nome LIKE " . $search . " OR descricao LIKE " . $search . " OR arquivos_de_vdd LIKE "  . $search . " ";
+		$searchQuery = " WHERE (nome LIKE " . $search . " OR descricao LIKE " . $search . " OR arquivos_de_vdd LIKE "  . $search . ") ";
 	} else {
 		$searchQuery = "";
 	}

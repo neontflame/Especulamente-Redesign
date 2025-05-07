@@ -35,31 +35,10 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
         <div class="pesquisaThing">Resultados da pesquisa por <b>"<?php echo htmlspecialchars($query) . '"</b></div>';
                                                                 } ?>
             <div class="projetos">
-              <?php foreach ($projetos as $projeto) : ?>
-                <div class="item">
-                  <a href="/projetos/<?= $projeto->id ?>"><img src="
-					<?php
-                $tiposDeVideo = ['mp4', 'ogg', 'avi', 'mkv'];
-                $arquivo = explode('\n', $projeto->arquivos)[0];
-                $eh_um_video = in_array(pathinfo($arquivo, PATHINFO_EXTENSION), $tiposDeVideo);
-
-                if ($projeto->thumbnail != null) {
-                  echo '/static/projetos/' . $projeto->id . '/thumb/' . $projeto->thumbnail;
-                } else {
-                  if ($eh_um_video) {
-                    echo '/elementos/vedor_d_imagem/video_coiso.png';
-                  } else {
-                    echo '/static/projetos/' . $projeto->id . '/' . $arquivo;
-                  }
-                }
-
-          ?>
-					"></a>
-                  <a href="/projetos/<?= $projeto->id ?>"><?= $projeto->nome ?></a>
-                  <div><a class="autorItem" href="/usuarios/<?= usuario_requestIDator($projeto->id_criador)->username ?>">por <?= usuario_requestIDator($projeto->id_criador)->username ?></a>
-				  <a class="autorItem"><?php if (isset($projeto->data)) { echo velhificar_data($projeto->data); } else { echo 'data nula WTF???'; } ?></a></div>
-                </div>
-              <?php endforeach ?>
+              <?php foreach ($projetos as $projeto) {
+				  renderarProjGrade($projeto);
+			  }
+			  ?>
 
               <!-- here be pagination -->
               <div class="pagination">
