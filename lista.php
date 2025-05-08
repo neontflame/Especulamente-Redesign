@@ -16,8 +16,9 @@ if ($tipo != '') {
 }
 
 if ($query != '') {
-	$tipoQuery = " AND tipo = '" . $tipo . "'";
-	
+	if ($tipo != '') {
+		$tipoQuery = " AND tipo = '" . $tipo . "'";
+	}
 	// PARTE UM DO FUNNY COISO COM O NOME DE USUARIO
 	if (substr($query, 0, 1) == '@') {
 		$query = substr($query, 1);
@@ -71,53 +72,6 @@ if ($userOnly) {
 		}
 	}
 	array_values($projetos);
-}
-
-function nomePorTipo($tipo) {
-	switch ($tipo) {
-		case 'dl':
-			return 'Downloadáveis';
-		case 'jg':
-			return 'Jogos';
-		case 'md':
-			return 'Mídia';
-		case 'bg':
-			return 'Blogs';
-		case 'rt':
-			return 'O resto...';
-		default:
-			return 'Projetos';
-	}
-}
-
-function pagetitlePorTipo($tipo) {
-	switch ($tipo) {
-		case 'jg':
-			return 'jogos';
-		case 'md':
-			return 'midia';
-		case 'bg':
-			return 'blogs';
-		case 'rt':
-			return 'resto';
-		default:
-			return 'projetos';
-	}
-}
-
-function descPorTipo($tipo) {
-	switch ($tipo) {
-		case 'jg':
-			return "Você já se sentiu tão entediado que poderia comer um cavalo? Pois bem, apresento a você o maravilhoso mundo dos VIDEOGAMES!! Divirta-se com os melhores jogos produzidos pelos ESPECULATIVOS!";
-		case 'md':
-			return "A arte é a forma de expressão mais pura do ser humano. Através dessas lindas criações dos ESPECULATIVOS, você conhecerá o que cada um deles tem na cabeça, pelo bem ou pelo mal.";
-		case 'bg':
-			return "Pensamentos estão em alta! Pense mais e leia mais com os BLOGS dos ESPECULATIVOS!!";
-		case 'rt':
-			return "Às vezes, um único site não é o suficiente. Ah, não não não. Os ESPECULATIVOS precisam de mais, nós precisamos conter O RESTO da nossa criatividade em um site próprio, criado em nossa própria imagem. Ide, meu filho, e criai o seu RESTO!";
-		default:
-			return "Como todo bom ESPECULATIVO, nossa mesa está sempre transbordando de ideias, e às vezes essas ideias se tornam PROJETOS!! Veja aqui todos os melhores jogos, artes, vídeos e tudo mais já criados!";
-	}
 }
 ?>
 

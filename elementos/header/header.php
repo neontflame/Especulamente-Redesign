@@ -57,7 +57,7 @@ global $config;
             <a href="/blogs/">BLOGS</a>
             <a href="/resto/">"O resto..."</a>
           </div>
-          <form action="/projetos">
+          <form action="/<?= pagetitlePorTipo($_GET['tipo'] ?? '') ?>">
             <input type="text" id="search" name="q" placeholder="Pesquise algo lol" class="coolSearchBar" style="height: 18px; width: 200px; float:left; margin-right: 3px;" />
             <button style="cursor:pointer; display: inline-block; padding: 0; border: 0;">
               <img src="/elementos/header/pesquisa.png">
