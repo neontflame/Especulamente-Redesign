@@ -42,7 +42,7 @@ if ($query != '') {
 } else {
 	$coisodepagina = '?';
 }
-
+/* 
 if ($formato != '') {
 	$coisodepagina = $coisodepagina . 'formato=' . $formato . '&';
 }
@@ -50,6 +50,7 @@ if ($formato != '') {
 if ($tipo != '') {
 	$coisodepagina = $coisodepagina . 'tipo=' . $tipo . '&';
 }
+*/
 
 $pages = coisos_tudo($projetos, 'projetos', $page, $query, $userQuery . $tipoQuery, ($formato == 'grade' ? 9 : 10));
 
@@ -149,9 +150,9 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
               <!-- here be pagination -->
               <div class="pagination">
                 <?php if ($page > 1) : ?>
-                  <a href="/lista.php<?= $coisodepagina ?>page=1">Início</a>
+                  <a href="/<?= pagetitlePorTipo($tipo) ?>/<?= $coisodepagina ?>page=1">Início</a>
                   <p class="textinhoClaro">~</p>
-                  <a href="/lista.php<?= $coisodepagina ?>page=<?= $page - 1 ?>">« Anterior</a>
+                  <a href="/<?= pagetitlePorTipo($tipo) ?>/<?= $coisodepagina ?>page=<?= $page - 1 ?>">« Anterior</a>
                   <p class="textinhoClaro">~</p>
                 <?php endif ?>
                 <?php if ($page == 1) : ?>
@@ -162,9 +163,9 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 
                   <?php if ($page < $pages) : ?>
                     <p class="textinhoClaro">~</p>
-                    <a href="/lista.php<?= $coisodepagina ?>page=<?= $page + 1 ?>">Próximo »</a>
+                    <a href="/<?= pagetitlePorTipo($tipo) ?>/<?= $coisodepagina ?>page=<?= $page + 1 ?>">Próximo »</a>
                     <p class="textinhoClaro">~</p>
-                    <a href="/lista.php<?= $coisodepagina ?>page=<?= $pages ?>">Fim</a>
+                    <a href="/<?= pagetitlePorTipo($tipo) ?>/<?= $coisodepagina ?>page=<?= $pages ?>">Fim</a>
                   <?php endif ?>
                   <?php if ($page == $pages) : ?>
                     <p class="textinhoClaro"> ~ Próximo » ~ Fim</a>

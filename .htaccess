@@ -28,6 +28,13 @@ RewriteRule ^projetos/?$ /projetos/index.php [L]
 RewriteCond %{REQUEST_URI} !^/projetos/file\.php$
 RewriteRule ^projetos/([0-9]+)/([^/]+)$ /projetos/file.php?id=$1&filename=$2 [L,QSA]
 
+# Sidebárcios Cômicos eu acho
+RewriteRule ^midia/?$ /lista.php?formato=grade&tipo=md [L,QSA]
+RewriteRule ^jogos/?$ /lista.php?tipo=jg [L,QSA]
+RewriteRule ^resto/?$ /lista.php?tipo=rt [L,QSA]
+RewriteRule ^blogs/?$ /lista.php?tipo=bg [L,QSA]
+RewriteRule ^projetos/?$ /lista.php?$1 [L,QSA]
+
 # Criar
 RewriteRule ^criar/?$ /projetos/criar.php [L]
 RewriteCond %{REQUEST_URI} !^/projetos/criar\.php$
