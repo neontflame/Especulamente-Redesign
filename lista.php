@@ -142,7 +142,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 				  if ($formato == 'grade') {
 					renderarProjGrade($projeto);
 				  } else {
-					renderarProjeto($projeto);
+					renderarProjeto($projeto, ($tipo != 'jg'), ($tipo == 'jg'));
 				  }
 			  }
 			  ?>
