@@ -5,19 +5,22 @@ if (isset($usuario)) {
 }
 
 $erro;
-$username = "";
 $codigo = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
 	if (isset($_GET["codigo"])) {
 		$codigo = $_GET["codigo"];
-		$rows = $db->prepare("SELECT * FROM reccodigo WHERE codigo = ? AND usado_por IS NULL");
-		$rows->bindParam(1, $codigo);
-		$rows->execute();
+		$codigo = obter_recuperacao($codigo);
 
-		if ($rows->rowCount() == 0) {
+		if ($codigo == null) {
 			$erro = "Seu código é: null CÓDIGO";
-			$codigo = null;
+		} else {
+			$tempo = time() - strtotime($codigo->data);
+			if ($tempo > 86400) { // 24 horas
+				$erro = "Seu código é: null CÓDIGO";
+				deletar_recuperacao($codigo->codigo);
+				$codigo = null;
+			}
 		}
 	} else {
 		$erro = "Whoops! Você precisa de um código para recuperar sua senha!";
@@ -25,50 +28,27 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-	$username = $_POST['username'];
-	$email = $_POST['email'];
-	$senha = $_POST['senha'];
-	$codigo = $_POST['codigo'];
+	$codigo = $_POST["codigo"];
+	$senha = $_POST["senha"];
 
-	$permitido_criar = true;
+	if (isset($codigo) && isset($senha)) {
+		$codigo = obter_recuperacao($codigo);
 
-	$rows = $db->prepare("SELECT * FROM reccodigo WHERE codigo = ? AND usado_por IS NULL");
-	$rows->bindParam(1, $codigo);
-	$rows->execute();
-
-	if ($rows->rowCount() == 0) {
-		$erro = "Seu código é: null CÓDIGO";
-		$permitido_criar = false;
-	} else {
 		if (strlen($senha) < 6) {
 			$erro = "Sua senha é: muito curta. senha.";
-			$permitido_criar = false;
+		} else {
+			$hashword = password_hash($senha, PASSWORD_DEFAULT);
+
+			if ($codigo != null) {
+				mudar_usuario($codigo->criado_por, ['password_hash' => $hashword]);
+				deletar_recuperacao($codigo->codigo);
+				redirect('/entrar.php?recuperado=true');
+			} else {
+				$erro = "Seu código é: null CÓDIGO";
+			}
 		}
-	}
-
-	if ($permitido_criar) {
-		$rows = $db->prepare("UPDATE usuarios SET password_hash = ? WHERE username = ?");
-		$hashword = password_hash($senha, PASSWORD_DEFAULT);
-		$rows->bindParam(1, $hashword);
-		$rows->bindParam(2, $username);
-		$rows->execute();
-	
-		$row = $rows->fetch(PDO::FETCH_OBJ);
-		$rows = $db->prepare("UPDATE reccodigo SET usado_por = ? WHERE codigo = ?");
-		$rows->bindParam(1, $last_id);
-		$rows->bindParam(2, $convite);
-		$rows->execute();
-
-		/*
-		// The message
-		$message = "Sua conta foi CRIADA com SUCESSO";
-
-		// In case any of our lines are larger than 70 characters, we should use wordwrap()
-		$message = wordwrap($message, 70, "\r\n");
-
-		// Send
-		mail($email, 'Atenção', $message);
-		*/
+	} else {
+		$erro = "Whoops! Você precisa de um código para recuperar sua senha!";
 	}
 }
 ?>
@@ -122,13 +102,10 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
 				<p><?= $erro ?></p>
 			<?php endif ?>
 			<?php if ($codigo) : ?>
-				<h1>VOCÊ É DIGNO!!!</h1>
-				<p>Seu código é: <?= $codigo ?></p>
-				<p>isso e um placeholder meio brega por enquanto</p>
+				<p>Mude sua senha abaixo:</p>
 				<form action="" method="post">
-					<input type="hidden" name="codigo" value="<?= $codigo ?>">
-					<input type="hidden" name="username" value="<?= $username ?>">
-					<label for="senha">senha</label>
+					<input type="hidden" name="codigo" value="<?= $codigo->codigo ?>">
+					<label for="senha">nova senha</label>
 					<input name="senha" id="senha" type="password" required>
 					<br>
 					<button class="coolButt">Mudar senha</button>

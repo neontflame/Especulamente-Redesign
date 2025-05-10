@@ -5,6 +5,7 @@ if (isset($usuario)) {
 }
 
 $erro;
+$recuperado = $_GET["recuperado"] ?? null;
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $username = $_POST['username'];
@@ -84,6 +85,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
         <button class="coolButt">Entrar</button>
       </form>
       <?php if (isset($erro)) : ?><p style="color: #FF0000;"><?= $erro ?></p><?php endif ?>
+      <?php if ($recuperado) : ?><p style="color: green;">Aproveite sua senha nova :]</p><?php endif ?>
       <p><a href="/esqueci.php">esqueceu a senha?</a></p>
       <p>não tem uma conta ainda? <a href="/registro.php" title="ou morra tentando">crie uma aqui</a></p>
     </div>

@@ -17,6 +17,18 @@ function remover_pasta_inteira($dir)
 	return rmdir($dir);
 }
 
+function mandar_email($para, $assunto, $mensagem)
+{
+	global $config;
+
+	$headers[] = 'From: ' . $config['EMAIL_FROM'];
+	$headers[] = 'Reply-To: ' . $config['EMAIL_FROM'];
+	$headers[] = 'MIME-Version: 1.0';
+	$headers[] = 'Content-type: text/html; charset=utf-8';
+
+	return mail($para, $assunto, $mensagem, implode("\r\n", $headers));
+}
+
 // Por username
 function usuario_requestinator($username)
 {
@@ -187,6 +199,72 @@ function obter_convites_criados_por($criado_por)
 	}
 
 	return $convites;
+}
+
+function enviar_recuperacao($usuario)
+{
+	global $db;
+	global $config;
+
+	$codigo = bin2hex(random_bytes(16));
+
+	if ($usuario == null) {
+		return "§Usuário não existe!";
+	}
+
+	$rows = $db->prepare("INSERT INTO reccodigo (codigo, criado_por) VALUES (?, ?)");
+	$rows->bindParam(1, $codigo);
+	$rows->bindParam(2, $usuario->id);
+	$rows->execute();
+
+	$message = <<<HTML
+	<html>
+	<head>
+		<title>Recuperação de senha</title>
+	</head>
+	<body>
+		<h1>Recuperação de senha</h1>
+		<p>Opa boa tarde/noite/dia!! Você pediu uma recuperação de senha? Se sim clica nesse link aí abaixo:</p>
+		<p><a href="{$config['URL']}/recuperar.php?codigo={$codigo}">Recuperar minha senha!</a></p>
+		<p>Se você não solicitou essa recuperação, ignore esse email.</p>
+		<p>Atenciosamente, Espy!! <:]></p>
+	</body>
+	</html>
+	HTML;
+
+	mandar_email($usuario->email, "Recuperação de senha", $message);
+
+	return $codigo;
+}
+
+function obter_recuperacao($codigo)
+{
+	global $db;
+
+	$codigo = substr($codigo, 0, 255);
+
+	$rows = $db->prepare("SELECT * FROM reccodigo WHERE codigo = ?");
+	$rows->bindParam(1, $codigo);
+	$rows->execute();
+
+	$convite = $rows->fetch(PDO::FETCH_OBJ);
+
+	if ($convite == false) {
+		return null;
+	}
+
+	return $convite;
+}
+
+function deletar_recuperacao($codigo)
+{
+	global $db;
+
+	$codigo = substr($codigo, 0, 255);
+
+	$rows = $db->prepare("DELETE FROM reccodigo WHERE codigo = ?");
+	$rows->bindParam(1, $codigo);
+	$rows->execute();
 }
 
 function pfp($user)

@@ -85,17 +85,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $rows->bindParam(1, $last_id);
     $rows->bindParam(2, $convite);
     $rows->execute();
-
-    /*
-    // The message
-    $message = "Sua conta foi CRIADA com SUCESSO";
-
-    // In case any of our lines are larger than 70 characters, we should use wordwrap()
-    $message = wordwrap($message, 70, "\r\n");
-
-    // Send
-    mail($email, 'Atenção', $message);
-    */
   }
 }
 ?>
