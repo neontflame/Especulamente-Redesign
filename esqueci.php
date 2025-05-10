@@ -16,10 +16,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	$username = $_POST['username'];
 
 	if (isset($username)) {
-		$usuario = usuario_requestinator($username);
+		$usuario_obtido = usuario_requestinator($username);
 
-		if ($usuario != null) {
-			$codigo = enviar_recuperacao($usuario);
+		if ($usuario_obtido != null) {
+			$codigo = enviar_recuperacao($usuario_obtido);
 			if (str_starts_with($codigo, "§")) {
 				$erro = $codigo;
 			} else {
