@@ -618,6 +618,9 @@ copiei do meu site to com preguiça -neon */
 }
 
 .mensagem:hover {
+  background-color: #fcffd9;
+}
+.msgNova {
   background-color: aliceblue;
 }
 

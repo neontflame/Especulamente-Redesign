@@ -22,7 +22,7 @@ global $config;
 <head>
   <meta content="pt-br" http-equiv="Content-Language" />
   <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
-  <link href="/cssManeiro.css?v12" rel="stylesheet" type="text/css" />
+  <link href="/cssManeiro.css?v13" rel="stylesheet" type="text/css" />
   <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 
   <!-- Metas Tags -->
@@ -92,10 +92,33 @@ global $config;
 
           <div class="coolUsery">
             <?php if (isset($usuario)) : ?>
+<script>
+// mensagem negocios
+function carregarMensagens() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onload = function () {
+    document.getElementById("msgContador").innerHTML = this.responseText;
+	if (this.responseText != 0) {
+		document.getElementById("msgIcone").src = '/elementos/header/msgAtiva.png';
+	} else {
+		document.getElementById("msgIcone").src = '/elementos/header/msgInativa.png';
+	}
+  };
+  xhttp.open(
+    "GET",
+    "/mensagens/contagem.php",
+    true
+  );
+  xhttp.send();
+}
+
+carregarMensagens();
+setInterval(carregarMensagens, 10000); 
+</script>
 			  <!-- MENSAGENS -->
 			  <div class="links">
-				<span class="msgContador">(WIP)</span>
-				<a href="/mensagens"><img src="/elementos/header/msgInativa.png"></a>
+				<span id="msgContador" class="msgContador">?</span>
+				<a href="/mensagens"><img id="msgIcone" src="/elementos/header/msgInativa.png"></a>
 			  </div>
 			  <!-- OUTROS LINKS -->
               <div class="links">

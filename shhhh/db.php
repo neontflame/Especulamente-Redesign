@@ -113,6 +113,24 @@ function daveitem_requestIDator($id)
 
 	return $dav;
 }
+
+// cometario por id
+function comentario_requestIDator($id)
+{
+	global $db;
+
+	$rows = $db->prepare("SELECT * FROM comentarios WHERE id = ?");
+	$rows->bindParam(1, $id);
+	$rows->execute();
+	$comm = $rows->fetch(PDO::FETCH_OBJ);
+
+	if ($comm == false) {
+		return null;
+	}
+
+	return $comm;
+}
+
 // Retorna o número de páginas (agora tweaked pra ter suporte pra DaveItens)
 function coisos_tudo(&$array, $table, $page = 1, $searchy = '', $queryAdicional = '', $perPage = 10)
 {
@@ -144,6 +162,7 @@ function coisos_tudo(&$array, $table, $page = 1, $searchy = '', $queryAdicional 
 	return $pages;
 }
 
+// CONVITE COISOS
 function obter_convite($codigo)
 {
 	global $db;
@@ -201,6 +220,7 @@ function obter_convites_criados_por($criado_por)
 	return $convites;
 }
 
+// RECUPERAÇÃO DE SENHA COISOS
 function enviar_recuperacao($usuario)
 {
 	global $db;
@@ -264,6 +284,35 @@ function deletar_recuperacao($codigo)
 
 	$rows = $db->prepare("DELETE FROM reccodigo WHERE codigo = ?");
 	$rows->bindParam(1, $codigo);
+	$rows->execute();
+}
+
+// MENSAGEM COISOS YEAAAAAAHHHHH !!!!
+function criar_mensagem($receptor, $html, $icone) {
+	global $db;
+	
+	// pego do login coisos
+	$usuario = null;
+
+	if (isset($_SESSION['id'])) {
+	  $usuario = usuario_requestIDator($_SESSION['id']);
+	}
+
+	if ($receptor != $usuario->id) {
+		$rows = $db->prepare("INSERT INTO mensagens (receptor, html, icone) VALUES (?, ?, ?)");
+		$rows->bindParam(1, $receptor);
+		$rows->bindParam(2, $html);
+		$rows->bindParam(3, $icone);
+		$rows->execute();
+	}
+}
+
+function ler_mensagens($receptor)
+{
+	global $db;
+
+	$rows = $db->prepare("UPDATE mensagens SET lido='1' WHERE receptor = ?");
+	$rows->bindParam(1, $receptor);
 	$rows->execute();
 }
 

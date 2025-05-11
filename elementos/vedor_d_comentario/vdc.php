@@ -14,7 +14,7 @@ function vedor_d_comentario($tipo, $id, $temTudo, &$usuario)
 			<div class="sayYourPrayers">
 				<textarea name="comment_fnf" id="comment_fnf" style="width: 353px; max-width: 353px; height: 150px;"></textarea>
 				<br>
-				<button type="submit" onclick="postarComentario('<?= $tipo ?>', <?= $id ?>, document.getElementById('comment_fnf').value, 0, this);" class="coolButt">
+				<button type="submit" onclick="postarComentario('<?= $tipo ?>', <?= $id ?>, document.getElementById('comment_fnf').value, 0, this, 0);" class="coolButt">
 					Enviar comentário
 				</button>
 
@@ -61,7 +61,7 @@ function vedor_d_comentario($tipo, $id, $temTudo, &$usuario)
 					<div id="respondedor_<?= $comentario->id ?>" style="display: none; padding-top: 8px; margin-bottom: 8px;">
 						<textarea name="resposta_fnf_<?= $comentario->id ?>" id="resposta_fnf_<?= $comentario->id ?>" style="width: 414px; max-width: 414px; height: 75px;">&gt;&gt;<?= $comentario->id ?> </textarea>
 						<br>
-						<button type="submit" onclick="postarComentario('<?= $tipo ?>', <?= $id ?>, document.getElementById('resposta_fnf_<?= $comentario->id ?>').value, <?= $comentario->id ?>, this);" class="coolButt">
+						<button type="submit" onclick="postarComentario('<?= $tipo ?>', <?= $id ?>, document.getElementById('resposta_fnf_<?= $comentario->id ?>').value, <?= $comentario->id ?>, this, <?= $comentario->id ?>);" class="coolButt">
 							Enviar comentário
 						</button>
 
@@ -99,7 +99,7 @@ function vedor_d_comentario($tipo, $id, $temTudo, &$usuario)
 										<div id="respondedor_<?= $resposta->id ?>" style="display: none; padding-top: 8px; margin-bottom: 8px;">
 											<textarea name="resposta_fnf_<?= $resposta->id ?>" id="resposta_fnf_<?= $resposta->id ?>" style="width: 338px; max-width: 338px; height: 150px;">&gt;&gt;<?= $resposta->id ?> </textarea>
 											<br>
-											<button type="submit" onclick="postarComentario('<?= $tipo ?>', <?= $id ?>, document.getElementById('resposta_fnf_<?= $resposta->id ?>').value, <?= $resposta->fio ?>, this);" class="coolButt">
+											<button type="submit" onclick="postarComentario('<?= $tipo ?>', <?= $id ?>, document.getElementById('resposta_fnf_<?= $resposta->id ?>').value, <?= $resposta->fio ?>, this, <?= $resposta->id ?>);" class="coolButt">
 												Enviar comentário
 											</button>
 

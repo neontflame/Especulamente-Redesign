@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Tempo de geração: 14/01/2025 às 00:03
--- Versão do servidor: 8.3.0
--- Versão do PHP: 8.2.18
+-- Tempo de geração: 11/05/2025 às 14:45
+-- Versão do servidor: 9.1.0
+-- Versão do PHP: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -27,7 +27,6 @@ SET time_zone = "+00:00";
 -- Estrutura para tabela `comentarios`
 --
 
-DROP TABLE IF EXISTS `comentarios`;
 CREATE TABLE IF NOT EXISTS `comentarios` (
   `id` int NOT NULL AUTO_INCREMENT,
   `id_comentador` int NOT NULL,
@@ -45,7 +44,6 @@ CREATE TABLE IF NOT EXISTS `comentarios` (
 -- Estrutura para tabela `convites`
 --
 
-DROP TABLE IF EXISTS `convites`;
 CREATE TABLE IF NOT EXISTS `convites` (
   `id` int NOT NULL AUTO_INCREMENT,
   `codigo` varchar(255) NOT NULL,
@@ -59,28 +57,46 @@ CREATE TABLE IF NOT EXISTS `convites` (
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `daveitens`
+-- Estrutura para tabela `daveitens`
 --
 
-CREATE TABLE `daveitens` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `daveitens` (
+  `id` int NOT NULL AUTO_INCREMENT,
   `nome` varchar(255) NOT NULL,
   `descricao` text NOT NULL,
-  `daveprice` int(11) NOT NULL,
-  `compravel` tinyint(1) NOT NULL DEFAULT 1
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `daveprice` int NOT NULL,
+  `compravel` tinyint(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `inventario`
+-- Estrutura para tabela `inventario`
 --
 
-CREATE TABLE `inventario` (
-  `id` int(11) NOT NULL,
-  `id_usuario` int(11) NOT NULL,
-  `id_item` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE IF NOT EXISTS `inventario` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `id_usuario` int NOT NULL,
+  `id_item` int NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `mensagens`
+--
+
+CREATE TABLE IF NOT EXISTS `mensagens` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `data` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `receptor` int NOT NULL,
+  `html` text NOT NULL,
+  `icone` text NOT NULL,
+  `lido` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -88,7 +104,6 @@ CREATE TABLE `inventario` (
 -- Estrutura para tabela `projetos`
 --
 
-DROP TABLE IF EXISTS `projetos`;
 CREATE TABLE IF NOT EXISTS `projetos` (
   `id` int NOT NULL AUTO_INCREMENT,
   `id_criador` int NOT NULL,
@@ -99,7 +114,8 @@ CREATE TABLE IF NOT EXISTS `projetos` (
   `arquivos_de_vdd` text NOT NULL,
   `mitadas` int NOT NULL,
   `sojadas` int NOT NULL,
-  `arquivo_vivel` text NOT NULL,
+  `arquivo_vivel` text,
+  `thumbnail` text,
   `data` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -110,10 +126,9 @@ CREATE TABLE IF NOT EXISTS `projetos` (
 -- Estrutura para tabela `reacoes`
 --
 
-DROP TABLE IF EXISTS `reacoes`;
 CREATE TABLE IF NOT EXISTS `reacoes` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `tipo_de_reacao` enum('mitada','sojada') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `tipo_de_reacao` enum('mitada','sojada') NOT NULL,
   `id_reator` int NOT NULL,
   `tipo_de_reagido` enum('perfil','projeto') NOT NULL,
   `id_reagido` int NOT NULL,
@@ -123,10 +138,24 @@ CREATE TABLE IF NOT EXISTS `reacoes` (
 -- --------------------------------------------------------
 
 --
+-- Estrutura para tabela `reccodigo`
+--
+
+CREATE TABLE IF NOT EXISTS `reccodigo` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `codigo` varchar(255) NOT NULL,
+  `criado_por` int NOT NULL,
+  `data` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `FK_criado_por` (`criado_por`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura para tabela `usuarios`
 --
 
-DROP TABLE IF EXISTS `usuarios`;
 CREATE TABLE IF NOT EXISTS `usuarios` (
   `id` int NOT NULL AUTO_INCREMENT,
   `username` varchar(255) NOT NULL,
@@ -137,7 +166,7 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
   `sojadas` int NOT NULL,
   `pfp` varchar(255) NOT NULL,
   `banner` varchar(255) NOT NULL,
-  `davecoins` int(11) NOT NULL DEFAULT 0,
+  `davecoins` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 COMMIT;

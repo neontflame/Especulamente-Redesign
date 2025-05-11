@@ -25,7 +25,8 @@ window.addEventListener("click", function () {
   }
 });
 
-function postarComentario(tipo, id, ocomentario, thread, that) {
+// comentario negocios
+function postarComentario(tipo, id, ocomentario, thread, that, respondido) {
   var osNegocios = new FormData();
 
   var bototes = that.parentElement.getElementsByTagName("button");
@@ -38,6 +39,7 @@ function postarComentario(tipo, id, ocomentario, thread, that) {
   osNegocios.append("id", id);
   osNegocios.append("comentario", ocomentario);
   osNegocios.append("fio", thread);
+  osNegocios.append("respondido", respondido);
 
   var xhttp = new XMLHttpRequest();
   xhttp.open(
@@ -109,6 +111,7 @@ function desesconderResposting(id) {
   textarea.focus();
   textarea.setSelectionRange(length, length);
 }
+
 
 console.log(
   `%c
