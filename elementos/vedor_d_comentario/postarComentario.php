@@ -20,20 +20,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 		$id_com = $db->lastInsertId();
 		
 		// MENSAGEM HANDLER WOAH
+		$mandavel = true;
 		mensagem_mencao($comentario, $tipo, $id, $id_com);
 		
 		if ($tipo == 'projeto') {
 			$projeto = projeto_requestIDator($id);
 			echo $respondido;
-			
-			criar_mensagem($projeto->id_criador,
-				'<a href="/usuarios/'. $usuario->username . '" class="usuario">' . $usuario->username . '</a>
-				comentou em seu projeto
-				<a href="/projetos/' . $id . '#comentario_'. $id_com .'">' . $projeto->nome . '</a>!
-				
-				<blockquote>
-				"' . htmlspecialchars($comentario) . '"
-				</blockquote>', 'comentario');
 			if ($respondido != 0) {
 				$comentarioOG = comentario_requestIDator($respondido);
 				
@@ -45,20 +37,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 						<blockquote>
 						"'. htmlspecialchars($comentario) .'"
 						</blockquote>', 'resposta');
+				if ($comentarioOG->id_comentador == $projeto->id_criador) {
+					$mandavel = false;
+				}
+			}
+			
+			if ($mandavel) {
+				criar_mensagem($projeto->id_criador,
+					'<a href="/usuarios/'. $usuario->username . '" class="usuario">' . $usuario->username . '</a>
+					comentou em seu projeto
+					<a href="/projetos/' . $id . '#comentario_'. $id_com .'">' . $projeto->nome . '</a>!
+					
+					<blockquote>
+					"' . htmlspecialchars($comentario) . '"
+					</blockquote>', 'comentario');
 			}
 		}
 		if ($tipo == 'perfil') {
 			$perfil = usuario_requestIDator($id);
 			echo $respondido;
 			
-			criar_mensagem($perfil->id,
-				'<a href="/usuarios/'. $usuario->username . '" class="usuario">' . $usuario->username . '</a>
-				comentou no
-				<a href="/usuarios/' . $perfil->username . '#comentario_'. $id_com .'">seu perfil</a>!
-				
-				<blockquote>
-				"' . htmlspecialchars($comentario) . '"
-				</blockquote>', 'comentario');
 			if ($respondido != 0) {
 				$comentarioOG = comentario_requestIDator($respondido);
 				
@@ -70,7 +68,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 						<blockquote>
 						"'. htmlspecialchars($comentario) .'"
 						</blockquote>', 'resposta');
+						
+				if ($comentarioOG->id_comentador == $perfil->id) {
+					$mandavel = false;
+				}
 			}
+			
+			if ($mandavel) {
+				criar_mensagem($perfil->id,
+					'<a href="/usuarios/'. $usuario->username . '" class="usuario">' . $usuario->username . '</a>
+					comentou no
+					<a href="/usuarios/' . $perfil->username . '#comentario_'. $id_com .'">seu perfil</a>!
+					
+					<blockquote>
+					"' . htmlspecialchars($comentario) . '"
+					</blockquote>', 'comentario');
+			}
+
 		}
 		
 	} else {
