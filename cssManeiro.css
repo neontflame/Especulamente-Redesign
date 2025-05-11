@@ -133,8 +133,22 @@ a img {
 
 .coolUsery .links {
   margin-top: 2px;
-
+  display: inline-block;
+  vertical-align:top;
   position: relative;
+}
+
+.coolUsery .links:last-child{
+  border-left: 1px solid #5d85e2;
+  padding-left: 4px;
+}
+
+.coolUsery .msgContador {
+  vertical-align:top;
+}
+
+.coolUsery .ativo {
+  font-weight:bold;
 }
 
 .coolUsery a {
@@ -583,4 +597,57 @@ copiei do meu site to com preguiça -neon */
 }
 .erro a:hover {
   text-decoration: underline;
+}
+
+/* MENSAGENS YESSSSSSSSSSSSSSSSS */
+.separadorChique {
+	/* e a mesma coisa da mensagem mas sem hover */
+  margin-left: -5px;
+  margin-right: -5px;
+  padding: 6px;
+  color: #8F9BE0;
+  border-bottom: 1px solid #BAE2FF;
+}
+
+.mensagem {
+  margin-left: -5px;
+  margin-right: -5px;
+  padding: 6px;
+  color: #8F9BE0;
+  border-bottom: 1px solid #BAE2FF;
+}
+
+.mensagem:hover {
+  background-color: aliceblue;
+}
+
+.mensagem * {
+  vertical-align: top;
+}
+
+.mensagem a {
+  text-decoration: none;
+  color: #2D4DD5;
+}
+.mensagem a:hover {
+  text-decoration: underline;
+}
+
+.mensagem .usuario {
+  text-decoration: none;
+  font-weight: bold;
+  color: #00137F;
+}
+
+.mensagem blockquote {
+  margin-top: 4px;
+  margin-bottom: 4px;
+  color: #B3BAE0;
+  font-style: italic;
+}
+
+.mensagem .autorDeProjeto {
+  text-align: right;
+  margin-right: 0px;
+  margin-bottom: -4px;
 }

@@ -22,7 +22,7 @@ global $config;
 <head>
   <meta content="pt-br" http-equiv="Content-Language" />
   <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
-  <link href="/cssManeiro.css?v11" rel="stylesheet" type="text/css" />
+  <link href="/cssManeiro.css?v12" rel="stylesheet" type="text/css" />
   <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 
   <!-- Metas Tags -->
@@ -92,6 +92,12 @@ global $config;
 
           <div class="coolUsery">
             <?php if (isset($usuario)) : ?>
+			  <!-- MENSAGENS -->
+			  <div class="links">
+				<span class="msgContador">(WIP)</span>
+				<a href="/mensagens"><img src="/elementos/header/msgInativa.png"></a>
+			  </div>
+			  <!-- OUTROS LINKS -->
               <div class="links">
                 Olá novamente, <a href="/usuarios/<?= $usuario->username ?>"><?= $usuario->username ?></a>
                 <button id="headerSeta"></button>
