@@ -37,8 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 			if ($respondido != 0) {
 				$comentarioOG = comentario_requestIDator($respondido);
 				
-				if ($comentarioOG->id_comentador != $projeto->id_criador) {
-					criar_mensagem($comentarioOG->id_comentador, 
+				criar_mensagem($comentarioOG->id_comentador, 
 						'<a href="/usuarios/' . $usuario->username . '" class="usuario">'. $usuario->username .'</a>
 						respondeu seu comentário em
 						<a href="/projetos/' . $id . '#comentario_'. $id_com .'">' . $projeto->nome . '</a>!
@@ -46,7 +45,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 						<blockquote>
 						"'. htmlspecialchars($comentario) .'"
 						</blockquote>', 'resposta');
-				}
 			}
 		}
 		if ($tipo == 'perfil') {
@@ -64,8 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 			if ($respondido != 0) {
 				$comentarioOG = comentario_requestIDator($respondido);
 				
-				if ($comentarioOG->id_comentador != $perfil->id) {
-					criar_mensagem($comentarioOG->id_comentador, 
+				criar_mensagem($comentarioOG->id_comentador, 
 						'<a href="/usuarios/' . $usuario->username . '" class="usuario">'. $usuario->username .'</a>
 						respondeu seu comentário no perfil de 
 						<a href="/usuarios/' . $perfil->username . '#comentario_'. $id_com .'">' . $perfil->username . '</a>!
@@ -73,7 +70,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 						<blockquote>
 						"'. htmlspecialchars($comentario) .'"
 						</blockquote>', 'resposta');
-				}
 			}
 		}
 		
