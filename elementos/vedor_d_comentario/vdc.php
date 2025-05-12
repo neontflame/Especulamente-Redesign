@@ -45,7 +45,7 @@ function vedor_d_comentario($tipo, $id, $temTudo, &$usuario)
 						<a href="/usuarios/<?= $comentador->username; ?>">
 							<img src="<?= pfp($comentador) ?>" alt="<?= $comentador->username; ?>" class="pfpComentarios">
 							<?= $comentador->username; ?></a> em <?= velhificar_data($comentario->data); ?>
-						<a class="linkmentario" onclick="document.getElementById('comment_fnf').value += '>><?= $comentario->id ?>'">&gt;&gt;<?= $comentario->id ?></a>
+						<a class="linkmentario" href="#comentario_<?= $comentario->id ?>" onclick="event.preventDefault(); document.getElementById('comment_fnf').value += '>><?= $comentario->id ?> '">&gt;&gt;<?= $comentario->id ?></a>
 						</a>
 					</p>
 					<div class="conteudo">
@@ -82,7 +82,7 @@ function vedor_d_comentario($tipo, $id, $temTudo, &$usuario)
 										<a href="/usuarios/<?= $respondente->username; ?>">
 											<img src="<?= pfp($respondente) ?>" alt="<?= $respondente->username; ?>" class="pfpComentarios">
 											<?= $respondente->username; ?></a> em <?= velhificar_data($resposta->data); ?>
-										<a class="linkmentario" onclick="document.getElementById('comment_fnf').value += '>><?= $resposta->id ?>'">&gt;&gt;<?= $resposta->id ?></a>
+										<a class="linkmentario" href="#comentario_<?= $comentario->id ?>" onclick="event.preventDefault(); document.getElementById('comment_fnf').value += '>><?= $resposta->id ?> '">&gt;&gt;<?= $resposta->id ?></a>
 										</a>
 									</p>
 									<div class="conteudo">
