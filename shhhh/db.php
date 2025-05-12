@@ -288,7 +288,7 @@ function deletar_recuperacao($codigo)
 }
 
 // MENSAGEM COISOS YEAAAAAAHHHHH !!!!
-function criar_mensagem($receptor, $html, $icone) {
+function criar_mensagem($receptor, $html, $icone, $davecoins = 0) {
 	global $db;
 	
 	// pego do login coisos
@@ -299,10 +299,11 @@ function criar_mensagem($receptor, $html, $icone) {
 	}
 
 	if ($receptor != $usuario->id) {
-		$rows = $db->prepare("INSERT INTO mensagens (receptor, html, icone) VALUES (?, ?, ?)");
+		$rows = $db->prepare("INSERT INTO mensagens (receptor, html, icone, davecoins) VALUES (?, ?, ?, ?)");
 		$rows->bindParam(1, $receptor);
 		$rows->bindParam(2, $html);
 		$rows->bindParam(3, $icone);
+		$rows->bindParam(4, $davecoins);
 		$rows->execute();
 	}
 }
@@ -315,6 +316,24 @@ function ler_mensagens($receptor)
 	$rows->bindParam(1, $receptor);
 	$rows->execute();
 }
+
+// mensagem por id
+function mensagem_requestIDator($id)
+{
+	global $db;
+
+	$rows = $db->prepare("SELECT * FROM mensagens WHERE id = ?");
+	$rows->bindParam(1, $id);
+	$rows->execute();
+	$msg = $rows->fetch(PDO::FETCH_OBJ);
+
+	if ($msg == false) {
+		return null;
+	}
+
+	return $msg;
+}
+
 
 function pfp($user)
 {
