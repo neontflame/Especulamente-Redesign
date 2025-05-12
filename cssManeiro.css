@@ -18,15 +18,54 @@ body {
   background-size: 100% 100%;
 }
 
-.headerAwesome {
-}
-
-.top_nav {
-}
-
 a img {
   border-width: 0px;
 }
+
+/* Alguns elementos base q nao tinhamos estilado ainda */
+
+hr {
+  border: 1px solid #9ebbff;
+  border-top: 0;
+}
+
+blockquote {
+  border-left: solid #9ebbff 2px;
+  margin: 0;
+  padding-left: 14px;
+}
+
+code {
+  border: solid 1px #9ebbff;
+  display: inline-block;
+  border-radius: 2px;
+  padding: 2px 4px;
+  font-style: italic;
+}
+
+table {
+  border: solid 1px #9ebbff;
+  border-spacing: 0;
+  border-top: 0;
+  border-left: 0;
+}
+
+table th {
+  border: solid 1px #9ebbff;
+  border-right: 0;
+  border-bottom: 0;
+  padding: 2px 4px;
+  background: #edf2ff;
+}
+
+table td {
+  border: solid 1px #9ebbff;
+  border-right: 0;
+  border-bottom: 0;
+  padding: 2px 4px;
+}
+
+/* ... */
 
 .container {
   font: 12px "Verdana";
@@ -134,21 +173,21 @@ a img {
 .coolUsery .links {
   margin-top: 2px;
   display: inline-block;
-  vertical-align:top;
+  vertical-align: top;
   position: relative;
 }
 
-.coolUsery .links:last-child{
+.coolUsery .links:last-child {
   border-left: 1px solid #5d85e2;
   padding-left: 4px;
 }
 
 .coolUsery .msgContador {
-  vertical-align:top;
+  vertical-align: top;
 }
 
 .coolUsery .ativo {
-  font-weight:bold;
+  font-weight: bold;
 }
 
 .coolUsery a {
@@ -316,8 +355,8 @@ a.coolButt {
 }
 
 .projetoSide {
-  float:right;
-  text-align:right;
+  float: right;
+  text-align: right;
   margin-right: -8px;
 }
 
@@ -370,34 +409,34 @@ a.coolButt {
 copiei do meu site to com preguiça -neon */
 
 .item {
-	float:left;
-	width: 143px;
-	height: 189px;
-	text-align: center;
-	border-color: #9EBBFF !important;
-	border-right: 1px solid;
-	border-bottom: 1px solid;
-	white-space: pre-line;
-	overflow: hidden;
+  float: left;
+  width: 143px;
+  height: 189px;
+  text-align: center;
+  border-color: #9ebbff !important;
+  border-right: 1px solid;
+  border-bottom: 1px solid;
+  white-space: pre-line;
+  overflow: hidden;
 }
 
 .item a {
-	color: #3F65CC;
-	font-weight: bold;
-	text-decoration: none;
-	font-size: 12px;
+  color: #3f65cc;
+  font-weight: bold;
+  text-decoration: none;
+  font-size: 12px;
 }
 
 .item .autorItem {
-	font-size: 11px;
-	font-weight: normal;
-	color: #c9daff;
+  font-size: 11px;
+  font-weight: normal;
+  color: #c9daff;
 }
 .item img {
-	max-width: 112px;
-	max-height: 124px;
-	margin-top: 8px;
-	margin-bottom: 4px;
+  max-width: 112px;
+  max-height: 124px;
+  margin-top: 8px;
+  margin-bottom: 4px;
 }
 
 /* comentarios !!! uhul */
@@ -602,20 +641,20 @@ copiei do meu site to com preguiça -neon */
 
 /* MENSAGENS YESSSSSSSSSSSSSSSSS */
 .separadorChique {
-	/* e a mesma coisa da mensagem mas sem hover */
+  /* e a mesma coisa da mensagem mas sem hover */
   margin-left: -5px;
   margin-right: -5px;
   padding: 6px;
-  color: #8F9BE0;
-  border-bottom: 1px solid #BAE2FF;
+  color: #8f9be0;
+  border-bottom: 1px solid #bae2ff;
 }
 
 .mensagem {
   margin-left: -5px;
   margin-right: -5px;
   padding: 6px;
-  color: #8F9BE0;
-  border-bottom: 1px solid #BAE2FF;
+  color: #8f9be0;
+  border-bottom: 1px solid #bae2ff;
 }
 
 .mensagem:hover {
@@ -631,7 +670,7 @@ copiei do meu site to com preguiça -neon */
 
 .mensagem a {
   text-decoration: none;
-  color: #2D4DD5;
+  color: #2d4dd5;
 }
 .mensagem a:hover {
   text-decoration: underline;
@@ -640,14 +679,18 @@ copiei do meu site to com preguiça -neon */
 .mensagem .usuario {
   text-decoration: none;
   font-weight: bold;
-  color: #00137F;
+  color: #00137f;
 }
 
-.mensagem blockquote {
+.mensagem > blockquote {
   margin-top: 4px;
   margin-bottom: 4px;
-  color: #B3BAE0;
+  color: #b3bae0;
   font-style: italic;
+  border: 0;
+  padding: 0;
+  margin-inline-start: 40px;
+  margin-inline-end: 40px;
 }
 
 .mensagem .autorDeProjeto {

@@ -16,87 +16,112 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 		$rows->bindParam(4, $comentario);
 		$rows->bindParam(5, $fio);
 		$rows->execute();
-		
+
 		$id_com = $db->lastInsertId();
-		
+
 		// MENSAGEM HANDLER WOAH
 		$mandavel = true;
 		mensagem_mencao($comentario, $tipo, $id, $id_com);
-		
+
 		if ($tipo == 'projeto') {
 			$projeto = projeto_requestIDator($id);
 			echo $respondido;
 			if ($respondido != 0) {
 				$comentarioOG = comentario_requestIDator($respondido);
-				
-				criar_mensagem($comentarioOG->id_comentador, 
-						'<a href="/usuarios/' . $usuario->username . '" class="usuario">'. $usuario->username .'</a>
-						respondeu seu comentário em
-						<a href="/projetos/' . $id . '#comentario_'. $id_com .'">' . $projeto->nome . '</a>!
-						
-						<blockquote>
-						"'. htmlspecialchars($comentario) .'"
-						</blockquote>', 'resposta');
+				$quote = responde_clickers($comentario, "/projetos/{$id}");
+
+				criar_mensagem(
+					$comentarioOG->id_comentador,
+					<<<HTML
+					<a href="/usuarios/{$usuario->username}" class="usuario">{$usuario->username}</a>
+					respondeu seu comentário em
+					<a href="/projetos/{$id}#comentario_{$id_com}">{$projeto->nome}</a>!
+					
+					<blockquote>
+						{$quote}
+					</blockquote>
+					HTML,
+					'resposta'
+				);
 				if ($comentarioOG->id_comentador == $projeto->id_criador) {
 					$mandavel = false;
 				}
 			}
-			
+
 			if ($mandavel) {
-				criar_mensagem($projeto->id_criador,
-					'<a href="/usuarios/'. $usuario->username . '" class="usuario">' . $usuario->username . '</a>
+				$quote = responde_clickers($comentario, "/projetos/{$id}");
+
+				criar_mensagem(
+					$projeto->id_criador,
+					<<<HTML
+					<a href="/usuarios/{$usuario->username}" class="usuario">{$usuario->username}</a>
 					comentou em seu projeto
-					<a href="/projetos/' . $id . '#comentario_'. $id_com .'">' . $projeto->nome . '</a>!
+					<a href="/projetos/{$id}#comentario_{$id_com}">{$projeto->nome}</a>!
 					
 					<blockquote>
-					"' . htmlspecialchars($comentario) . '"
-					</blockquote>', 'comentario');
+						{$quote}
+					</blockquote>
+					HTML,
+					'comentario'
+				);
 			}
 		}
 		if ($tipo == 'perfil') {
 			$perfil = usuario_requestIDator($id);
 			echo $respondido;
-			
+
 			if ($respondido != 0) {
 				$comentarioOG = comentario_requestIDator($respondido);
-				
-				criar_mensagem($comentarioOG->id_comentador, 
-						'<a href="/usuarios/' . $usuario->username . '" class="usuario">'. $usuario->username .'</a>
-						respondeu seu comentário no perfil de 
-						<a href="/usuarios/' . $perfil->username . '#comentario_'. $id_com .'">' . $perfil->username . '</a>!
-						
-						<blockquote>
-						"'. htmlspecialchars($comentario) .'"
-						</blockquote>', 'resposta');
-						
+				$quote = responde_clickers($comentario, "/usuarios/{$perfil->username}");
+
+				criar_mensagem(
+					$comentarioOG->id_comentador,
+					<<<HTML
+					<a href="/usuarios/{$usuario->username}" class="usuario">{$usuario->username}</a>
+					respondeu seu comentário no perfil de 
+					<a href="/usuarios/{$perfil->username}#comentario_{$id_com}">{$perfil->username}</a>!
+					
+					<blockquote>
+						{$quote}
+					</blockquote>
+					HTML,
+					'resposta'
+				);
+
 				if ($comentarioOG->id_comentador == $perfil->id) {
 					$mandavel = false;
 				}
 			}
-			
+
 			if ($mandavel) {
-				criar_mensagem($perfil->id,
-					'<a href="/usuarios/'. $usuario->username . '" class="usuario">' . $usuario->username . '</a>
+				$quote = responde_clickers($comentario, "/usuarios/{$perfil->username}");
+
+				criar_mensagem(
+					$perfil->id,
+					<<<HTML
+					<a href="/usuarios/{$usuario->username}" class="usuario">{$usuario->username}</a>
 					comentou no
-					<a href="/usuarios/' . $perfil->username . '#comentario_'. $id_com .'">seu perfil</a>!
+					<a href="/usuarios/{$perfil->username}#comentario_{$id_com}">seu perfil</a>!
 					
 					<blockquote>
-					"' . htmlspecialchars($comentario) . '"
-					</blockquote>', 'comentario');
+						{$quote}
+					</blockquote>
+					HTML,
+					'comentario'
+				);
 			}
-
 		}
-		
 	} else {
 		// qq tu quer q eu faça bro
 	}
 }
 
 // funçao janky mas que seja
-function mensagem_mencao($texto, $tipo, $id, $id_com) {
+function mensagem_mencao($texto, $tipo, $id, $id_com)
+{
 	global $usuario;
 	preg_match_all('/@([a-zA-Z0-9_.]+)/', $texto, $matches);
-	
+
 	$nomesarray = [];
 
 	foreach ($matches[1] as $match) {
@@ -107,29 +132,42 @@ function mensagem_mencao($texto, $tipo, $id, $id_com) {
 			$nomesarray[$match] = 1;
 		}
 	}
-	
+
 	foreach ($nomesarray as $nomius => $quant) {
 		if ($tipo === 'projeto') {
 			$projeto = projeto_requestIDator($id);
 			$nome = usuario_requestinator($nomius)->id;
+			$quote = responde_clickers($texto, "/projetos/{$id}");
 
-			criar_mensagem($nome,
-				'<a href="/usuarios/'. $usuario->username . '" class="usuario">' . $usuario->username . '</a>
+			criar_mensagem(
+				$nome,
+				<<<HTML
+				<a href="/usuarios/{$usuario->username}" class="usuario">{$usuario->username}</a>
 				mencionou você em
-				<a href="/projetos/' . $id . '#comentario_'. $id_com .'">' . $projeto->nome . '</a>!
-				<blockquote>"' . htmlspecialchars($texto) . '"</blockquote>',
-				'menciona');
+				<a href="/projetos/{$id}#comentario_{$id_com}">{$projeto->nome}</a>!
+				<blockquote>
+					{$quote}
+				</blockquote>
+				HTML,
+				'menciona'
+			);
 		} elseif ($tipo === 'perfil') {
 			$perfil = usuario_requestIDator($id);
 			$nome = usuario_requestinator($nomius)->id;
+			$quote = responde_clickers($texto, "/usuarios/{$perfil->username}");
 
-			criar_mensagem($nome,
-				'<a href="/usuarios/'. $usuario->username . '" class="usuario">' . $usuario->username . '</a>
+			criar_mensagem(
+				$nome,
+				<<<HTML
+				<a href="/usuarios/{$usuario->username}" class="usuario">{$usuario->username}</a>
 				mencionou você no perfil de 
-				<a href="/usuarios/' . $perfil->username . '#comentario_'. $id_com .'">' . $perfil->username . '</a>!
-				<blockquote>"' . htmlspecialchars($texto) . '"</blockquote>',
-				'menciona');
+				<a href="/usuarios/{$perfil->username}#comentario_{$id_com}">{$perfil->username}</a>!
+				<blockquote>
+					{$quote}
+				</blockquote>
+				HTML,
+				'menciona'
+			);
 		}
 	}
-
 }

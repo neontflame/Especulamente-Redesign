@@ -125,7 +125,7 @@ function vedor_d_comentario($tipo, $id, $temTudo, &$usuario)
 
 // achei lowkey smart o responde_clickers ficar aqui
 // obrigado houve 0 pensamento envolvido -fup
-function responde_clickers($texto)
+function responde_clickers($texto, $base_url = "")
 {
 	$Parsedown = new Parsedown();
 	$Parsedown->setSafeMode(true);
@@ -135,6 +135,7 @@ function responde_clickers($texto)
 		'/^@([a-zA-Z0-9_.]+)/' => '[@$1](/usuarios/$1)',
 		'/(\s)#(\w+)/' => '$1[#$2](/projetos/?q=%23$2)',
 		'/^#(\w+)/' => '[#$1](/projetos/?q=%23$1)',
+		'/>>(\d+)/' => '&gt;&gt;$1',
 	];
 
 	// Emotes!
@@ -147,11 +148,11 @@ function responde_clickers($texto)
 		}
 	}
 
-	$texto = $Parsedown->text(preg_replace(array_keys($replace), array_values($replace), htmlspecialchars($texto)));
+	$texto = $Parsedown->text(preg_replace(array_keys($replace), array_values($replace), $texto));
 
 	// Só a partir daqui podemos incluir HTML em segurança
 	$replace = [
-		'/&gt;&gt;(\d+)/' => '<a href="#comentario_$1" onmouseenter="document.getElementById(\'comentario_$1\').className=\'comentario livel\'" onmouseleave="document.getElementById(\'comentario_$1\').className=\'comentario\'">&gt;&gt;$1</a>'
+		'/&gt;&gt;(\d+)/' => '<a href="' . $base_url . '#comentario_$1" onmouseenter="document.getElementById(\'comentario_$1\').className=\'comentario livel\'" onmouseleave="document.getElementById(\'comentario_$1\').className=\'comentario\'">&gt;&gt;$1</a>'
 	];
 	$texto = preg_replace(array_keys($replace), array_values($replace), $texto);
 

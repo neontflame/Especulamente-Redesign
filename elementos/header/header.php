@@ -22,7 +22,7 @@ global $config;
 <head>
   <meta content="pt-br" http-equiv="Content-Language" />
   <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
-  <link href="/cssManeiro.css?v14" rel="stylesheet" type="text/css" />
+  <link href="/cssManeiro.css?v15" rel="stylesheet" type="text/css" />
   <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 
   <!-- Metas Tags -->
@@ -58,7 +58,7 @@ global $config;
             <a href="/resto/">"O resto..."</a>
           </div>
           <form action="/<?= pagetitlePorTipo($_GET['tipo'] ?? '') ?>">
-            <input type="text" id="search" name="q" placeholder="Pesquise algo lol" class="coolSearchBar" style="height: 18px; width: 200px; float:left; margin-right: 3px;" />
+            <input type="text" id="search" name="q" placeholder="Pesquise algo lol" class="coolSearchBar" style="height: 18px; width: 200px; float:left; margin-right: 3px;" value="<?= $_GET["q"] ?? "" ?>" />
             <button style="cursor:pointer; display: inline-block; padding: 0; border: 0;">
               <img src="/elementos/header/pesquisa.png">
             </button>
@@ -92,35 +92,35 @@ global $config;
 
           <div class="coolUsery">
             <?php if (isset($usuario)) : ?>
-<script>
-// mensagem negocios
-function carregarMensagens() {
-  var xhttp = new XMLHttpRequest();
-  xhttp.onload = function () {
-    document.getElementById("msgContador").innerHTML = this.responseText;
-	if (this.responseText != 0) {
-		document.getElementById("msgIcone").src = '/elementos/header/msgAtiva.png';
-	} else {
-		document.getElementById("msgIcone").src = '/elementos/header/msgInativa.png';
-	}
-  };
-  xhttp.open(
-    "GET",
-    "/mensagens/contagem.php",
-    true
-  );
-  xhttp.send();
-}
+              <script>
+                // mensagem negocios
+                function carregarMensagens() {
+                  var xhttp = new XMLHttpRequest();
+                  xhttp.onload = function() {
+                    document.getElementById("msgContador").innerHTML = this.responseText;
+                    if (this.responseText != 0) {
+                      document.getElementById("msgIcone").src = '/elementos/header/msgAtiva.png';
+                    } else {
+                      document.getElementById("msgIcone").src = '/elementos/header/msgInativa.png';
+                    }
+                  };
+                  xhttp.open(
+                    "GET",
+                    "/mensagens/contagem.php",
+                    true
+                  );
+                  xhttp.send();
+                }
 
-carregarMensagens();
-setInterval(carregarMensagens, 10000); 
-</script>
-			  <!-- MENSAGENS -->
-			  <div class="links">
-				<span id="msgContador" class="msgContador">?</span>
-				<a href="/mensagens"><img id="msgIcone" src="/elementos/header/msgInativa.png"></a>
-			  </div>
-			  <!-- OUTROS LINKS -->
+                carregarMensagens();
+                setInterval(carregarMensagens, 10000);
+              </script>
+              <!-- MENSAGENS -->
+              <div class="links">
+                <span id="msgContador" class="msgContador">0</span>
+                <a href="/mensagens"><img id="msgIcone" src="/elementos/header/msgInativa.png"></a>
+              </div>
+              <!-- OUTROS LINKS -->
               <div class="links">
                 Olá novamente, <a href="/usuarios/<?= $usuario->username ?>"><?= $usuario->username ?></a>
                 <button id="headerSeta"></button>
@@ -133,7 +133,7 @@ setInterval(carregarMensagens, 10000);
                 </div>
               </div>
             <?php else : ?>
-              <div class="links" style="margin-top: 1px; margin-right: 10px;"><a href="/registro.php">Criar conta</a> | <a href="/entrar.php">Entrar</a></div>
+              <div class="links" style="margin-top: 1px; margin-right: 10px; border-left: 0;"><a href="/registro.php">Criar conta</a> | <a href="/entrar.php">Entrar</a></div>
             <?php endif ?>
           </div>
 

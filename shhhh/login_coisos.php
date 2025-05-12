@@ -1,6 +1,7 @@
 <?php
 session_start();
 
+/** @var object|null $usuario */
 $usuario = null;
 
 if (isset($_SESSION['id'])) {
