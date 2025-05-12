@@ -285,6 +285,7 @@ a.coolButt {
 .projeto {
   border-bottom: solid 1px;
   border-bottom-color: #9ebbff;
+  word-break: break-word;
 }
 
 .projeto:last-child {
