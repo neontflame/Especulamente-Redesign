@@ -23,7 +23,7 @@ global $config;
   <meta content="pt-br" http-equiv="Content-Language" />
   <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
   <link href="/cssManeiro.css?v15" rel="stylesheet" type="text/css" />
-  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+  <link id="favicon" rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 
   <!-- Metas Tags -->
   <title><?= $meta["titulo"] ?? "[PORTAL ESPECULAMENTE]" ?></title>
@@ -94,13 +94,20 @@ global $config;
             <?php if (isset($usuario)) : ?>
               <script>
                 // mensagem negocios
+                var tituloOriginal = document.title;
+                var faviconOriginal = document.getElementById("favicon").href;
+
                 function carregarMensagens() {
                   var xhttp = new XMLHttpRequest();
                   xhttp.onload = function() {
                     document.getElementById("msgContador").innerHTML = this.responseText;
                     if (this.responseText != 0) {
+                      document.title = "(" + this.responseText + ") " + tituloOriginal;
+                      document.getElementById("favicon").href = "/faviconmail.ico";
                       document.getElementById("msgIcone").src = '/elementos/header/msgAtiva.png';
                     } else {
+                      document.title = tituloOriginal;
+                      document.getElementById("favicon").href = faviconOriginal;
                       document.getElementById("msgIcone").src = '/elementos/header/msgInativa.png';
                     }
                   };
