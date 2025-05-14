@@ -373,7 +373,11 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 				return $texto;
 			}
 			?>
-			<div class="descricao"><?= responde_clickers(trocadorDeImagemCoiso($projeto->descricao)) ?></div>
+			<div class="descricao">
+			<?= responde_clickers(trocadorDeImagemCoiso($projeto->descricao)) ?>
+			<div class="separador"></div>
+			<p class="autorDeProjeto">Postado em <?= velhificar_data($projeto->data); ?></p>
+			</div>
 			<?php reajor_d_reagida('projeto', $projeto, $usuario) ?>
 		</div>
 
