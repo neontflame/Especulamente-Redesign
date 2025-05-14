@@ -50,7 +50,7 @@ $perfil_e_meu = $usuario ? ($usuario->id == $perfil->id) : false;
 ?>
 
 <?php
-$meta["titulo"] = "[" . $perfil->username . " <> PORTAL ESPECULAMENTE]";
+$meta["titulo"] = "[" . $perfil->username . " <> Usuário do PORTAL ESPECULAMENTE]";
 include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 
 <div class="container">
@@ -211,7 +211,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
     </div>
   </div>
 
-  <div class="page_content" style="min-height: 310px;">
+  <div class="page_content" style="min-height: 370px;">
     <div class="inside_page_content">
       <?php vedor_d_comentario('perfil', $perfil->id, true, $usuario); ?>
     </div>
