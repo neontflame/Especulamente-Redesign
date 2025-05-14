@@ -16,7 +16,7 @@ $item = daveitem_requestIDator($id);
 <div class="container">
   <?php include $_SERVER['DOCUMENT_ROOT'] . '/elementos/sidebar/sidebar.php'; ?>
 
-  <div class="page_content" style="height: 486px">
+  <div class="page_content" style="height: 556px">
     <div class="inside_page_content">
       <img src="/daveloja/itens/<?= $item->id ?>.png" style="margin:auto; display: block;">
       <h2 style="text-align: center;">Você quer mesmo comprar <b style="color: black;"><?= $item->nome ?></b>?</h2>

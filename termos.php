@@ -12,7 +12,7 @@
 <div class="container">
   <?php include $_SERVER['DOCUMENT_ROOT'] . '/elementos/sidebar/sidebar.php'; ?>
 
-  <div class="page_content" style="height: 486px">
+  <div class="page_content" style="height: 556px">
     <div class="inside_page_content" style="height: 469px; background-image: url(/elementos/tioSamVerde.png); background-position: left bottom; background-repeat: no-repeat;">
       <h2 style="font-style: italic;">Termos d euso</h2>
       <p>nao soje <img src="/elementos/emoticons/_soja_.png"></p>

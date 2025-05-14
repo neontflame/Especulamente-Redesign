@@ -18,7 +18,7 @@ $pages = coisos_tudo($daveitens, 'daveitens', $page);
 <div class="container">
   <?php include $_SERVER['DOCUMENT_ROOT'] . '/elementos/sidebar/sidebar.php'; ?>
 
-  <div class="page_content" style="height: 486px">
+  <div class="page_content" style="height: 556px">
     <img src="/elementos/pagetitles/davelojaNormal.png" class="inside_page_content" style="padding: 0px; margin-bottom: 7px;">
     <div class="inside_page_content">
       <!-- nao sao projetos propriamente ditos mas we ball regardless -->
