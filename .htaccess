@@ -33,6 +33,7 @@ RewriteRule ^midia/?$ /lista.php?formato=grade&tipo=md [L,QSA]
 RewriteRule ^jogos/?$ /lista.php?tipo=jg [L,QSA]
 RewriteRule ^resto/?$ /lista.php?tipo=rt [L,QSA]
 RewriteRule ^blogs/?$ /lista.php?tipo=bg [L,QSA]
+RewriteRule ^downloadaveis/?$ /lista.php?tipo=dl [L,QSA]
 
 # Criar
 RewriteRule ^criar/?$ /projetos/criar.php [L]

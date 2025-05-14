@@ -164,6 +164,8 @@ function nomePorTipo($tipo) {
 
 function pagetitlePorTipo($tipo) {
 	switch ($tipo) {
+		case 'dl':
+			return 'downloadaveis';
 		case 'jg':
 			return 'jogos';
 		case 'md':
@@ -179,6 +181,8 @@ function pagetitlePorTipo($tipo) {
 
 function descPorTipo($tipo) {
 	switch ($tipo) {
+		case 'dl':
+			return "Sabe esse disco rígido que você tem aí dando sopa no seu computador? Preencha ele um pouco com os arquivos DOWNLOADÁVEIS dos ESPECULATIVOS!!";
 		case 'jg':
 			return "Você já se sentiu tão entediado que poderia comer um cavalo? Pois bem, apresento a você o maravilhoso mundo dos VIDEOGAMES!! Divirta-se com os melhores jogos produzidos pelos ESPECULATIVOS!";
 		case 'md':
