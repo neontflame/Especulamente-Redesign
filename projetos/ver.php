@@ -378,7 +378,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 			<div class="separador"></div>
 			<p class="autorDeProjeto">Postado dia <?= velhificar_data($projeto->data); ?></p>
 			</div>
-			<?php reajor_d_reagida('projeto', $projeto, $usuario) ?>
+			<?php reajor_d_reagida('projeto', $projeto, $usuario, 'Postado dia ' . velhificar_data($projeto->data)) ?>
 		</div>
 
 	</div>

@@ -1,7 +1,7 @@
 <?php
 // $tipo é o tipo da coisa que tem os reações (projeto ou perfil)
 // $coisa é a coisa! um perfil ou um projeto
-function reajor_d_reagida($tipo, &$coisa, &$usuario)
+function reajor_d_reagida($tipo, &$coisa, &$usuario, $stringAdicional = null)
 {
   $coisa_e_minha = $usuario
     ? ($tipo == "perfil"
@@ -30,6 +30,9 @@ function reajor_d_reagida($tipo, &$coisa, &$usuario)
       <img src="/elementos/reajor_d_reagida/sojada.png" alt="sojada">
     </button>
 	</div>
+	<?php if (isset($stringAdicional)) : ?>
+	<p class="stringAdicional"><?= $stringAdicional ?></p>
+	<?php endif ?>
   </div>
 
   <?php if (isset($usuario)) : ?>

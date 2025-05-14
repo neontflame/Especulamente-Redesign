@@ -591,6 +591,7 @@ copiei do meu site to com preguiça -neon */
   padding-top: 3px;
   padding-right: 8px;
   border-right: solid 1px #9ebbff;
+  display: inline-block;
 }
 
 .reajorDReagida .oReajorEmSi span {
@@ -610,6 +611,12 @@ copiei do meu site to com preguiça -neon */
   background-color: transparent;
 
   cursor: pointer;
+}
+
+.reajorDReagida .stringAdicional {
+  float: right;
+  margin-top: 8px;
+  margin-right: 4px;
 }
 
 /* Erros.......... */
