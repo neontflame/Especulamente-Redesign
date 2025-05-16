@@ -703,7 +703,7 @@ function criar_projeto($id_criador, $nome, $descricao, $tipo, $arquivos, $arquiv
 
 	if ($tipo != 'rt') {
 		if ($tipo == 'jg') {
-			if ($arquivos == null && $arquivoVivel == null) {
+			if ($arquivos == null && $arquivoVivel == '') {
 				return "§Você precisa anexar ALGUM tipo de arquivo!";
 			}
 		}

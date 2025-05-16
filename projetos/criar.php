@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
         }
       }
     } else if ($tipo == 'jg') {
-      $arquivoJogavel = $_FILES['arquivoJogavel'] ?? null;
+      $arquivoJogavel = $_FILES['arquivoJogavel'];
       $thumb = $_FILES['thumb'];
       $arquivos = $_FILES['arquivos'] ?? null;
 
