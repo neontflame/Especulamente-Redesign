@@ -687,7 +687,13 @@ function criar_projeto($id_criador, $nome, $descricao, $tipo, $arquivos, $arquiv
 	if ($arquivos == null && $arquivoVivel == null && ($tipo != 'rt' && $tipo != 'bg')) {
 		return "Comeram seus arquivos?";
 	}
-
+	
+	if ($tipo == 'jg') {
+		if ($arquivos == null && $arquivos_de_vdd == '' && $arquivoVivel == null) {
+			return "§Você precisa anexar ALGUM tipo de arquivo!";
+		}
+	}
+	
 	$rows = $db->prepare("INSERT INTO projetos (id_criador, nome, descricao, tipo, arquivos_de_vdd) VALUES (?, ?, ?, ?, ?)");
 	$rows->bindParam(1, $id_criador);
 	$rows->bindParam(2, $nome);
@@ -702,11 +708,6 @@ function criar_projeto($id_criador, $nome, $descricao, $tipo, $arquivos, $arquiv
 	mkdir($_SERVER['DOCUMENT_ROOT'] . '/static/projetos/' . $id . '/thumb');
 
 	if ($tipo != 'rt') {
-		if ($tipo == 'jg') {
-			if ($arquivos == null && $arquivoVivel == '') {
-				return "§Você precisa anexar ALGUM tipo de arquivo!";
-			}
-		}
 		if ($arquivos != null) {
 			$rtn = subir_arquivoses($arquivos, '/static/projetos/' . $id, "projetos", $id, "arquivos", $extensoes_permitidas, 1024 * 1024 * 1024, 50);
 			if (is_string($rtn)) {
