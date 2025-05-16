@@ -30,9 +30,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
         }
       }
     } else if ($tipo == 'jg') {
-      $arquivoJogavel = $_FILES['arquivoJogavel'];
+      $arquivoJogavel = $_FILES['arquivoJogavel'] ?? null;
       $thumb = $_FILES['thumb'];
-      $arquivos = $_FILES['arquivos'];
+      $arquivos = $_FILES['arquivos'] ?? null;
 
       if (count($erro) == 0) {
         $projeto = criar_projeto($usuario->id, $nome, $descricao, $tipo, $arquivos, $arquivoJogavel, $thumb, []);

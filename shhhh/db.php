@@ -702,6 +702,11 @@ function criar_projeto($id_criador, $nome, $descricao, $tipo, $arquivos, $arquiv
 	mkdir($_SERVER['DOCUMENT_ROOT'] . '/static/projetos/' . $id . '/thumb');
 
 	if ($tipo != 'rt') {
+		if ($tipo == 'jg') {
+			if ($arquivos == null && $arquivoVivel == null) {
+				return "§Você precisa anexar ALGUM tipo de arquivo!";
+			}
+		}
 		if ($arquivos != null) {
 			$rtn = subir_arquivoses($arquivos, '/static/projetos/' . $id, "projetos", $id, "arquivos", $extensoes_permitidas, 1024 * 1024 * 1024, 50);
 			if (is_string($rtn)) {
