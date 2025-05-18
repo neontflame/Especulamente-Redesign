@@ -169,7 +169,7 @@ function anexarImg(imgs) {
 		border-left: 0px;
 		border-right: 0px;
 		padding: 4px;
-		font-size: 16px;
+		font-size: 14px;
 		font-style: italic;
 	}
 	
