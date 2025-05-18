@@ -178,7 +178,7 @@ function anexarImg(imgs) {
 						<br><?= quantReacoes($ofix->id_postador, 'sojada') ?> sojadas
 					</td>
 					<td style="width: 514px; background-color: white; vertical-align: top;">
-						<div class="projTitulo postTitulo">
+						<div class="projTitulo postTitulo" style="width: 100%;">
 							<?= $ofix->sujeito ?>
 							<br>
 							<div style="text-align: right;">
@@ -249,7 +249,7 @@ function anexarImg(imgs) {
 						<br><?= quantReacoes($post->id_postador, 'sojada') ?> sojadas
 					</td>
 					<td style="width: 514px; background-color: white; vertical-align: top;">
-						<div class="projTitulo postTitulo">
+						<div class="projTitulo postTitulo" style="width: 100%;">
 							<?= $post->sujeito ?>
 							<br>
 							<div style="text-align: right;">
@@ -310,7 +310,7 @@ function anexarImg(imgs) {
 						<br><?= quantReacoes($usuario->id, 'sojada') ?> sojadas
 					</td>
 					<td style="width: 514px; background-color: white; vertical-align: top;">
-						<div class="projTitulo postTitulo">
+						<div class="projTitulo postTitulo" style="width: 100%;">
 							Responder '<?= forumpost_requestIDator($id)->sujeito ?>'
 							<div style="text-align: right;">
 								<input type="file" id="inputImg" accept="image/*" style="display: none;" onchange="anexarImg(this.files)">
