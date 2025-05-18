@@ -239,7 +239,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
 						<div class="oPostEmSi">
 							<?php if ($usuario->id == $ofix->id_postador) { ?>
 								<div class="sayYourPrayers" id="edit_<?= $id ?>" style="display: none;">
-									<textarea name="edit_fnf_<?= $id ?>" id="edit_fnf_<?= $id ?>" style="width: 508px; max-width: 508px; height: 150px;"><?= $ofix->conteudo ?></textarea>
+									<textarea name="edit_fnf_<?= $id ?>" id="edit_fnf_<?= $id ?>" style="width: 486px; max-width: 486px; resize: vertical; height: 150px;"><?= $ofix->conteudo ?></textarea>
 									<br>
 									<button type="submit" onclick="editarPost(<?= $id ?>, this);" class="coolButt">
 										Editar comentário
@@ -310,7 +310,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
 							<div class="oPostEmSi">
 								<?php if ($usuario->id == $post->id_postador) { ?>
 									<div class="sayYourPrayers" id="edit_<?= $post->id ?>" style="display: none;">
-										<textarea name="edit_fnf_<?= $post->id ?>" id="edit_fnf_<?= $post->id ?>" style="width: 508px; max-width: 508px; height: 150px;"><?= $post->conteudo ?></textarea>
+										<textarea name="edit_fnf_<?= $post->id ?>" id="edit_fnf_<?= $post->id ?>" style="width: 486px; max-width: 486px; resize: vertical; height: 150px;"><?= $post->conteudo ?></textarea>
 										<br>
 										<button type="submit" onclick="editarPost(<?= $post->id ?>, this);" class="coolButt">
 											Editar comentário
@@ -362,7 +362,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
 							</div>
 							<div class="oPostEmSi">
 								<div class="sayYourPrayers">
-									<textarea name="post_fnf" id="post_fnf" style="width: 508px; max-width: 508px; height: 150px;"></textarea>
+									<textarea name="post_fnf" id="post_fnf" style="width: 486px; max-width: 486px; resize: vertical; height: 150px;"></textarea>
 									<br>
 
 									<div id="imagensAnexas" style="display:none;">
