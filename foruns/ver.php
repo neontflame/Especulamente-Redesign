@@ -179,15 +179,18 @@ function anexarImg(imgs) {
 					<td style="width: 514px; background-color: white; vertical-align: top;">
 						<div class="projTitulo postTitulo">
 							<?= $ofix->sujeito ?>
-							<button onclick='citarPost("<?= usuario_requestIDator($ofix->id_postador)->username ?>", "<?= velhificar_data($ofix->data) ?>", "post_<?= $ofix->id ?>")' class="coolButt" style="height: 18px; float:right">Citar</button>
-							
-							<?php if ($usuario->id == $ofix->id_postador) { ?>
-							<button onclick='deletarPost(<?= $ofix->id ?>, this)' class="coolButt vermelho" style="height: 18px; float:right; margin-right: 6px;">Deletar</button>
-							<button onclick='
-							this.parentElement.parentElement.getElementsByClassName("sayYourPrayers")[0].style.display = "";
-							this.parentElement.parentElement.getElementsByClassName("postissimo")[0].style.display = "none";
-							' class="coolButt verde" style="height: 18px; float:right; margin-right: 6px;">Editar</button>
-							<?php } ?>
+							<br>
+							<div style="text-align: right;">
+								<button onclick='citarPost("<?= usuario_requestIDator($ofix->id_postador)->username ?>", "<?= velhificar_data($ofix->data) ?>", "post_<?= $ofix->id ?>")' class="coolButt" style="height: 18px;">Citar</button>
+								
+								<?php if ($usuario->id == $ofix->id_postador) { ?>
+								<button onclick='deletarPost(<?= $ofix->id ?>, this)' class="coolButt vermelho" style="height: 18px;">Deletar</button>
+								<button onclick='
+								this.parentElement.parentElement.getElementsByClassName("sayYourPrayers")[0].style.display = "";
+								this.parentElement.parentElement.getElementsByClassName("postissimo")[0].style.display = "none";
+								' class="coolButt verde" style="height: 18px; margin-right: 6px;">Editar</button>
+								<?php } ?>
+							</div>
 						</div>
 						<div class="oPostEmSi">
 							<?php if ($usuario->id == $ofix->id_postador) { ?>
@@ -247,15 +250,18 @@ function anexarImg(imgs) {
 					<td style="width: 514px; background-color: white; vertical-align: top;">
 						<div class="projTitulo postTitulo">
 							<?= $post->sujeito ?>
-							<button onclick='citarPost("<?= usuario_requestIDator($post->id_postador)->username ?>", "<?= velhificar_data($post->data) ?>", "post_<?= $post->id ?>")' class="coolButt" style="height: 18px; float:right">Citar</button>
-							
-							<?php if ($usuario->id == $post->id_postador) { ?>
-							<button onclick='deletarPost(<?= $post->id ?>, this)' class="coolButt vermelho" style="height: 18px; float:right; margin-right: 6px;">Deletar</button>
-							<button onclick='
-							this.parentElement.parentElement.getElementsByClassName("sayYourPrayers")[0].style.display = "";
-							this.parentElement.parentElement.getElementsByClassName("postissimo")[0].style.display = "none";
-							' class="coolButt verde" style="height: 18px; float:right; margin-right: 6px;">Editar</button>
-							<?php } ?>
+							<br>
+							<div style="text-align: right;">
+								<button onclick='citarPost("<?= usuario_requestIDator($post->id_postador)->username ?>", "<?= velhificar_data($post->data) ?>", "post_<?= $post->id ?>")' class="coolButt" style="height: 18px;">Citar</button>
+								
+								<?php if ($usuario->id == $post->id_postador) { ?>
+								<button onclick='deletarPost(<?= $post->id ?>, this)' class="coolButt vermelho" style="height: 18px;">Deletar</button>
+								<button onclick='
+								this.parentElement.parentElement.getElementsByClassName("sayYourPrayers")[0].style.display = "";
+								this.parentElement.parentElement.getElementsByClassName("postissimo")[0].style.display = "none";
+								' class="coolButt verde" style="height: 18px; margin-right: 6px;">Editar</button>
+								<?php } ?>
+							</div>
 						</div>
 						<div class="oPostEmSi">
 							<?php if ($usuario->id == $post->id_postador) { ?>
@@ -305,8 +311,10 @@ function anexarImg(imgs) {
 					<td style="width: 514px; background-color: white; vertical-align: top;">
 						<div class="projTitulo postTitulo">
 							Responder '<?= forumpost_requestIDator($id)->sujeito ?>'
-							<input type="file" id="inputImg" accept="image/*" style="display: none;" onchange="anexarImg(this.files)">
-							<button onclick="document.getElementById('inputImg').click()" class="coolButt" style="height: 18px; float:right; margin-right: 6px;">Anexar imagem</button>
+							<div style="text-align: right;">
+								<input type="file" id="inputImg" accept="image/*" style="display: none;" onchange="anexarImg(this.files)">
+								<button onclick="document.getElementById('inputImg').click()" class="coolButt" style="height: 18px; margin-right: 6px;">Anexar imagem</button>
+							</div>
 						</div>
 						<div class="oPostEmSi">
 							<div class="sayYourPrayers">
