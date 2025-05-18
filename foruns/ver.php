@@ -254,11 +254,10 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
 							<div class="oPostEmSi">
 								<?php if (isset($usuario) && $usuario->id == $post->id_postador) { ?>
 									<div class="sayYourPrayers" id="edit_<?= $post->id ?>" style="display: none;">
+										<textarea name="edit_fnf_<?= $post->id ?>" id="edit_fnf_<?= $post->id ?>" style="width: 486px; max-width: 486px; resize: vertical; height: 150px;"><?= $post->conteudo ?></textarea>
 										<script>
 											var contInicial<?= $post->id ?> = document.getElementById('edit_fnf_<?= $post->id ?>').value;
 										</script>
-										
-										<textarea name="edit_fnf_<?= $post->id ?>" id="edit_fnf_<?= $post->id ?>" style="width: 486px; max-width: 486px; resize: vertical; height: 150px;"><?= $post->conteudo ?></textarea>
 										<br>
 										<button type="submit" onclick="editarPost(<?= $post->id ?>, this);" class="coolButt">
 											Editar comentário
