@@ -157,7 +157,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
 							<td style="text-align: center;"><?= topicoCount($cat->id) ?></td> <!-- topicos quant -->
 							<td style="text-align: center;"><?= postCount($cat->id) ?></td> <!-- posts quant -->
 							<td><?php if (postMaisRecente($cat->id) != null) {
-								echo htmlspecialchars(postMaisRecente($cat->id)->sujeito);
+								echo '<a href="/foruns/' . $cat->id . '/' . postMaisRecente($cat->id)->id . '">' . htmlspecialchars(postMaisRecente($cat->id)->sujeito) . '</a>';
 							} else {
 								echo 'Não tem ainda :P';
 							}

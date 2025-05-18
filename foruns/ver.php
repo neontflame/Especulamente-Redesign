@@ -52,7 +52,7 @@ function postarPost(ocomentario, that, respondido, categoria, sujeito) {
 function citarPost(user, data, cont) {
 	var coiso = document.getElementById(cont).children[0].children[0].children[0].children[1].children[1].children[0];
 	
-	document.getElementById('post_fnf').value += "> De @" + user + ", às " + data;
+	document.getElementById('post_fnf').value += "> De @" + user + ", dia " + data;
 	
 	for (var i = 0; i < coiso.childElementCount; i++) {
 		console.log(coiso.children[i].tagName);
@@ -347,7 +347,7 @@ function anexarImg(imgs) {
 								</div>
 							</div>
 							
-							<button type="submit" onclick="postarPost(document.getElementById('post_fnf').value, this, <?= $id ?>, <?= $ofix->id_categoria ?>, 'Resposta à \'<?= $ofix->sujeito ?>\'');" class="coolButt">
+							<button type="submit" onclick="postarPost(document.getElementById('post_fnf').value, this, <?= $id ?>, <?= $ofix->id_categoria ?>, 'Resposta a \'<?= $ofix->sujeito ?>\'');" class="coolButt">
 								Enviar comentário
 							</button>
 
