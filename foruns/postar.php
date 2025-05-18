@@ -6,7 +6,7 @@ $meta["descricao"] = "Como se já não bastassem os blogs dos ESPECULATIVOS para
 
 include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; 
 
-$erro = $_GET['erro'];
+$erro = $_GET['erro'] ?? null;
 
 $erroArray = ["Comeram seu post?", "Seu sujeito é muito curto!"]
 ?>
@@ -64,7 +64,7 @@ function anexarImg(imgs) {
 		<p><a href="/foruns">Fóruns</a> >> <i style="color: #4f6bad">Postar</i></p>
 	</div>
 	<div>	
-	<?php if ($erro) : ?>
+	<?php if (isset($erro)) : ?>
       <div class="erro" style="color: red; background: black; text-align: center;">
         <img src="/static/skull-and-cross.gif" width="24" height="24" />
         <?= $erroArray[$erro-1] ?>
