@@ -199,7 +199,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
 		}
 
 		.oPostEmSi img {
-			max-width: 500px;
+			max-width: 492px;
 		}
 
 		.oReajorEmSi {
