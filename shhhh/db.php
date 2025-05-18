@@ -131,6 +131,40 @@ function comentario_requestIDator($id)
 	return $comm;
 }
 
+// Cagatorio por id
+function categoria_requestIDator($id)
+{
+	global $db;
+
+	$rows = $db->prepare("SELECT * FROM forum_categorias WHERE id = ?");
+	$rows->bindParam(1, $id);
+	$rows->execute();
+	$proj = $rows->fetch(PDO::FETCH_OBJ);
+
+	if ($proj == false) {
+		return null;
+	}
+
+	return $proj;
+}
+
+// Forposte por id
+function forumpost_requestIDator($id)
+{
+	global $db;
+
+	$rows = $db->prepare("SELECT * FROM forum_posts WHERE id = ?");
+	$rows->bindParam(1, $id);
+	$rows->execute();
+	$post = $rows->fetch(PDO::FETCH_OBJ);
+
+	if ($post == false) {
+		return null;
+	}
+
+	return $post;
+}
+
 // Retorna o número de páginas (agora tweaked pra ter suporte pra DaveItens)
 function coisos_tudo(&$array, $table, $page = 1, $searchy = '', $queryAdicional = '', $perPage = 10)
 {
@@ -361,6 +395,18 @@ function mensagem_requestIDator($id)
 	return $msg;
 }
 
+function quantReacoes($id, $reacao)
+{
+	global $db;
+	
+	$rows = $db->prepare("SELECT COUNT(*) as count FROM reacoes WHERE id_reator = ? AND tipo_de_reacao = ?");
+	$rows->bindParam(1, $id);
+	$rows->bindParam(2, $reacao);
+	$rows->execute();
+	$count = $rows->fetch(PDO::FETCH_OBJ)->count;
+
+	return $count;
+}
 
 function pfp($user)
 {
@@ -573,26 +619,60 @@ function mudar_projeto($id, $campos)
 	$rows->execute();
 }
 
+// Campos é uma array [campo => valor]
+function mudar_forumpost($id, $campos)
+{
+	global $db;
+
+	$query = "UPDATE forum_posts SET ";
+	$i = 0;
+	foreach ($campos as $campo => $valor) {
+		$query .= $campo . " = ?";
+		if ($i < count($campos) - 1) {
+			$query .= ", ";
+		}
+		$i++;
+	}
+	$query .= " WHERE id = ?";
+
+	$rows = $db->prepare($query);
+
+	$i = 1;
+	foreach ($campos as $campo => $valor) {
+		$rows->bindParam($i, $valor);
+		$i++;
+	}
+	$rows->bindParam($i, $id);
+	$rows->execute();
+}
+
 function reagir($id_reator, $id_reagido, $tipo_de_reagido, $tipo_de_reacao)
 {
 	global $db;
 
-	if ($tipo_de_reagido != 'perfil' && $tipo_de_reagido != 'projeto') {
-		return -1;
+	if ($tipo_de_reagido != 'perfil' && $tipo_de_reagido != 'projeto' && $tipo_de_reagido != 'forum') {
+		return -5;
 	}
 
 	if ($tipo_de_reacao != 'mitada' && $tipo_de_reacao != 'sojada') {
-		return -1;
+		return -4;
 	}
 
 	$existe = usuario_requestIDator($id_reator);
 	if (!$existe) {
-		return -1;
+		return -3;
 	}
-
-	$existe = $tipo_de_reagido == 'perfil' ? usuario_requestIDator($id_reagido) : projeto_requestIDator($id_reagido);
+	
+	if ($tipo_de_reagido == 'perfil') {
+		$existe = usuario_requestIDator($id_reagido);
+	} else if ($tipo_de_reagido == 'forum') {
+		$existe = forumpost_requestIDator($id_reagido);
+	} else if ($tipo_de_reagido == 'projeto') {
+		$existe = projeto_requestIDator($id_reagido);
+	}
+	
 	if (!$existe) {
-		return -1;
+		return -2;
 	}
 
 	if (ja_reagiu($id_reator, $id_reagido, $tipo_de_reagido, $tipo_de_reacao)) {
@@ -621,10 +701,13 @@ function reagir($id_reator, $id_reagido, $tipo_de_reagido, $tipo_de_reacao)
 		$alteracao['sojadas'] = $count;
 	}
 
-	if ($tipo_de_reagido == 'perfil') {
-		mudar_usuario($id_reagido, $alteracao);
-	} else if ($tipo_de_reagido == 'projeto') {
-		mudar_projeto($id_reagido, $alteracao);
+	switch ($tipo_de_reagido) {
+		case 'perfil':
+			mudar_usuario($id_reagido, $alteracao);
+		case 'projeto':
+			mudar_projeto($id_reagido, $alteracao);
+		case 'forum':
+			mudar_forumpost($id_reagido, $alteracao);
 	}
 
 	return $count;
@@ -648,22 +731,29 @@ function desreagir($id_reator, $id_reagido, $tipo_de_reagido, $tipo_de_reacao)
 {
 	global $db;
 
-	if ($tipo_de_reagido != 'perfil' && $tipo_de_reagido != 'projeto') {
-		return -1;
+	if ($tipo_de_reagido != 'perfil' && $tipo_de_reagido != 'projeto' && $tipo_de_reagido != 'forum') {
+		return -5;
 	}
 
 	if ($tipo_de_reacao != 'mitada' && $tipo_de_reacao != 'sojada') {
-		return -1;
+		return -4;
 	}
 
 	$existe = usuario_requestIDator($id_reator);
 	if (!$existe) {
-		return -1;
+		return -3;
 	}
 
-	$existe = $tipo_de_reagido == 'perfil' ? usuario_requestIDator($id_reagido) : projeto_requestIDator($id_reagido);
+	if ($tipo_de_reagido == 'perfil') {
+		$existe = usuario_requestIDator($id_reagido);
+	} else if ($tipo_de_reagido == 'forum') {
+		$existe = forumpost_requestIDator($id_reagido);
+	} else if ($tipo_de_reagido == 'projeto') {
+		$existe = projeto_requestIDator($id_reagido);
+	}
+	
 	if (!$existe) {
-		return -1;
+		return -2;
 	}
 
 	if (!ja_reagiu($id_reator, $id_reagido, $tipo_de_reagido, $tipo_de_reacao)) {
@@ -692,10 +782,13 @@ function desreagir($id_reator, $id_reagido, $tipo_de_reagido, $tipo_de_reacao)
 		$alteracao['sojadas'] = $count;
 	}
 
-	if ($tipo_de_reagido == 'perfil') {
-		mudar_usuario($id_reagido, $alteracao);
-	} else if ($tipo_de_reagido == 'projeto') {
-		mudar_projeto($id_reagido, $alteracao);
+	switch ($tipo_de_reagido) {
+		case 'perfil':
+			mudar_usuario($id_reagido, $alteracao);
+		case 'projeto':
+			mudar_projeto($id_reagido, $alteracao);
+		case 'forum':
+			mudar_forumpost($id_reagido, $alteracao);
 	}
 
 	return $count;
@@ -712,9 +805,9 @@ function criar_projeto($id_criador, $nome, $descricao, $tipo, $arquivos, $arquiv
 	$arquivos_de_vdd = ($arquivos != null && !is_string($arquivos)) ? implode('\n', $arquivos['name']) : (is_string($arquivos) ? $arquivos : null);
 
 	if ($arquivos == null && $arquivoVivel == null && ($tipo != 'rt' && $tipo != 'bg')) {
-		return "Comeram seus arquivos?";
+		return "§Comeram seus arquivos?";
 	}
-
+	
 	$rows = $db->prepare("INSERT INTO projetos (id_criador, nome, descricao, tipo, arquivos_de_vdd) VALUES (?, ?, ?, ?, ?)");
 	$rows->bindParam(1, $id_criador);
 	$rows->bindParam(2, $nome);

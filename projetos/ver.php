@@ -68,6 +68,16 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 								</object>
 							</div>
 						</div>
+						
+						<script>
+						var flashio = document.getElementsByClassName('jogo')[0].children[0];
+						
+						window.addEventListener('load', function () {
+							flashio.width = 620;
+							flashio.height = parseInt(flashio.TGetProperty('/', 9) * (620 / flashio.TGetProperty('/', 8)))
+							console.log('browser véio fix !');
+						});
+						</script>
 					<?php endif; ?>
 					<?php if (str_ends_with($arquivo_vivel[0], '.zip')) : ?>
 						<!-- JOGOS HTML -->
