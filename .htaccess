@@ -44,3 +44,10 @@ RewriteRule ^criar/((dl)|(jg)|(md)|(bg)|(rt))/?$ /projetos/criar.php?tipo=$1 [L,
 RewriteCond %{REQUEST_URI} !^/usuarios/perfil\.php$
 RewriteRule ^usuarios/([^/]+)/?$ /usuarios/perfil.php?username=$1 [L,QSA]
 RewriteRule ^usuarios/?$ /usuarios.php [L]
+
+# Fóruns
+RewriteCond %{REQUEST_URI} !^/foruns/ver\.php$
+RewriteRule ^foruns/([0-9]+)/([0-9]+)/?$ /foruns/ver.php?id=$2&categoria=$1 [L,QSA]
+RewriteCond %{REQUEST_URI} !^/foruns/categoria\.php$
+RewriteRule ^foruns/([0-9]+)/?$ /foruns/categoria.php?id=$1 [L,QSA]
+RewriteRule ^foruns/postar/?$ /foruns/postar.php [L,QSA]

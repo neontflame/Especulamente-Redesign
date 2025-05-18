@@ -85,6 +85,40 @@ CREATE TABLE IF NOT EXISTS `inventario` (
 -- --------------------------------------------------------
 
 --
+-- Estrutura para tabela `forum_categorias`
+--
+
+CREATE TABLE IF NOT EXISTS `forum_categorias` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `nome` text NOT NULL,
+  `descricao` text NOT NULL,
+  `tipoDeTopico` int NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `forum_posts`
+--
+
+CREATE TABLE IF NOT EXISTS `forum_posts` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `id_postador` int NOT NULL,
+  `id_resposta` int NOT NULL DEFAULT '-1',
+  `id_categoria` int NOT NULL,
+  `sujeito` text NOT NULL,
+  `conteudo` text NOT NULL,
+  `data` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `dataBump` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `mitadas` int NOT NULL,
+  `sojadas` int NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura para tabela `mensagens`
 --
 
@@ -130,7 +164,7 @@ CREATE TABLE IF NOT EXISTS `reacoes` (
   `id` int NOT NULL AUTO_INCREMENT,
   `tipo_de_reacao` enum('mitada','sojada') NOT NULL,
   `id_reator` int NOT NULL,
-  `tipo_de_reagido` enum('perfil','projeto') NOT NULL,
+  `tipo_de_reagido` enum('perfil','projeto','forum') NOT NULL,
   `id_reagido` int NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
