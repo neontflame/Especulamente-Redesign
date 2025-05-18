@@ -224,17 +224,19 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
 						<div class="projTitulo postTitulo" style="width: 100%;">
 							<?= $ofix->sujeito ?>
 							<br>
-							<div style="text-align: right;">
-								<button onclick='citarPost("<?= usuario_requestIDator($ofix->id_postador)->username ?>", "<?= velhificar_data($ofix->data) ?>", "post_<?= $ofix->id ?>")' class="coolButt" style="height: 18px;">Citar</button>
+							<?php if (isset($usuario)) : ?>
+								<div style="text-align: right;">
+									<button onclick='citarPost("<?= usuario_requestIDator($ofix->id_postador)->username ?>", "<?= velhificar_data($ofix->data) ?>", "post_<?= $ofix->id ?>")' class="coolButt" style="height: 18px;">Citar</button>
 
-								<?php if (isset($usuario) && $usuario->id == $ofix->id_postador) { ?>
-									<button onclick='deletarPost(<?= $ofix->id ?>, this)' class="coolButt vermelho" style="height: 18px;">Deletar</button>
-									<button onclick='
+									<?php if ($usuario->id == $post->id_postador) : ?>
+										<button onclick='deletarPost(<?= $ofix->id ?>, this)' class="coolButt vermelho" style="height: 18px;">Deletar</button>
+										<button onclick='
 								this.parentElement.parentElement.parentElement.getElementsByClassName("sayYourPrayers")[0].style.display = "";
 								this.parentElement.parentElement.parentElement.getElementsByClassName("postissimo")[0].style.display = "none";
 								' class="coolButt verde" style="height: 18px; margin-right: 6px;">Editar</button>
-								<?php } ?>
-							</div>
+									<?php endif; ?>
+								</div>
+							<?php endif; ?>
 						</div>
 						<div class="oPostEmSi">
 							<?php if (isset($usuario) && $usuario->id == $ofix->id_postador) { ?>
@@ -295,17 +297,19 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
 							<div class="projTitulo postTitulo" style="width: 100%;">
 								<?= $post->sujeito ?>
 								<br>
-								<div style="text-align: right;">
-									<button onclick='citarPost("<?= usuario_requestIDator($post->id_postador)->username ?>", "<?= velhificar_data($post->data) ?>", "post_<?= $post->id ?>")' class="coolButt" style="height: 18px;">Citar</button>
+								<?php if (isset($usuario)) : ?>
+									<div style="text-align: right;">
+										<button onclick='citarPost("<?= usuario_requestIDator($post->id_postador)->username ?>", "<?= velhificar_data($post->data) ?>", "post_<?= $post->id ?>")' class="coolButt" style="height: 18px;">Citar</button>
 
-									<?php if (isset($usuario) && $usuario->id == $post->id_postador) { ?>
-										<button onclick='deletarPost(<?= $post->id ?>, this)' class="coolButt vermelho" style="height: 18px;">Deletar</button>
-										<button onclick='
+										<?php if ($usuario->id == $post->id_postador) : ?>
+											<button onclick='deletarPost(<?= $post->id ?>, this)' class="coolButt vermelho" style="height: 18px;">Deletar</button>
+											<button onclick='
 								this.parentElement.parentElement.parentElement.getElementsByClassName("sayYourPrayers")[0].style.display = "";
 								this.parentElement.parentElement.parentElement.getElementsByClassName("postissimo")[0].style.display = "none";
 								' class="coolButt verde" style="height: 18px; margin-right: 6px;">Editar</button>
-									<?php } ?>
-								</div>
+										<?php endif; ?>
+									</div>
+								<?php endif; ?>
 							</div>
 							<div class="oPostEmSi">
 								<?php if (isset($usuario) && $usuario->id == $post->id_postador) { ?>
