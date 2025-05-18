@@ -59,6 +59,31 @@ function citarPost(user, data, cont) {
 	}
 }
 
+function deletarPost(id, that) {
+  if (confirm("Tem certeza que quer deletar esse post??")) {
+    var bototes = that.parentElement.getElementsByTagName("button");
+    for (var i = 0; i < bototes.length; i++) {
+      bototes[i].disabled = true;
+    }
+
+    var osNegocios = new FormData();
+    osNegocios.append("id", id);
+
+    var xhttp = new XMLHttpRequest();
+    xhttp.open(
+      "POST",
+      "/foruns/deletarPost.php",
+      true
+    );
+
+    xhttp.onload = function () {
+		window.location.reload();
+    };
+
+    xhttp.send(osNegocios);
+  }
+}
+
 </script>
 <div class="container">
 	<style>
@@ -111,7 +136,11 @@ function citarPost(user, data, cont) {
 					<td style="width: 514px; background-color: white; vertical-align: top;">
 						<div class="projTitulo postTitulo">
 							<?= $ofix->sujeito ?>
-							<p onclick='citarPost("<?= usuario_requestIDator($ofix->id_postador)->username ?>", "<?= velhificar_data($ofix->data) ?>", "post_<?= $ofix->id ?>")' style="float:right; font-size:14px; font-weight:bold; font-style:normal;">Citar</p>
+							<button onclick='citarPost("<?= usuario_requestIDator($ofix->id_postador)->username ?>", "<?= velhificar_data($ofix->data) ?>", "post_<?= $ofix->id ?>")' class="coolButt" style="height: 18px; float:right">Citar</button>
+							
+							<?php if ($usuario->id == $ofix->id_postador) { ?>
+							<button onclick='deletarPost(<?= $ofix->id ?>, this)' class="coolButt vermelho" style="height: 18px; float:right; margin-right: 6px;">Deletar</button>
+							<?php } ?>
 						</div>
 						<div class="oPostEmSi">
 							<?= responde_clickers($ofix->conteudo) ?>
@@ -147,7 +176,11 @@ function citarPost(user, data, cont) {
 					<td style="width: 514px; background-color: white; vertical-align: top;">
 						<div class="projTitulo postTitulo">
 							<?= $post->sujeito ?>
-							<p onclick='citarPost("<?= usuario_requestIDator($post->id_postador)->username ?>", "<?= velhificar_data($post->data) ?>", "post_<?= $post->id ?>")' style="float:right; font-size:14px; font-weight:bold; font-style:normal;">Citar</p>
+							<button onclick='citarPost("<?= usuario_requestIDator($post->id_postador)->username ?>", "<?= velhificar_data($post->data) ?>", "post_<?= $post->id ?>")' class="coolButt" style="height: 18px; float:right">Citar</button>
+							
+							<?php if ($usuario->id == $post->id_postador) { ?>
+							<button onclick='deletarPost(<?= $post->id ?>, this)' class="coolButt vermelho" style="height: 18px; float:right; margin-right: 6px;">Deletar</button>
+							<?php } ?>
 						</div>
 						<div class="oPostEmSi">
 							<?= responde_clickers($post->conteudo) ?>
