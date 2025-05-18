@@ -80,7 +80,12 @@ function anexarImg(imgs) {
 					<?php
 					$cats = [];
 
-					$pages = coisos_tudo($cats, 'forum_categorias', 1, '', '', 100);
+					$rows = $db->prepare("SELECT * FROM forum_categorias ORDER BY id ASC");
+					$rows->execute();
+
+					while ($row = $rows->fetch(PDO::FETCH_OBJ)) {
+						array_push($cats, $row);
+					}
 					foreach ($cats as $cat) : 
 					?>
 					<option value="<?= $cat->id ?>"><?= $cat->nome ?></option>
