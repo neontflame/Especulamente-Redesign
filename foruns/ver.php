@@ -50,8 +50,9 @@ function postarPost(ocomentario, that, respondido, categoria, sujeito) {
 }
 
 function citarPost(user, data, cont) {
-	var coiso = document.getElementById(cont).children[0].children[0].children[0].children[1].children[1].children[0];
-	
+	// todo fazer uma forma melhor de pegar isso aqui
+	var coiso = document.getElementById(cont).children[0].children[0].children[0].children[1].children[1].children[1];
+
 	document.getElementById('post_fnf').value += "> De @" + user + ", dia " + data;
 	
 	for (var i = 0; i < coiso.childElementCount; i++) {
