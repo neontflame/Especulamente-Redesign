@@ -50,11 +50,11 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
 	}
 
 	function citarPost(user, data, cont) {
-		// todo fazer uma forma melhor de pegar isso aqui
-		var coiso = document.getElementById(cont).children[0].children[0].children[0].children[1].children[1].children[1];
-
+		// var coiso = document.getElementById(cont).children[0].children[0].children[0].children[1].children[1].children[1];
+		// CODIGO ASSOMBRADO BEGONE
+		var coiso = document.getElementById(cont);
 		document.getElementById('post_fnf').value += "> De @" + user + ", dia " + data;
-
+		
 		for (var i = 0; i < coiso.childElementCount; i++) {
 			console.log(coiso.children[i].tagName);
 			if (coiso.children[i].tagName == 'BLOCKQUOTE') {
@@ -211,72 +211,12 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
 			<p><a href="/foruns">Fóruns</a> >> <a href="/foruns/<?= $categoria ?>"><?= categoria_requestIDator($categoria)->nome ?></a> >> <i style="color: #4f6bad"><?= forumpost_requestIDator($id)->sujeito ?></i></p>
 		</div>
 
-		<div class="inside_page_content" style="margin-bottom: 8px;" id="post_<?= $ofix->id ?>">
-			<table style="margin: -6px;">
-				<tr>
-					<td class="forumUserCoiso">
-						<a href="/usuarios/<?= usuario_requestIDator($ofix->id_postador)->username ?>"><img src="<?= pfp(usuario_requestIDator($ofix->id_postador)) ?>" width="64" height="64"></a>
-						<a class="forumUser" href="/usuarios/<?= usuario_requestIDator($ofix->id_postador)->username ?>"><?= usuario_requestIDator($ofix->id_postador)->username ?></a>
-						<?= quantReacoes($ofix->id_postador, 'mitada') ?> mitadas
-						<br><?= quantReacoes($ofix->id_postador, 'sojada') ?> sojadas
-					</td>
-					<td style="min-width: 500px; max-width: 500px; overflow-x: auto; background-color: white; vertical-align: top;">
-						<div class="projTitulo postTitulo" style="width: 100%;">
-							<?= $ofix->sujeito ?>
-							<br>
-							<?php if (isset($usuario)) : ?>
-								<div style="text-align: right;">
-									<button onclick='citarPost("<?= usuario_requestIDator($ofix->id_postador)->username ?>", "<?= velhificar_data($ofix->data) ?>", "post_<?= $ofix->id ?>")' class="coolButt" style="height: 18px;">Citar</button>
-
-									<?php if ($usuario->id == $ofix->id_postador) : ?>
-										<button onclick='deletarPost(<?= $ofix->id ?>, this)' class="coolButt vermelho" style="height: 18px;">Deletar</button>
-										<button onclick='
-								this.parentElement.parentElement.parentElement.getElementsByClassName("sayYourPrayers")[0].style.display = "";
-								this.parentElement.parentElement.parentElement.getElementsByClassName("postissimo")[0].style.display = "none";
-								' class="coolButt verde" style="height: 18px; margin-right: 6px;">Editar</button>
-									<?php endif; ?>
-								</div>
-							<?php endif; ?>
-						</div>
-						<div class="oPostEmSi">
-							<?php if (isset($usuario) && $usuario->id == $ofix->id_postador) { ?>
-								<div class="sayYourPrayers" id="edit_<?= $id ?>" style="display: none;">
-									<textarea name="edit_fnf_<?= $id ?>" id="edit_fnf_<?= $id ?>" style="width: 486px; max-width: 486px; resize: vertical; height: 150px;"><?= $ofix->conteudo ?></textarea>
-									<br>
-									<button type="submit" onclick="editarPost(<?= $id ?>, this);" class="coolButt">
-										Editar comentário
-									</button>
-
-									<button class="coolButt vermelho" onclick='
-								document.getElementById("edit_fnf_<?= $id ?>").value = "";
-								this.parentElement.parentElement.parentElement.getElementsByClassName("sayYourPrayers")[0].style.display = "none";
-								this.parentElement.parentElement.parentElement.getElementsByClassName("postissimo")[0].style.display = "";
-								'>
-										Cancelar
-									</button>
-								</div>
-							<?php } ?>
-
-							<div class="postissimo">
-								<?= responde_clickers($ofix->conteudo) ?>
-							</div>
-							<?php if (usuario_requestIDator($ofix->id_postador)->assinatura != null && usuario_requestIDator($ofix->id_postador)->assinatura != '') : ?>
-								<div class="separador"></div>
-								<?= responde_clickers(usuario_requestIDator($ofix->id_postador)->assinatura) ?>
-							<?php endif ?>
-						</div>
-					</td>
-				</tr>
-			</table>
-
-			<?php reajor_d_reagida("forum", $ofix, $usuario, 'Postado dia ' . velhificar_data(forumpost_requestIDator($id)->data)) ?>
-		</div>
-
 		<?php
 		$posts = [];
 
-		$rows = $db->prepare("SELECT * FROM forum_posts WHERE id_resposta = ? ORDER BY data ASC");
+		$rows = $db->prepare("SELECT * FROM forum_posts WHERE id = ? OR id_resposta = ? ORDER BY data ASC");
 		$rows->bindParam(1, $id, PDO::PARAM_INT);
+		$rows->bindParam(2, $id, PDO::PARAM_INT);
 		$rows->execute();
 
 		while ($row = $rows->fetch(PDO::FETCH_OBJ)) {
@@ -299,13 +239,13 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
 								<br>
 								<?php if (isset($usuario)) : ?>
 									<div style="text-align: right;">
-										<button onclick='citarPost("<?= usuario_requestIDator($post->id_postador)->username ?>", "<?= velhificar_data($post->data) ?>", "post_<?= $post->id ?>")' class="coolButt" style="height: 18px;">Citar</button>
+										<button onclick='citarPost("<?= usuario_requestIDator($post->id_postador)->username ?>", "<?= velhificar_data($post->data) ?>", "postissimo_<?= $post->id ?>")' class="coolButt" style="height: 18px;">Citar</button>
 
 										<?php if ($usuario->id == $post->id_postador) : ?>
 											<button onclick='deletarPost(<?= $post->id ?>, this)' class="coolButt vermelho" style="height: 18px;">Deletar</button>
 											<button onclick='
-								this.parentElement.parentElement.parentElement.getElementsByClassName("sayYourPrayers")[0].style.display = "";
-								this.parentElement.parentElement.parentElement.getElementsByClassName("postissimo")[0].style.display = "none";
+								document.getElementById("edit_<?= $post->id ?>").style.display = "";
+								document.getElementById("postissimo_<?= $post->id ?>").style.display = "none";
 								' class="coolButt verde" style="height: 18px; margin-right: 6px;">Editar</button>
 										<?php endif; ?>
 									</div>
@@ -321,16 +261,15 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
 										</button>
 
 										<button class="coolButt vermelho" onclick='
-								document.getElementById("edit_fnf_<?= $post->id ?>").value = "";
-								this.parentElement.parentElement.parentElement.getElementsByClassName("sayYourPrayers")[0].style.display = "none";
-								this.parentElement.parentElement.parentElement.getElementsByClassName("postissimo")[0].style.display = "";
+								document.getElementById("edit_<?= $post->id ?>").style.display = "none";
+								document.getElementById("postissimo_<?= $post->id ?>").style.display = "";
 								'>
 											Cancelar
 										</button>
 									</div>
 								<?php } ?>
 
-								<div class="postissimo">
+								<div id="postissimo_<?= $post->id ?>">
 									<?= responde_clickers($post->conteudo) ?>
 								</div>
 								<?php if (usuario_requestIDator($post->id_postador)->assinatura != null && usuario_requestIDator($post->id_postador)->assinatura != '') : ?>
