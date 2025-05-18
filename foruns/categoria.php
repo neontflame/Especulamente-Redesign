@@ -3,6 +3,10 @@
 $forum = true;
 $id = $_GET['id'] ?? 1;
 
+if (categoria_requestIDator($id) == null) {
+	erro_404();
+}
+
 $meta["titulo"] = "[" . categoria_requestIDator($id)->nome . " <> Fóruns do PORTAL ESPECULAMENTE]";
 $meta["descricao"] = "Como se já não bastassem os blogs dos ESPECULATIVOS para pensar sozinho, agora você também pode pensar em GRUPO! Pense mais e fale mais com os FÓRUNS do PORTAL ESPECULAMENTE!";
 
@@ -31,8 +35,6 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
 ?>
 
 <div class="container">
-	<img src="/elementos/pagetitles/foruns.png" class="inside_page_content" style="padding: 0px; margin-bottom: 7px;">
-
 	<div>
 		<div class="projTitulo">
 			<p><a href="/foruns">Fóruns</a> >> <i style="color: #4f6bad"><?= categoria_requestIDator($id)->nome ?></i></p>

@@ -624,30 +624,28 @@ function reagir($id_reator, $id_reagido, $tipo_de_reagido, $tipo_de_reacao)
 	global $db;
 
 	if ($tipo_de_reagido != 'perfil' && $tipo_de_reagido != 'projeto' && $tipo_de_reagido != 'forum') {
-		return -1;
+		return -5;
 	}
 
 	if ($tipo_de_reacao != 'mitada' && $tipo_de_reacao != 'sojada') {
-		return -1;
+		return -4;
 	}
 
 	$existe = usuario_requestIDator($id_reator);
 	if (!$existe) {
-		return -1;
+		return -3;
 	}
-
-	$existe = false;
-	switch ($tipo_de_reagido) {
-		case 'perfil':
-			$existe = usuario_requestIDator($id_reagido);
-		case 'projeto':
-			$existe = projeto_requestIDator($id_reagido);
-		case 'forum':
-			$existe = forumpost_requestIDator($id_reagido);
+	
+	if ($tipo_de_reagido == 'perfil') {
+		$existe = usuario_requestIDator($id_reagido);
+	} else if ($tipo_de_reagido == 'forum') {
+		$existe = forumpost_requestIDator($id_reagido);
+	} else if ($tipo_de_reagido == 'projeto') {
+		$existe = projeto_requestIDator($id_reagido);
 	}
 	
 	if (!$existe) {
-		return -1;
+		return -2;
 	}
 
 	if (ja_reagiu($id_reator, $id_reagido, $tipo_de_reagido, $tipo_de_reacao)) {
@@ -707,30 +705,28 @@ function desreagir($id_reator, $id_reagido, $tipo_de_reagido, $tipo_de_reacao)
 	global $db;
 
 	if ($tipo_de_reagido != 'perfil' && $tipo_de_reagido != 'projeto' && $tipo_de_reagido != 'forum') {
-		return -1;
+		return -5;
 	}
 
 	if ($tipo_de_reacao != 'mitada' && $tipo_de_reacao != 'sojada') {
-		return -1;
+		return -4;
 	}
 
 	$existe = usuario_requestIDator($id_reator);
 	if (!$existe) {
-		return -1;
+		return -3;
 	}
 
-	$existe = false;
-	switch ($tipo_de_reagido) {
-		case 'perfil':
-			$existe = usuario_requestIDator($id_reagido);
-		case 'forum':
-			$existe = forumpost_requestIDator($id_reagido);
-		case 'projeto':
-			$existe = projeto_requestIDator($id_reagido);
+	if ($tipo_de_reagido == 'perfil') {
+		$existe = usuario_requestIDator($id_reagido);
+	} else if ($tipo_de_reagido == 'forum') {
+		$existe = forumpost_requestIDator($id_reagido);
+	} else if ($tipo_de_reagido == 'projeto') {
+		$existe = projeto_requestIDator($id_reagido);
 	}
 	
 	if (!$existe) {
-		return -1;
+		return -2;
 	}
 
 	if (!ja_reagiu($id_reator, $id_reagido, $tipo_de_reagido, $tipo_de_reacao)) {

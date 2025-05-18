@@ -36,13 +36,32 @@ function postMaisRecente($id) {
 	return $rows->fetch(PDO::FETCH_OBJ);
 }
 
+function topicoCountFull() {
+	global $db;
+	
+	$rows = $db->prepare("SELECT COUNT(*) as count FROM forum_posts WHERE id_resposta = -1");
+	$rows->execute();
+	$count = $rows->fetch(PDO::FETCH_OBJ)->count;
+
+	return $count;
+}
+
+function postCountFull() {
+	global $db;
+	
+	$rows = $db->prepare("SELECT COUNT(*) as count FROM forum_posts");
+	$rows->execute();
+	$count = $rows->fetch(PDO::FETCH_OBJ)->count;
+
+	return $count;
+}
 include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; 
 ?>
 
 <div class="container">
 	<img src="/elementos/pagetitles/foruns.png" class="inside_page_content" style="padding: 0px; margin-bottom: 7px;">
 
-	<div>
+	<div>	
 		<div class="inside_page_content">
 			<style>
 				table th {
@@ -140,7 +159,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
 				</table>
 				
 				<p>
-				Fun fact: uhhhhh
+				Fun fact: nós temos <?= topicoCountFull() ?> tópicos e <?= postCountFull() ?> posts ao todo!
 				</p>
 		</div>
 	</div>

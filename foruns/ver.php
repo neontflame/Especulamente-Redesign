@@ -50,12 +50,17 @@ function postarPost(ocomentario, that, respondido, categoria, sujeito) {
 }
 
 function citarPost(user, data, cont) {
-	var coiso = document.getElementById(cont).children[0].children[0].children[0].children[1].children[1];
+	var coiso = document.getElementById(cont).children[0].children[0].children[0].children[1].children[1].children[0];
 	
 	document.getElementById('post_fnf').value += "> De @" + user + ", às " + data;
 	
 	for (var i = 0; i < coiso.childElementCount; i++) {
-		document.getElementById('post_fnf').value += "\n>> " + coiso.children[i].innerText;
+		console.log(coiso.children[i].tagName);
+		if (coiso.children[i].tagName == 'BLOCKQUOTE') {
+			console.log(coiso.children[i].tagName + ': ' + coiso.children[i].textContent);
+		} else {
+		document.getElementById('post_fnf').value += "\n> > " + coiso.children[i].innerText;
+		}
 	}
 }
 
@@ -143,8 +148,10 @@ function deletarPost(id, that) {
 							<?php } ?>
 						</div>
 						<div class="oPostEmSi">
-							<?= responde_clickers($ofix->conteudo) ?>
-							<?php if (usuario_requestIDator($ofix->id_postador)->assinatura != null) : ?>
+							<div class="postissimo">
+								<?= responde_clickers($ofix->conteudo) ?>
+							</div>
+							<?php if (usuario_requestIDator($ofix->id_postador)->assinatura != null && usuario_requestIDator($ofix->id_postador)->assinatura != '') : ?>
 							<div class="separador"></div>
 							<?= responde_clickers(usuario_requestIDator($ofix->id_postador)->assinatura) ?>
 							<?php endif ?>
@@ -187,8 +194,10 @@ function deletarPost(id, that) {
 							<?php } ?>
 						</div>
 						<div class="oPostEmSi">
+							<div class="postissimo">
 							<?= responde_clickers($post->conteudo) ?>
-							<?php if (usuario_requestIDator($post->id_postador)->assinatura != null) : ?>
+							</div>
+							<?php if (usuario_requestIDator($post->id_postador)->assinatura != null && usuario_requestIDator($post->id_postador)->assinatura != '') : ?>
 							<div class="separador"></div>
 							<?= responde_clickers(usuario_requestIDator($post->id_postador)->assinatura) ?>
 							<?php endif ?>

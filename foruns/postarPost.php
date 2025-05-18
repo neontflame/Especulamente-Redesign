@@ -45,7 +45,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 					HTML,
 					'resposta'
 				);
-			}
+		} else {
+			redirect('/foruns/' . $forumpost->id_categoria . '/' . $id_com);
+		}
 	} else {
 		// qq tu quer q eu faça bro
 	}
