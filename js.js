@@ -5,16 +5,18 @@ console.log("omg js!!!!! eu amo Js");
 // Abrir e fechar o menu do header
 var headerMenuAberto = false;
 
-headerSeta.addEventListener("click", function (e) {
-  e.stopPropagation();
-  headerMenuAberto = !headerMenuAberto;
-  headerSeta.classList.toggle("ativo", headerMenuAberto);
-  headerMenu.classList.toggle("ativo", headerMenuAberto);
-});
+window.headerSeta &&
+  headerSeta.addEventListener("click", function (e) {
+    e.stopPropagation();
+    headerMenuAberto = !headerMenuAberto;
+    headerSeta.classList.toggle("ativo", headerMenuAberto);
+    headerMenu.classList.toggle("ativo", headerMenuAberto);
+  });
 
-headerMenu.addEventListener("click", function (e) {
-  e.stopPropagation();
-});
+window.headerMenu &&
+  headerMenu.addEventListener("click", function (e) {
+    e.stopPropagation();
+  });
 
 // Isso faz o menu fechar se clicar fora dele
 window.addEventListener("click", function () {
@@ -111,7 +113,6 @@ function desesconderResposting(id) {
   textarea.focus();
   textarea.setSelectionRange(length, length);
 }
-
 
 console.log(
   `%c

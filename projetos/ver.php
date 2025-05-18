@@ -43,11 +43,14 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 
 	<div class="page_content" style="min-height: 120px; margin-left: 0">
 		<div class="projTitulo">
-			<?php if ($projeto_e_meu) : ?>
-				<a href="/projetos/<?= $projeto->id ?>/editar" style="float:right; margin:8px;"><img src="/elementos/botaoEditar.png"></a>
-			<?php endif ?>
 			<?php if ($arquivos[0] != '' && $projeto->tipo != 'bg') : ?>
 				<a href="/projetos/<?= $projeto->id ?>/zipar" style="float:right; margin:8px;"><img src="/elementos/botaoTransferir.png"></a>
+			<?php endif ?>
+			<?php if ($projeto->tipo == 'rt') : ?>
+				<a href="<?= '/~' . $arquivos_de_vdd[0] ?>" style="float:right; margin:8px;"><img src="/elementos/botaoVerResto.png"></a>
+			<?php endif ?>
+			<?php if ($projeto_e_meu) : ?>
+				<a href="/projetos/<?= $projeto->id ?>/editar" style="float:right; margin:8px;"><img src="/elementos/botaoEditar.png"></a>
 			<?php endif ?>
 
 			<h1><i><?= $projeto->nome ?></i></h1>
@@ -59,7 +62,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 					<!-- Embed -->
 					<?php if (str_ends_with($arquivo_vivel[0], '.swf')) : ?>
 						<!-- JOGOS FLASH -->
-						<div style="margin: 0 auto 16px; width: -moz-fit-content; width: intrinsic; width: fit-content;">
+						<div style="margin: 0 auto; width: -moz-fit-content; width: intrinsic; width: fit-content;">
 							<div class="jogo">
 								<object width="auto" height="auto" data="<?= $config['URL'] . '/static/projetos/' . $projeto->id . '/' . $arquivo_vivel[1] ?>" allowfullscreen="true">
 								</object>
@@ -68,13 +71,13 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 					<?php endif; ?>
 					<?php if (str_ends_with($arquivo_vivel[0], '.zip')) : ?>
 						<!-- JOGOS HTML -->
-						<div class="jogo" style="margin: 0 auto 16px;">
+						<div class="jogo" style="margin: 0 auto;">
 							<iframe width="100%" height="360" src="<?= $config['URL'] . '/static/projetos/' . $projeto->id . '/jogo/index.html' ?>" frameborder="0" allowfullscreen="true"></iframe>
 						</div>
 					<?php endif; ?>
 					<?php if (str_ends_with($arquivo_vivel[0], '.sb') || str_ends_with($arquivo_vivel[0], '.sb2')) : ?>
 						<!-- JOGOS SCRATCH 1.x/2.0 -->
-						<div style="margin: 0 auto 16px; width: -moz-fit-content; width: intrinsic; width: fit-content;">
+						<div style="margin: 0 auto; width: -moz-fit-content; width: intrinsic; width: fit-content;">
 							<object data="/projetos/Scratch.swf" height="387" width="482">
 								<param name="allowScriptAccess" value="sameDomain">
 								<param name="allowFullScreen" value="true">
@@ -85,7 +88,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 
 					<?php if (str_ends_with($arquivo_vivel[0], '.sb3')) : ?>
 						<!-- JOGOS SCRATCH 3.0 (CRONOLOGICAMENTE INNACURATE MAS WHATEVER) -->
-						<div class="jogo" style="margin: 0 auto 16px; width: -moz-fit-content; width: intrinsic; width: fit-content;">
+						<div class="jogo" style="margin: 0 auto; width: -moz-fit-content; width: intrinsic; width: fit-content;">
 							<iframe src="http://turbowarp.org/embed?project_url=<?= $config['URL'] ?>/static/projetos/<?= $projeto->id ?>/<?= $arquivo_vivel[1] ?>" width="482" height="412" allowtransparency="true" frameborder="0" scrolling="no" allowfullscreen></iframe>
 						</div>
 					<?php endif; ?>
@@ -99,7 +102,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 						<?php foreach ($arquivos as $i => $arquivo) : ?>
 							<div class="projeto">
 								<div class="projetoSide">
-								<a href="/projetos/<?= $projeto->id ?>/<?= $arquivos_de_vdd[$i] ?>" download><img src="/elementos/botaoTransferirSingular.png"></a>
+									<a href="/projetos/<?= $projeto->id ?>/<?= $arquivos_de_vdd[$i] ?>" download><img src="/elementos/botaoTransferirSingular.png"></a>
 								</div>
 								<img src="/elementos/filetypes/<?= the_filetype_image($arquivo, '/static/projetos/' . $projeto->id) ?>.png" style="float:left; margin-right: 8px;">
 								<h2><?= $arquivos_de_vdd[$i] ?></h2>
@@ -340,8 +343,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 
 				<?php if ($projeto->tipo == 'rt') : ?>
 					<!-- Embed -->
-					<a href="<?= $config['URL'] . '/~' . $arquivos_de_vdd[0] ?>">Visualizar site!</a>
-					<div class="jogo" style="margin: 0 auto 16px;">
+					<div class="jogo" style="margin: 0 auto;">
 						<iframe width="100%" height="360" src="<?= $config['URL'] . '/~' . $arquivos_de_vdd[0] ?>" frameborder="0" allowfullscreen="true"></iframe>
 					</div>
 				<?php endif; ?>
@@ -374,7 +376,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 			}
 			?>
 			<div class="descricao">
-			<?= responde_clickers(trocadorDeImagemCoiso($projeto->descricao)) ?>
+				<?= responde_clickers(trocadorDeImagemCoiso($projeto->descricao)) ?>
 			</div>
 			<?php reajor_d_reagida('projeto', $projeto, $usuario, 'Postado dia ' . velhificar_data($projeto->data)) ?>
 		</div>

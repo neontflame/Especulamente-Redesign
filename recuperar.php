@@ -96,7 +96,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
 	include $_SERVER['DOCUMENT_ROOT'] . '/elementos/sidebar/sidebar.php';
 	?>
 
-	<div class="page_content" style="min-height: 254px">
+	<div class="page_content" style="min-height: 324px">
 		<div class="inside_page_content">
 			<?php if (isset($erro)) : ?>
 				<p><?= $erro ?></p>

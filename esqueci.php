@@ -72,7 +72,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
 		}
 	</style>
 
-	<div class="page_content" style="min-height: 254px">
+	<div class="page_content" style="min-height: 324px">
 		<div class="inside_page_content">
 			<h1>Esqueci a senha :(</h1>
 			<p>Tudo bem!!! Acontece com as melhores famílias. Você não está sozinho. Entre abaixo o seu nome de usuário e nossa equipe de gorilas adestrados irá entrar em contato para você recuperar sua senha.</p>

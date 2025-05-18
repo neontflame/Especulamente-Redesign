@@ -220,6 +220,32 @@ function obter_convites_criados_por($criado_por)
 	return $convites;
 }
 
+// Essa função espera apenas entradas corretas!! Checagem é realizada no frontend.
+function criar_usuario($username, $email, $senha, $convite)
+{
+	global $db;
+
+	$rows = $db->prepare("INSERT INTO usuarios (username, password_hash, email) VALUES (?, ?, ?)");
+	$rows->bindParam(1, $username);
+	$hashword = password_hash($senha, PASSWORD_DEFAULT);
+	$rows->bindParam(2, $hashword);
+	$rows->bindParam(3, $email);
+	$rows->execute();
+
+	$rows = $db->prepare("SELECT id FROM usuarios WHERE username = ?");
+	$rows->bindParam(1, $username);
+	$rows->execute();
+	$row = $rows->fetch(PDO::FETCH_OBJ);
+
+	$last_id = $row->id;
+
+	$row = $rows->fetch(PDO::FETCH_OBJ);
+	$rows = $db->prepare("UPDATE convites SET usado_por = ? WHERE codigo = ?");
+	$rows->bindParam(1, $last_id);
+	$rows->bindParam(2, $convite);
+	$rows->execute();
+}
+
 // RECUPERAÇÃO DE SENHA COISOS
 function enviar_recuperacao($usuario)
 {
@@ -288,14 +314,15 @@ function deletar_recuperacao($codigo)
 }
 
 // MENSAGEM COISOS YEAAAAAAHHHHH !!!!
-function criar_mensagem($receptor, $html, $icone, $davecoins = 0) {
+function criar_mensagem($receptor, $html, $icone, $davecoins = 0)
+{
 	global $db;
-	
+
 	// pego do login coisos
 	$usuario = null;
 
 	if (isset($_SESSION['id'])) {
-	  $usuario = usuario_requestIDator($_SESSION['id']);
+		$usuario = usuario_requestIDator($_SESSION['id']);
 	}
 
 	if ($receptor != $usuario->id) {

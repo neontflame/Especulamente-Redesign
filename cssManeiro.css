@@ -705,3 +705,22 @@ copiei do meu site to com preguiça -neon */
   margin-right: 0px;
   margin-bottom: -4px;
 }
+
+.statusbar {
+  margin: -5px -5px 5px;
+  color: white;
+  padding: 6px 10px;
+  text-align: center;
+}
+
+.statusbar p {
+  margin: 0;
+}
+
+.statusbar.error {
+  background: maroon;
+}
+
+.statusbar.success {
+  background: darkgreen;
+}

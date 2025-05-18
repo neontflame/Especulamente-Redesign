@@ -72,7 +72,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
     }
   </style>
 
-  <div class="page_content" style="height: 254px">
+  <div class="page_content" style="height: 324px">
     <div class="inside_page_content">
       <img src="elementos/ola.png" style="margin-top: -5px; margin-left: -5px;">
       <form action="" method="post">
