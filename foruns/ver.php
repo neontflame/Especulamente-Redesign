@@ -89,6 +89,36 @@ function deletarPost(id, that) {
   }
 }
 
+function editarPost(id, that) {
+	var osNegocios = new FormData();
+
+	var bototes = that.parentElement.getElementsByTagName("button");
+
+	for (var i = 0; i < bototes.length; i++) {
+		bototes[i].disabled = true;
+	}
+
+	osNegocios.append("id", id);
+	osNegocios.append("comentario", document.getElementById('edit_fnf_' + id).value);
+	
+	var xhttp = new XMLHttpRequest();
+	xhttp.open(
+		"POST",
+		"/foruns/editarPost.php",
+		true
+	);
+
+	xhttp.onload = function () {
+		for (var i = 0; i < bototes.length; i++) {
+			bototes[i].disabled = false;
+		}
+	
+		window.location.reload();
+	};
+
+	xhttp.send(osNegocios);
+}
+
 </script>
 <div class="container">
 	<style>
@@ -145,9 +175,31 @@ function deletarPost(id, that) {
 							
 							<?php if ($usuario->id == $ofix->id_postador) { ?>
 							<button onclick='deletarPost(<?= $ofix->id ?>, this)' class="coolButt vermelho" style="height: 18px; float:right; margin-right: 6px;">Deletar</button>
+							<button onclick='
+							this.parentElement.parentElement.getElementsByClassName("sayYourPrayers")[0].style.display = "";
+							this.parentElement.parentElement.getElementsByClassName("postissimo")[0].style.display = "none";
+							' class="coolButt verde" style="height: 18px; float:right; margin-right: 6px;">Editar</button>
 							<?php } ?>
 						</div>
 						<div class="oPostEmSi">
+							<?php if ($usuario->id == $ofix->id_postador) { ?>
+							<div class="sayYourPrayers" id="edit_<?= $id ?>" style="display: none;">
+								<textarea name="edit_fnf_<?= $id ?>" id="edit_fnf_<?= $id ?>" style="width: 508px; max-width: 508px; height: 150px;"><?= $ofix->conteudo ?></textarea>
+								<br>
+								<button type="submit" onclick="editarPost(<?= $id ?>, this);" class="coolButt">
+									Editar comentário
+								</button>
+
+								<button class="coolButt vermelho" onclick='
+								document.getElementById("edit_fnf_<?= $id ?>").value = "";
+								this.parentElement.parentElement.getElementsByClassName("sayYourPrayers")[0].style.display = "none";
+								this.parentElement.parentElement.getElementsByClassName("postissimo")[0].style.display = "";
+								'>
+									Cancelar
+								</button>
+							</div>
+							<?php } ?>
+							
 							<div class="postissimo">
 								<?= responde_clickers($ofix->conteudo) ?>
 							</div>
@@ -191,9 +243,31 @@ function deletarPost(id, that) {
 							
 							<?php if ($usuario->id == $post->id_postador) { ?>
 							<button onclick='deletarPost(<?= $post->id ?>, this)' class="coolButt vermelho" style="height: 18px; float:right; margin-right: 6px;">Deletar</button>
+							<button onclick='
+							this.parentElement.parentElement.getElementsByClassName("sayYourPrayers")[0].style.display = "";
+							this.parentElement.parentElement.getElementsByClassName("postissimo")[0].style.display = "none";
+							' class="coolButt verde" style="height: 18px; float:right; margin-right: 6px;">Editar</button>
 							<?php } ?>
 						</div>
 						<div class="oPostEmSi">
+							<?php if ($usuario->id == $post->id_postador) { ?>
+							<div class="sayYourPrayers" id="edit_<?= $post->id ?>" style="display: none;">
+								<textarea name="edit_fnf_<?= $post->id ?>" id="edit_fnf_<?= $post->id ?>" style="width: 508px; max-width: 508px; height: 150px;"><?= $post->conteudo ?></textarea>
+								<br>
+								<button type="submit" onclick="editarPost(<?= $post->id ?>, this);" class="coolButt">
+									Editar comentário
+								</button>
+
+								<button class="coolButt vermelho" onclick='
+								document.getElementById("edit_fnf_<?= $post->id ?>").value = "";
+								this.parentElement.parentElement.getElementsByClassName("sayYourPrayers")[0].style.display = "none";
+								this.parentElement.parentElement.getElementsByClassName("postissimo")[0].style.display = "";
+								'>
+									Cancelar
+								</button>
+							</div>
+							<?php } ?>
+							
 							<div class="postissimo">
 							<?= responde_clickers($post->conteudo) ?>
 							</div>
