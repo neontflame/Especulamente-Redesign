@@ -119,6 +119,36 @@ function editarPost(id, that) {
 	xhttp.send(osNegocios);
 }
 
+function anexarImg(imgs) {
+	var osNegocios = new FormData();
+	var xhttp = new XMLHttpRequest();
+	
+	osNegocios.append('image', imgs[0]);
+
+	xhttp.open(
+		"POST",
+		"/foruns/subirImg.php",
+		true
+	);
+	
+	xhttp.onreadystatechange = function() {
+		if (xhttp.readyState == XMLHttpRequest.DONE) {
+			document.getElementById('post_fnf').value += '![](' + xhttp.responseText + ')';
+			document.getElementById('imagensAnexas').style.display = "";
+			
+			var img = document.createElement("img");
+			img.src = xhttp.responseText;
+			img.className = "imagemCoiso";
+			img.onclick = function(){		
+				document.getElementById('comentario').value += '![](' + xhttp.responseText + ')';
+			};
+			document.getElementById("imagensAnexasAnexas").appendChild(img);
+		}
+	}
+	
+	xhttp.send(osNegocios);
+}
+
 </script>
 <div class="container">
 	<style>
@@ -152,6 +182,12 @@ function editarPost(id, that) {
 		font-weight: bold;
 		text-decoration: none;
 		font-size: 12px;
+	}
+		
+	.imagemCoiso {
+		width:48px;
+		height:48px;
+		margin: 4px;
 	}
 	</style>
 	<div>
@@ -297,11 +333,20 @@ function editarPost(id, that) {
 					<td style="width: 514px; background-color: white; vertical-align: top;">
 						<div class="projTitulo postTitulo">
 							Responder '<?= forumpost_requestIDator($id)->sujeito ?>'
+							<input type="file" id="inputImg" accept="image/*" style="display: none;" onchange="anexarImg(this.files)">
+							<button onclick="document.getElementById('inputImg').click()" class="coolButt" style="height: 18px; float:right; margin-right: 6px;">Anexar imagem</button>
 						</div>
 						<div class="oPostEmSi">
 							<div class="sayYourPrayers">
 							<textarea name="post_fnf" id="post_fnf" style="width: 508px; max-width: 508px; height: 150px;"></textarea>
 							<br>
+							
+							<div id="imagensAnexas" style="display:none;">
+								Imagens anexas:
+								<div id="imagensAnexasAnexas">
+								</div>
+							</div>
+							
 							<button type="submit" onclick="postarPost(document.getElementById('post_fnf').value, this, <?= $id ?>, <?= $ofix->id_categoria ?>, 'Resposta à \'<?= $ofix->sujeito ?>\'');" class="coolButt">
 								Enviar comentário
 							</button>
