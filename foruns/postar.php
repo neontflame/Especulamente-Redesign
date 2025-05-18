@@ -5,6 +5,10 @@ $meta["titulo"] = "[Postar nos Fóruns <> PORTAL ESPECULAMENTE]";
 $meta["descricao"] = "Como se já não bastassem os blogs dos ESPECULATIVOS para pensar sozinho, agora você também pode pensar em GRUPO! Pense mais e fale mais com os FÓRUNS do PORTAL ESPECULAMENTE!";
 
 include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; 
+
+$erro = $_GET['erro'];
+
+$erroArray = ["Comeram seu post?", "Seu sujeito é muito curto!"]
 ?>
 <style>
 	label {
@@ -60,6 +64,14 @@ function anexarImg(imgs) {
 		<p><a href="/foruns">Fóruns</a> >> <i style="color: #4f6bad">Postar</i></p>
 	</div>
 	<div>	
+	<?php if ($erro) : ?>
+      <div class="erro" style="color: red; background: black; text-align: center;">
+        <img src="/static/skull-and-cross.gif" width="24" height="24" />
+        <?= $erroArray[$erro-1] ?>
+        <img src="/static/skull-and-cross.gif" width="24" height="24" />
+      </div>
+    <?php endif; ?>
+	
 		<div class="inside_page_content">
 			Proponha algo a ser discutido!
 			<form action="/foruns/postarPost.php" method="post" enctype="multipart/form-data">
@@ -82,7 +94,7 @@ function anexarImg(imgs) {
 				<label for="comentario" class="labelManeira">>> POSTAGEM</label>
 				
 				<input type="file" id="inputImg" accept="image/*" style="display: none;" onchange="anexarImg(this.files)">
-				<button onclick="document.getElementById('inputImg').click()" class="coolButt grandissimo" style="width: 100%;">Anexar imagem</button>
+				<button type="button" onclick="document.getElementById('inputImg').click()" class="coolButt grandissimo" style="width: 100%;">Anexar imagem</button>
 				<textarea style="width: 99%; max-width: 614px;" name="comentario" id="comentario"></textarea>
 				<br>
 				

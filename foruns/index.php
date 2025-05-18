@@ -108,7 +108,12 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
 					<?php
 					$cats = [];
 
-					$pages = coisos_tudo($cats, 'forum_categorias', 1, '', ' WHERE tipoDeTopico = 0', 100);
+					$rows = $db->prepare("SELECT * FROM forum_categorias WHERE tipoDeTopico = 0 ORDER BY id ASC");
+					$rows->execute();
+
+					while ($row = $rows->fetch(PDO::FETCH_OBJ)) {
+						array_push($cats, $row);
+					}
 					foreach ($cats as $cat) { ?>
 
 						<tr><!-- woah coluna! -->
@@ -140,7 +145,12 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
 					<?php
 					$cats = [];
 
-					$pages = coisos_tudo($cats, 'forum_categorias', 1, '', ' WHERE tipoDeTopico = 1', 100);
+					$rows = $db->prepare("SELECT * FROM forum_categorias WHERE tipoDeTopico = 1 ORDER BY id ASC");
+					$rows->execute();
+
+					while ($row = $rows->fetch(PDO::FETCH_OBJ)) {
+						array_push($cats, $row);
+					}
 					foreach ($cats as $cat) { ?>
 						<tr><!-- woah coluna! -->
 							<td><p><a href="/foruns/<?= $cat->id ?>">● <?= $cat->nome ?></a> <?= $cat->descricao ?></p></td> <!-- categora -->

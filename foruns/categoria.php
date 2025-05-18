@@ -24,7 +24,7 @@ function replyCount($id) {
 function postMaisRecente($id) {
 	global $db;
 	
-	$rows = $db->prepare("SELECT * FROM forum_posts WHERE id_resposta = ? ORDER BY dataBump DESC LIMIT 1 OFFSET 00");
+	$rows = $db->prepare("SELECT * FROM forum_posts WHERE id_resposta = ? ORDER BY dataBump DESC LIMIT 1 OFFSET 0");
 	$rows->bindParam(1, $id, PDO::PARAM_INT);
 	$rows->execute();
 

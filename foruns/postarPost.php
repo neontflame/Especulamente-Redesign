@@ -8,6 +8,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 		$sujeito = $_POST['sujeito'];
 		$comentario = $_POST['comentario'];
 
+		if ($respondido == -1) {
+			if ($sujeito == null && $comentario == '') {
+				redirect('/foruns/postar/?erro=1');
+			}
+			
+			if (strlen($sujeito) < 3) {
+				redirect('/foruns/postar/?erro=2');
+			}
+		}
+	
 		$rows = $db->prepare("INSERT INTO forum_posts (id, id_postador, id_resposta, id_categoria, sujeito, conteudo, data) VALUES (NULL, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP())");
 		$rows->bindParam(1, $usuario->id);
 		$rows->bindParam(2, $respondido);
