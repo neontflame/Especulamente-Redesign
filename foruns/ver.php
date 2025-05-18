@@ -165,6 +165,10 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
 		.oPostEmSi img {
 			max-width: 500px;
 		}
+
+		.oReajorEmSi {
+			min-width: 102px;
+		}
 	</style>
 	<div>
 		<div class="projTitulo">
