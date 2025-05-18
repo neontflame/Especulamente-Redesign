@@ -144,6 +144,10 @@ function deletarPost(id, that) {
 						</div>
 						<div class="oPostEmSi">
 							<?= responde_clickers($ofix->conteudo) ?>
+							<?php if (usuario_requestIDator($ofix->id_postador)->assinatura != null) : ?>
+							<div class="separador"></div>
+							<?= responde_clickers(usuario_requestIDator($ofix->id_postador)->assinatura) ?>
+							<?php endif ?>
 						</div>
 					</td>
 				</tr>
@@ -184,6 +188,10 @@ function deletarPost(id, that) {
 						</div>
 						<div class="oPostEmSi">
 							<?= responde_clickers($post->conteudo) ?>
+							<?php if (usuario_requestIDator($post->id_postador)->assinatura != null) : ?>
+							<div class="separador"></div>
+							<?= responde_clickers(usuario_requestIDator($post->id_postador)->assinatura) ?>
+							<?php endif ?>
 						</div>
 					</td>
 				</tr>
