@@ -2,7 +2,7 @@
 <?php 
 $forum = true;
 $meta["titulo"] = "[Fóruns <> PORTAL ESPECULAMENTE]";
-$meta["descricao"] = "Como se já não bastassem os blogs para pensar sozinho, agora você também pode pensar em GRUPO! Pense mais e fale mais com os FÓRUNS do Portal Especulamente!";
+$meta["descricao"] = "Como se já não bastassem os blogs dos ESPECULATIVOS para pensar sozinho, agora você também pode pensar em GRUPO! Pense mais e fale mais com os FÓRUNS do PORTAL ESPECULAMENTE!";
 
 function topicoCount($id) {
 	global $db;
@@ -97,7 +97,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
 							<td style="text-align: center;"><?= topicoCount($cat->id) ?></td> <!-- topicos quant -->
 							<td style="text-align: center;"><?= postCount($cat->id) ?></td> <!-- posts quant -->
 							<td><?php if (postMaisRecente($cat->id) != null) {
-								echo htmlspecialchars(postMaisRecente($cat->id)->nome);
+								echo '<a href="/foruns/' . $cat->id . '/' . postMaisRecente($cat->id)->id . '">' . htmlspecialchars(postMaisRecente($cat->id)->sujeito) . '</a>';
 							} else {
 								echo 'Não tem ainda :P';
 							}
@@ -111,7 +111,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
 				<table style="margin-left: -6px; width: 633px;">
 					<thead>
 						<tr>
-							<th style="width: 360px;">Categoria</th>
+							<th style="width: 360px;">Categorias</th>
 							<th>Tópicos</th>
 							<th>Posts</th>
 							<th>Tópico mais recente</th>
@@ -128,7 +128,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
 							<td style="text-align: center;"><?= topicoCount($cat->id) ?></td> <!-- topicos quant -->
 							<td style="text-align: center;"><?= postCount($cat->id) ?></td> <!-- posts quant -->
 							<td><?php if (postMaisRecente($cat->id) != null) {
-								echo htmlspecialchars(postMaisRecente($cat->id)->nome);
+								echo htmlspecialchars(postMaisRecente($cat->id)->sujeito);
 							} else {
 								echo 'Não tem ainda :P';
 							}

@@ -15,7 +15,6 @@ $banner = $banners[array_rand($banners)];
 global $usuario;
 global $config;
 ?>
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html dir="ltr" xmlns="http://www.w3.org/1999/xhtml">
 
@@ -84,7 +83,11 @@ global $config;
         <div class="coolSubHeadery">
           <div class="coolLinkery">
             <?php if (isset($usuario)) : ?>
-              <a href="/criar" style="color: forestgreen;">+ CRIAR</a>
+				<?php if (isset($forum)) { ?>
+					<a href="/foruns/postar" style="color: darkblue;">+ POSTAR</a>
+				<?php } else { ?>
+					<a href="/criar" style="color: forestgreen;">+ CRIAR</a>
+				<?php } ?>
             <?php endif ?>
             <a href="/usuarios">AMIGOS</a>
             <a href="/foruns">FÓRUNS</a>

@@ -3,11 +3,7 @@
 // $coisa é a coisa! um perfil ou um projeto
 function reajor_d_reagida($tipo, &$coisa, &$usuario, $stringAdicional = null)
 {
-  $coisa_e_minha = $usuario
-    ? ($tipo == "perfil"
-      ? ($usuario->id == $coisa->id)
-      : $usuario->id == $coisa->id_criador)
-    : false;
+  $coisa_e_minha = $usuario ? ($tipo == "perfil" ? ($usuario->id == $coisa->id) : ($tipo == "forum" ? $usuario->id == $coisa->id_postador : $usuario->id == $coisa->id_criador)) : false;
 
   $ja_mitou = (isset($usuario) && $usuario) ? ja_reagiu($usuario->id, $coisa->id, $tipo, 'mitada') : false;
   $ja_sojou = (isset($usuario) && $usuario) ? ja_reagiu($usuario->id, $coisa->id, $tipo, 'sojada') : false;
