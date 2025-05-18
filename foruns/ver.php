@@ -187,8 +187,8 @@ function anexarImg(imgs) {
 								<?php if ($usuario->id == $ofix->id_postador) { ?>
 								<button onclick='deletarPost(<?= $ofix->id ?>, this)' class="coolButt vermelho" style="height: 18px;">Deletar</button>
 								<button onclick='
-								this.parentElement.parentElement.getElementsByClassName("sayYourPrayers")[0].style.display = "";
-								this.parentElement.parentElement.getElementsByClassName("postissimo")[0].style.display = "none";
+								this.parentElement.parentElement.parentElement.getElementsByClassName("sayYourPrayers")[0].style.display = "";
+								this.parentElement.parentElement.parentElement.getElementsByClassName("postissimo")[0].style.display = "none";
 								' class="coolButt verde" style="height: 18px; margin-right: 6px;">Editar</button>
 								<?php } ?>
 							</div>
@@ -204,8 +204,8 @@ function anexarImg(imgs) {
 
 								<button class="coolButt vermelho" onclick='
 								document.getElementById("edit_fnf_<?= $id ?>").value = "";
-								this.parentElement.parentElement.getElementsByClassName("sayYourPrayers")[0].style.display = "none";
-								this.parentElement.parentElement.getElementsByClassName("postissimo")[0].style.display = "";
+								this.parentElement.parentElement.parentElement.getElementsByClassName("sayYourPrayers")[0].style.display = "none";
+								this.parentElement.parentElement.parentElement.getElementsByClassName("postissimo")[0].style.display = "";
 								'>
 									Cancelar
 								</button>
@@ -258,8 +258,8 @@ function anexarImg(imgs) {
 								<?php if ($usuario->id == $post->id_postador) { ?>
 								<button onclick='deletarPost(<?= $post->id ?>, this)' class="coolButt vermelho" style="height: 18px;">Deletar</button>
 								<button onclick='
-								this.parentElement.parentElement.getElementsByClassName("sayYourPrayers")[0].style.display = "";
-								this.parentElement.parentElement.getElementsByClassName("postissimo")[0].style.display = "none";
+								this.parentElement.parentElement.parentElement.getElementsByClassName("sayYourPrayers")[0].style.display = "";
+								this.parentElement.parentElement.parentElement.getElementsByClassName("postissimo")[0].style.display = "none";
 								' class="coolButt verde" style="height: 18px; margin-right: 6px;">Editar</button>
 								<?php } ?>
 							</div>
@@ -275,8 +275,8 @@ function anexarImg(imgs) {
 
 								<button class="coolButt vermelho" onclick='
 								document.getElementById("edit_fnf_<?= $post->id ?>").value = "";
-								this.parentElement.parentElement.getElementsByClassName("sayYourPrayers")[0].style.display = "none";
-								this.parentElement.parentElement.getElementsByClassName("postissimo")[0].style.display = "";
+								this.parentElement.parentElement.parentElement.getElementsByClassName("sayYourPrayers")[0].style.display = "none";
+								this.parentElement.parentElement.parentElement.getElementsByClassName("postissimo")[0].style.display = "";
 								'>
 									Cancelar
 								</button>
