@@ -735,6 +735,12 @@ copiei do meu site to com preguiça -neon */
   margin: -6px;
   background-color: #e1f4ff;
   text-align: center;
+  vertical-align: top;
+  padding-top: 6px;
+}
+
+.forumUserCoiso a {
+  display: block;
 }
 
 .postTitulo {
@@ -754,4 +760,5 @@ copiei do meu site to com preguiça -neon */
   font-weight: bold;
   text-decoration: none;
   font-size: 12px;
+  margin: 4px 0px;
 }

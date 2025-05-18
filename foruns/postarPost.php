@@ -1,5 +1,6 @@
 <?php
 include_once $_SERVER['DOCUMENT_ROOT'] . '/shhhh/autoload.php';
+login_obrigatorio($usuario);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 	if (isset($_POST['comentario'])) {
@@ -12,12 +13,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 			if ($sujeito == null && $comentario == '') {
 				redirect('/foruns/postar/?erro=1');
 			}
-			
+
 			if (strlen($sujeito) < 3) {
 				redirect('/foruns/postar/?erro=2');
 			}
 		}
-	
+
 		$rows = $db->prepare("INSERT INTO forum_posts (id, id_postador, id_resposta, id_categoria, sujeito, conteudo, data) VALUES (NULL, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP())");
 		$rows->bindParam(1, $usuario->id);
 		$rows->bindParam(2, $respondido);
@@ -33,18 +34,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 		mensagem_mencao($comentario, $respondido, $id_com);
 
 		$forumpost = forumpost_requestIDator($id_com);
-		
-		if ($forumpost->id_resposta != -1) {
-				//bump!
-				$rows = $db->prepare("UPDATE forum_posts SET dataBump = CURRENT_TIMESTAMP() WHERE id = ?");
-				$rows->bindParam(1, $forumpost->id_resposta);
-				$rows->execute();
-				
-				$quote = responde_clickers($comentario, "/foruns/{$forumpost->id_categoria}/{$forumpost->id_resposta}");
 
-				criar_mensagem(
-					forumpost_requestIDator($forumpost->id_resposta)->id_postador,
-					<<<HTML
+		if ($forumpost->id_resposta != -1) {
+			//bump!
+			$rows = $db->prepare("UPDATE forum_posts SET dataBump = CURRENT_TIMESTAMP() WHERE id = ?");
+			$rows->bindParam(1, $forumpost->id_resposta);
+			$rows->execute();
+
+			$quote = responde_clickers($comentario, "/foruns/{$forumpost->id_categoria}/{$forumpost->id_resposta}");
+
+			criar_mensagem(
+				forumpost_requestIDator($forumpost->id_resposta)->id_postador,
+				<<<HTML
 					<a href="/usuarios/{$usuario->username}" class="usuario">{$usuario->username}</a>
 					comentou no seu tópico
 					<a href="/foruns/{$forumpost->id_categoria}/{$forumpost->id_resposta}#post_{$id_com}">{$forumpost->sujeito}</a>!
@@ -53,8 +54,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 						{$quote}
 					</blockquote>
 					HTML,
-					'resposta'
-				);
+				'resposta'
+			);
 		} else {
 			redirect('/foruns/' . $forumpost->id_categoria . '/' . $id_com);
 		}
@@ -81,13 +82,13 @@ function mensagem_mencao($texto, $id, $id_com)
 	}
 
 	foreach ($nomesarray as $nomius => $quant) {
-			$forumpost = forumpost_requestIDator($id);
-			$nome = usuario_requestinator($nomius)->id;
-			$quote = responde_clickers($texto, "/foruns/{$forumpost->id_categoria}/{$id}");
+		$forumpost = forumpost_requestIDator($id);
+		$nome = usuario_requestinator($nomius)->id;
+		$quote = responde_clickers($texto, "/foruns/{$forumpost->id_categoria}/{$id}");
 
-			criar_mensagem(
-				$nome,
-				<<<HTML
+		criar_mensagem(
+			$nome,
+			<<<HTML
 				<a href="/usuarios/{$usuario->username}" class="usuario">{$usuario->username}</a>
 				mencionou você em
 				<a href="/foruns/{$forumpost->id_categoria}/{$id}#post_{$id_com}">{$forumpost->sujeito}</a>!
@@ -95,7 +96,7 @@ function mensagem_mencao($texto, $id, $id_com)
 					{$quote}
 				</blockquote>
 				HTML,
-				'menciona'
-			);
+			'menciona'
+		);
 	}
 }

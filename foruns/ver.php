@@ -177,7 +177,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
 					<td class="forumUserCoiso">
 						<a href="/usuarios/<?= usuario_requestIDator($ofix->id_postador)->username ?>"><img src="<?= pfp(usuario_requestIDator($ofix->id_postador)) ?>" width="64" height="64"></a>
 						<a class="forumUser" href="/usuarios/<?= usuario_requestIDator($ofix->id_postador)->username ?>"><?= usuario_requestIDator($ofix->id_postador)->username ?></a>
-						<br><?= quantReacoes($ofix->id_postador, 'mitada') ?> mitadas
+						<?= quantReacoes($ofix->id_postador, 'mitada') ?> mitadas
 						<br><?= quantReacoes($ofix->id_postador, 'sojada') ?> sojadas
 					</td>
 					<td style="width: 514px; max-width: 514px; overflow-x: auto; background-color: white; vertical-align: top;">
@@ -248,7 +248,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
 						<td class="forumUserCoiso">
 							<a href="/usuarios/<?= usuario_requestIDator($post->id_postador)->username ?>"><img src="<?= pfp(usuario_requestIDator($post->id_postador)) ?>" width="64" height="64"></a>
 							<a class="forumUser" href="/usuarios/<?= usuario_requestIDator($post->id_postador)->username ?>"><?= usuario_requestIDator($post->id_postador)->username ?></a>
-							<br><?= quantReacoes($post->id_postador, 'mitada') ?> mitadas
+							<?= quantReacoes($post->id_postador, 'mitada') ?> mitadas
 							<br><?= quantReacoes($post->id_postador, 'sojada') ?> sojadas
 						</td>
 						<td style="width: 514px; max-width: 514px; overflow-x: auto; background-color: white; vertical-align: top;">
@@ -309,7 +309,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
 						<td class="forumUserCoiso">
 							<a href="/usuarios/<?= $usuario->username ?>"><img src="<?= pfp($usuario) ?>" width="64" height="64"></a>
 							<a class="forumUser" href="/usuarios/<?= $usuario->username ?>"><?= $usuario->username ?></a>
-							<br><?= quantReacoes($usuario->id, 'mitada') ?> mitadas
+							<?= quantReacoes($usuario->id, 'mitada') ?> mitadas
 							<br><?= quantReacoes($usuario->id, 'sojada') ?> sojadas
 						</td>
 						<td style="width: 514px; max-width: 514px; overflow-x: auto; background-color: white; vertical-align: top;">
