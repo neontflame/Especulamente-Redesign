@@ -726,39 +726,3 @@ copiei do meu site to com preguiça -neon */
 .statusbar.success {
   background: darkgreen;
 }
-
-/* foruns wa!! */
-.forumUserCoiso {
-  width: 116px;
-  height: 134px;
-  min-height: 134px;
-  margin: -6px;
-  background-color: #e1f4ff;
-  text-align: center;
-  vertical-align: top;
-  padding-top: 6px;
-}
-
-.forumUserCoiso a {
-  display: block;
-}
-
-.postTitulo {
-  width: 522px;
-  margin: -4px;
-  margin-top: -3px;
-  margin-bottom: 0px;
-  border-left: 0px;
-  border-right: 0px;
-  padding: 4px;
-  font-size: 14px;
-  font-style: italic;
-}
-
-.forumUser {
-  color: #3f65cc;
-  font-weight: bold;
-  text-decoration: none;
-  font-size: 12px;
-  margin: 4px 0px;
-}
