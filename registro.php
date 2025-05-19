@@ -5,6 +5,7 @@ if (isset($usuario)) {
 }
 
 $erro = null;
+$sucesso = null;
 $username = "";
 $email = "";
 $convite = null;
@@ -100,13 +101,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   $erro = checagens();
 
-  if ($erro = null) {
+  if ($erro == null) {
     criar_usuario(
       $_POST['username'],
       $_POST['email'],
       $_POST['senha'],
       $_POST['convite']
     );
+
+    $sucesso = "Sua conta foi criada!! Você pode entrar agora!";
   }
 }
 ?>
@@ -157,6 +160,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
   <div class="page_content" style="min-height: 324px">
     <div class="inside_page_content">
       <?php if ($erro) mostrarErro($erro); ?>
+      <?php if ($sucesso) mostrarSucesso($sucesso); ?>
       <img src="elementos/registrar.png" style="margin-top: -5px; margin-left: -5px;">
       <?php if ($convite) : ?>
         <h1>VOCÊ É DIGNO!!!</h1>
