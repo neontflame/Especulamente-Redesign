@@ -94,7 +94,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
 					}
 					foreach ($posts as $post) { ?>
 						<tr><!-- woah coluna! -->
-							<td><p><a href="/foruns/<?= $post->id_categoria ?>/<?= $post->id ?>">● <?= $post->sujeito ?></a> por <?=usuario_requestIDator($post->id_postador)->username ?></p></td> <!-- categora -->
+							<td><p><a href="/foruns/<?= $post->id_categoria ?>/<?= $post->id ?>">● <?= $post->sujeito ?></a> por <?=usuario_requestIDator($post->id_postador)->username ?>, dia <?= velhificar_data($post->data) ?></p></td> <!-- categora -->
 							<td style="text-align: center;"><?= replyCount($post->id) ?></td> <!-- respostas quant -->
 							<td><?php if (postMaisRecente($post->id) != null) {
 								echo '<a href="/foruns/' . $post->id . '/' . postMaisRecente($post->id)->id . '"> Resposta de ' . usuario_requestIDator(postMaisRecente($post->id)->id_postador)->username . '</a>';
