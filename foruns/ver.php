@@ -232,6 +232,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
 							<a class="forumUser" href="/usuarios/<?= usuario_requestIDator($post->id_postador)->username ?>"><?= usuario_requestIDator($post->id_postador)->username ?></a>
 							<?= quantReacoes($post->id_postador, 'mitada') ?> mitadas
 							<br><?= quantReacoes($post->id_postador, 'sojada') ?> sojadas
+							<br><?= quantPosts($post->id_postador) ?> posts
 						</td>
 						<td style="min-width: 500px; max-width: 500px; overflow-x: auto; background-color: white; vertical-align: top;">
 							<div class="projTitulo postTitulo" style="width: 100%;">
@@ -298,6 +299,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
 							<a class="forumUser" href="/usuarios/<?= $usuario->username ?>"><?= $usuario->username ?></a>
 							<?= quantReacoes($usuario->id, 'mitada') ?> mitadas
 							<br><?= quantReacoes($usuario->id, 'sojada') ?> sojadas
+							<br><?= quantPosts($usuario->id) ?> posts
 						</td>
 						<td style="min-width: 500px; max-width: 500px; overflow-x: auto; background-color: white; vertical-align: top;">
 							<div class="projTitulo postTitulo" style="width: 100%;">

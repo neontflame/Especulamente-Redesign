@@ -408,6 +408,18 @@ function quantReacoes($id, $reacao)
 	return $count;
 }
 
+function quantPosts($id)
+{
+	global $db;
+	
+	$rows = $db->prepare("SELECT COUNT(*) as count FROM forum_posts WHERE id_postador = ?");
+	$rows->bindParam(1, $id);
+	$rows->execute();
+	$count = $rows->fetch(PDO::FETCH_OBJ)->count;
+
+	return $count;
+}
+
 function pfp($user)
 {
 	if (empty($user->pfp)) {
