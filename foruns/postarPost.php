@@ -1,6 +1,7 @@
 <?php
 include_once $_SERVER['DOCUMENT_ROOT'] . '/shhhh/autoload.php';
 login_obrigatorio($usuario);
+$mandavel = true;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 	if (isset($_POST['comentario'])) {
@@ -30,7 +31,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 		$id_com = $db->lastInsertId();
 
 		// MENSAGEM HANDLER WOAH
-		$mandavel = true;
 		mensagem_mencao($comentario, $respondido, $id_com);
 
 		$forumpost = forumpost_requestIDator($id_com);
@@ -43,19 +43,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 
 			$quote = responde_clickers($comentario, "/foruns/{$forumpost->id_categoria}/{$forumpost->id_resposta}");
 
-			criar_mensagem(
-				forumpost_requestIDator($forumpost->id_resposta)->id_postador,
-				<<<HTML
-					<a href="/usuarios/{$usuario->username}" class="usuario">{$usuario->username}</a>
-					comentou no seu tópico
-					<a href="/foruns/{$forumpost->id_categoria}/{$forumpost->id_resposta}#post_{$id_com}">{$forumpost->sujeito}</a>!
-					
-					<blockquote>
-						{$quote}
-					</blockquote>
-					HTML,
-				'resposta'
-			);
+			if ($mandavel) {
+				criar_mensagem(
+					forumpost_requestIDator($forumpost->id_resposta)->id_postador,
+					<<<HTML
+						<a href="/usuarios/{$usuario->username}" class="usuario">{$usuario->username}</a>
+						comentou no seu tópico
+						<a href="/foruns/{$forumpost->id_categoria}/{$forumpost->id_resposta}#post_{$id_com}">{$forumpost->sujeito}</a>!
+						
+						<blockquote>
+							{$quote}
+						</blockquote>
+						HTML,
+					'resposta'
+				);
+			}
 		} else {
 			redirect('/foruns/' . $forumpost->id_categoria . '/' . $id_com);
 		}
@@ -68,6 +70,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 function mensagem_mencao($texto, $id, $id_com)
 {
 	global $usuario;
+	global $mandavel;
+	
+	$mencao = false;
 	preg_match_all('/@([a-zA-Z0-9_.]+)/', $texto, $matches);
 
 	$nomesarray = [];
@@ -98,5 +103,6 @@ function mensagem_mencao($texto, $id, $id_com)
 				HTML,
 			'menciona'
 		);
+		$mandavel = false;
 	}
 }
