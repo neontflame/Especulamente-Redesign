@@ -16,7 +16,7 @@
 			</style>
 			<p class="labelManeira">>> DESTAQUE</p>
 			<div class="separador" style="margin-bottom: 8px;"></div>
-			<a href="/projetos/46"><img src="/elementos/destaques/vsespe.png"></a>
+			<a href="/foruns/3/17"><img src="/elementos/destaques/collabMural1.png"></a>
 			<div class="separador"></div>
 			<p class="labelManeira">>> PROJETOS RECENTES</p>
 			<div class="separador" style="margin-bottom: 8px;"></div>

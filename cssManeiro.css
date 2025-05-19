@@ -487,6 +487,10 @@ copiei do meu site to com preguiça -neon */
   margin-bottom: 6px;
 }
 
+.comentario img {
+  max-width: 370px;
+}
+
 .resposta {
   background-color: white;
   display: inline-block;
@@ -704,6 +708,10 @@ copiei do meu site to com preguiça -neon */
   text-align: right;
   margin-right: 0px;
   margin-bottom: -4px;
+}
+
+.mensagem img {
+  max-width: 360px;
 }
 
 /* Status bar */
