@@ -39,15 +39,15 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  $username = $_POST['username'] ?? null;
+  $email = $_POST['email'] ?? null;
+  $senha = $_POST['senha'] ?? null;
+  $senhaConfirm = $_POST['senhaConfirm'] ?? null;
+  $convite = $_POST['convite'] ?? null;
+
   function checagens()
   {
-    global $db;
-
-    $username = $_POST['username'] ?? null;
-    $email = $_POST['email'] ?? null;
-    $senha = $_POST['senha'] ?? null;
-    $senhaConfirm = $_POST['senhaConfirm'] ?? null;
-    $convite = $_POST['convite'] ?? null;
+    global $db, $username, $email, $senha, $senhaConfirm, $convite;
 
     if ($username == null || $email == null || $senha == null || $senhaConfirm == null) {
       return "Preencha todos os campos!";
@@ -103,10 +103,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   if ($erro == null) {
     criar_usuario(
-      $_POST['username'],
-      $_POST['email'],
-      $_POST['senha'],
-      $_POST['convite']
+      $username,
+      $email,
+      $senha,
+      $convite,
     );
 
     $sucesso = "Sua conta foi criada!! Você pode entrar agora!";
