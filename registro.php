@@ -96,7 +96,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       return "As senhas não coincidem!";
     }
 
-    return true;
+    return null;
   }
 
   $erro = checagens();
