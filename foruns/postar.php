@@ -43,17 +43,21 @@ $erroArray = ["Comeram seu post?", "Seu sujeito é muito curto!"]
 		);
 
 		xhttp.onreadystatechange = function() {
-			if (xhttp.readyState == XMLHttpRequest.DONE && xhttp.responseText != "") {
-				document.getElementById('comentario').value += '![](' + xhttp.responseText + ')';
-				document.getElementById('imagensAnexas').style.display = "";
-
-				var img = document.createElement("img");
-				img.src = xhttp.responseText;
-				img.className = "imagemCoiso";
-				img.onclick = function() {
+			if (xhttp.readyState == XMLHttpRequest.DONE) {
+				if (xhttp.responseText.startsWith('§')) {
+					alert(xhttp.responseText.substring(1, xhttp.responseText.length));
+				} else {
 					document.getElementById('comentario').value += '![](' + xhttp.responseText + ')';
-				};
-				document.getElementById("imagensAnexasAnexas").appendChild(img);
+					document.getElementById('imagensAnexas').style.display = "";
+
+					var img = document.createElement("img");
+					img.src = xhttp.responseText;
+					img.className = "imagemCoiso";
+					img.onclick = function() {
+						document.getElementById('comentario').value += '![](' + xhttp.responseText + ')';
+					};
+					document.getElementById("imagensAnexasAnexas").appendChild(img);
+				}
 			}
 		}
 
