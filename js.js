@@ -114,6 +114,7 @@ function desesconderResposting(id) {
   textarea.setSelectionRange(length, length);
 }
 
+/*
 console.log(
   `%c
              ,´\`.
@@ -134,3 +135,5 @@ console.log(
 `,
   "color: #375bfd"
 );
+ // suporte pra Browser Véio falou mais forte ...
+*/
