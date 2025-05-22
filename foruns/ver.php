@@ -134,7 +134,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
 
 		xhttp.onreadystatechange = function() {
 			if (xhttp.readyState == XMLHttpRequest.DONE) {
-				if (xhttp.responseText.startsWith('§')) {
+				if (xhttp.responseText.substring(0, 1) == '§') {
 					alert(xhttp.responseText.substring(1, xhttp.responseText.length));
 				} else {
 					document.getElementById('post_fnf').value += '![](' + xhttp.responseText + ')';

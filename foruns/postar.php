@@ -44,7 +44,7 @@ $erroArray = ["Comeram seu post?", "Seu sujeito é muito curto!"]
 
 		xhttp.onreadystatechange = function() {
 			if (xhttp.readyState == XMLHttpRequest.DONE) {
-				if (xhttp.responseText.startsWith('§')) {
+				if (xhttp.responseText.substring(0, 1) == '§') {
 					alert(xhttp.responseText.substring(1, xhttp.responseText.length));
 				} else {
 					document.getElementById('comentario').value += '![](' + xhttp.responseText + ')';
