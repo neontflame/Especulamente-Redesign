@@ -12,6 +12,13 @@ function redirect($location)
 	die();
 }
 
+if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+	$random = random_int(1, 1000);
+	if ($random == 1) {
+		redirect('/vaisefoderem.php');
+	}
+}
+
 function erro_404()
 {
 	include $_SERVER['DOCUMENT_ROOT'] . '/404.php';
@@ -210,20 +217,46 @@ function descPorTipo($tipo)
 	}
 }
 
-function mostrarErro($erro)
-{ ?>
-	<div class="statusbar error">
-		<img src="/elementos/erro.gif" alt="" style="float: left;">
-		<img src="/elementos/erro.gif" alt="" style="float: right;">
-		<p><?= $erro ?></p>
-	</div>
-<?php }
+$sucesso = $_COOKIE['sucesso'] ?? null;
+if ($sucesso) {
+	setcookie("sucesso", "", -1);
+}
+function sucesso($mensagem)
+{
+	global $sucesso;
+	$sucesso = $mensagem;
+	setcookie("sucesso", $mensagem, time() + 5);
+}
 
-function mostrarSucesso($erro)
-{ ?>
-	<div class="statusbar success">
-		<img src="/elementos/emoticons/_yay_.png" alt="" style="float: left;">
-		<img src="/elementos/emoticons/_yay_.png" alt="" style="float: right;">
-		<p><?= $erro ?></p>
-	</div>
-<?php }
+$erro = $_COOKIE['erro'] ?? null;
+if ($erro) {
+	setcookie("erro", "", -1);
+}
+function erro($mensagem)
+{
+	global $erro;
+	$erro = $mensagem;
+	setcookie("erro", $mensagem, time() + 5);
+}
+
+$info = $_COOKIE['info'] ?? null;
+if ($info) {
+	setcookie("info", "", -1);
+}
+function info($mensagem)
+{
+	global $info;
+	$info = $mensagem;
+	setcookie("info", $mensagem, time() + 5);
+}
+
+$aviso = $_COOKIE['aviso'] ?? null;
+if ($aviso) {
+	setcookie("aviso", "", -1);
+}
+function aviso($mensagem)
+{
+	global $aviso;
+	$aviso = $mensagem;
+	setcookie("aviso", $mensagem, time() + 5);
+}

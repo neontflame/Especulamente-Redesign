@@ -4,51 +4,90 @@ if (isset($usuario)) {
 	redirect('/');
 }
 
-$erro;
-$codigo = "";
-
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
-	if (isset($_GET["codigo"])) {
-		$codigo = $_GET["codigo"];
-		$codigo = obter_recuperacao($codigo);
-
-		if ($codigo == null) {
-			$erro = "Seu código é: null CÓDIGO";
-		} else {
-			$tempo = time() - strtotime($codigo->data);
-			if ($tempo > 86400) { // 24 horas
-				$erro = "Seu código é: null CÓDIGO";
-				deletar_recuperacao($codigo->codigo);
-				$codigo = null;
-			}
+	function checagens($codigo)
+	{
+		if (!isset($codigo)) {
+			erro_404();
+			return null;
 		}
-	} else {
-		$erro = "Whoops! Você precisa de um código para recuperar sua senha!";
+
+		// Checa se o código existe
+		$recuperacao = obter_recuperacao($codigo);
+		if ($recuperacao == null) {
+			erro_404();
+			return null;
+		}
+
+		// Checa se o código expirou
+		$tempo = time() - strtotime($recuperacao->data);
+		if ($tempo > 86400) { // 24 horas
+			erro("Seu código expirou! Peça outro.");
+			deletar_recuperacao($codigo);
+			redirect('/esqueci.php');
+			return null;
+		}
+
+		return [
+			'codigo' => $codigo,
+		];
 	}
+
+	$entradas = checagens($_GET["codigo"] ?? null);
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-	$codigo = $_POST["codigo"];
-	$senha = $_POST["senha"];
-
-	if (isset($codigo) && isset($senha)) {
-		$codigo = obter_recuperacao($codigo);
-
-		if (strlen($senha) < 6) {
-			$erro = "Sua senha é: muito curta. senha.";
-		} else {
-			$hashword = password_hash($senha, PASSWORD_DEFAULT);
-
-			if ($codigo != null) {
-				mudar_usuario($codigo->criado_por, ['password_hash' => $hashword]);
-				deletar_recuperacao($codigo->codigo);
-				redirect('/entrar.php?recuperado=true');
-			} else {
-				$erro = "Seu código é: null CÓDIGO";
-			}
+	function checagens($codigo, $senha, $senhaConfirm)
+	{
+		if (!isset($codigo) || !isset($senha) || !isset($senhaConfirm)) {
+			erro("Preencha todos os campos!");
+			return null;
 		}
-	} else {
-		$erro = "Whoops! Você precisa de um código para recuperar sua senha!";
+
+		// Checa se o código existe
+		$recuperacao = obter_recuperacao($codigo);
+		if ($recuperacao == null) {
+			erro_404();
+			return null;
+		}
+
+		// Checa se o código expirou
+		$tempo = time() - strtotime($recuperacao->data);
+		if ($tempo > 86400) { // 24 horas
+			erro("Seu código expirou! Peça outro.");
+			deletar_recuperacao($codigo);
+			redirect('/esqueci.php');
+			return null;
+		}
+
+		// Checa se a senha é válida
+		if (strlen($senha) < 6) {
+			erro("Sua senha é: muito curta. senha.");
+			return null;
+		}
+		if ($senha != $senhaConfirm) {
+			erro("As senhas não coincidem!");
+			return null;
+		}
+
+		return [
+			'codigo' => $codigo,
+			'senha' => $senha,
+		];
+	}
+
+	$entradas = checagens(
+		$_POST['codigo'] ?? null,
+		$_POST['senha'] ?? null,
+		$_POST['senhaConfirm'] ?? null
+	);
+
+	if ($entradas) {
+		$hashword = password_hash($entradas['senha'], PASSWORD_DEFAULT);
+		mudar_usuario($usuario->id, ['password_hash' => $hashword]);
+		deletar_recuperacao($entradas['codigo']);
+		sucesso("Aproveite sua senha nova :]");
+		redirect('/entrar.php');
 	}
 }
 ?>
@@ -78,7 +117,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
 
 	.inside_page_content form button {
 		margin-top: 16px;
-		margin-right: 118px;
+		margin-right: 86px;
 		text-align-last: left;
 	}
 
@@ -98,20 +137,20 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
 
 	<div class="page_content" style="min-height: 324px">
 		<div class="inside_page_content">
-			<?php if (isset($erro)) : ?>
-				<p><?= $erro ?></p>
-			<?php endif ?>
-			<?php if ($codigo) : ?>
-				<p>Mude sua senha abaixo:</p>
-				<form action="" method="post">
-					<input type="hidden" name="codigo" value="<?= $codigo->codigo ?>">
-					<label for="senha">nova senha</label>
-					<input name="senha" id="senha" type="password" required>
-					<br>
-					<button class="coolButt">Mudar senha</button>
-				</form>
-				<p>já tem uma conta? então <a href="/entrar.php">entre</a></p>
-			<?php endif ?>
+			<?php include $_SERVER['DOCUMENT_ROOT'] . '/elementos/statusbar.php'; ?>
+			<img src="elementos/recuperar.png" style="margin-top: -5px; margin-left: -5px;">
+			<p>Mude sua senha abaixo:</p>
+			<form action="" method="post">
+				<input type="hidden" name="codigo" value="<?= $_GET['codigo'] ?? $_POST['codigo'] ?? "" ?>">
+				<label for="senha">nova senha</label>
+				<input name="senha" id="senha" type="password" required>
+				<br>
+				<label for="senhaConfirm">confirme a senha</label>
+				<input name="senhaConfirm" id="senhaConfirm" type="password" required>
+				<br>
+				<button class="coolButt">Mudar senha</button>
+			</form>
+			<p>já tem uma conta? então <a href="/entrar.php">entre</a></p>
 		</div>
 	</div>
 </div>

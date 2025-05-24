@@ -2,4 +2,5 @@
 <?php
 fazer_logout();
 
+info("Vou sentir sua falta...");
 redirect('/');

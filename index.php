@@ -6,6 +6,7 @@
 
 	<div class="page_content" style="min-height: 556px">
 		<div class="inside_page_content">
+			<?php include $_SERVER['DOCUMENT_ROOT'] . '/elementos/statusbar.php'; ?>
 			<style>
 				.labelManeira {
 					font-size: 15px;
@@ -26,10 +27,10 @@
 			$pages = coisos_tudo($projetos, 'projetos', 1, '', '', 3);
 			?>
 			<div class="projetos">
-              <?php foreach ($projetos as $projeto) {
-				  renderarProjeto($projeto);
-			  }
-			  ?>
+				<?php foreach ($projetos as $projeto) {
+					renderarProjeto($projeto);
+				}
+				?>
 			</div>
 		</div>
 	</div>

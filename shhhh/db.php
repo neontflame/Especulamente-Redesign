@@ -288,10 +288,6 @@ function enviar_recuperacao($usuario)
 
 	$codigo = bin2hex(random_bytes(16));
 
-	if ($usuario == null) {
-		return "§Usuário não existe!";
-	}
-
 	$rows = $db->prepare("INSERT INTO reccodigo (codigo, criado_por) VALUES (?, ?)");
 	$rows->bindParam(1, $codigo);
 	$rows->bindParam(2, $usuario->id);
@@ -398,7 +394,7 @@ function mensagem_requestIDator($id)
 function quantReacoes($id, $reacao)
 {
 	global $db;
-	
+
 	$rows = $db->prepare("SELECT COUNT(*) as count FROM reacoes WHERE id_reator = ? AND tipo_de_reacao = ?");
 	$rows->bindParam(1, $id);
 	$rows->bindParam(2, $reacao);
@@ -411,7 +407,7 @@ function quantReacoes($id, $reacao)
 function quantPosts($id)
 {
 	global $db;
-	
+
 	$rows = $db->prepare("SELECT COUNT(*) as count FROM forum_posts WHERE id_postador = ?");
 	$rows->bindParam(1, $id);
 	$rows->execute();
@@ -674,7 +670,7 @@ function reagir($id_reator, $id_reagido, $tipo_de_reagido, $tipo_de_reacao)
 	if (!$existe) {
 		return -3;
 	}
-	
+
 	if ($tipo_de_reagido == 'perfil') {
 		$existe = usuario_requestIDator($id_reagido);
 	} else if ($tipo_de_reagido == 'forum') {
@@ -682,7 +678,7 @@ function reagir($id_reator, $id_reagido, $tipo_de_reagido, $tipo_de_reacao)
 	} else if ($tipo_de_reagido == 'projeto') {
 		$existe = projeto_requestIDator($id_reagido);
 	}
-	
+
 	if (!$existe) {
 		return -2;
 	}
@@ -763,7 +759,7 @@ function desreagir($id_reator, $id_reagido, $tipo_de_reagido, $tipo_de_reacao)
 	} else if ($tipo_de_reagido == 'projeto') {
 		$existe = projeto_requestIDator($id_reagido);
 	}
-	
+
 	if (!$existe) {
 		return -2;
 	}
@@ -819,7 +815,7 @@ function criar_projeto($id_criador, $nome, $descricao, $tipo, $arquivos, $arquiv
 	if ($arquivos == null && $arquivoVivel == null && ($tipo != 'rt' && $tipo != 'bg')) {
 		return "§Comeram seus arquivos?";
 	}
-	
+
 	$rows = $db->prepare("INSERT INTO projetos (id_criador, nome, descricao, tipo, arquivos_de_vdd) VALUES (?, ?, ?, ?, ?)");
 	$rows->bindParam(1, $id_criador);
 	$rows->bindParam(2, $nome);

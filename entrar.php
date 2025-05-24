@@ -4,30 +4,43 @@ if (isset($usuario)) {
   redirect('/');
 }
 
-$erro;
-$recuperado = $_GET["recuperado"] ?? null;
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  $username = $_POST['username'];
-  $senha = $_POST['senha'];
+  function checagens($db, $username, $senha)
+  {
+    if (!isset($username) || !isset($senha)) {
+      erro("Preencha todos os campos!");
+      return null;
+    }
 
-  if (isset($username) && isset($senha)) {
+    // Verifica se o usuário existe
     $stmt = $db->prepare("SELECT * FROM usuarios WHERE username = ?");
     $stmt->bindParam(1, $username);
     $stmt->execute();
-
-    if ($stmt->rowCount() > 0) {
-      $row = $stmt->fetch(PDO::FETCH_OBJ);
-      if (password_verify($senha, $row->password_hash)) {
-        $_SESSION['id'] = $row->id;
-        $_SESSION['username'] = $row->username;
-        redirect('/');
-      } else {
-        $erro = "Usuário ou senha incorretos!";
-      }
-    } else {
-      $erro = "Usuário ou senha incorretos!";
+    if ($stmt->rowCount() == 0) {
+      erro("Usuário ou senha incorretos!");
+      return null;
     }
+
+    // Checa se a senha está correta
+    $row = $stmt->fetch(PDO::FETCH_OBJ);
+    if (!password_verify($senha, $row->password_hash)) {
+      erro("Usuário ou senha incorretos!");
+      return null;
+    }
+
+    return [
+      'id' => $row->id,
+      'username' => $row->username,
+    ];
+  }
+
+  $entradas = checagens($db, $_POST['username'] ?? null, $_POST['senha'] ?? null);
+
+  if ($entradas) {
+    $_SESSION['id'] = $entradas['id'];
+    $_SESSION['username'] = $entradas['username'];
+    info("Olá de novo novamente, " . $entradas['username'] . "!");
+    redirect('/');
   }
 }
 ?>
@@ -74,6 +87,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
 
   <div class="page_content" style="height: 324px">
     <div class="inside_page_content">
+      <?php include $_SERVER['DOCUMENT_ROOT'] . '/elementos/statusbar.php'; ?>
       <img src="elementos/ola.png" style="margin-top: -5px; margin-left: -5px;">
       <form action="" method="post">
         <label for="username">nome de usuário</label>
@@ -84,8 +98,6 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
         <br>
         <button class="coolButt">Entrar</button>
       </form>
-      <?php if (isset($erro)) : ?><p style="color: #FF0000;"><?= $erro ?></p><?php endif ?>
-      <?php if ($recuperado) : ?><p style="color: green;">Aproveite sua senha nova :]</p><?php endif ?>
       <p><a href="/esqueci.php">esqueceu a senha?</a></p>
       <p>não tem uma conta ainda? <a href="/registro.php" title="ou morra tentando">crie uma aqui</a></p>
     </div>

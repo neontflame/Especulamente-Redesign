@@ -4,30 +4,30 @@ if (isset($usuario)) {
 	redirect('/');
 }
 
-$erro;
-$enviado = false;
-
-$random = random_int(1, 1000);
-if ($random == 1) {
-	redirect('/vaisefoderem.php');
-}
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-	$username = $_POST['username'];
-
-	if (isset($username)) {
-		$usuario_obtido = usuario_requestinator($username);
-
-		if ($usuario_obtido != null) {
-			$codigo = enviar_recuperacao($usuario_obtido);
-			if (str_starts_with($codigo, "§")) {
-				$erro = $codigo;
-			} else {
-				$enviado = true;
-			}
-		} else {
-			$erro = "Usuário não existe!";
+	function checagens($username)
+	{
+		if (!isset($username)) {
+			erro("Preencha todos os campos!");
+			return null;
 		}
+
+		// Verifica se o usuário existe
+		$usuario_obtido = usuario_requestinator($username);
+		if ($usuario_obtido == null) {
+			erro("Usuário não existe!");
+			return null;
+		}
+
+		return [
+			'usuario' => $usuario_obtido,
+		];
+	}
+
+	$entradas = checagens($_POST['username'] ?? null);
+	if ($entradas) {
+		$codigo = enviar_recuperacao($entradas['usuario']);
+		sucesso("Email enviado!");
 	}
 }
 ?>
@@ -45,7 +45,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
 
 	<style>
 		.inside_page_content {
-			text-align-last: center;
+			text-align: center;
 			color: #898989;
 		}
 
@@ -63,7 +63,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
 
 		.inside_page_content form button {
 			margin-top: 16px;
-			margin-right: 118px;
+			margin-right: 108px;
 			text-align-last: left;
 		}
 
@@ -74,7 +74,8 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
 
 	<div class="page_content" style="min-height: 324px">
 		<div class="inside_page_content">
-			<h1>Esqueci a senha :(</h1>
+			<?php include $_SERVER['DOCUMENT_ROOT'] . '/elementos/statusbar.php'; ?>
+			<img src="elementos/esqueci.png" style="margin-top: -5px; margin-left: -5px;">
 			<p>Tudo bem!!! Acontece com as melhores famílias. Você não está sozinho. Entre abaixo o seu nome de usuário e nossa equipe de gorilas adestrados irá entrar em contato para você recuperar sua senha.</p>
 			<form action="" method="post">
 				<label for="username">nome de usuário</label>
@@ -82,8 +83,6 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
 				<br>
 				<button class="coolButt">Enviar</button>
 			</form>
-			<?php if ($enviado) : ?><p style="color: green;">Email enviado!!</p><?php endif ?>
-			<?php if (isset($erro)) : ?><p style="color: #FF0000;"><?= $erro ?></p><?php endif ?>
 			<p><a href="/entrar.php">ah nvm eu lembrei</a></p>
 			<p>não tem uma conta ainda? <a href="/registro.php" title="ou morra tentando">crie uma aqui</a></p>
 		</div>

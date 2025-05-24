@@ -338,10 +338,6 @@ a.coolButt {
   margin-bottom: -4px;
 }
 
-.projeto a {
-  /*! float: right; */
-}
-
 .projeto h2 a {
   float: none;
   color: black;
@@ -628,11 +624,6 @@ copiei do meu site to com preguiça -neon */
   text-align: center;
 }
 
-.erro img {
-  /* grah.. FUCK your margens! 
-  /* margin-bottom: 32px; */
-}
-
 .erro h1 {
   color: black;
 }
@@ -721,6 +712,7 @@ copiei do meu site to com preguiça -neon */
   color: white;
   padding: 6px 10px;
   text-align: center;
+  cursor: pointer;
 }
 
 .statusbar p {
@@ -733,4 +725,12 @@ copiei do meu site to com preguiça -neon */
 
 .statusbar.success {
   background: darkgreen;
+}
+
+.statusbar.info {
+  background: royalblue;
+}
+
+.statusbar.warning {
+  background: darkgoldenrod;
 }

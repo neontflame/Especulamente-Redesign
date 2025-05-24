@@ -4,20 +4,14 @@ if (isset($usuario)) {
   redirect('/');
 }
 
-$erro = null;
-$sucesso = null;
-$username = "";
-$email = "";
-$convite = null;
+$entradas = [];
+$ehDigno = false;
 
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
-  function checagens()
+  function checagens($db, $convite)
   {
-    global $db, $convite;
-
     // Convite foi especificado?
-    $convite = $_GET["convite"] ?? null;
-    if ($convite == null) {
+    if (!isset($convite)) {
       return null;
     }
 
@@ -26,58 +20,63 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     $rows->bindParam(1, $convite);
     $rows->execute();
     if ($rows->rowCount() == 0) {
-      return "Código inválido! Você não é digno.";
+      erro("Código inválido! Você não é digno.");
+      return null;
     }
 
-    return null;
+    return [
+      "convite" => $convite,
+    ];
   }
 
-  $erro = checagens();
-  if ($erro) {
-    $convite = null;
+  $entradas = checagens($db, $_GET["convite"] ?? null);
+  if ($entradas) {
+    $ehDigno = true;
   }
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  $username = $_POST['username'] ?? null;
-  $email = $_POST['email'] ?? null;
-  $senha = $_POST['senha'] ?? null;
-  $senhaConfirm = $_POST['senhaConfirm'] ?? null;
-  $convite = $_POST['convite'] ?? null;
-
-  function checagens()
+  function checagens($db, $username, $email, $senha, $senhaConfirm, $convite)
   {
-    global $db, $username, $email, $senha, $senhaConfirm, $convite;
+    global $ehDigno;
 
-    if ($username == null || $email == null || $senha == null || $senhaConfirm == null) {
-      return "Preencha todos os campos!";
+    if (!isset($username) || !isset($email) || !isset($senha) || !isset($senhaConfirm)) {
+      erro("Preencha todos os campos!");
+      return null;
     }
-    if ($convite == null) {
-      return "Convite não especificado!";
+    if (!isset($convite)) {
+      erro("Você não tem um convite!");
+      return null;
     }
 
     // Convite existe?
     $rows = $db->prepare("SELECT * FROM convites WHERE codigo = ? AND usado_por IS NULL");
-    $rows->bindParam(1, $_POST['convite']);
+    $rows->bindParam(1, $convite);
     $rows->execute();
     if ($rows->rowCount() == 0) {
-      return "Código inválido! Você não é digno.";
+      erro("Código inválido! Você não é digno.");
+      return null;
     }
+
+    $ehDigno = true;
 
     // Nome de usuário existe?
     $rows = $db->prepare("SELECT * FROM usuarios WHERE username = ?");
     $rows->bindParam(1, $username);
     $rows->execute();
     if ($rows->rowCount() != 0) {
-      return "Cadê a originalidade? Esse nome de usuário JÁ existe.";
+      erro("Cadê a originalidade? Esse nome de usuário JÁ existe.");
+      return null;
     }
 
     // Nome de usuário inválido?
     if (strlen($username) < 3) {
-      return "Seu nome de usuário é: muito curto.";
+      erro("Seu nome de usuário é: muito curto.");
+      return null;
     }
     if (!preg_match('/^[a-zA-Z0-9_.]+$/', $username)) {
-      return "Apenas letras, números, pontos e underlines pfv!!";
+      erro("Apenas letras, números, pontos e underlines pfv!!");
+      return null;
     }
 
     // Email inválido?
@@ -85,31 +84,47 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $rows->bindParam(1, $email);
     $rows->execute();
     if ($rows->rowCount() != 0) {
-      return "Cadê a originalidade? Esse email JÁ foi usado.";
+      erro("Cadê a originalidade? Esse email JÁ foi usado.");
+      return null;
     }
 
     // Senha inválida?
     if (strlen($senha) < 6) {
-      return "Sua senha é: muito curta. senha.";
+      erro("Sua senha é: muito curta. senha.");
+      return null;
     }
     if ($senha != $senhaConfirm) {
-      return "As senhas não coincidem!";
+      erro("As senhas não coincidem!");
+      return null;
     }
 
-    return null;
+    return [
+      "username" => $username,
+      "email" => $email,
+      "senha" => $senha,
+      "convite" => $convite,
+    ];
   }
 
-  $erro = checagens();
+  $entradas = checagens(
+    $db,
+    $_POST['username'] ?? null,
+    $_POST['email'] ?? null,
+    $_POST['senha'] ?? null,
+    $_POST['senhaConfirm'] ?? null,
+    $_POST['convite'] ?? null
+  );
 
-  if ($erro == null) {
+  if ($entradas) {
     criar_usuario(
-      $username,
-      $email,
-      $senha,
-      $convite,
+      $entradas["username"],
+      $entradas["email"],
+      $entradas["senha"],
+      $entradas["convite"],
     );
 
-    $sucesso = "Sua conta foi criada!! Você pode entrar agora!";
+    sucesso("Sua conta foi criada!! Você pode entrar agora!");
+    redirect('/entrar.php');
   }
 }
 ?>
@@ -159,19 +174,18 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
 
   <div class="page_content" style="min-height: 324px">
     <div class="inside_page_content">
-      <?php if ($erro) mostrarErro($erro); ?>
-      <?php if ($sucesso) mostrarSucesso($sucesso); ?>
+      <?php include $_SERVER['DOCUMENT_ROOT'] . '/elementos/statusbar.php'; ?>
       <img src="elementos/registrar.png" style="margin-top: -5px; margin-left: -5px;">
-      <?php if ($convite) : ?>
+      <?php if ($ehDigno) : ?>
         <h1>VOCÊ É DIGNO!!!</h1>
-        <p>Seu código é: <?= $convite ?></p>
+        <p>Seu código é: <?= $_GET['convite'] ?? $_POST['convite'] ?? '' ?></p>
         <form action="" method="post">
-          <input type="hidden" name="convite" value="<?= $convite ?>">
+          <input type="hidden" name="convite" value="<?= $_GET['convite'] ?? $_POST['convite'] ?? '' ?>">
           <label for="username">nome de usuário</label>
-          <input name="username" id="username" type="text" required value="<?= $username ?>">
+          <input name="username" id="username" type="text" required value="<?= $_POST['username'] ?? '' ?>">
           <br>
           <label for="email">email</label>
-          <input name="email" id="email" type="email" required value="<?= $email ?>">
+          <input name="email" id="email" type="email" required value="<?= $_POST['email'] ?? '' ?>">
           <br>
           <label for="senha">senha</label>
           <input name="senha" id="senha" type="password" required>
@@ -185,7 +199,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
         <p>O ESPECULAMENTE é um site apenas para convidados! Se você tiver um código de convite, insira-o abaixo:</p>
         <form action="" method="get" style="margin-right: 108px;">
           <label for="convite">código</label>
-          <input name="convite" id="convite" type="text" required value="<?= $convite ?>">
+          <input name="convite" id="convite" type="text" required value="<?= $_GET['convite'] ?? '' ?>">
           <br>
           <button class="coolButt" style="margin-right: 52px;">Checar convite</button>
         </form>
