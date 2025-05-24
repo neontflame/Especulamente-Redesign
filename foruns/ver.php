@@ -134,16 +134,20 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
 
 		xhttp.onreadystatechange = function() {
 			if (xhttp.readyState == XMLHttpRequest.DONE) {
-				document.getElementById('post_fnf').value += '![](' + xhttp.responseText + ')';
-				document.getElementById('imagensAnexas').style.display = "";
+				if (xhttp.responseText.substring(0, 1) == '§') {
+					alert(xhttp.responseText.substring(1, xhttp.responseText.length));
+				} else {
+					document.getElementById('post_fnf').value += '![](' + xhttp.responseText + ')';
+					document.getElementById('imagensAnexas').style.display = "";
 
-				var img = document.createElement("img");
-				img.src = xhttp.responseText;
-				img.className = "imagemCoiso";
-				img.onclick = function() {
-					document.getElementById('comentario').value += '![](' + xhttp.responseText + ')';
-				};
-				document.getElementById("imagensAnexasAnexas").appendChild(img);
+					var img = document.createElement("img");
+					img.src = xhttp.responseText;
+					img.className = "imagemCoiso";
+					img.onclick = function() {
+						document.getElementById('comentario').value += '![](' + xhttp.responseText + ')';
+					};
+					document.getElementById("imagensAnexasAnexas").appendChild(img);
+				}
 			}
 		}
 

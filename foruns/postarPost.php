@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 
 		// MENSAGEM HANDLER WOAH
 		mensagem_mencao($comentario, $respondido, $id_com);
-
+		
 		$forumpost = forumpost_requestIDator($id_com);
 
 		if ($forumpost->id_resposta != -1) {
@@ -103,6 +103,11 @@ function mensagem_mencao($texto, $id, $id_com)
 				HTML,
 			'menciona'
 		);
-		$mandavel = false;
+		
+		if ($forumpost->id_resposta != -1) {
+			if ($nome == forumpost_requestIDator($forumpost->id_resposta)->id_postador) {
+				$mandavel = false;
+			}
+		}
 	}
 }

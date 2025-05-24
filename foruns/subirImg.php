@@ -10,6 +10,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 		if (!str_starts_with($rtn, '§')) {
 			echo '/static/forumImg/' . $rtn;
+		} else {
+			echo $rtn;
 		}
 	} else {
 		// qq tu quer q eu faça bro
