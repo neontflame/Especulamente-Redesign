@@ -21,7 +21,7 @@ global $config;
 <head>
   <meta content="pt-br" http-equiv="Content-Language" />
   <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
-  <link href="/cssManeiro.css?v18" rel="stylesheet" type="text/css" />
+  <link href="/cssManeiro.css?v19" rel="stylesheet" type="text/css" />
   <link id="favicon" rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 
   <!-- Metas Tags -->
@@ -83,11 +83,11 @@ global $config;
         <div class="coolSubHeadery">
           <div class="coolLinkery">
             <?php if (isset($usuario)) : ?>
-				<?php if (isset($forum)) { ?>
-					<a href="/foruns/postar" style="color: darkblue;">+ POSTAR</a>
-				<?php } else { ?>
-					<a href="/criar" style="color: forestgreen;">+ CRIAR</a>
-				<?php } ?>
+              <?php if (isset($forum)) { ?>
+                <a href="/foruns/postar" style="color: darkblue;">+ POSTAR</a>
+              <?php } else { ?>
+                <a href="/criar" style="color: forestgreen;">+ CRIAR</a>
+              <?php } ?>
             <?php endif ?>
             <a href="/usuarios">AMIGOS</a>
             <a href="/foruns">FÓRUNS</a>
