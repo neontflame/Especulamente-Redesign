@@ -503,6 +503,10 @@ copiei do meu site to com preguiça -neon */
   margin-bottom: 4px;
 }
 
+.resposta .comentario img {
+  max-width: 350px;
+}
+
 .linkmentario {
   color: #9ebbff !important;
 }
