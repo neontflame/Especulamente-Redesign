@@ -1,7 +1,6 @@
 <?php
 include_once $_SERVER['DOCUMENT_ROOT'] . '/shhhh/autoload.php';
 login_obrigatorio($usuario);
-$mandavel = true;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 	if (isset($_POST['comentario'])) {
@@ -31,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 		$id_com = $db->lastInsertId();
 
 		// MENSAGEM HANDLER WOAH
-		mensagem_mencao($comentario, $respondido, $id_com);
+		$oCoiso = mensagem_mencao($comentario, $respondido, $id_com);
 		
 		$forumpost = forumpost_requestIDator($id_com);
 
@@ -43,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 
 			$quote = responde_clickers($comentario, "/foruns/{$forumpost->id_categoria}/{$forumpost->id_resposta}");
 
-			if ($mandavel) {
+			if ($oCoiso == 1) {
 				criar_mensagem(
 					forumpost_requestIDator($forumpost->id_resposta)->id_postador,
 					<<<HTML
@@ -70,9 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 function mensagem_mencao($texto, $id, $id_com)
 {
 	global $usuario;
-	global $mandavel;
 	
-	$mencao = false;
 	preg_match_all('/@([a-zA-Z0-9_.]+)/', $texto, $matches);
 
 	$nomesarray = [];
@@ -103,11 +100,11 @@ function mensagem_mencao($texto, $id, $id_com)
 				HTML,
 			'menciona'
 		);
-		
-		if ($forumpost->id_resposta != -1) {
-			if ($nome == forumpost_requestIDator($forumpost->id_resposta)->id_postador) {
-				$mandavel = false;
-			}
-		}
+	}
+	
+	if (array_key_exists(usuario_requestIDator(forumpost_requestIDator($id)->id_postador)->username, $nomesarray)) {
+		return 0;
+	} else {
+		return 1;
 	}
 }
