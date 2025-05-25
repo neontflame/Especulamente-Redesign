@@ -73,6 +73,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		return [
 			'codigo' => $codigo,
 			'senha' => $senha,
+			'usuario_id' => $recuperacao->criado_por,
 		];
 	}
 
@@ -84,7 +85,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 	if ($entradas) {
 		$hashword = password_hash($entradas['senha'], PASSWORD_DEFAULT);
-		mudar_usuario($usuario->id, ['password_hash' => $hashword]);
+		mudar_usuario($entradas['usuario_id'], ['password_hash' => $hashword]);
 		deletar_recuperacao($entradas['codigo']);
 		sucesso("Aproveite sua senha nova :]");
 		redirect('/entrar.php');
