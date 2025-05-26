@@ -13,12 +13,12 @@ $usuariosios = [];
 $userOnly = false;
 
 if ($tipo != '') {
-	$tipoQuery = " WHERE tipo = '" . $tipo . "'";
+	$tipoQuery = " WHERE tipo = " . $db->quote($tipo);
 }
 
 if ($query != '') {
 	if ($tipo != '') {
-		$tipoQuery = " AND tipo = '" . $tipo . "'";
+		$tipoQuery = " AND tipo = " . $db->quote($tipo);
 	}
 	// PARTE UM DO FUNNY COISO COM O NOME DE USUARIO
 	if (substr($query, 0, 1) == '@') {
@@ -44,6 +44,8 @@ if ($query != '') {
 } else {
 	$coisodepagina = '?';
 }
+
+echo ($tipoQuery);
 /* 
 if ($formato != '') {
 	$coisodepagina = $coisodepagina . 'formato=' . $formato . '&';
