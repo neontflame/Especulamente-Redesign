@@ -45,7 +45,6 @@ if ($query != '') {
 	$coisodepagina = '?';
 }
 
-echo ($tipoQuery);
 /* 
 if ($formato != '') {
 	$coisodepagina = $coisodepagina . 'formato=' . $formato . '&';
