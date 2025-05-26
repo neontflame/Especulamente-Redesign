@@ -26,15 +26,15 @@ $pages = coisos_tudo($daveitens, 'daveitens', $page);
       <div class="projetos">
         <?php foreach ($daveitens as $daveitem) : ?>
           <div class="projeto">
-            <img src="/daveloja/itens/<?= $daveitem->id ?>.png" style="float: left; margin-right: 8px;">
-			<div class="projetoSide">
-            <?php if ($daveitem->compravel == 1) { ?>
-              <a href="/daveloja/checkout.php?id=<?= $daveitem->id ?>"><img src="/elementos/comprar.png"></a>
-            <?php } else { ?>
-              <img src="/elementos/semEstoque.png" style="float: right;">
-            <?php } ?>
-			<p class="autorDeProjeto"><?= $daveitem->daveprice ?> davecoins</p>
-			</div>
+            <img src="/daveloja/itens/<?= $daveitem->imagem ?>" style="float: left; margin-right: 8px;">
+            <div class="projetoSide">
+              <?php if ($daveitem->compravel == 1) { ?>
+                <a href="/daveloja/checkout.php?id=<?= $daveitem->id ?>"><img src="/elementos/comprar.png"></a>
+              <?php } else { ?>
+                <img src="/elementos/semEstoque.png" style="float: right;">
+              <?php } ?>
+              <p class="autorDeProjeto"><?= $daveitem->daveprice ?> davecoins</p>
+            </div>
             <h2><?= $daveitem->nome ?></h2>
             <p><?= $daveitem->descricao ?></p>
           </div>

@@ -2,11 +2,11 @@
 $chars = array();
 $dir = $_SERVER['DOCUMENT_ROOT'] . "/elementos/footer/chars/";
 if ($handle = scandir($dir)) {
-        foreach ($handle as $target) {
-                if (!in_array($target, [".", ".."])) {
-                        $chars[] = $target;
-                }
-        }
+  foreach ($handle as $target) {
+    if (!in_array($target, [".", ".."])) {
+      $chars[] = $target;
+    }
+  }
 }
 
 $char = $chars[array_rand($chars)];
@@ -32,6 +32,9 @@ $char = $chars[array_rand($chars)];
   <img id="character" src="/elementos/footer/chars/<?= $char ?>" />
 </div>
 <script src="/js.js"></script>
+<?php if (date('d/m', time()) == '01/04') : ?>
+§
+<?php endif; ?>
 </body>
 
 </html>
