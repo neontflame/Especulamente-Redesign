@@ -146,17 +146,6 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 
     <!-- Banner -->
     <?php if ($perfil_e_meu) : ?>
-		<script>
-		var chromeVeio = ["8", "9", "10", "11", "12", "13", "14", "15", "16"];
-		
-		function chromeCheckUser(ver, index, element) {
-			if (window.navigator.userAgent.indexOf('Chrome/' + ver) != -1) {
-				document.getElementById("bannerPica").style.margin = '-56px 0px 0px 0px'
-			}
-		}
-
-		chromeVeio.forEach(chromeCheckUser);
-		</script>
       <button onclick="bnr_fnf.click()" id="bannerPica" class="coolBorderyEditable" style="float: right;">
       <?php endif; ?>
 
@@ -171,6 +160,18 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
       <form action="" method="post" enctype="multipart/form-data" id="form_bnr" style="display: none;">
         <input type="file" name="bnr_fnf" id="bnr_fnf" accept="image/*" onchange="form_bnr.submit()">
       </form>
+	  
+		<script>
+		var chromeVeio = ["8", "9", "10", "11", "12", "13", "14", "15", "16"];
+		
+		function chromeCheckUser(ver, index, element) {
+			if (window.navigator.userAgent.indexOf('Chrome/' + ver) != -1) {
+				document.getElementById("bannerPica").style.margin = '-56px 0px 0px 0px'
+			}
+		}
+
+		chromeVeio.forEach(chromeCheckUser);
+		</script>
     <?php endif; ?>
 
     <div class="inside_page_content">
