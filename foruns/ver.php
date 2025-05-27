@@ -324,7 +324,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
 										</div>
 									</div>
 
-									<button type="submit" onclick="postarPost(document.getElementById('post_fnf').value, this, <?= $id ?>, <?= $ofix->id_categoria ?>, 'Resposta a \'<?= $ofix->sujeito ?>\'');" class="coolButt">
+									<button type="submit" onclick="postarPost(document.getElementById('post_fnf').value, this, <?= $id ?>, <?= $ofix->id_categoria ?>, 'Resposta a \'<?= addslashes($ofix->sujeito) ?>\'');" class="coolButt">
 										Enviar comentário
 									</button>
 
