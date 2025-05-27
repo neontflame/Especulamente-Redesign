@@ -147,6 +147,8 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
     <!-- Banner -->
     <?php if ($perfil_e_meu) : ?>
 		<script>
+		var chromeVeio = ["8", "9", "10", "11", "12", "13", "14", "15", "16"];
+		
 		function chromeCheckUser(ver, index, element) {
 			if (window.navigator.userAgent.indexOf('Chrome/' + ver) != -1) {
 				document.getElementById("bannerPica").style.margin = '-56px 0px 0px 0px'
