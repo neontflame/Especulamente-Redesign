@@ -146,7 +146,16 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 
     <!-- Banner -->
     <?php if ($perfil_e_meu) : ?>
-      <button onclick="bnr_fnf.click()" class="coolBorderyEditable" style="float: right;">
+		<script>
+		function chromeCheckUser(ver, index, element) {
+			if (window.navigator.userAgent.indexOf('Chrome/' + ver) != -1) {
+				document.getElementById("bannerPica").style.margin = '-56px 0px 0px 0px'
+			}
+		}
+
+		chromeVeio.forEach(chromeCheckUser);
+		</script>
+      <button onclick="bnr_fnf.click()" id="bannerPica" class="coolBorderyEditable" style="float: right;">
       <?php endif; ?>
 
       <img src="<?= banner($perfil) ?>" alt="Foto de banner de <?= $perfil->username ?>" width="385" height="48"
