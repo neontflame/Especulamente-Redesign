@@ -54,7 +54,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
 		// CODIGO ASSOMBRADO BEGONE
 		var coiso = document.getElementById(cont);
 		document.getElementById('post_fnf').value += "> De @" + user + ", dia " + data;
-		
+
 		for (var i = 0; i < coiso.childElementCount; i++) {
 			console.log(coiso.children[i].tagName);
 			if (coiso.children[i].tagName == 'BLOCKQUOTE') {
@@ -324,7 +324,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
 										</div>
 									</div>
 
-									<button type="submit" onclick="postarPost(document.getElementById('post_fnf').value, this, <?= $id ?>, <?= $ofix->id_categoria ?>, 'Resposta a \'<?= $ofix->sujeito ?>\'');" class="coolButt">
+									<button type="submit" onclick="postarPost(document.getElementById('post_fnf').value, this, <?= $id ?>, <?= $ofix->id_categoria ?>, 'Resposta a \'<?= addslashes($ofix->sujeito) ?>\'');" class="coolButt">
 										Enviar comentário
 									</button>
 
