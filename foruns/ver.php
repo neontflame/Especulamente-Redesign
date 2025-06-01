@@ -309,7 +309,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
 							<div class="projTitulo postTitulo" style="width: 100%;">
 								Responder '<?= forumpost_requestIDator($id)->sujeito ?>'
 								<div style="text-align: right;">
-									<input type="file" id="inputImg" accept="image/*" style="display: none;" onchange="anexarImg(this.files)">
+									<input type="file" id="inputImg" accept="image/*" style="width: 0px; height: 0px; opacity: 0" onchange="anexarImg(this.files)">
 									<button onclick="document.getElementById('inputImg').click()" class="coolButt" style="height: 18px; margin-right: 6px;">Anexar imagem</button>
 								</div>
 							</div>
