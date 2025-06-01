@@ -104,7 +104,7 @@ $erroArray = ["Comeram seu post?", "Seu sujeito é muito curto!"]
 
 				<label for="comentario" class="labelManeira">>> POSTAGEM</label>
 
-				<input type="file" id="inputImg" accept="image/*" style="display: none;" onchange="anexarImg(this.files)">
+				<input type="file" id="inputImg" accept="image/*" style="width: 0px; height: 0px; opacity: 0" onchange="anexarImg(this.files)">
 				<button type="button" onclick="document.getElementById('inputImg').click()" class="coolButt grandissimo" style="width: 100%;">Anexar imagem</button>
 				<textarea style="width: 99%; max-width: 614px;" name="comentario" id="comentario"></textarea>
 				<br>
