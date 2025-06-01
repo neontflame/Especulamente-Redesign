@@ -395,7 +395,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 
 	<?php include $_SERVER['DOCUMENT_ROOT'] . '/elementos/sidebar/sidebar.php'; ?>
 
-	<div class="page_content" style="min-height: 556px;">
+	<div class="page_content">
 		<div class="inside_page_content">
 			<?php vedor_d_comentario('projeto', $projeto->id, true, $usuario); ?>
 		</div>

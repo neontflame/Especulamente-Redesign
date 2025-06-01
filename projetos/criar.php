@@ -93,7 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 <div class="container">
   <?php include $_SERVER['DOCUMENT_ROOT'] . '/elementos/sidebar/sidebar.php'; ?>
 
-  <div class="page_content" style="min-height: 556px">
+  <div class="page_content">
     <?php if ($erro) : ?>
       <div class="erro" style="color: red; background: black; text-align: center;">
         <img src="/static/skull-and-cross.gif" width="24" height="24" />
