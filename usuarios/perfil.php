@@ -174,7 +174,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 		</script>
     <?php endif; ?>
 
-    <div class="inside_page_content">
+    <div class="inside_page_content" style="max-width: 432px; word-wrap: break-word;">
       <h1 style="margin: 0;"><?= $perfil->username ?></h1>
       <div class="separador"></div>
       <!-- Bio -->
