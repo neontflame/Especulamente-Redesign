@@ -27,7 +27,7 @@
 			<?php
 			$projetos = [];
 
-			$pages = coisos_tudo($projetos, 'projetos', 1, '', '', 3);
+			$pages = coisos_tudo($projetos, 'projetos', 1, '', '', 4);
 			?>
 			<div class="projetos">
 				<?php foreach ($projetos as $projeto) {
