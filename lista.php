@@ -11,6 +11,7 @@ $projetos = [];
 $userQuery = '';
 $usuariosios = [];
 $userOnly = false;
+
 if ($tipo != '') {
 	$tipoQuery = " WHERE tipo = " . $db->quote($tipo);
 }
@@ -43,6 +44,7 @@ if ($query != '') {
 } else {
 	$coisodepagina = '?';
 }
+
 /* 
 if ($formato != '') {
 	$coisodepagina = $coisodepagina . 'formato=' . $formato . '&';
