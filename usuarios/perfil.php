@@ -223,7 +223,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
     </div>
   </div>
 
-  <div class="page_content" style="min-height: 370px;">
+  <div class="page_content">
     <div class="inside_page_content">
       <?php vedor_d_comentario('perfil', $perfil->id, true, $usuario); ?>
     </div>

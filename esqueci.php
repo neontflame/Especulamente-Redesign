@@ -72,10 +72,10 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
 		}
 	</style>
 
-	<div class="page_content" style="min-height: 324px">
+	<div class="page_content">
 		<div class="inside_page_content">
 			<?php include $_SERVER['DOCUMENT_ROOT'] . '/elementos/statusbar.php'; ?>
-			<img src="elementos/esqueci.png" style="margin-top: -5px; margin-left: -5px;">
+			<img src="elementos/esqueci.png" style="margin-top: -5px; margin-left: -5px; margin-right: -5px;">
 			<p>Tudo bem!!! Acontece com as melhores famílias. Você não está sozinho. Entre abaixo o seu nome de usuário e nossa equipe de gorilas adestrados irá entrar em contato para você recuperar sua senha.</p>
 			<form action="" method="post">
 				<label for="username">nome de usuário</label>

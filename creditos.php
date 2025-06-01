@@ -15,7 +15,7 @@ $creditados = [
 <div class="container">
 	<?php include $_SERVER['DOCUMENT_ROOT'] . '/elementos/sidebar/sidebar.php'; ?>
 
-	<div class="page_content" style="min-height: 556px">
+	<div class="page_content">
 		<img src="/elementos/pagetitles/creditos.png" class="inside_page_content" style="padding: 0px; margin-bottom: 7px;">
 
 		<div class="inside_page_content" style="background-image: url(/elementos/chillmaia.png); background-position: right bottom; background-repeat: no-repeat;">

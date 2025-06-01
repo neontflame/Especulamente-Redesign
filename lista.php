@@ -87,7 +87,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 
   <img src="/elementos/pagetitles/<?= pagetitlePorTipo($tipo) ?>.png" class="inside_page_content" style="padding: 0px; margin-left: 4px; margin-bottom: 7px;">
 
-  <div class="page_content" style="min-height: 506px;">
+  <div class="page_content">
     <div class="inside_page_content">
 
       <?php if ($query != '') { ?>

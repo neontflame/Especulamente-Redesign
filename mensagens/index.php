@@ -14,7 +14,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 <div class="container">
 	<?php include $_SERVER['DOCUMENT_ROOT'] . '/elementos/sidebar/sidebar.php'; ?>
 
-	<div class="page_content" style="min-height: 556px">
+	<div class="page_content">
 		<div class="inside_page_content">
 			<img src="/elementos/pagetitles/mensagens.png" style="margin-top: -5px; margin-left: -5px; border-bottom: 1px solid #BAE2FF;">
 			

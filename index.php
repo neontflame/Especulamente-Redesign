@@ -2,7 +2,10 @@
 <?php include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 
 <div class="container">
-	<?php include $_SERVER['DOCUMENT_ROOT'] . '/elementos/sidebar/sidebar.php'; ?>
+	<?php 
+	$forum_no_lado = true;
+	$esconder_ad = true;
+	include $_SERVER['DOCUMENT_ROOT'] . '/elementos/sidebar/sidebar.php'; ?>
 
 	<div class="page_content" style="min-height: 556px">
 		<div class="inside_page_content">
@@ -16,11 +19,11 @@
 				}
 			</style>
 			<p class="labelManeira">>> DESTAQUE</p>
-			<div class="separador" style="margin-bottom: 8px;"></div>
+			<div class="separador" style="margin-bottom: 8px; border-color:#D2EDFF"></div>
 			<a href="/foruns/3/17"><img src="/elementos/destaques/collabMural1.png"></a>
 			<div class="separador"></div>
 			<p class="labelManeira">>> PROJETOS RECENTES</p>
-			<div class="separador" style="margin-bottom: 8px;"></div>
+			<div class="separador" style="margin-bottom: 8px; border-color:#D2EDFF"></div>
 			<?php
 			$projetos = [];
 
