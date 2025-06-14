@@ -55,7 +55,7 @@ if ($tipo != '') {
 }
 */
 
-$pages = coisos_tudo($projetos, 'projetos', $page, $query, $userQuery . $tipoQuery, ($formato == 'grade' ? 9 : 10));
+$pages = coisos_tudo($projetos, 'projetos', $page, $query, $userQuery . $tipoQuery, ($formato == 'grade' ? 9 : 10), 'dataBump DESC, data DESC, id DESC');
 
 if ($userOnly) {
 	$projCount = 0;
