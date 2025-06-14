@@ -36,6 +36,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 <style>
 	.jogo {
 		border: 1px solid #9ebbff;
+		margin-bottom: 12px;
 	}
 </style>
 <div class="container">
@@ -81,7 +82,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 					<?php endif; ?>
 					<?php if (str_ends_with($arquivo_vivel[0], '.zip')) : ?>
 						<!-- JOGOS HTML -->
-						<div class="jogo" style="margin: 0 auto;">
+						<div class="jogo">
 							<iframe width="100%" height="360" src="<?= $config['URL'] . '/static/projetos/' . $projeto->id . '/jogo/index.html' ?>" frameborder="0" allowfullscreen="true"></iframe>
 						</div>
 					<?php endif; ?>
