@@ -112,6 +112,10 @@ function renderarProjeto($projeto, $botaoSim = true, $thumbObrigatoria = false)
 				}
 				?>
 			</p>
+			<?php if (isset($projeto->dataBump)) : ?>
+			<p class="autorDeProjeto" style="margin-top: -8px; font-size: 9px;">editado <?= velhificar_data($projeto->dataBump); ?></p>
+			<?php endif; ?>
+			
 		</div>
 		<!-- nem tudo precisa ter uma thumbnail! -->
 		<?php if ($projeto->thumbnail != null) { ?>
@@ -158,6 +162,10 @@ function renderarProjGrade($projeto)
 														} else {
 															echo 'data nula WTF???';
 														} ?></a>
+														
+			<?php if (isset($projeto->dataBump)) : ?>
+			<a class="autorItem" style="font-size: 9px;">edit: <?= velhificar_data($projeto->dataBump); ?></a>
+			<?php endif; ?>
 		</div>
 	</div>
 
