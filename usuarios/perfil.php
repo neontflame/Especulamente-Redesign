@@ -43,7 +43,7 @@ if (!$perfil) {
 }
 
 $projetos = [];
-$proejos = coisos_tudo($projetos, 'projetos', 1, '', ' WHERE id_criador = ' . $perfil->id, 2);
+$proejos = coisos_tudo($projetos, 'projetos', 1, '', ' WHERE id_criador = ' . $perfil->id, 2, 'dataBump DESC, data DESC, id DESC');
 // variaveis com alma ?
 
 $perfil_e_meu = $usuario ? ($usuario->id == $perfil->id) : false;

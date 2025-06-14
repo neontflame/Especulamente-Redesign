@@ -388,7 +388,14 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 			<div class="descricao">
 				<?= responde_clickers(trocadorDeImagemCoiso($projeto->descricao)) ?>
 			</div>
-			<?php reajor_d_reagida('projeto', $projeto, $usuario, 'Postado dia ' . velhificar_data($projeto->data)) ?>
+			<?php $postadoString = '';
+			
+			if (isset($projeto->dataBump)) {
+				$postadoString .= 'Editado dia <b>' . velhificar_data($projeto->dataBump) . '</b>, ';
+			}
+			$postadoString .= 'Postado dia <b>' . velhificar_data($projeto->data) . '</b>';
+			
+			reajor_d_reagida('projeto', $projeto, $usuario, $postadoString); ?>
 		</div>
 
 	</div>
