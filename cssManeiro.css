@@ -65,6 +65,24 @@ table td {
   padding: 2px 4px;
 }
 
+/* spoilers oqaf */
+details {
+  margin-top: 3px;
+  border: 1px solid #5d85e2;
+}
+details summary {
+  padding: 4px;
+  background-color: #d6ebff;
+  border-bottom: 1px solid #96d6ff;
+
+  font-family: Verdana;
+}
+
+details p {
+  margin-top: -4px;
+  margin-left: 12px;
+}
+
 /* ... */
 
 .container {
