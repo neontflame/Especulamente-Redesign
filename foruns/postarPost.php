@@ -89,7 +89,7 @@ function mensagem_mencao($texto, $id, $id_com)
 		$quote = responde_clickers($texto, "/foruns/{$forumpost->id_categoria}/{$id}");
 
 		if (forumpost_requestIDator($id)->id_resposta != -1) {
-			$forumpost = forumpost_requestIDator($id)->id_resposta;
+			$forumpost = forumpost_requestIDator(forumpost_requestIDator($id)->id_resposta);
 		}
 		
 		criar_mensagem(
