@@ -27,7 +27,7 @@
 			<?php
 			$projetos = [];
 
-			$pages = coisos_tudo($projetos, 'projetos', 1, '', '', 4, 'dataBump DESC, data DESC, id DESC');
+			$pages = coisos_tudo($projetos, 'projetos', 1, '', '', 4, 'GREATEST(COALESCE(dataBump, 0), data) DESC, id DESC');
 			?>
 			<div class="projetos">
 				<?php foreach ($projetos as $projeto) {
