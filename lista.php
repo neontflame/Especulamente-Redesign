@@ -12,6 +12,14 @@ $userQuery = '';
 $usuariosios = [];
 $userOnly = false;
 
+$sortCoiso = [
+'recente' => 'GREATEST(COALESCE(dataBump, 0), data) DESC, id DESC',
+'mitada' => 'mitadas DESC',
+'sojada' => 'sojadas DESC'
+];
+
+$sortCoisitos = $_GET['sort'] ?? 'recente';
+
 if ($tipo != '') {
 	$tipoQuery = " WHERE tipo = " . $db->quote($tipo);
 }
@@ -41,21 +49,16 @@ if ($query != '') {
 		$query = '@' . $query;
 	}
 	$coisodepagina = '?q=' . $query . '&';
+	
 } else {
 	$coisodepagina = '?';
 }
 
-/* 
-if ($formato != '') {
-	$coisodepagina = $coisodepagina . 'formato=' . $formato . '&';
+if ($sortCoisitos != 'recente') {
+	$coisodepagina .= 'sort=' . $sortCoisitos . '&';
 }
 
-if ($tipo != '') {
-	$coisodepagina = $coisodepagina . 'tipo=' . $tipo . '&';
-}
-*/
-
-$pages = coisos_tudo($projetos, 'projetos', $page, $query, $userQuery . $tipoQuery, ($formato == 'grade' ? 9 : 10), 'GREATEST(COALESCE(dataBump, 0), data) DESC, id DESC');
+$pages = coisos_tudo($projetos, 'projetos', $page, $query, $userQuery . $tipoQuery, ($formato == 'grade' ? 9 : 10), $sortCoiso[$sortCoisitos]);
 
 if ($userOnly) {
 	$projCount = 0;
@@ -83,13 +86,44 @@ $meta["descricao"] = descPorTipo($tipo);
 include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 
 <div class="container">
+	<style>
+	.sortsCoiso {
+	  color: #87A0DB;
+	  text-align: center;
+	  margin-top: 2px;
+	}
+
+	.sortsCoiso a {
+	  color: #87A0DB;
+	  text-decoration: none;
+	}
+
+	.sortsCoiso a:hover {
+	  text-decoration: underline;
+	}
+
+	.sortsCoiso b {
+	  color: black;
+	}
+	
+	.projetos {
+	  margin-top: 0px;
+	}
+	</style>
   <?php include $_SERVER['DOCUMENT_ROOT'] . '/elementos/sidebar/sidebar.php'; ?>
 
   <img src="/elementos/pagetitles/<?= pagetitlePorTipo($tipo) ?>.png" class="inside_page_content" style="padding: 0px; margin-left: 4px; margin-bottom: 7px;">
 
   <div class="page_content">
     <div class="inside_page_content">
-
+		<div class="sortsCoiso">
+		<?php if ($sortCoisitos != 'recente') { ?><a href="/<?= pagetitlePorTipo($tipo) ?>/?sort=recente">mais recente</a><?php } else { ?><b>mais recente</b><?php } ?>
+		- 
+		<?php if ($sortCoisitos != 'mitada') { ?><a href="/<?= pagetitlePorTipo($tipo) ?>/?sort=mitada">mais mitados</a><?php } else { ?><b>mais mitados</b><?php } ?>
+		- 
+		<?php if ($sortCoisitos != 'sojada') { ?><a href="/<?= pagetitlePorTipo($tipo) ?>/?sort=sojada">mais sojados</a><?php } else { ?><b>mais sojados</b><?php } ?>
+		</div>
+		<div class="separador"></div>
       <?php if ($query != '') { ?>
         <div class="pesquisaThing">Resultados da pesquisa por <b>"<?php echo htmlspecialchars($query) . '"</b></div>';
                                                                 } ?>
