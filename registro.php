@@ -175,7 +175,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
   <div class="page_content">
     <div class="inside_page_content">
       <?php include $_SERVER['DOCUMENT_ROOT'] . '/elementos/statusbar.php'; ?>
-      <img src="elementos/registrar.png" style="margin-top: -5px; margin-left: -5px;">
+      <img src="elementos/registrar.png" style="margin-top: -5px; margin-left: -5px; margin-right: -5px;">
       <?php if ($ehDigno) : ?>
         <h1>VOCÊ É DIGNO!!!</h1>
         <p>Seu código é: <?= $_GET['convite'] ?? $_POST['convite'] ?? '' ?></p>

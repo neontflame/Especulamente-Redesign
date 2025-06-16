@@ -62,7 +62,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
 	<img src="/elementos/pagetitles/foruns.png" class="inside_page_content" style="padding: 0px; margin-bottom: 7px;">
 
 	<div>	
-		<div class="inside_page_content">
+		<div class="inside_page_content" style="max-width: 621px;">
 			<style>
 				table th {
 					font-size: 9px;
