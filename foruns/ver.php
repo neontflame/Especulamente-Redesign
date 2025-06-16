@@ -290,7 +290,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
 					</tr>
 				</table>
 
-				<?php reajor_d_reagida("forum", $post, $usuario, 'Postado dia ' . velhificar_data(forumpost_requestIDator($id)->data)) ?>
+				<?php reajor_d_reagida("forum", $post, $usuario, 'Postado dia ' . velhificar_data($post->data)) ?>
 			</div>
 		<?php endforeach ?>
 
