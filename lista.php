@@ -18,7 +18,7 @@ $sortCoiso = [
 'sojada' => 'sojadas DESC'
 ];
 
-$sortCoisitos = $_GET['sort'] ?? 'recente';
+$sortCoisitos = (isset($_GET['sort']) && array_key_exists($_GET['sort'], $sortCoiso)) ? $_GET['sort'] : 'recente';
 
 if ($tipo != '') {
 	$tipoQuery = " WHERE tipo = " . $db->quote($tipo);
