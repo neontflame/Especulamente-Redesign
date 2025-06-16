@@ -40,7 +40,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
 			<p><a href="/foruns">Fóruns</a> >> <i style="color: #4f6bad"><?= categoria_requestIDator($id)->nome ?></i></p>
 		</div>
 		
-		<div class="inside_page_content">
+		<div class="inside_page_content" style="max-width: 621px;">
 			<style>
 				table th {
 					font-size: 9px;
