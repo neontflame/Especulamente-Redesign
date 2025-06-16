@@ -57,10 +57,23 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
 
 		for (var i = 0; i < coiso.childElementCount; i++) {
 			console.log(coiso.children[i].tagName);
-			if (coiso.children[i].tagName == 'BLOCKQUOTE') {
-				console.log(coiso.children[i].tagName + ': ' + coiso.children[i].textContent);
-			} else {
-				document.getElementById('post_fnf').value += "\n> > " + coiso.children[i].innerText;
+			switch (coiso.children[i].tagName) {
+				case 'BLOCKQUOTE':
+					console.log(coiso.children[i].tagName + ': ' + coiso.children[i].textContent);
+					break;
+				case 'P':
+					var coiso2 = coiso.children[i];
+					for (var f = 0; f < coiso2.childElementCount; f++) {
+						switch (coiso2.children[f].tagName) {
+							case 'IMG':
+								document.getElementById('post_fnf').value += "\n> > " + '![](' + coiso2.children[f].src + ')';
+						}
+					}
+					
+				default:
+					if (coiso.children[i].innerText != '') {
+						document.getElementById('post_fnf').value += "\n> > " + coiso.children[i].innerText;
+					}
 			}
 		}
 	}
