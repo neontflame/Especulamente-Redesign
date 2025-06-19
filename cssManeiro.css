@@ -758,3 +758,35 @@ copiei do meu site to com preguiça -neon */
 .statusbar.warning {
   background: darkgoldenrod;
 }
+
+/* rankings! */
+.rankeado {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+.rankeado img {
+  width: 32px;
+  height: 32px;
+  vertical-align: middle;
+}
+
+.rankeado .infoExtra {
+  color: #9EBEF7;
+  font-size: 12px;
+  font-weight: normal;
+}
+
+.rankeado .lugar1 {
+  color: #FFD800;
+}
+.rankeado .lugar2 {
+  color: #CBCBCB;
+}
+.rankeado .lugar3 {
+  color: #AD5600;
+}
+.rankeado .lugar {
+  color: #96A6FF;
+}
