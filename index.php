@@ -66,13 +66,13 @@
 				foreach ($usuarios as $usuario) { ?>
 				<div class="rankeado">
 					<span class="lugar<?php if ($lugar < 4) { echo $lugar; } ?>"><?= $lugar ?>º</span>
-					<img src="<?php
+					<a href="/usuarios/<?= $usuario->username ?>"><img src="<?php
                 if ($usuario->pfp != null) {
                   echo '/static/pfps/' . $usuario->pfp;
                 } else {
                   echo '/static/pfp_padrao.png';
-                } ?>">
-					<span class="username"><?= $usuario->username ?></span>
+                } ?>"></a>
+					<a class="username" href="/usuarios/<?= $usuario->username ?>"><?= $usuario->username ?></a>
 					<span class="infoExtra">com <?= $usuario->mitadas ?> mitadas</span>
 				</div>
 				<?php 
