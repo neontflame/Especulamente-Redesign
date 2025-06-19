@@ -778,6 +778,15 @@ copiei do meu site to com preguiça -neon */
   font-weight: normal;
 }
 
+.rankeado .username {
+  color: #4f6bad;
+  text-decoration: none;
+}
+
+.rankeado .username:hover {
+  text-decoration: underline;
+}
+
 .rankeado .lugar1 {
   color: #FFD800;
 }
