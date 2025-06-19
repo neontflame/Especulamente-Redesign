@@ -33,8 +33,6 @@ $sortCoisitos = (isset($_GET['sort']) && array_key_exists($_GET['sort'], $sortCo
 	}
 	</style>
 	<?php 
-	$forum_no_lado = true;
-	$esconder_ad = true;
 	include $_SERVER['DOCUMENT_ROOT'] . '/elementos/sidebar/sidebar.php'; ?>
 
 	<div class="page_content" style="min-height: 556px">
