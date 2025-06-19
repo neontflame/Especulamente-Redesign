@@ -80,7 +80,7 @@ $ad = $ads[array_rand($ads)];
 	<div class="listinhaDeForinhos">
 		<?php
 		$posts = [];
-		$rows = $db->prepare("SELECT * FROM forum_posts WHERE id_resposta = -1 ORDER BY dataBump DESC LIMIT 5");
+		$rows = $db->prepare("SELECT * FROM forum_posts WHERE id_resposta = -1 ORDER BY dataBump DESC LIMIT 8");
 		$rows->execute();
 		
 		while ($row = $rows->fetch(PDO::FETCH_OBJ)) {
