@@ -67,7 +67,11 @@ $sortCoisitos = (isset($_GET['sort']) && array_key_exists($_GET['sort'], $sortCo
                   echo '/static/pfp_padrao.png';
                 } ?>">
 					<span class="username"><?= $usuario->username ?></span>
-					<span class="infoExtra">com <?= $usuario->mitadas ?> <?= $sortCoisitos ?>s</span>
+					<span class="infoExtra">com <?php 
+					if ($sortCoisitos == "mitada") { echo $usuario->mitadas; }
+					if ($sortCoisitos == "sojada") { echo $usuario->sojadas; }
+					if ($sortCoisitos == "davecoin") { echo $usuario->davecoins; }
+					?> <?= $sortCoisitos ?>s</span>
 				</div>
 				<?php 
 				$lugar += 1;
