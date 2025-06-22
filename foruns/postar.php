@@ -92,10 +92,14 @@ $erroArray = ["Comeram seu post?", "Seu sujeito é muito curto!"]
 					while ($row = $rows->fetch(PDO::FETCH_OBJ)) {
 						array_push($cats, $row);
 					}
-					foreach ($cats as $cat) :
+					foreach ($cats as $cat) {
+						if ($cat->nome != 'Avisos' || 
+						($cat->nome == 'Avisos' && ($usuario->username == 'neontflame' || $usuario->username == 'fupicat'))
+						)
 					?>
 						<option value="<?= $cat->id ?>"><?= $cat->nome ?></option>
-					<?php endforeach ?>
+					<?php endif;
+					} ?>
 				</select>
 
 				<label for="sujeito" class="labelManeira">>> SUJEITO</label>
