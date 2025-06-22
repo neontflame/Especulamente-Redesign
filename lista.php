@@ -2,7 +2,7 @@
 include_once $_SERVER['DOCUMENT_ROOT'] . '/shhhh/autoload.php';
 ?>
 <?php
-$query = htmlspecialchars($_GET['q']) ?? '';
+$query = $_GET['q'] ?? '';
 $page = $_GET['page'] ?? 1;
 $tipo = $_GET['tipo'] ?? '';
 $formato = $_GET['formato'] ?? '';
@@ -25,18 +25,17 @@ if ($tipo != '') {
 }
 
 if ($query != '') {
-	$queryDecode = htmlspecialchars_decode($query);
 	if ($tipo != '') {
 		$tipoQuery = " AND tipo = " . $db->quote($tipo);
 	}
 	// PARTE UM DO FUNNY COISO COM O NOME DE USUARIO
-	if (substr($queryDecode, 0, 1) == '@') {
-		$queryDecode = substr($queryDecode, 1);
+	if (substr($query, 0, 1) == '@') {
+		$query = substr($query, 1);
 		$userOnly = true;
 	}
 	
 	$usuRows = $db->prepare("SELECT * FROM usuarios WHERE username LIKE ?");
-	$usuRows->bindParam(1, $queryDecode, PDO::PARAM_STR);
+	$usuRows->bindParam(1, $query, PDO::PARAM_STR);
 	$usuRows->execute();
 	while ($row = $usuRows->fetch(PDO::FETCH_OBJ)) {
 		array_push($usuariosios, $row);
@@ -47,9 +46,9 @@ if ($query != '') {
 	}
 	
 	if ($userOnly) {
-		$query = htmlspecialchars('@' . $queryDecode);
+		$query = '@' . $query;
 	}
-	$coisodepagina = '?q=' . htmlspecialchars($query) . '&';
+	$coisodepagina = '?q=' . urlencode($query) . '&';
 	
 } else {
 	$coisodepagina = '?';
@@ -61,7 +60,7 @@ if ($sortCoisitos != 'recente') {
 	$coisodepagina .= 'sort=' . $sortCoisitos . '&';
 }
 
-$pages = coisos_tudo($projetos, 'projetos', $page, htmlspecialchars_decode($query), $userQuery . $tipoQuery, ($formato == 'grade' ? 9 : 10), $sortCoiso[$sortCoisitos]);
+$pages = coisos_tudo($projetos, 'projetos', $page, $query, $userQuery . $tipoQuery, ($formato == 'grade' ? 9 : 10), $sortCoiso[$sortCoisitos]);
 
 if ($userOnly) {
 	$projCount = 0;
