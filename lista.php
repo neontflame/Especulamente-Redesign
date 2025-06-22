@@ -53,9 +53,10 @@ if ($query != '') {
 } else {
 	$coisodepagina = '?';
 }
-$coisodepaginaSemSort = '?';
+
+$coisodepaginaSemSort = $coisodepagina;
+
 if ($sortCoisitos != 'recente') {
-	$coisodepaginaSemSort = $coisodepagina;
 	$coisodepagina .= 'sort=' . $sortCoisitos . '&';
 }
 
