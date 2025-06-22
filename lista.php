@@ -49,7 +49,7 @@ if ($query != '') {
 	if ($userOnly) {
 		$query = htmlspecialchars('@' . $queryDecode);
 	}
-	$coisodepagina = '?q=' . $query . '&';
+	$coisodepagina = '?q=' . htmlspecialchars($query) . '&';
 	
 } else {
 	$coisodepagina = '?';
