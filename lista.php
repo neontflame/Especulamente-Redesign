@@ -61,7 +61,7 @@ if ($sortCoisitos != 'recente') {
 	$coisodepagina .= 'sort=' . $sortCoisitos . '&';
 }
 
-$pages = coisos_tudo($projetos, 'projetos', $page, $query, $userQuery . $tipoQuery, ($formato == 'grade' ? 9 : 10), $sortCoiso[$sortCoisitos]);
+$pages = coisos_tudo($projetos, 'projetos', $page, htmlspecialchars_decode($query), $userQuery . $tipoQuery, ($formato == 'grade' ? 9 : 10), $sortCoiso[$sortCoisitos]);
 
 if ($userOnly) {
 	$projCount = 0;
