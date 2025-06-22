@@ -48,7 +48,7 @@ if ($query != '') {
 	if ($userOnly) {
 		$query = '@' . $query;
 	}
-	$coisodepagina = '?q=' . $query . '&';
+	$coisodepagina = '?q=' . htmlspecialchars($query) . '&';
 	
 } else {
 	$coisodepagina = '?';
