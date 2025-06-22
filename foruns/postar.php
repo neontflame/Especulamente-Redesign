@@ -95,7 +95,7 @@ $erroArray = ["Comeram seu post?", "Seu sujeito é muito curto!"]
 					foreach ($cats as $cat) {
 						if ($cat->nome != 'Avisos' || 
 						($cat->nome == 'Avisos' && ($usuario->username == 'neontflame' || $usuario->username == 'fupicat'))
-						)
+						) :
 					?>
 						<option value="<?= $cat->id ?>"><?= $cat->nome ?></option>
 					<?php endif;
