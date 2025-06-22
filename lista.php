@@ -48,11 +48,13 @@ if ($query != '') {
 	if ($userOnly) {
 		$query = '@' . $query;
 	}
-	$coisodepagina = '?q=' . $query . '&';
+	$coisodepagina = '?q=' . urlencode($query) . '&';
 	
 } else {
 	$coisodepagina = '?';
 }
+
+$coisodepaginaSemSort = $coisodepagina;
 
 if ($sortCoisitos != 'recente') {
 	$coisodepagina .= 'sort=' . $sortCoisitos . '&';
@@ -117,11 +119,11 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
   <div class="page_content">
     <div class="inside_page_content">
 		<div class="sortsCoiso">
-		<?php if ($sortCoisitos != 'recente') { ?><a href="/<?= pagetitlePorTipo($tipo) ?>/?sort=recente">mais recente</a><?php } else { ?><b>mais recente</b><?php } ?>
+		<?php if ($sortCoisitos != 'recente') { ?><a href="/<?= pagetitlePorTipo($tipo) ?>/<?= $coisodepaginaSemSort ?>sort=recente">mais recente</a><?php } else { ?><b>mais recente</b><?php } ?>
 		- 
-		<?php if ($sortCoisitos != 'mitada') { ?><a href="/<?= pagetitlePorTipo($tipo) ?>/?sort=mitada">mais mitados</a><?php } else { ?><b>mais mitados</b><?php } ?>
+		<?php if ($sortCoisitos != 'mitada') { ?><a href="/<?= pagetitlePorTipo($tipo) ?>/<?= $coisodepaginaSemSort ?>sort=mitada">mais mitados</a><?php } else { ?><b>mais mitados</b><?php } ?>
 		- 
-		<?php if ($sortCoisitos != 'sojada') { ?><a href="/<?= pagetitlePorTipo($tipo) ?>/?sort=sojada">mais sojados</a><?php } else { ?><b>mais sojados</b><?php } ?>
+		<?php if ($sortCoisitos != 'sojada') { ?><a href="/<?= pagetitlePorTipo($tipo) ?>/<?= $coisodepaginaSemSort ?>sort=sojada">mais sojados</a><?php } else { ?><b>mais sojados</b><?php } ?>
 		</div>
 		<div class="separador"></div>
       <?php if ($query != '') { ?>
