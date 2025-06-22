@@ -53,7 +53,7 @@ if ($query != '') {
 } else {
 	$coisodepagina = '?';
 }
-
+$coisodepaginaSemSort = '?';
 if ($sortCoisitos != 'recente') {
 	$coisodepaginaSemSort = $coisodepagina;
 	$coisodepagina .= 'sort=' . $sortCoisitos . '&';
