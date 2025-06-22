@@ -712,10 +712,13 @@ function reagir($id_reator, $id_reagido, $tipo_de_reagido, $tipo_de_reacao)
 	switch ($tipo_de_reagido) {
 		case 'perfil':
 			mudar_usuario($id_reagido, $alteracao);
+			break;
 		case 'projeto':
 			mudar_projeto($id_reagido, $alteracao);
+			break;
 		case 'forum':
 			mudar_forumpost($id_reagido, $alteracao);
+			break;
 	}
 
 	return $count;
@@ -793,10 +796,13 @@ function desreagir($id_reator, $id_reagido, $tipo_de_reagido, $tipo_de_reacao)
 	switch ($tipo_de_reagido) {
 		case 'perfil':
 			mudar_usuario($id_reagido, $alteracao);
+			break;
 		case 'projeto':
 			mudar_projeto($id_reagido, $alteracao);
+			break;
 		case 'forum':
 			mudar_forumpost($id_reagido, $alteracao);
+			break;
 	}
 
 	return $count;
