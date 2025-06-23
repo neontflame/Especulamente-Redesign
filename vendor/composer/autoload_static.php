@@ -6,6 +6,25 @@ namespace Composer\Autoload;
 
 class ComposerStaticInit7e1495fb2e8a2820ba6766561cd0f083
 {
+    public static $prefixLengthsPsr4 = array (
+        'W' => 
+        array (
+            'Wikimedia\\CSS\\' => 14,
+            'Wikimedia\\' => 10,
+        ),
+    );
+
+    public static $prefixDirsPsr4 = array (
+        'Wikimedia\\CSS\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/wikimedia/css-sanitizer/src',
+        ),
+        'Wikimedia\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/wikimedia/scoped-callback/src',
+        ),
+    );
+
     public static $prefixesPsr0 = array (
         'P' => 
         array (
@@ -18,11 +37,16 @@ class ComposerStaticInit7e1495fb2e8a2820ba6766561cd0f083
 
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
+        'UtfNormal\\Constants' => __DIR__ . '/..' . '/wikimedia/utfnormal/src/Constants.php',
+        'UtfNormal\\Utils' => __DIR__ . '/..' . '/wikimedia/utfnormal/src/Utils.php',
+        'UtfNormal\\Validator' => __DIR__ . '/..' . '/wikimedia/utfnormal/src/Validator.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
+            $loader->prefixLengthsPsr4 = ComposerStaticInit7e1495fb2e8a2820ba6766561cd0f083::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit7e1495fb2e8a2820ba6766561cd0f083::$prefixDirsPsr4;
             $loader->prefixesPsr0 = ComposerStaticInit7e1495fb2e8a2820ba6766561cd0f083::$prefixesPsr0;
             $loader->classMap = ComposerStaticInit7e1495fb2e8a2820ba6766561cd0f083::$classMap;
 
