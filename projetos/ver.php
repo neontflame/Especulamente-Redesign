@@ -36,6 +36,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 <style>
 	.jogo {
 		border: 1px solid #9ebbff;
+		margin-bottom: 12px;
 	}
 </style>
 <div class="container">
@@ -81,7 +82,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 					<?php endif; ?>
 					<?php if (str_ends_with($arquivo_vivel[0], '.zip')) : ?>
 						<!-- JOGOS HTML -->
-						<div class="jogo" style="margin: 0 auto;">
+						<div class="jogo">
 							<iframe width="100%" height="360" src="<?= $config['URL'] . '/static/projetos/' . $projeto->id . '/jogo/index.html' ?>" frameborder="0" allowfullscreen="true"></iframe>
 						</div>
 					<?php endif; ?>
@@ -388,14 +389,21 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 			<div class="descricao">
 				<?= responde_clickers(trocadorDeImagemCoiso($projeto->descricao)) ?>
 			</div>
-			<?php reajor_d_reagida('projeto', $projeto, $usuario, 'Postado dia ' . velhificar_data($projeto->data)) ?>
+			<?php $postadoString = '';
+			
+			if (isset($projeto->dataBump)) {
+				$postadoString .= 'Editado dia <b>' . velhificar_data($projeto->dataBump) . '</b>, ';
+			}
+			$postadoString .= 'Postado dia <b>' . velhificar_data($projeto->data) . '</b>';
+			
+			reajor_d_reagida('projeto', $projeto, $usuario, $postadoString); ?>
 		</div>
 
 	</div>
 
 	<?php include $_SERVER['DOCUMENT_ROOT'] . '/elementos/sidebar/sidebar.php'; ?>
 
-	<div class="page_content" style="min-height: 556px;">
+	<div class="page_content">
 		<div class="inside_page_content">
 			<?php vedor_d_comentario('projeto', $projeto->id, true, $usuario); ?>
 		</div>

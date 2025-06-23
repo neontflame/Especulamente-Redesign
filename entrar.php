@@ -85,10 +85,10 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
     }
   </style>
 
-  <div class="page_content" style="height: 324px">
+  <div class="page_content">
     <div class="inside_page_content">
       <?php include $_SERVER['DOCUMENT_ROOT'] . '/elementos/statusbar.php'; ?>
-      <img src="elementos/ola.png" style="margin-top: -5px; margin-left: -5px;">
+      <img src="elementos/ola.png" style="margin-top: -5px; margin-left: -5px; margin-right: -5px;">
       <form action="" method="post">
         <label for="username">nome de usuário</label>
         <input name="username" id="username" type="text" required>

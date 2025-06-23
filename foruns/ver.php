@@ -57,10 +57,23 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
 		
 		for (var i = 0; i < coiso.childElementCount; i++) {
 			console.log(coiso.children[i].tagName);
-			if (coiso.children[i].tagName == 'BLOCKQUOTE') {
-				console.log(coiso.children[i].tagName + ': ' + coiso.children[i].textContent);
-			} else {
-				document.getElementById('post_fnf').value += "\n> > " + coiso.children[i].innerText;
+			switch (coiso.children[i].tagName) {
+				case 'BLOCKQUOTE':
+					console.log(coiso.children[i].tagName + ': ' + coiso.children[i].textContent);
+					break;
+				case 'P':
+					var coiso2 = coiso.children[i];
+					for (var f = 0; f < coiso2.childElementCount; f++) {
+						switch (coiso2.children[f].tagName) {
+							case 'IMG':
+								document.getElementById('post_fnf').value += "\n> > " + '![](' + coiso2.children[f].src + ')';
+						}
+					}
+					
+				default:
+					if (coiso.children[i].innerText != '') {
+						document.getElementById('post_fnf').value += "\n> > " + coiso.children[i].innerText;
+					}
 			}
 		}
 	}
@@ -290,7 +303,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
 					</tr>
 				</table>
 
-				<?php reajor_d_reagida("forum", $post, $usuario, 'Postado dia ' . velhificar_data(forumpost_requestIDator($id)->data)) ?>
+				<?php reajor_d_reagida("forum", $post, $usuario, 'Postado dia ' . velhificar_data($post->data))?>
 			</div>
 		<?php endforeach ?>
 
@@ -309,7 +322,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
 							<div class="projTitulo postTitulo" style="width: 100%;">
 								Responder '<?= forumpost_requestIDator($id)->sujeito ?>'
 								<div style="text-align: right;">
-									<input type="file" id="inputImg" accept="image/*" style="display: none;" onchange="anexarImg(this.files)">
+									<input type="file" id="inputImg" accept="image/*" style="width: 0px; height: 0px; opacity: 0" onchange="anexarImg(this.files)">
 									<button onclick="document.getElementById('inputImg').click()" class="coolButt" style="height: 18px; margin-right: 6px;">Anexar imagem</button>
 								</div>
 							</div>
@@ -324,7 +337,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
 										</div>
 									</div>
 
-									<button type="submit" onclick="postarPost(document.getElementById('post_fnf').value, this, <?= $id ?>, <?= $ofix->id_categoria ?>, 'Resposta a \'<?= $ofix->sujeito ?>\'');" class="coolButt">
+									<button type="submit" onclick="postarPost(document.getElementById('post_fnf').value, this, <?= $id ?>, <?= $ofix->id_categoria ?>, 'Resposta a \'<?= addslashes($ofix->sujeito) ?>\'');" class="coolButt">
 										Enviar comentário
 									</button>
 

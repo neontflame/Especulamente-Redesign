@@ -6,4 +6,6 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Wikimedia\\CSS\\' => array($vendorDir . '/wikimedia/css-sanitizer/src'),
+    'Wikimedia\\' => array($vendorDir . '/wikimedia/scoped-callback/src'),
 );

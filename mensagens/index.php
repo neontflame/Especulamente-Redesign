@@ -14,9 +14,9 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 <div class="container">
 	<?php include $_SERVER['DOCUMENT_ROOT'] . '/elementos/sidebar/sidebar.php'; ?>
 
-	<div class="page_content" style="min-height: 556px">
-		<div class="inside_page_content">
-			<img src="/elementos/pagetitles/mensagens.png" style="margin-top: -5px; margin-left: -5px; border-bottom: 1px solid #BAE2FF;">
+	<div class="page_content">
+		<div class="inside_page_content" style="max-width: 432px;">
+			<img src="/elementos/pagetitles/mensagens.png" style="margin-top: -5px; margin-left: -5px; margin-right: -5px; border-bottom: 1px solid #BAE2FF;">
 			
 			<?php foreach ($mensagens as $mensagem) { 
 				if ($mensagem->lido == 0) { ?>

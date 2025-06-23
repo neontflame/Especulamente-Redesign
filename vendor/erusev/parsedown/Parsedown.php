@@ -123,7 +123,7 @@ class Parsedown
         ':' => array('Table'),
         '<' => array('Comment', 'Markup'),
         '=' => array('SetextHeader'),
-        '>' => array('Quote'),
+        '>' => array('Quote', 'Spoiler'),
         '[' => array('Reference'),
         '_' => array('Rule'),
         '`' => array('FencedCode'),
@@ -654,7 +654,7 @@ class Parsedown
 
     protected function blockQuote($Line)
     {
-        if (preg_match('/^>[ ]?(.*)/', $Line['text'], $matches))
+        if (preg_match('/^>(?![!])[ ]?(.*)/', $Line['text'], $matches))
         {
             $Block = array(
                 'element' => array(
@@ -670,7 +670,7 @@ class Parsedown
 
     protected function blockQuoteContinue($Line, array $Block)
     {
-        if ($Line['text'][0] === '>' and preg_match('/^>[ ]?(.*)/', $Line['text'], $matches))
+        if ($Line['text'][0] === '>' and preg_match('/^>(?![!])[ ]?(.*)/', $Line['text'], $matches))
         {
             if (isset($Block['interrupted']))
             {
@@ -687,6 +687,60 @@ class Parsedown
         if ( ! isset($Block['interrupted']))
         {
             $Block['element']['text'] []= $Line['text'];
+
+            return $Block;
+        }
+    }
+    #
+    # Spoiler
+
+    protected function blockSpoiler($Line)
+    {
+        if (preg_match('/^>[!](.*)/', $Line['text'], $matches))
+        {
+            $Block = array(
+                'element' => array(
+                    'name' => 'details',
+                    'handler' => 'elements',
+                    'text' => array(),
+                ),
+            );
+
+            $Block['element']['text'] []= array(
+                'name' => 'summary',
+                'handler' => 'line',
+                'text' => 'Spoiler!',
+            );
+
+            $Block['element']['text'] []= array(
+                'name' => 'p',
+                'handler' => 'lines',
+                'text' => (array) $matches[1],
+            );
+
+            return $Block;
+        }
+    }
+
+    protected function blockSpoilerContinue($Line, array $Block)
+    {
+        if ($Line['text'][0] === '>' and preg_match('/^>[!](.*)/', $Line['text'], $matches))
+        {
+            if (isset($Block['interrupted']))
+            {
+                $Block['element']['text'][1]['text'] []= '';
+
+                unset($Block['interrupted']);
+            }
+
+            $Block['element']['text'][1]['text'] []= $matches[1];
+
+            return $Block;
+        }
+
+        if ( ! isset($Block['interrupted']))
+        {
+            $Block['element']['text'][1]['text'] []= $Line['text'];
 
             return $Block;
         }

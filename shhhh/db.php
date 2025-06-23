@@ -166,7 +166,7 @@ function forumpost_requestIDator($id)
 }
 
 // Retorna o número de páginas (agora tweaked pra ter suporte pra DaveItens)
-function coisos_tudo(&$array, $table, $page = 1, $searchy = '', $queryAdicional = '', $perPage = 10)
+function coisos_tudo(&$array, $table, $page = 1, $searchy = '', $queryAdicional = '', $perPage = 10, $sorting = 'id DESC')
 {
 	global $db;
 
@@ -185,7 +185,7 @@ function coisos_tudo(&$array, $table, $page = 1, $searchy = '', $queryAdicional 
 	$pages = ceil($count / $perPage);
 	$offset = ($page - 1) * $perPage;
 
-	$rows = $db->prepare("SELECT * FROM " . $table . $searchQuery . $queryAdicional . " ORDER BY id DESC LIMIT ? OFFSET ?");
+	$rows = $db->prepare("SELECT * FROM " . $table . $searchQuery . $queryAdicional . " ORDER BY " . $sorting . " LIMIT ? OFFSET ?");
 	$rows->bindParam(1, $perPage, PDO::PARAM_INT);
 	$rows->bindParam(2, $offset, PDO::PARAM_INT);
 	$rows->execute();
@@ -712,10 +712,13 @@ function reagir($id_reator, $id_reagido, $tipo_de_reagido, $tipo_de_reacao)
 	switch ($tipo_de_reagido) {
 		case 'perfil':
 			mudar_usuario($id_reagido, $alteracao);
+			break;
 		case 'projeto':
 			mudar_projeto($id_reagido, $alteracao);
+			break;
 		case 'forum':
 			mudar_forumpost($id_reagido, $alteracao);
+			break;
 	}
 
 	return $count;
@@ -793,10 +796,13 @@ function desreagir($id_reator, $id_reagido, $tipo_de_reagido, $tipo_de_reacao)
 	switch ($tipo_de_reagido) {
 		case 'perfil':
 			mudar_usuario($id_reagido, $alteracao);
+			break;
 		case 'projeto':
 			mudar_projeto($id_reagido, $alteracao);
+			break;
 		case 'forum':
 			mudar_forumpost($id_reagido, $alteracao);
+			break;
 	}
 
 	return $count;
@@ -1040,7 +1046,11 @@ function editar_projeto($id_criador, $id_projeto, $nome, $descricao, $arquivos_n
 			}
 		}
 	}
-
+	
+	$rows = $db->prepare("UPDATE projetos SET dataBump = CURRENT_TIMESTAMP WHERE id = ?");
+	$rows->bindParam(1, $id_projeto);
+	$rows->execute();
+	
 	return projeto_requestIDator($id_projeto);
 }
 

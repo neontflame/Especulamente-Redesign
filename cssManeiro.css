@@ -65,13 +65,32 @@ table td {
   padding: 2px 4px;
 }
 
+/* spoilers oqaf */
+details {
+  margin-top: 3px;
+  border: 1px solid #5d85e2;
+}
+details summary {
+  padding: 4px;
+  background-color: #d6ebff;
+  border-bottom: 1px solid #96d6ff;
+
+  font-family: Verdana;
+}
+
+details p {
+  margin-top: -4px;
+  margin-left: 12px;
+}
+
 /* ... */
 
 .container {
   font: 12px "Verdana";
-  min-width: 600px;
+  min-width: 100%;
   padding-top: 5px;
   padding-bottom: 5px;
+  display: inline-block;
 }
 
 .left_col {
@@ -621,6 +640,7 @@ copiei do meu site to com preguiça -neon */
   float: right;
   margin-top: 8px;
   margin-right: 4px;
+  font-size: 11px;
 }
 
 /* Erros.......... */
@@ -737,4 +757,45 @@ copiei do meu site to com preguiça -neon */
 
 .statusbar.warning {
   background: darkgoldenrod;
+}
+
+/* rankings! */
+.rankeado {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+.rankeado img {
+  width: 32px;
+  height: 32px;
+  vertical-align: middle;
+}
+
+.rankeado .infoExtra {
+  color: #9EBEF7;
+  font-size: 12px;
+  font-weight: normal;
+}
+
+.rankeado .username {
+  color: #4f6bad;
+  text-decoration: none;
+}
+
+.rankeado .username:hover {
+  text-decoration: underline;
+}
+
+.rankeado .lugar1 {
+  color: #FFD800;
+}
+.rankeado .lugar2 {
+  color: #CBCBCB;
+}
+.rankeado .lugar3 {
+  color: #AD5600;
+}
+.rankeado .lugar {
+  color: #96A6FF;
 }

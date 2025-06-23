@@ -151,6 +151,7 @@ CREATE TABLE IF NOT EXISTS `projetos` (
   `arquivo_vivel` text,
   `thumbnail` text,
   `data` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `dataBump` datetime NULL DEFAULT NULL; 
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -166,6 +167,7 @@ CREATE TABLE IF NOT EXISTS `reacoes` (
   `id_reator` int NOT NULL,
   `tipo_de_reagido` enum('perfil','projeto','forum') NOT NULL,
   `id_reagido` int NOT NULL,
+  `data` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 

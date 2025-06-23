@@ -21,7 +21,7 @@ global $config;
 <head>
   <meta content="pt-br" http-equiv="Content-Language" />
   <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
-  <link href="/cssManeiro.css?v20" rel="stylesheet" type="text/css" />
+  <link href="/cssManeiro.css?v26" rel="stylesheet" type="text/css" />
   <link id="favicon" rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 
   <!-- Metas Tags -->
@@ -57,7 +57,7 @@ global $config;
             <a href="/resto/">"O resto..."</a>
           </div>
           <form action="/<?= pagetitlePorTipo($_GET['tipo'] ?? '') ?>">
-            <input type="text" id="search" name="q" placeholder="Pesquise algo lol" class="coolSearchBar" style="height: 18px; width: 200px; float:left; margin-right: 3px;" value="<?= $_GET["q"] ?? "" ?>" />
+            <input type="text" id="search" name="q" placeholder="Pesquise algo lol" class="coolSearchBar" style="height: 18px; width: 198px; float:left; margin-right: 3px;" value="<?= $_GET["q"] ?? "" ?>" />
             <button style="cursor:pointer; display: inline-block; padding: 0; border: 0;">
               <img src="/elementos/header/pesquisa.png">
             </button>
