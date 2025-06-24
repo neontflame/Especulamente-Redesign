@@ -1,5 +1,5 @@
-<?php	include_once $_SERVER['DOCUMENT_ROOT'] . '/shhhh/autoload.php'; 
-		include_once $_SERVER['DOCUMENT_ROOT'] . '/shhhh/cssCoiso.php'; ?>
+<?php include_once $_SERVER['DOCUMENT_ROOT'] . '/shhhh/autoload.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/shhhh/cssCoiso.php'; ?>
 <?php
 if (!isset($_GET['username'])) {
 	erro_404();
@@ -34,7 +34,7 @@ if (isset($_POST)) {
 
 		mudar_usuario($usuario->id, ['bio' => $bio]);
 	}
-	
+
 	if (isset($_POST['css_fnf'])) {
 		$css = $_POST['css_fnf'];
 
@@ -125,7 +125,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 				background-color: #B5DCFF;
 			}
 		</style>
-		
+
 		<style id="cssCustom">
 			<?= css_sanitario($perfil->css ?? '') ?>
 		</style>
@@ -171,49 +171,49 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 			<form action="" method="post" enctype="multipart/form-data" id="form_bnr" style="display: none;">
 				<input type="file" name="bnr_fnf" id="bnr_fnf" accept="image/*" onchange="form_bnr.submit()">
 			</form>
-		
-		<script>
-		var chromeVeio = ["8", "9", "10", "11", "12", "13", "14", "15", "16"];
-		
-		function chromeCheckUser(ver, index, element) {
-			if (window.navigator.userAgent.indexOf('Chrome/' + ver + '.') != -1) {
-				document.getElementById("bannerPica").style.margin = '-56px 0px 0px 0px'
-			}
-		}
 
-		chromeVeio.forEach(chromeCheckUser);
-		</script>
+			<script>
+				var chromeVeio = ["8", "9", "10", "11", "12", "13", "14", "15", "16"];
+
+				function chromeCheckUser(ver, index, element) {
+					if (window.navigator.userAgent.indexOf('Chrome/' + ver + '.') != -1) {
+						document.getElementById("bannerPica").style.margin = '-56px 0px 0px 0px'
+					}
+				}
+
+				chromeVeio.forEach(chromeCheckUser);
+			</script>
 		<?php endif; ?>
 
 		<div class="inside_page_content" style="max-width: 432px; word-wrap: break-word;">
 			<div style="display: table; width: 100%;">
 				<h1 style="margin: 0; float:left;"><?= $perfil->username ?></h1>
 				<?php if ($perfil_e_meu) : ?>
-				<button id="editarCss" class="coolButt" style="float:right;" 
-				onclick="
+					<button id="editarCss" class="coolButt" style="float:right;"
+						onclick="
 				form_css.style.display = 'block'
 				cancelarCss.style.display = ''; 
 				editarCss.style.display = 'none'; 
 				">Editar CSS</button>
-				<button id="cancelarCss" class="coolButt vermelho" style="float:right; display:none;" 
-				onclick="
+					<button id="cancelarCss" class="coolButt vermelho" style="float:right; display:none;"
+						onclick="
 				form_css.style.display = 'none'
 				cancelarCss.style.display = 'none'; 
 				editarCss.style.display = ''; 
 				">
-				Cancelar edição</button>
+						Cancelar edição</button>
 				<?php endif; ?>
 			</div>
 			<form action="" method="post" enctype="multipart/form-data" id="form_css" style="display: none;">
 				<textarea name="css_fnf" id="css_fnf" style="width: 425px; height: 150px;"><?= htmlspecialchars($perfil->css) ?></textarea>
-				<button id="cssPrevGo" type="button" class="coolButt verde" style="width: 49.5%;" 
-				onclick="
+				<button id="cssPrevGo" type="button" class="coolButt verde" style="width: 49.5%;"
+					onclick="
 				cssPrevGo.style.display = 'none'; 
 				cssPrevStop.style.display = ''; 
 				cssCustom.textContent = css_fnf.value;
 				">Pré-visualização</button>
-				<button id="cssPrevStop" type="button" class="coolButt vermelho" style="width: 49.5%; display:none;" 
-				onclick='
+				<button id="cssPrevStop" type="button" class="coolButt vermelho" style="width: 49.5%; display:none;"
+					onclick='
 				cssPrevGo.style.display = ""; 
 				cssPrevStop.style.display = "none"; 
 				cssCustom.textContent = <?= json_encode($perfil->css) ?>;
@@ -240,7 +240,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 				</form>
 			<?php endif; ?>
 			<div class="separador"></div>
-					<style>
+			<style>
 				.labelManeira {
 					font-size: 15px;
 					font-weight: bold;
@@ -248,20 +248,29 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 					margin-bottom: 4px;
 				}
 			</style>
-	<?php if ($projetos != []) : ?>
-		<p class="labelManeira">>> PROJETOS RECENTES</p>
-		<div class="separador" style="border-color: #c7eaf9; margin-bottom: 8px;"></div>
-		<div class="projetos">
-							<?php 
-				foreach ($projetos as $projeto) { 
-				renderarProjeto($projeto);
-				}
-				?>
-		</div>
-		<a class="autorDeProjeto" style="color: #9ebbff; font-weight:bold; text-align:right; display:block; margin-top:0px;"href="/projetos/?q=@<?= $username ?>">ver mais projetos! >></a>
-			<div class="separador"></div>
-	<?php endif; ?>
-			<p>Esse usuário tem <b><?= $perfil->davecoins ?></b> davecoins</p>
+			<?php if ($projetos != []) : ?>
+				<p class="labelManeira">>> PROJETOS RECENTES</p>
+				<div class="separador" style="border-color: #c7eaf9; margin-bottom: 8px;"></div>
+				<div class="projetos">
+					<?php
+					foreach ($projetos as $projeto) {
+						renderarProjeto($projeto);
+					}
+					?>
+				</div>
+				<a class="autorDeProjeto" style="color: #9ebbff; font-weight:bold; text-align:right; display:block; margin-top:0px;" href="/projetos/?q=@<?= $username ?>">ver mais projetos! >></a>
+				<div class="separador"></div>
+			<?php endif; ?>
+			<div class="daverank">
+				<?php $rank = obter_rank($perfil->davecoins) ?>
+				<img class="icon" src="/elementos/ranks/<?= $rank["imagem"] ?>" alt="<?= $rank["nome"] ?>" width="48" height="48">
+				<div class="direito">
+					<b><?= $rank["nome"] ?></b><span><?= $perfil->davecoins ?>/<?= $rank["davecoins_proximo"] ?> ĐvC</span>
+					<div class="barrinha">
+						<div class="juice" style="width: <?= $rank["barrinha_width"] ?>px"></div>
+					</div>
+				</div>
+			</div>
 			<?php reajor_d_reagida('perfil', $perfil, $usuario) ?>
 
 		</div>

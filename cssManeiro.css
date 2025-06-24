@@ -773,7 +773,7 @@ copiei do meu site to com preguiça -neon */
 }
 
 .rankeado .infoExtra {
-  color: #9EBEF7;
+  color: #9ebef7;
   font-size: 12px;
   font-weight: normal;
 }
@@ -788,14 +788,76 @@ copiei do meu site to com preguiça -neon */
 }
 
 .rankeado .lugar1 {
-  color: #FFD800;
+  color: #ffd800;
 }
 .rankeado .lugar2 {
-  color: #CBCBCB;
+  color: #cbcbcb;
 }
 .rankeado .lugar3 {
-  color: #AD5600;
+  color: #ad5600;
 }
 .rankeado .lugar {
-  color: #96A6FF;
+  color: #96a6ff;
+}
+
+.daverank {
+  padding-top: 6px;
+  display: table;
+}
+
+.daverank img.icon {
+  float: left;
+}
+
+.daverank .direito {
+  float: right;
+  width: 378px;
+  margin-left: 6px;
+  height: 48px;
+  display: table;
+}
+
+.daverank .direito b {
+  float: left;
+  font-size: 14px;
+  color: #545454;
+  display: block;
+}
+
+.daverank .direito span {
+  float: right;
+  display: block;
+}
+
+.daverank .direito .barrinha {
+  border: 1px solid #9ebbff;
+  margin-top: 22px;
+  width: 376px;
+  background-image: url("/elementos/ranks/vidro.png");
+
+  /* TODO PODEROSO DISPLAY TABLE */
+  /* TODO PODEROSO DISPLAY TABLE */
+  /* TODO PODEROSO DISPLAY TABLE */
+  display: table;
+  /* TODO PODEROSO DISPLAY TABLE */
+  /* TODO PODEROSO DISPLAY TABLE */
+  /* TODO PODEROSO DISPLAY TABLE */
+}
+
+.daverank .direito .barrinha .juice {
+  width: 376px;
+  height: 24px;
+  background-image: url("/elementos/ranks/davejuice.png");
+  animation: davejuice_flow 25s infinite linear;
+  -webkit-animation: davejuice_flow 25s infinite linear;
+  -moz-animation: davejuice_flow 25s infinite linear;
+}
+
+@keyframes davejuice_flow {
+  from {
+    background-position-x: 0px;
+  }
+  to {
+    background-position-x: 376px;
+  }
 }

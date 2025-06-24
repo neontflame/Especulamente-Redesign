@@ -1046,11 +1046,11 @@ function editar_projeto($id_criador, $id_projeto, $nome, $descricao, $arquivos_n
 			}
 		}
 	}
-	
+
 	$rows = $db->prepare("UPDATE projetos SET dataBump = CURRENT_TIMESTAMP WHERE id = ?");
 	$rows->bindParam(1, $id_projeto);
 	$rows->execute();
-	
+
 	return projeto_requestIDator($id_projeto);
 }
 
@@ -1185,4 +1185,34 @@ function the_filetype_image($filename, $fileCoiso)
 	];
 
 	return $filetipos[the_filetype($filename, $fileCoiso)] ?? 'text';
+}
+
+function obter_rank($davecoins_atuais)
+{
+	global $db;
+
+	$rows = $db->prepare("SELECT * FROM daveniveis ORDER BY davecoins_proximo ASC");
+	$rows->execute();
+
+	$last_row = false;
+
+	while ($row = $rows->fetch(PDO::FETCH_OBJ)) {
+		if ($davecoins_atuais < $row->davecoins_proximo) {
+			break;
+		}
+		$last_row = $row;
+	}
+
+	// quantia anteror de davcoin = Qa
+	// quantia davecoin proxima = Qp
+	// quantia atual davecoin = Qd
+
+	// 376 * ((Qd - Qa) / (Qp - Qa))
+
+	return [
+		"imagem" => $row ? $row->imagem : $last_row->imagem,
+		"nome" => $row ? $row->nome : $last_row->nome,
+		"davecoins_proximo" => $row ? $row->davecoins_proximo : $last_row->davecoins_proximo,
+		"barrinha_width" => 376 * (!$row ? 1 : (($davecoins_atuais - ($last_row ? $last_row->davecoins_proximo : 0)) / (($row ? $row->davecoins_proximo : $last_row->davecoins_proximo) - ($last_row ? $last_row->davecoins_proximo : 0))))
+	];
 }
