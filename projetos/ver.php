@@ -279,7 +279,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 						// obrigado robo
 
 						function musChangeTime() {
-							musicaDoVedor.currentTime = (Math.round((getMousePosRelativeToElement(null, musBarra).x / 568) / 4) * 4) * musicaDoVedor.duration;
+							musicaDoVedor.currentTime = ((Math.round(getMousePosRelativeToElement(null, musBarra).x / 4) * 4) / 568) * musicaDoVedor.duration;
 						}
 
 
