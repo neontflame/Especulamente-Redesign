@@ -142,7 +142,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 							<img src="/elementos/vedor_d_imagem/botaoProximo.png" alt="Próximo">
 						</button>
 						<div id="outrasImagens">
-							<?php $tiposDeVideo = ['mp4', 'ogg', 'avi', 'mkv'];
+							<?php $tiposDeVideo = ['mp4', 'avi', 'mkv'];
 							$tiposDeFlash = ['swf']; // provavelmente nao existe mais tipos de flash do que swf mas eu fiquei com preguiça e vai que minha hipotese e desprovada eventualmente					
 							$tiposDeAudio = ['mp3', 'wav', 'ogg'];
 							?>
