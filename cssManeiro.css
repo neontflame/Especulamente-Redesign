@@ -844,13 +844,14 @@ copiei do meu site to com preguiça -neon */
   /* TODO PODEROSO DISPLAY TABLE */
 }
 
+/* aqui esta um exemplo de como desenvolver para Varios Browsers */
 .daverank .direito .barrinha .juice {
   width: 376px;
   height: 24px;
   background-image: url("/elementos/ranks/davejuice.png");
   animation: davejuice_flow 25s infinite linear;
-  -webkit-animation: davejuice_flow 25s infinite linear;
-  -moz-animation: davejuice_flow 25s infinite linear;
+  -webkit-animation: davejuice_webkitflow 25s infinite linear;
+  -moz-animation: davejuice_mozflow 25s infinite linear;
 }
 
 @keyframes davejuice_flow {
@@ -861,3 +862,22 @@ copiei do meu site to com preguiça -neon */
     background-position-x: 376px;
   }
 }
+
+@-webkit-keyframes davejuice_webkitflow {
+  from {
+    background-position-x: 0px;
+  }
+  to {
+    background-position-x: 376px;
+  }
+}
+
+@-moz-keyframes davejuice_mozflow {
+  from {
+    background-position-x: 0px;
+  }
+  to {
+    background-position-x: 376px;
+  }
+}
+
