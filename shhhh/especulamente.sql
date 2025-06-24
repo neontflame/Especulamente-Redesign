@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Tempo de geração: 11/05/2025 às 14:45
--- Versão do servidor: 9.1.0
--- Versão do PHP: 8.0.30
+-- Tempo de geração: 24/06/2025 às 01:07
+-- Versão do servidor: 8.3.0
+-- Versão do PHP: 8.2.18
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -66,21 +66,24 @@ CREATE TABLE IF NOT EXISTS `daveitens` (
   `descricao` text NOT NULL,
   `daveprice` int NOT NULL,
   `compravel` tinyint(1) NOT NULL DEFAULT '1',
+  `imagem` varchar(255) NOT NULL,
+  `consumivel` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `inventario`
+-- Estrutura para tabela `daveniveis`
 --
 
-CREATE TABLE IF NOT EXISTS `inventario` (
+CREATE TABLE IF NOT EXISTS `daveniveis` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `id_usuario` int NOT NULL,
-  `id_item` int NOT NULL,
+  `nome` varchar(255) NOT NULL,
+  `imagem` varchar(255) NOT NULL,
+  `davecoins_proximo` int NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -119,6 +122,20 @@ CREATE TABLE IF NOT EXISTS `forum_posts` (
 -- --------------------------------------------------------
 
 --
+-- Estrutura para tabela `inventario`
+--
+
+CREATE TABLE IF NOT EXISTS `inventario` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `id_usuario` int NOT NULL,
+  `id_item` int NOT NULL,
+  `dados` text NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura para tabela `mensagens`
 --
 
@@ -129,6 +146,7 @@ CREATE TABLE IF NOT EXISTS `mensagens` (
   `html` text NOT NULL,
   `icone` text NOT NULL,
   `lido` tinyint(1) NOT NULL DEFAULT '0',
+  `davecoins` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -149,9 +167,9 @@ CREATE TABLE IF NOT EXISTS `projetos` (
   `mitadas` int NOT NULL,
   `sojadas` int NOT NULL,
   `arquivo_vivel` text,
-  `thumbnail` text,
+  `thumbnail` varchar(255) NOT NULL,
   `data` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `dataBump` datetime NULL DEFAULT NULL; 
+  `dataBump` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -163,11 +181,10 @@ CREATE TABLE IF NOT EXISTS `projetos` (
 
 CREATE TABLE IF NOT EXISTS `reacoes` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `tipo_de_reacao` enum('mitada','sojada') NOT NULL,
+  `tipo_de_reacao` enum('mitada','sojada') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `id_reator` int NOT NULL,
-  `tipo_de_reagido` enum('perfil','projeto','forum') NOT NULL,
+  `tipo_de_reagido` enum('perfil','projeto') NOT NULL,
   `id_reagido` int NOT NULL,
-  `data` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -202,7 +219,7 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
   `sojadas` int NOT NULL,
   `pfp` varchar(255) NOT NULL,
   `banner` varchar(255) NOT NULL,
-  `davecoins` int NOT NULL DEFAULT '0',
+  `davecoins` int NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 COMMIT;
