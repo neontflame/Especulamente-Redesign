@@ -314,7 +314,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 						}
 						
 						function musChangeVolume() {
-							var oVolucio = getMousePosRelativeToElement(null, musVolBarra).x / 5;
+							var oVolucio = getMousePosRelativeToElement(null, musVolBarra).x;
 							if (oVolucio > 1) {
 								musicaDoVedor.volume = 1;
 							} else if (oVolucio < 0) {
