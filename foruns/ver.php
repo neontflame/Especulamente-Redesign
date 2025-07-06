@@ -12,7 +12,7 @@ if ($ofix->id_resposta != -1) {
 }
 
 if ($categoria != $ofix->id_categoria) {
-	redirect('/foruns/' . $ofix->id_categoria . '/' . $ofix->id_resposta . '#post_' . $id);
+	redirect('/foruns/' . $ofix->id_categoria . '/' . $id);
 }
 
 $meta["titulo"] = "[" . forumpost_requestIDator($id)->sujeito . " <> " . categoria_requestIDator(forumpost_requestIDator($id)->id_categoria)->nome . " <> Fóruns do PORTAL ESPECULAMENTE]";
