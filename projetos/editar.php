@@ -135,7 +135,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 						<button type="button" class="abaButt abaAtiva" onclick="inativarAsAbas(); this.className = 'abaButt abaAtiva'; abaNavs.style.display = 'block';">Jogo p/navegadores</button>
 						<?php endif;?>
 						<?php if ($projeto->tipo != 'rt') : ?>
-						<button type="button" class="abaButt" onclick="inativarAsAbas(); this.className = 'abaButt abaAtiva'; abaArquivos.style.display = 'block';">Downloadáveis</button>
+						<button type="button" class="abaButt" onclick="inativarAsAbas(); this.className = 'abaButt abaAtiva'; abaArquivos.style.display = 'block';"><?= $projeto->tipo == 'jg' ? 'Downloadáveis' : ($projeto->tipo == 'bg' ? 'Anexos no post' : 'Arquivos') ?></button>
 						<?php endif;?>
 						<button type="button" class="abaButt" onclick="inativarAsAbas(); this.className = 'abaButt abaAtiva'; abaThumb.style.display = 'block';">Thumbnail</button>
 					</div>
@@ -164,11 +164,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 
 					<?php if ($projeto->tipo != 'rt'): ?>
 						<div class="aba" id="abaArquivos">
-							<?php if ($projeto->tipo == 'bg') { ?>
-								<label class="labelManeira">>> ANEXOS NO POST</label>
-							<?php } else { ?>
-								<label class="labelManeira">>> ARQUIVOS <?= $projeto->tipo == 'jg' ? 'DOWNLOADÁVEIS' : '' ?></label>
-							<?php } ?>
 							<input type="hidden" name="ordem" value="<?= $projeto->arquivos_de_vdd ?>">
 							<div id="multiFileUploader" style="margin-bottom: 10px;">
 								<ul class="files">
