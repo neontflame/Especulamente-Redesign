@@ -4,7 +4,7 @@ login_obrigatorio($usuario);
 ?>
 <?php
 $erro = [];
-$sucesso = "";
+$sucesso = [];
 $id = $_GET['id'] ?? null;
 $projeto = projeto_requestIDator($id);
 
@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 
 	if (count($erro) == 0) {
 		$projeto = $projeto_rtn;
-		$sucesso = "Projeto editado com sucesso! :]";
+		$sucesso = ["Projeto editado com sucesso! :]"];
 	}
 }
 ?>
