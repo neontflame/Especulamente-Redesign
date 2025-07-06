@@ -11,11 +11,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 
 		if ($respondido == -1) {
 			if ($sujeito == null && $comentario == '') {
-				redirect('/foruns/postar/?erro=1');
+				$_SESSION['erroPost'] = 'Comeram seu post?';
+				redirect('/foruns/postar/');
 			}
 
 			if (strlen($sujeito) < 3) {
-				redirect('/foruns/postar/?erro=2');
+				$_SESSION['erroPost'] = 'Seu sujeito é muito curto!!';
+				redirect('/foruns/postar/');
 			}
 		}
 

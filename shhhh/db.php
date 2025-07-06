@@ -1147,6 +1147,7 @@ function the_filetype($filename, $fileCoiso)
 function the_filetype_image($filename, $fileCoiso)
 {
 	$filetipos = [
+		'rtf' => 'richText',
 		'png' => 'img',
 		'jpg' => 'img',
 		'jpeg' => 'img',

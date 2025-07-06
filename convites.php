@@ -44,6 +44,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
 
   <div class="page_content">
     <div class="inside_page_content">
+		<?php include $_SERVER['DOCUMENT_ROOT'] . '/elementos/statusbar.php'; ?>
       <h2>Seus convites</h2>
       <h3>Criar novo convite</h3>
       <form action="" method="post">
@@ -51,9 +52,6 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
         <input type="text" name="codigo" id="codigo">
         <button>Criar</button>
       </form>
-      <?php if (isset($erro)) : ?>
-        <p><?= $erro ?></p>
-      <?php endif ?>
       <ul id="convites">
         <?php
         foreach (obter_convites_criados_por($usuario->id) as $convite) {

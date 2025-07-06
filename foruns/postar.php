@@ -8,9 +8,8 @@ login_obrigatorio($usuario);
 
 include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
 
-$erro = $_GET['erro'] ?? null;
-
-$erroArray = ["Comeram seu post?", "Seu sujeito é muito curto!"]
+$erro = $_SESSION['erroPost'] ?? null;
+unset($_SESSION['erroPost']);
 ?>
 <style>
 		label {
@@ -121,15 +120,8 @@ $erroArray = ["Comeram seu post?", "Seu sujeito é muito curto!"]
 		<p><a href="/foruns">Fóruns</a> >> <i style="color: #4f6bad">Postar</i></p>
 	</div>
 	<div>
-		<?php if (isset($erro)) : ?>
-			<div class="erro" style="color: red; background: black; text-align: center;">
-				<img src="/static/skull-and-cross.gif" width="24" height="24" />
-				<?= $erroArray[$erro - 1] ?>
-				<img src="/static/skull-and-cross.gif" width="24" height="24" />
-			</div>
-		<?php endif; ?>
-
 		<div class="inside_page_content">
+			<?php include $_SERVER['DOCUMENT_ROOT'] . '/elementos/statusbar.php'; ?>
 			Proponha algo a ser discutido!
 			<form action="/foruns/postarPost.php" method="post" enctype="multipart/form-data">
 				<label for="categoria" class="labelManeira">>> CATEGORIA</label>

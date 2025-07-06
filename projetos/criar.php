@@ -88,21 +88,40 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
     margin-top: 5px;
     margin-bottom: 5px;
   }
+  
+  .statusbar {
+    margin-right: 0px;
+  }
+
+  .aba {
+    display:none;
+  }
+
+  #abaBotoes {
+    display:table;
+    width: 100%;
+    margin-top: 6px;
+  }
+  .abaButt {
+    border: 1px solid #9EBBFF;
+    background-color: #CCDBFF;
+    width: <?= ($tipo == 'jg' ? '33' : '49') ?>%;
+    font-size: 14px;
+    margin-right:-5px;
+  }
+
+  .abaAtiva {
+    border-bottom: 1px solid #FFFFFF !important;
+    background-color: white;
+  }
 </style>
 
 <div class="container">
   <?php include $_SERVER['DOCUMENT_ROOT'] . '/elementos/sidebar/sidebar.php'; ?>
 
   <div class="page_content">
-    <?php if ($erro) : ?>
-      <div class="erro" style="color: red; background: black; text-align: center;">
-        <img src="/static/skull-and-cross.gif" width="24" height="24" />
-        <?= $erro[0] ?>
-        <img src="/static/skull-and-cross.gif" width="24" height="24" />
-      </div>
-    <?php endif; ?>
-
     <div class="inside_page_content" style="padding-right: 0px;">
+      <?php include $_SERVER['DOCUMENT_ROOT'] . '/elementos/statusbarArray.php'; ?>
       <?php if ($tipo != null) : ?>
         <a href="/criar"><img style="margin-left: -5px; margin-top: -5px;" src="/elementos/voltar.png"></a>
       <?php endif; ?>
@@ -173,7 +192,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
         <?php endforeach;
         } ?>
       <?php endif; ?>
-
+      
+      <script>
+          function inativarAsAbas() {
+            var abaBotoes = document.getElementById('abaBotoes');
+            for (var i = 0; i < abaBotoes.children.length; i++) {
+              abaBotoes.children[i].className = 'abaButt';
+            }
+            
+            var abasReais = document.getElementsByClassName('aba');
+            for (var i = 0; i < abasReais.length; i++) {
+              abasReais[i].style.display = 'none';
+            }
+          }
+      </script>
       <?php if ($tipo == 'bg') : ?>
         <script>
           function extractFilename(path) {
@@ -207,20 +239,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
           <label for="descricao" class="labelManeira">>> POSTAGEM</label>
           <textarea style="width: 97%" name="descricao" id="descricao"><?= $descricao ?? "" ?></textarea>
           <br>
+          
           <div class="separador"></div>
-          <label for="arquivos" class="labelManeira">>> ANEXOS NO POST</label>
-          <div id="multiFileUploader" style="margin-bottom: 10px;">
-            <ul class="files">
+          <!-- abas wuatafaq -->
+          <div id="abaBotoes">
+            <button type="button" class="abaButt abaAtiva" onclick="inativarAsAbas(); this.className = 'abaButt abaAtiva'; abaAnexos.style.display = 'table';">Anexos no post</button>
+            <button type="button" class="abaButt" onclick="inativarAsAbas(); this.className = 'abaButt abaAtiva'; abaThumb.style.display = 'table';">Thumbnail (opcional)</button>
+          </div>
+          
+          <div class="aba" id="abaAnexos" style="display:table;">
+            <div id="multiFileUploader" style="margin-bottom: 10px;">
+              <ul class="files">
 
-            </ul>
-            <button class="coolButt grandissimo" type="button" onclick="addMais1()">+ Adicionar mais um</button>
+              </ul>
+              <button class="coolButt grandissimo" type="button" onclick="addMais1()">+ Adicionar mais um</button>
+            </div>
           </div>
 
-          <div class="separador"></div>
-          <label for="thumb" class="labelManeira">>> THUMBNAIL (opcional)</label>
-          <p>A resolução dessa imagem pode ser qualquer uma, mas preferencialmente 92x76!</p>
-          <input type="file" name="thumb" id="thumb" accept=".png,.jpg,.jpeg,.gif,.bmp">
-
+          <div class="aba" id="abaThumb">
+            <p>A resolução dessa imagem pode ser qualquer uma, mas preferencialmente 92x76!</p>
+            <input type="file" name="thumb" id="thumb" accept=".png,.jpg,.jpeg,.gif,.bmp">
+          </div>
+          
           <button type="submit" class="coolButt verde grandissimo">Criar</button>
         </form>
       <?php endif; ?>
@@ -269,35 +309,41 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
           <textarea style="width: 97%" name="descricao" id="descricao"><?= $descricao ?? "" ?></textarea>
           <br>
           <div class="separador"></div>
-          <label for="arquivoJogavel" class="labelManeira">>> ARQUIVO PRA NAVEGADORES</label>
-          <p>Esse arquivo deve ser:</p>
-          <ul>
-            <li>Um arquivo .swf/.sb/.sb2/.sb3 contendo seu jogo inteiro;</li>
-            <li>OU um arquivo .zip com um index.html dentro que tenha o seu jogo;</li>
-            <li>OU apenas um index.html</li>
-          </ul>
-          <p>Se o seu jogo não rodar em navegador, deixe em branco.</p>
-          <input type="file" name="arquivoJogavel" id="arquivoJogavel" accept=".swf,.zip,.html,.sb,.sb2,.sb3">
-          <p>Limite: <b>1GB</b></p>
-
-          <div class="separador"></div>
-          <label for="thumb" class="labelManeira">>> THUMBNAIL</label>
-          <p>A resolução dessa imagem pode ser qualquer uma, mas preferencialmente 92x76!</p>
-          <input type="file" name="thumb" id="thumb" accept=".png,.jpg,.jpeg,.gif,.bmp">
-          <!-- ^ esse código tem ALMA -->
-
-          <div class="separador"></div>
-
-          <label for="arquivos" class="labelManeira">>> ARQUIVOS DOWNLOADÁVEIS</label>
-          <p>CASO o seu jogo possa ser baixado, ou tenha versão baixável, ou seja apenas baixável, suba aqui. Caso contrário, deixe em branco</p>
-          <div id="multiFileUploader" style="margin-bottom: 10px;">
-            <ul class="files">
-
-            </ul>
-            <button class="coolButt grandissimo" type="button" onclick="addMais1()">+ Adicionar mais um</button>
+          
+          <!-- abas wuatafaq -->
+          <div id="abaBotoes">
+            <button type="button" class="abaButt abaAtiva" onclick="inativarAsAbas(); this.className = 'abaButt abaAtiva'; abaNavs.style.display = 'table';">Jogo p/navegadores</button>
+            <button type="button" class="abaButt" onclick="inativarAsAbas(); this.className = 'abaButt abaAtiva'; abaThumb.style.display = 'table';">Thumbnail</button>
+            <button type="button" class="abaButt" onclick="inativarAsAbas(); this.className = 'abaButt abaAtiva'; abaArquivos.style.display = 'table';">Downloadáveis</button>
           </div>
-          <p>Limite: <b>continua 1GB</b></p>
+          
+          <div class="aba" id="abaNavs" style="display:table";>
+            <p>Esse arquivo deve ser:</p>
+            <ul>
+              <li>Um arquivo .swf/.sb/.sb2/.sb3 contendo seu jogo inteiro;</li>
+              <li>OU um arquivo .zip com um index.html dentro que tenha o seu jogo;</li>
+              <li>OU apenas um index.html</li>
+            </ul>
+            <p>Se o seu jogo não rodar em navegador, deixe em branco.</p>
+            <input type="file" name="arquivoJogavel" id="arquivoJogavel" accept=".swf,.zip,.html,.sb,.sb2,.sb3">
+            <p>Limite: <b>1GB</b></p>
+          </div>
+          <div class="aba" id="abaThumb">
+            <p>A resolução dessa imagem pode ser qualquer uma, mas preferencialmente 92x76!</p>
+            <input type="file" name="thumb" id="thumb" accept=".png,.jpg,.jpeg,.gif,.bmp">
+            <!-- ^ esse código tem ALMA -->
+          </div>
+          <div class="aba" id="abaArquivos">
+            <p>CASO o seu jogo possa ser baixado, ou tenha versão baixável, ou seja apenas baixável, suba aqui. Caso contrário, deixe em branco</p>
+            <div id="multiFileUploader" style="margin-bottom: 10px;">
+              <ul class="files">
 
+              </ul>
+              <button class="coolButt grandissimo" type="button" onclick="addMais1()">+ Adicionar mais um</button>
+            </div>
+            <p>Limite: <b>continua 1GB</b></p>
+          </div>
+          <div class="separador"></div>
           <button type="submit" class="coolButt verde grandissimo">Criar</button>
         </form>
 
@@ -319,23 +365,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
           <label for="descricao" class="labelManeira">>> DESCRIÇÃO</label>
           <textarea style="width: 97%" name="descricao" id="descricao"><?= $descricao ?? "" ?></textarea>
           <br>
-
-          <div class="separador"></div>
-          <label for="thumb" class="labelManeira">>> THUMBNAIL</label>
-          <p>A resolução dessa imagem pode ser qualquer uma, mas preferencialmente 124x124px!</p>
-          <input type="file" name="thumb" id="thumb" accept=".png,.jpg,.jpeg,.gif,.bmp">
-          <!-- ^ esse código tem ALMA -->
-
-          <div class="separador"></div>
-          <label for="arquivos" class="labelManeira">>> IMAGENS E VÍDEOS</label>
-          <div id="multiFileUploader" style="margin-bottom: 10px;">
-            <ul class="files">
-
-            </ul>
-            <button class="coolButt grandissimo" type="button" onclick="addMais1()">+ Adicionar mais um</button>
+          <!-- abas wuatafaq -->
+          <div id="abaBotoes">
+            <button type="button" class="abaButt abaAtiva" onclick="inativarAsAbas(); this.className = 'abaButt abaAtiva'; abaMidias.style.display = 'table';">Imagens e vídeos</button>
+            <button type="button" class="abaButt" onclick="inativarAsAbas(); this.className = 'abaButt abaAtiva'; abaThumb.style.display = 'table';">Thumbnail</button>
           </div>
+          
+          <div class="aba" id="abaMidias" style="display: table;">
+            <div id="multiFileUploader" style="margin-bottom: 10px;">
+              <ul class="files">
 
-
+              </ul>
+              <button class="coolButt grandissimo" type="button" onclick="addMais1()">+ Adicionar mais um</button>
+            </div>
+          </div>
+          
+          <div class="aba" id="abaThumb">
+            <p>A resolução dessa imagem pode ser qualquer uma, mas preferencialmente 124x124px!</p>
+            <input type="file" name="thumb" id="thumb" accept=".png,.jpg,.jpeg,.gif,.bmp">
+            <!-- ^ esse código tem ALMA -->
+          </div>
+          
+          <div class="separador"></div>
           <button type="submit" class="coolButt verde grandissimo">Criar</button>
         </form>
       <?php endif; ?>
@@ -355,19 +406,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
           <label for=" descricao" class="labelManeira">>> DESCRIÇÃO</label>
           <textarea style="width: 97%" name="descricao" id="descricao"><?= $descricao ?? "" ?></textarea>
           <br>
+          <!-- abas wuatafaq -->
+          <div id="abaBotoes">
+            <button type="button" class="abaButt abaAtiva" onclick="inativarAsAbas(); this.className = 'abaButt abaAtiva'; abaPasta.style.display = 'table';">Nome da pasta</button>
+            <button type="button" class="abaButt" onclick="inativarAsAbas(); this.className = 'abaButt abaAtiva'; abaThumb.style.display = 'table';">Thumbnail</button>
+          </div>
+          
+          <div class="aba" id="abaPasta" style="display: table;">
+            <p>Sem espaços nem acentos, nem qlq coisa esquisita.</p>
+            <p>Seu site estará disponível na página /~[nome_da_pasta]</p>
+            <input type="text" style="width: 97%" id="pasta" name="pasta" required pattern="[a-zA-Z0-9_-]+" value="<?= $pasta ?? "" ?>">
+            <br>
+          </div>
 
-          <label for="pasta" class="labelManeira">>> NOME DA PASTA</label>
-          <p>Sem espaços nem acentos, nem qlq coisa esquisita.</p>
-          <p>Seu site estará disponível na página /~[nome_da_pasta]</p>
-          <input type="text" style="width: 97%" id="pasta" name="pasta" required pattern="[a-zA-Z0-9_-]+" value="<?= $pasta ?? "" ?>">
-          <br>
-
+          <div class="aba" id="abaThumb">
+            <p>A resolução dessa imagem pode ser qualquer uma, mas preferencialmente 92x76!</p>
+            <input type="file" name="thumb" id="thumb" accept=".png,.jpg,.jpeg,.gif,.bmp">
+            <!-- ^ esse código tem ALMA -->
+          </div>
           <div class="separador"></div>
-          <label for="thumb" class="labelManeira">>> THUMBNAIL</label>
-          <p>A resolução dessa imagem pode ser qualquer uma, mas preferencialmente 92x76!</p>
-          <input type="file" name="thumb" id="thumb" accept=".png,.jpg,.jpeg,.gif,.bmp">
-          <!-- ^ esse código tem ALMA -->
-
           <button type="submit" class="coolButt verde grandissimo">Criar</button>
         </form>
 
