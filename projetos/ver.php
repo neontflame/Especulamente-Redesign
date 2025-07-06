@@ -188,15 +188,16 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 								<button type="button" id="musPauseButton" style="display:none" onclick="musicaPause()"><img src="/elementos/vedor_d_audio/pauseButt.png"></button>
 							</div>
 							<div class="tocador">
-								<div class="barrinha" id="musBarra" onclick="musChangeTime();">
+								<div class="barrinha" id="musBarra" onmousedown="mudarMouseSeguro('tempo');">
 									<div id="musSuco" class="juice"></div>
 									<div id="musSucoSeek" class="juiceseek"></div>
 								</div>
 								<div class="info">
 									<span id="musInfoTempo" class="tempo">0:00/sei:la</span>
-									<div class="barrinha volume" id="musVolBarra" onclick="musChangeVolume();">
+									<div class="barrinha volume" id="musVolBarra" onmousedown="mudarMouseSeguro('volume');">
 										<div id="musVolSuco" class="juice"></div>
 									</div>
+									<a href="" download="" id="musInfoFile" class="filename" style="font-weight: bold">Baixar áudio!</a>
 									<span id="musInfoFilename" class="filename">"Um negocio.ogg"</span>
 								</div>
 							</div>
@@ -278,14 +279,64 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 
 						// obrigado robo
 
+						var mouseSeguro = '';
+						var pauseDeMexerComOTempo = false;
+						
+						document.addEventListener('mousemove', function(e) {
+							mouseCoisos();
+						});
+						
+						document.addEventListener('mousedown', function(e) {
+							mouseCoisos();
+						});
+						
+						window.addEventListener("mouseup", function(e) {
+							if (mouseSeguro === 'tempo' && pauseDeMexerComOTempo == true) {
+								musicaPlay();
+								pauseDeMexerComOTempo = false;
+							}
+							
+							mouseSeguro = '';
+						});
+						
 						function musChangeTime() {
-							musicaDoVedor.currentTime = ((Math.floor(getMousePosRelativeToElement(null, musBarra).x / 5) * 5) / 568) * musicaDoVedor.duration;
+							pauseDeMexerComOTempo = true;
+							musicaPause();
+							
+							var oTempcio = (getMousePosRelativeToElement(null, musBarra).x / 568) * musicaDoVedor.duration;
+							if (oTempcio > musicaDoVedor.duration) {
+								musicaDoVedor.currentTime = musicaDoVedor.duration;
+							} else if (oTempcio < 0) {
+								musicaDoVedor.currentTime = 0;
+							} else {
+								musicaDoVedor.currentTime = oTempcio;
+							}
 						}
-
-
+						
 						function musChangeVolume() {
-							musicaDoVedor.volume = (Math.round(getMousePosRelativeToElement(null, musVolBarra).x / 5) * 0.05);
+							var oVolucio = getMousePosRelativeToElement(null, musVolBarra).x / 5;
+							if (oVolucio > 1) {
+								musicaDoVedor.volume = 1;
+							} else if (oVolucio < 0) {
+								musicaDoVedor.volume = 0;
+							} else {
+								musicaDoVedor.volume = oVolucio;
+							}
 							musVolSuco.style.width = (100 * musicaDoVedor.volume) + 'px';
+						}
+						
+						function mudarMouseSeguro(coiso) {
+							console.log(coiso);
+							mouseSeguro = coiso;
+						}
+						
+						function mouseCoisos() {
+							if (mouseSeguro === 'tempo') {
+								musChangeTime();
+							}
+							if (mouseSeguro === 'volume') {
+								musChangeVolume();
+							}
 						}
 						</script>
 						<a href="/elementos/chillmaia.png" target="_blank" id="imagemAtual" style="display: none;">
@@ -476,6 +527,8 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 									document.getElementById("audioAtual").style.display = "table";
 									musicaDoVedor.src = img.getAttribute('data-static');
 									musInfoFilename.innerText = '"' + img.getAttribute('data-filename') + '"';
+									musInfoFile.href = img.getAttribute('data-static');
+									musInfoFile.download = img.getAttribute('data-filename');
 								} else {
 									// IMAGENS
 									document.getElementById("videoAtual").pause();

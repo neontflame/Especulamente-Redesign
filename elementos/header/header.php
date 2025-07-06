@@ -84,7 +84,7 @@ global $config;
           <div class="coolLinkery">
             <?php if (isset($usuario)) : ?>
               <?php if (isset($forum)) { ?>
-                <a href="/foruns/postar" style="color: darkblue;">+ POSTAR</a>
+                <a href="/foruns/postar<?php if (isset($getDeCategoria)) { if (isset($_GET[$getDeCategoria])) { ?>?cat=<?php echo $_GET[$getDeCategoria]; } } ?>" style="color: darkblue;">+ POSTAR</a>
               <?php } else { ?>
                 <a href="/criar" style="color: forestgreen;">+ CRIAR</a>
               <?php } ?>

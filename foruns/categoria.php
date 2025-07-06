@@ -1,6 +1,7 @@
 <?php include_once $_SERVER['DOCUMENT_ROOT'] . '/shhhh/autoload.php'; ?>
 <?php 
 $forum = true;
+$getDeCategoria = 'id';
 $id = $_GET['id'] ?? 1;
 
 if (categoria_requestIDator($id) == null) {
@@ -37,7 +38,8 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
 <div class="container">
 	<div>
 		<div class="projTitulo">
-			<p><a href="/foruns">Fóruns</a> >> <i style="color: #4f6bad"><?= categoria_requestIDator($id)->nome ?></i></p>
+			<p style="display: inline-block;"><a href="/foruns">Fóruns</a> >> <i style="color: #4f6bad"><?= categoria_requestIDator($id)->nome ?></i></p>
+			<!-- <a class="postNaCat" href="/foruns/postar?cat=<?= $id ?>">+ Postar nessa categoria</a> -->
 		</div>
 		
 		<div class="inside_page_content" style="max-width: 621px;">
@@ -70,6 +72,26 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
 					font-weight: bold;
 					margin-top: 4px;
 					margin-bottom: 8px;
+				}
+				
+				table td a {
+					text-decoration: none;
+				}
+				
+				table td a:hover {
+					text-decoration: underline;
+				}
+				
+				.postNaCat {
+					text-decoration: none;
+					color: #4f6bad;
+					float: right; 
+					margin: 4px; 
+					font-weight: bold;
+				}
+				
+				.postNaCat:hover {
+					text-decoration: underline;
 				}
 			</style>
 				<table style="margin-left: -6px; margin-top: -6px; width: 633px;">

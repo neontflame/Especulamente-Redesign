@@ -1,12 +1,17 @@
 <?php include_once $_SERVER['DOCUMENT_ROOT'] . '/shhhh/autoload.php'; ?>
 <?php
 $forum = true;
+$getDeCategoria = 'categoria';
 
 $id = $_GET['id'] ?? 1;
 $ofix = forumpost_requestIDator($id);
 $categoria = $_GET['categoria'] ?? $ofix->id_categoria;
 
 if ($ofix->id_resposta != -1) {
+	redirect('/foruns/' . $ofix->id_categoria . '/' . $ofix->id_resposta . '#post_' . $id);
+}
+
+if ($categoria != $ofix->id_categoria) {
 	redirect('/foruns/' . $ofix->id_categoria . '/' . $ofix->id_resposta . '#post_' . $id);
 }
 
@@ -222,6 +227,14 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
 		.oReajorEmSi {
 			min-width: 102px;
 		}
+		
+		.fucInfo {
+			font-size: 10px;
+		}
+		
+		.fucInfo b {
+			font-size: 12px;
+		}
 	</style>
 	<div>
 		<div class="projTitulo">
@@ -247,9 +260,12 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
 						<td class="forumUserCoiso">
 							<a href="/usuarios/<?= usuario_requestIDator($post->id_postador)->username ?>"><img src="<?= pfp(usuario_requestIDator($post->id_postador)) ?>" width="64" height="64"></a>
 							<a class="forumUser" href="/usuarios/<?= usuario_requestIDator($post->id_postador)->username ?>"><?= usuario_requestIDator($post->id_postador)->username ?></a>
-							<?= quantReacoes($post->id_postador, 'mitada') ?> mitadas
-							<br><?= quantReacoes($post->id_postador, 'sojada') ?> sojadas
-							<br><?= quantPosts($post->id_postador) ?> posts
+							<div class="fucInfo">
+							<b><?= $rank = obter_rank(usuario_requestIDator($post->id_postador)->davecoins)["nome"]; ?></b>
+								<br><?= quantReacoes($post->id_postador, 'mitada') ?> mitadas
+								<br><?= quantReacoes($post->id_postador, 'sojada') ?> sojadas
+								<br><?= quantPosts($post->id_postador) ?> posts
+							</div>
 						</td>
 						<td style="min-width: 500px; max-width: 500px; overflow-x: auto; background-color: white; vertical-align: top;">
 							<div class="projTitulo postTitulo" style="width: 100%;">
@@ -314,9 +330,12 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
 						<td class="forumUserCoiso">
 							<a href="/usuarios/<?= $usuario->username ?>"><img src="<?= pfp($usuario) ?>" width="64" height="64"></a>
 							<a class="forumUser" href="/usuarios/<?= $usuario->username ?>"><?= $usuario->username ?></a>
-							<?= quantReacoes($usuario->id, 'mitada') ?> mitadas
-							<br><?= quantReacoes($usuario->id, 'sojada') ?> sojadas
-							<br><?= quantPosts($usuario->id) ?> posts
+							<div class="fucInfo">
+								<b><?= $rank = obter_rank($usuario->davecoins)["nome"]; ?></b>
+								<br><?= quantReacoes($usuario->id, 'mitada') ?> mitadas
+								<br><?= quantReacoes($usuario->id, 'sojada') ?> sojadas
+								<br><?= quantPosts($usuario->id) ?> posts
+							</div>
 						</td>
 						<td style="min-width: 500px; max-width: 500px; overflow-x: auto; background-color: white; vertical-align: top;">
 							<div class="projTitulo postTitulo" style="width: 100%;">
