@@ -207,7 +207,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 
 					<?php if ($projeto->tipo == 'jg' || $projeto->tipo == 'rt' ||	$projeto->tipo == 'md' ||	$projeto->tipo == 'bg') : ?>
 						<div class="aba" id="abaThumb">
-							<label for="thumb" class="labelManeira">>> THUMBNAIL</label>
 							<input type="file" name="thumb" id="thumb" accept=".png,.jpg,.jpeg,.gif,.bmp">
 
 							<p>Deixe em branco para deixar a mesma thumbnail que está agora.</p>
