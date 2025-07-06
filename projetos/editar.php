@@ -205,10 +205,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 						</div>
 					<?php endif; ?>
 
-					<?php if ($projeto->tipo == 'rt'): ?>
-						<a href="/gerenciator/index.php?pasta=<?= $projeto->arquivos_de_vdd ?>" target="_blank" class="coolButt grandissimo" style="font-size: 30px; margin-bottom: 20px">Editar site!!!</a>
-					<?php endif; ?>
-
 					<?php if ($projeto->tipo == 'jg' || $projeto->tipo == 'rt' ||	$projeto->tipo == 'md' ||	$projeto->tipo == 'bg') : ?>
 						<div class="aba" id="abaThumb">
 							<label for="thumb" class="labelManeira">>> THUMBNAIL</label>
@@ -224,6 +220,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 								}">
 							<label for="removerThumb" style="display: inline-block; font-size: 12px;">remover thumbnail</label>
 						</div>
+					<?php endif; ?>
+					
+					<?php if ($projeto->tipo == 'rt'): ?>
+						<a href="/gerenciator/index.php?pasta=<?= $projeto->arquivos_de_vdd ?>" target="_blank" class="coolButt grandissimo" style="font-size: 30px; margin-bottom: 20px">Editar site!!!</a>
 					<?php endif; ?>
 
 					<button type="submit" class="coolButt verde grandissimo">Salvar mudanças</button>
