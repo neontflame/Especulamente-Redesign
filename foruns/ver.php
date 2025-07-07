@@ -59,7 +59,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
 		// CODIGO ASSOMBRADO BEGONE
 		var coiso = document.getElementById(cont);
 		document.getElementById('post_fnf').value += "> De @" + user + ", dia " + data;
-		
+
 		for (var i = 0; i < coiso.childElementCount; i++) {
 			console.log(coiso.children[i].tagName);
 			switch (coiso.children[i].tagName) {
@@ -74,7 +74,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
 								document.getElementById('post_fnf').value += "\n> > " + '![](' + coiso2.children[f].src + ')';
 						}
 					}
-					
+
 				default:
 					if (coiso.children[i].innerText != '') {
 						document.getElementById('post_fnf').value += "\n> > " + coiso.children[i].innerText;
@@ -228,11 +228,11 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
 		.oReajorEmSi {
 			min-width: 102px;
 		}
-		
+
 		.fucInfo {
 			font-size: 10px;
 		}
-		
+
 		.fucInfo b {
 			font-size: 12px;
 		}
@@ -262,7 +262,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
 							<a href="/usuarios/<?= usuario_requestIDator($post->id_postador)->username ?>"><img src="<?= pfp(usuario_requestIDator($post->id_postador)) ?>" width="64" height="64"></a>
 							<a class="forumUser" href="/usuarios/<?= usuario_requestIDator($post->id_postador)->username ?>"><?= usuario_requestIDator($post->id_postador)->username ?></a>
 							<div class="fucInfo">
-							<b><?= $rank = obter_rank(usuario_requestIDator($post->id_postador)->davecoins)["nome"]; ?></b>
+								<b><?= $rank = obter_rank(usuario_requestIDator($post->id_postador)->davecoins)["nome"]; ?></b>
 								<br><?= quantReacoes($post->id_postador, 'mitada') ?> mitadas
 								<br><?= quantReacoes($post->id_postador, 'sojada') ?> sojadas
 								<br><?= quantPosts($post->id_postador) ?> posts
@@ -272,7 +272,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
 							<div class="projTitulo postTitulo" style="width: 100%;">
 								<span id="sujeito_<?= $post->id ?>"><?= $post->sujeito ?></span>
 								<?php if (isset($usuario) && $usuario->id == $post->id_postador) : ?>
-								<input type="text" style="width: 99%; display: none;" id="sujeito_fnf_<?= $post->id ?>" name="sujeito_fnf_<?= $post->id ?>" value="<?= htmlspecialchars($post->sujeito) ?>">
+									<input type="text" style="width: 99%; display: none;" id="sujeito_fnf_<?= $post->id ?>" name="sujeito_fnf_<?= $post->id ?>" value="<?= htmlspecialchars($post->sujeito) ?>">
 								<?php endif; ?>
 								<br>
 								<?php if (isset($usuario)) : ?>
@@ -331,7 +331,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
 					</tr>
 				</table>
 
-				<?php reajor_d_reagida("forum", $post, $usuario, 'Postado dia ' . velhificar_data($post->data))?>
+				<?php reajor_d_reagida("forum", $post, $usuario, 'Postado dia ' . velhificar_data($post->data)) ?>
 			</div>
 		<?php endforeach ?>
 
@@ -351,7 +351,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
 						</td>
 						<td style="min-width: 500px; max-width: 500px; overflow-x: auto; background-color: white; vertical-align: top;">
 							<div class="projTitulo postTitulo" style="width: 100%;">
-								<input type="text" style="width: 73%; float: left;" id="sujeito_fnf" name="sujeito_fnf" value="Resposta à &#039;<?= htmlspecialchars(forumpost_requestIDator($id)->sujeito) ?>&#039;">
+								<input type="text" style="width: 73%; float: left;" id="sujeito_fnf" name="sujeito_fnf" value="Resposta a &#039;<?= htmlspecialchars(forumpost_requestIDator($id)->sujeito) ?>&#039;">
 								<div style="text-align: right;">
 									<input type="file" id="inputImg" accept="image/*" style="width: 0px; height: 0px; opacity: 0" onchange="anexarImg(this.files)">
 									<button onclick="document.getElementById('inputImg').click()" class="coolButt" style="height: 18px; margin-right: 6px;">Anexar imagem</button>
