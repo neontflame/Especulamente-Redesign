@@ -503,7 +503,7 @@ copiei do meu site to com preguiça -neon */
 }
 
 .comentario img {
-  max-width: 370px;
+  max-width: 100%;
 }
 
 .resposta {
@@ -523,7 +523,7 @@ copiei do meu site to com preguiça -neon */
 }
 
 .resposta .comentario img {
-  max-width: 350px;
+  max-width: 100%;
 }
 
 .linkmentario {
@@ -726,7 +726,7 @@ copiei do meu site to com preguiça -neon */
 }
 
 .mensagem img {
-  max-width: 360px;
+  max-width: 100%;
 }
 
 /* Status bar */
