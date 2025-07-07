@@ -2,12 +2,14 @@
 include_once $_SERVER['DOCUMENT_ROOT'] . '/shhhh/autoload.php';
 // TODO: trocar isso pelos ids de usuarios
 $creditados = [
-	['Fupicat', 'codigo, puxar cordas'],
-	['neontflame', 'html css e codigo, desenhos, puxar cordas'],
+	['Fupicat', 'codigo, desenhos, banners, puxar cordas'],
+	['neontflame', 'html css e codigo, desenhos, banners, puxar cordas'],
 	['Sushi', 'banners e chars'],
-	['Sketcher', 'banner'],
-	['Hawnt', 'banner'],
-	['henry.guy', 'banner'],
+	['Sketcher', 'banner e char'],
+	['Hawnt', 'banner e char'],
+	['henry.guy', 'banner e anuncio'],
+	['DexDousky', 'banners'],
+	['dafver', 'o cara do dinheiro'],
 ];
 ?>
 <?php include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
