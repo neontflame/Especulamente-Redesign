@@ -73,6 +73,14 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
 					color: #A8A8A8;
 				}
 				
+				table td a {
+					text-decoration: none;
+				}
+				
+				table td a:hover {
+					text-decoration: underline;
+				}
+				
 				table td p {
 					font-size: 10px;
 					margin-top: 4px;

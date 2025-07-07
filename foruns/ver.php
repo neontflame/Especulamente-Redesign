@@ -119,6 +119,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
 
 		osNegocios.append("id", id);
 		osNegocios.append("comentario", document.getElementById('edit_fnf_' + id).value);
+		osNegocios.append("sujeito", document.getElementById('sujeito_fnf_' + id).value);
 
 		var xhttp = new XMLHttpRequest();
 		xhttp.open(
@@ -269,7 +270,10 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
 						</td>
 						<td style="min-width: 500px; max-width: 500px; overflow-x: auto; background-color: white; vertical-align: top;">
 							<div class="projTitulo postTitulo" style="width: 100%;">
-								<?= $post->sujeito ?>
+								<span id="sujeito_<?= $post->id ?>"><?= $post->sujeito ?></span>
+								<?php if (isset($usuario) && $usuario->id == $post->id_postador) : ?>
+								<input type="text" style="width: 99%; display: none;" id="sujeito_fnf_<?= $post->id ?>" name="sujeito_fnf_<?= $post->id ?>" value="<?= htmlspecialchars($post->sujeito) ?>">
+								<?php endif; ?>
 								<br>
 								<?php if (isset($usuario)) : ?>
 									<div style="text-align: right;">
@@ -279,6 +283,8 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
 											<button onclick='deletarPost(<?= $post->id ?>, this)' class="coolButt vermelho" style="height: 18px;">Deletar</button>
 											<button onclick='
 								document.getElementById("edit_<?= $post->id ?>").style.display = "";
+								document.getElementById("sujeito_<?= $post->id ?>").style.display = "none";
+								document.getElementById("sujeito_fnf_<?= $post->id ?>").style.display = "";
 								document.getElementById("postissimo_<?= $post->id ?>").style.display = "none";
 								' class="coolButt verde" style="height: 18px; margin-right: 6px;">Editar</button>
 										<?php endif; ?>
@@ -291,6 +297,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
 										<textarea name="edit_fnf_<?= $post->id ?>" id="edit_fnf_<?= $post->id ?>" style="width: 486px; max-width: 486px; resize: vertical; height: 150px;"><?= $post->conteudo ?></textarea>
 										<script>
 											var contInicial<?= $post->id ?> = document.getElementById('edit_fnf_<?= $post->id ?>').value;
+											var sujInicial<?= $post->id ?> = document.getElementById('sujeito_fnf_<?= $post->id ?>').value;
 										</script>
 										<br>
 										<button type="submit" onclick="editarPost(<?= $post->id ?>, this);" class="coolButt">
@@ -300,6 +307,11 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
 										<button class="coolButt vermelho" onclick='
 								document.getElementById("edit_fnf_<?= $post->id ?>").value = contInicial<?= $post->id ?>;
 								document.getElementById("edit_<?= $post->id ?>").style.display = "none";
+								
+								document.getElementById("sujeito_fnf_<?= $post->id ?>").value = sujInicial<?= $post->id ?>;
+								document.getElementById("sujeito_fnf_<?= $post->id ?>").style.display = "none";
+								
+								document.getElementById("sujeito_<?= $post->id ?>").style.display = "";
 								document.getElementById("postissimo_<?= $post->id ?>").style.display = "";
 								'>
 											Cancelar
@@ -339,7 +351,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
 						</td>
 						<td style="min-width: 500px; max-width: 500px; overflow-x: auto; background-color: white; vertical-align: top;">
 							<div class="projTitulo postTitulo" style="width: 100%;">
-								Responder '<?= forumpost_requestIDator($id)->sujeito ?>'
+								<input type="text" style="width: 73%; float: left;" id="sujeito_fnf" name="sujeito_fnf" value="Resposta à &#039;<?= htmlspecialchars(forumpost_requestIDator($id)->sujeito) ?>&#039;">
 								<div style="text-align: right;">
 									<input type="file" id="inputImg" accept="image/*" style="width: 0px; height: 0px; opacity: 0" onchange="anexarImg(this.files)">
 									<button onclick="document.getElementById('inputImg').click()" class="coolButt" style="height: 18px; margin-right: 6px;">Anexar imagem</button>
@@ -356,7 +368,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
 										</div>
 									</div>
 
-									<button type="submit" onclick="postarPost(document.getElementById('post_fnf').value, this, <?= $id ?>, <?= $ofix->id_categoria ?>, 'Resposta a \'<?= addslashes($ofix->sujeito) ?>\'');" class="coolButt">
+									<button type="submit" onclick="postarPost(document.getElementById('post_fnf').value, this, <?= $id ?>, <?= $ofix->id_categoria ?>, sujeito_fnf.value);" class="coolButt">
 										Enviar comentário
 									</button>
 
