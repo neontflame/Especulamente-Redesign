@@ -204,6 +204,9 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 						</div>
 						
 						<script>
+						var mouseSeguro = '';
+						var pauseDeMexerComOTempo = false;
+						
 						function musicaPlay() {
 							musicaDoVedor.play();
 							musPlayButton.style.display = 'none';
@@ -278,9 +281,6 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 						}
 
 						// obrigado robo
-
-						var mouseSeguro = '';
-						var pauseDeMexerComOTempo = false;
 						
 						document.addEventListener('mousemove', function(e) {
 							mouseCoisos();
@@ -300,7 +300,9 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 						});
 						
 						function musChangeTime() {
-							pauseDeMexerComOTempo = true;
+							if (!musicaDoVedor.paused) {
+								pauseDeMexerComOTempo = true;
+							}
 							musicaPause();
 							
 							var oTempcio = (getMousePosRelativeToElement(null, musBarra).x / 568) * musicaDoVedor.duration;
