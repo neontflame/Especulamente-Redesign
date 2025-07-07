@@ -32,8 +32,8 @@ $creditados = [
 					</div>
 				<?php endforeach ?>
 			</div>
-
-			<p style="display: block; text-align: center;">uma salva de palmas aos individuos envolvidos!!!</p>
+			<br>
+			<p style="text-align: center;">uma salva de palmas aos individuos envolvidos!!!</p>
 		</div>
 	</div>
 </div>
