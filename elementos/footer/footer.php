@@ -2,11 +2,11 @@
 $chars = array();
 $dir = $_SERVER['DOCUMENT_ROOT'] . "/elementos/footer/chars/";
 if ($handle = scandir($dir)) {
-        foreach ($handle as $target) {
-                if (!in_array($target, [".", ".."])) {
-                        $chars[] = $target;
-                }
-        }
+  foreach ($handle as $target) {
+    if (!in_array($target, [".", ".."])) {
+      $chars[] = $target;
+    }
+  }
 }
 
 $char = $chars[array_rand($chars)];
@@ -22,12 +22,12 @@ $char = $chars[array_rand($chars)];
     <img src="/elementos/footer/LaughedTesticle.png" />
     <a href="https://archive.org/details/flashplayer_old"><img src="/elementos/footer/get_flash_player.png" /></a>
     <img src="/elementos/footer/expression.png" />
-    <a href="https://feldspargamer.github.io/AssociaDouga/index.html"><img src="/elementos/footer/associates.png"></a>
+    <a href="https://vinnic1998.github.io/AssociaDouga/index.html"><img src="/elementos/footer/associates.png"></a>
     <br />
     <br />
     <a href="/termos.php">TERMOS DE USO</a> -
-    <a href="/regras.php">REGRAS PARA PESTINHAS COMO VOCÊ</a> - 
-	<a href="/creditos.php">CRÉDITOS</a>
+    <a href="/regras.php">REGRAS PARA PESTINHAS COMO VOCÊ</a> -
+    <a href="/creditos.php">CRÉDITOS</a>
   </div>
   <img id="character" src="/elementos/footer/chars/<?= $char ?>" />
 </div>
