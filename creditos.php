@@ -7,8 +7,9 @@ $creditados = [
 	['Sushi', 'banners e chars'],
 	['Sketcher', 'banner e char'],
 	['Hawnt', 'banner e char'],
-	['henry.guy', 'banner e anuncio'],
+	['henry.guy', 'banners e anuncios'],
 	['DexDousky', 'banners'],
+	['brenoborb', 'banner'],
 	['dafver', 'o cara do dinheiro'],
 ];
 ?>
