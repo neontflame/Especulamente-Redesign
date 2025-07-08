@@ -880,3 +880,13 @@ copiei do meu site to com preguiça -neon */
     background-position-x: 376px;
   }
 }
+
+#moeda {
+  position: fixed;
+  width: 16px;
+  height: 48px;
+  background-size: cover;
+  background-position-x: 0px;
+  z-index: 9999;
+  display: none;
+}

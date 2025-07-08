@@ -97,23 +97,6 @@ function projeto_requestARQUIVOSDEVDDator($pasta)
 	return $proj;
 }
 
-// Daveitenc por id
-function daveitem_requestIDator($id)
-{
-	global $db;
-
-	$rows = $db->prepare("SELECT * FROM daveitens WHERE id = ?");
-	$rows->bindParam(1, $id);
-	$rows->execute();
-	$dav = $rows->fetch(PDO::FETCH_OBJ);
-
-	if ($dav == false) {
-		return null;
-	}
-
-	return $dav;
-}
-
 // cometario por id
 function comentario_requestIDator($id)
 {
@@ -1119,6 +1102,22 @@ function respostas_requestinator($id_topico)
 	return $comentarios;
 }
 
+function obter_bounties($id_usuario)
+{
+	global $db;
+
+	$rows = $db->prepare("SELECT * FROM bounties");
+	$rows->execute();
+
+	$bounties = [];
+
+	while ($row = $rows->fetch(PDO::FETCH_OBJ)) {
+		array_push($bounties, $row);
+	}
+
+	return $bounties;
+}
+
 // subtrai data ya mané
 function velhificar_data($datetime)
 {
@@ -1214,6 +1213,7 @@ function obter_rank($davecoins_atuais)
 		"imagem" => $row ? $row->imagem : $last_row->imagem,
 		"nome" => $row ? $row->nome : $last_row->nome,
 		"davecoins_proximo" => $row ? $row->davecoins_proximo : $last_row->davecoins_proximo,
+		"diada" => $row ? $row->diada : $last_row->diada,
 		"barrinha_width" => 376 * (!$row ? 1 : (($davecoins_atuais - ($last_row ? $last_row->davecoins_proximo : 0)) / (($row ? $row->davecoins_proximo : $last_row->davecoins_proximo) - ($last_row ? $last_row->davecoins_proximo : 0))))
 	];
 }

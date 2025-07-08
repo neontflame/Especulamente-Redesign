@@ -113,9 +113,9 @@ function renderarProjeto($projeto, $botaoSim = true, $thumbObrigatoria = false)
 				?>
 			</p>
 			<?php if (isset($projeto->dataBump)) : ?>
-			<p class="autorDeProjeto" style="margin-top: -8px; font-size: 9px;">editado <?= velhificar_data($projeto->dataBump); ?></p>
+				<p class="autorDeProjeto" style="margin-top: -8px; font-size: 9px;">editado <?= velhificar_data($projeto->dataBump); ?></p>
 			<?php endif; ?>
-			
+
 		</div>
 		<!-- nem tudo precisa ter uma thumbnail! -->
 		<?php if ($projeto->thumbnail != null) { ?>
@@ -162,14 +162,31 @@ function renderarProjGrade($projeto)
 														} else {
 															echo 'data nula WTF???';
 														} ?></a>
-														
+
 			<?php if (isset($projeto->dataBump)) : ?>
-			<a class="autorItem" style="font-size: 9px;">edit: <?= velhificar_data($projeto->dataBump); ?></a>
+				<a class="autorItem" style="font-size: 9px;">edit: <?= velhificar_data($projeto->dataBump); ?></a>
 			<?php endif; ?>
 		</div>
 	</div>
 
 <?php }
+
+function dave_rank($davecoins)
+{
+	global $rank;
+?>
+	<div class="daverank">
+		<?php $rank = obter_rank($davecoins) ?>
+		<img class="icon" src="/elementos/ranks/<?= $rank["imagem"] ?>" alt="<?= $rank["nome"] ?>" width="48" height="48">
+		<div class="direito">
+			<b><?= $rank["nome"] ?></b><span><?= $davecoins ?>/<?= $rank["davecoins_proximo"] ?> <img style="vertical-align: bottom;" src="/elementos/davecoin/dvc.gif"></span>
+			<div class="barrinha">
+				<div class="juice" style="width: <?= $rank["barrinha_width"] ?>px"></div>
+			</div>
+		</div>
+	</div>
+<?php
+}
 
 function nomePorTipo($tipo)
 {

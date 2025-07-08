@@ -5,17 +5,9 @@
   width: 641px;
 }
 
-.bodyPrincipal {
-  background-color: #FAF7FF;
-  background-image: url("/daveloja/elementos/CoolAssFundo.png");
-  background-repeat: no-repeat;
-  padding-left: 4px;
-  padding-right: 4px;
-}
-
 .inside_page_content {
   background-color: white;
-  border-color: #BA9EFF;
+  border-color: #ba9eff;
   border-style: solid;
   border-width: 1px;
   color: #4f6bad;
@@ -23,8 +15,8 @@
 }
 
 .coolSubHeadery {
-  background-image: url("/daveloja/elementos/header/subheaderbg.png");
-  border-color: #835DE2;
+  background-image: url("/bounties/elementos/header/subheaderbg.png");
+  border-color: #835de2;
   border-style: solid;
   border-width: 1px;
   height: 18px;
@@ -33,7 +25,7 @@
 
 .coolUsery button {
   background-color: transparent;
-  background-image: url("/daveloja/elementos/header/headerSeta.png");
+  background-image: url("/bounties/elementos/header/headerSeta.png");
   border: 0;
   cursor: pointer;
   float: right;

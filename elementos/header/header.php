@@ -23,6 +23,9 @@ global $config;
   <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
   <link href="/cssManeiro.css?v28" rel="stylesheet" type="text/css" />
   <link id="favicon" rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="preload" as="image" href="/elementos/davecoin/dvc_1.png">
+  <link rel="preload" href="/bounties/elementos/pop.wav" as="audio" type="audio/wav">
+  <link rel="preload" href="/bounties/elementos/plim.wav" as="audio" type="audio/wav">
 
   <!-- Metas Tags -->
   <title><?= $meta["titulo"] ?? "[PORTAL ESPECULAMENTE]" ?></title>
@@ -84,7 +87,10 @@ global $config;
           <div class="coolLinkery">
             <?php if (isset($usuario)) : ?>
               <?php if (isset($forum)) { ?>
-                <a href="/foruns/postar<?php if (isset($getDeCategoria)) { if (isset($_GET[$getDeCategoria])) { ?>?cat=<?php echo $_GET[$getDeCategoria]; } } ?>" style="color: darkblue;">+ POSTAR</a>
+                <a href="/foruns/postar<?php if (isset($getDeCategoria)) {
+                                          if (isset($_GET[$getDeCategoria])) { ?>?cat=<?php echo $_GET[$getDeCategoria];
+                                                                                    }
+                                                                                  } ?>" style="color: darkblue;">+ POSTAR</a>
               <?php } else { ?>
                 <a href="/criar" style="color: forestgreen;">+ CRIAR</a>
               <?php } ?>
@@ -152,3 +158,45 @@ global $config;
       </div>
       <!-- FIM DO HEADER -->
     </div>
+
+    <div id="moeda"><audio src="/bounties/elementos/pop.wav"></audio><audio src="/bounties/elementos/plim.wav"></audio></div>
+    <script>
+      var moedaInterval;
+
+      function moeda(event, valor) {
+        if (moedaInterval) {
+          clearInterval(moedaInterval);
+        }
+        var arquivo = "/elementos/davecoin/dvc_" + valor + ".png";
+        var moedaDiv = document.getElementById("moeda");
+        moedaDiv.style = "background-image: url('" + arquivo + "'); display: block;";
+        var frame = 0;
+        var pop = moedaDiv.getElementsByTagName("audio")[0];
+        var plim = moedaDiv.getElementsByTagName("audio")[1];
+
+        moedaDiv.style.backgroundPositionX = "0px";
+        moedaDiv.style.top = event.clientY - 48 + "px";
+        moedaDiv.style.left = event.clientX - 8 + "px";
+        pop.volume = 0.2;
+        pop.pause();
+        pop.currentTime = 0;
+        pop.play();
+        moedaInterval = setInterval(nextFrame, 70);
+
+        function nextFrame() {
+          frame++;
+          if (frame > 24) {
+            clearInterval(interval);
+            moedaDiv.style.display = "none";
+            return;
+          }
+          if (frame == 8) {
+            plim.volume = 0.2;
+            plim.pause();
+            plim.currentTime = 0;
+            plim.play();
+          }
+          moedaDiv.style.backgroundPositionX = "-" + (frame * 16) + "px";
+        }
+      }
+    </script>

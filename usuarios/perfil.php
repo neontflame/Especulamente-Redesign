@@ -261,16 +261,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 				<a class="autorDeProjeto" style="color: #9ebbff; font-weight:bold; text-align:right; display:block; margin-top:0px;" href="/projetos/?q=@<?= $username ?>">ver mais projetos! >></a>
 				<div class="separador"></div>
 			<?php endif; ?>
-			<div class="daverank">
-				<?php $rank = obter_rank($perfil->davecoins) ?>
-				<img class="icon" src="/elementos/ranks/<?= $rank["imagem"] ?>" alt="<?= $rank["nome"] ?>" width="48" height="48">
-				<div class="direito">
-					<b><?= $rank["nome"] ?></b><span><?= $perfil->davecoins ?>/<?= $rank["davecoins_proximo"] ?> ĐvC</span>
-					<div class="barrinha">
-						<div class="juice" style="width: <?= $rank["barrinha_width"] ?>px"></div>
-					</div>
-				</div>
-			</div>
+			<?php dave_rank($perfil->davecoins); ?>
 			<?php reajor_d_reagida('perfil', $perfil, $usuario) ?>
 
 		</div>
