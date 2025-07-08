@@ -21,7 +21,7 @@ global $config;
 <head>
   <meta content="pt-br" http-equiv="Content-Language" />
   <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
-  <link href="/cssManeiro.css?v28" rel="stylesheet" type="text/css" />
+  <link href="/cssManeiro.css?v29" rel="stylesheet" type="text/css" />
   <link id="favicon" rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
   <link rel="preload" as="image" href="/elementos/davecoin/dvc_1.png">
   <link rel="preload" href="/bounties/elementos/pop.wav" as="audio" type="audio/wav">

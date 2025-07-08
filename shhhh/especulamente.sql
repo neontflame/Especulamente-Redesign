@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Tempo de geração: 24/06/2025 às 01:07
+-- Tempo de geração: 08/07/2025 às 01:47
 -- Versão do servidor: 8.3.0
 -- Versão do PHP: 8.2.18
 
@@ -24,6 +24,49 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Estrutura para tabela `bounties`
+--
+
+CREATE TABLE IF NOT EXISTS `bounties` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `davecoins` int NOT NULL,
+  `nome` text NOT NULL,
+  `imagem` text NOT NULL,
+  `descricao` text NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Despejando dados para a tabela `bounties`
+--
+
+INSERT INTO `bounties` (`id`, `davecoins`, `nome`, `imagem`, `descricao`) VALUES
+(1, 0, 'Diada diária', 'diario.png', 'Você é um Bad Enough Dude para entrar no Especulamente todos os dias?? Pois bem, apenas os mais corajosos podem obter as DAVECOINS GRÁTIS diárias!'),
+(2, 1, 'Dê uma mitada', 'mitada.png', 'Apreciar o trabalho de seus camaradas é o dever de todo bom Especulador. Realize o seu dever e espalhe mitadas na cara de todos!'),
+(3, 5, 'Faça um comentário', 'comentario.png', 'Os ESPECULATIVOS adoram compartilhar feedback!!! É a forma divina suprema da mitada em forma de palavras. Não tenha vergonha de usar seus dedos.'),
+(4, 10, 'Poste uma mídia', 'midia.png', 'Sua mídia está ENCONTRADA: você postará-la ela hoje mesmo ao agora:agora minuto.'),
+(5, 10, 'Poste um downloadável', 'downloadavel.png', 'Seu computador contém ARQUIVOS, tantos arquivos... porque não dar alguns para nós?'),
+(6, 10, 'Poste um blog', 'blog.png', 'AH cara... isso é literalmente eu quando eu penso.'),
+(7, 25, 'Poste um jogo', 'jogo.png', 'Agora é só para os verdadeiros gamers; aqueles que dominam suas engines assim como os maiores bosses (chefões) dos games (jogos) clássicos de arcade (fliperama).'),
+(8, 25, 'Crie um resto...', 'resto.png', 'A internet é uma série de tubos.');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `bounties_completos`
+--
+
+CREATE TABLE IF NOT EXISTS `bounties_completos` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `id_usuario` int NOT NULL,
+  `id_bounty` int NOT NULL,
+  `data` date NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura para tabela `comentarios`
 --
 
@@ -36,7 +79,7 @@ CREATE TABLE IF NOT EXISTS `comentarios` (
   `fio` int DEFAULT NULL,
   `data` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=77 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -52,7 +95,7 @@ CREATE TABLE IF NOT EXISTS `convites` (
   PRIMARY KEY (`id`),
   KEY `FK_criado_por` (`criado_por`),
   KEY `FK_usado_por` (`usado_por`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -69,7 +112,7 @@ CREATE TABLE IF NOT EXISTS `daveitens` (
   `imagem` varchar(255) NOT NULL,
   `consumivel` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -82,8 +125,9 @@ CREATE TABLE IF NOT EXISTS `daveniveis` (
   `nome` varchar(255) NOT NULL,
   `imagem` varchar(255) NOT NULL,
   `davecoins_proximo` int NOT NULL,
+  `diada` int NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -131,7 +175,7 @@ CREATE TABLE IF NOT EXISTS `inventario` (
   `id_item` int NOT NULL,
   `dados` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -148,7 +192,7 @@ CREATE TABLE IF NOT EXISTS `mensagens` (
   `lido` tinyint(1) NOT NULL DEFAULT '0',
   `davecoins` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -171,7 +215,7 @@ CREATE TABLE IF NOT EXISTS `projetos` (
   `data` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `dataBump` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -186,7 +230,7 @@ CREATE TABLE IF NOT EXISTS `reacoes` (
   `tipo_de_reagido` enum('perfil','projeto') NOT NULL,
   `id_reagido` int NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=78 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -201,7 +245,7 @@ CREATE TABLE IF NOT EXISTS `reccodigo` (
   `data` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `FK_criado_por` (`criado_por`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -221,7 +265,7 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
   `banner` varchar(255) NOT NULL,
   `davecoins` int NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
