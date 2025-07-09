@@ -6,6 +6,7 @@ $ads = [
   ['ad4.gif', 'https://fupi.cat/arte/feiocore/'],
   ['ad5.png', 'https://www.sentaifilmworks.com/blogs/catalog/magical-play'],
   ['ad6.png', 'https://www.newgrounds.com/portal/view/770371'],
+  ['ad7.png', 'https://scratch.mit.edu'],
 ];
 $ad = $ads[array_rand($ads)];
 ?>
