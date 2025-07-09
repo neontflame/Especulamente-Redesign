@@ -24,6 +24,11 @@ global $config;
   <link href="/cssManeiro.css?v29" rel="stylesheet" type="text/css" />
   <link id="favicon" rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
   <link rel="preload" as="image" href="/elementos/davecoin/dvc_1.png">
+  <link rel="preload" as="image" href="/elementos/davecoin/dvc_5.png">
+  <link rel="preload" as="image" href="/elementos/davecoin/dvc_10.png">
+  <link rel="preload" as="image" href="/elementos/davecoin/dvc_25.png">
+  <link rel="preload" as="image" href="/elementos/davecoin/dvc_50.png">
+  <link rel="preload" as="image" href="/elementos/davecoin/dvc_100.png">
   <link rel="preload" href="/bounties/elementos/pop.wav" as="audio" type="audio/wav">
   <link rel="preload" href="/bounties/elementos/plim.wav" as="audio" type="audio/wav">
 
@@ -43,6 +48,15 @@ global $config;
   <meta name="twitter:title" content="<?= $meta["titulo"] ?? "[PORTAL ESPECULAMENTE]" ?>">
   <meta name="twitter:description" content="<?= isset($meta["descricao"]) ? $meta["descricao"] . " <> " : "" ?>Sejam todos bem vindos ao ESPECULAMENTE!! O portal mais FODA da internet!!! Jogos, arte, animação e muito mais, criados por nós, os ESPECULATIVOS, artistas internéticos assim como você!">
   <meta name="twitter:image" content="<?= $config["URL"] . ($meta["imagem"] ?? "/static/share_image.png") ?>">
+
+  <!-- CSS ESPECIAL -->
+  <style>
+    /* poses de ~~puta~~ luta */
+    body {
+      background-color: #000000;
+      background-image: url("/elementos/murais/fundo_luta.png");
+    }
+  </style>
 </head>
 
 <body>
