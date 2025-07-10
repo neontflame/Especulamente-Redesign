@@ -56,6 +56,10 @@ global $config;
       background-color: #000000;
       background-image: url("/elementos/murais/fundo_luta.png");
     }
+	
+	.insideBodyFooter, .insideBodyFooter a {
+		color: #555;
+	}
   </style>
 </head>
 
