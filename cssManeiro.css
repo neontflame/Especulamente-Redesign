@@ -91,6 +91,7 @@ details p {
   padding-top: 5px;
   padding-bottom: 5px;
   display: inline-block;
+  width: 100%;
 }
 
 .left_col {
