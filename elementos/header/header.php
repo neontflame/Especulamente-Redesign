@@ -204,10 +204,10 @@ global $config;
         function nextFrame() {
           frame++;
           if (frame > 24) {
-			if (interval) {
-              clearInterval(interval);
-			}
             moedaDiv.style.display = "none";
+			if (moedaInterval) {
+              clearInterval(moedaInterval);
+			}
             return;
           }
           if (frame == 8) {
