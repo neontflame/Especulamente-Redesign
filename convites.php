@@ -83,9 +83,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
 </style>
 <div class="container">
 	<?php
-	if (count(obter_convites_criados_por($usuario->id)) > 8) { 
-		$esconder_ad = true;
-	}
+	$esconder_ad = true;
 	include $_SERVER['DOCUMENT_ROOT'] . '/elementos/sidebar/sidebar.php';
 	?>
 
