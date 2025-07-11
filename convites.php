@@ -83,7 +83,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
 </style>
 <div class="container">
 	<?php
-	$esconder_ad = true;
+	// $esconder_ad = true;
 	include $_SERVER['DOCUMENT_ROOT'] . '/elementos/sidebar/sidebar.php';
 	?>
 
