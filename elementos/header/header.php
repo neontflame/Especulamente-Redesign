@@ -204,7 +204,9 @@ global $config;
         function nextFrame() {
           frame++;
           if (frame > 24) {
-            clearInterval(interval);
+			if (interval) {
+              clearInterval(interval);
+			}
             moedaDiv.style.display = "none";
             return;
           }
