@@ -11,6 +11,28 @@ if (categoria_requestIDator($id) == null) {
 $meta["titulo"] = "[" . categoria_requestIDator($id)->nome . " <> Fóruns do PORTAL ESPECULAMENTE]";
 $meta["descricao"] = "Como se já não bastassem os blogs dos ESPECULATIVOS para pensar sozinho, agora você também pode pensar em GRUPO! Pense mais e fale mais com os FÓRUNS do PORTAL ESPECULAMENTE!";
 
+function topicoCount($id) {
+	global $db;
+	
+	$rows = $db->prepare("SELECT COUNT(*) as count FROM forum_posts WHERE id_categoria = ? AND id_resposta = -1");
+	$rows->bindParam(1, $id, PDO::PARAM_INT);
+	$rows->execute();
+	$count = $rows->fetch(PDO::FETCH_OBJ)->count;
+
+	return $count;
+}
+
+function postCount($id) {
+	global $db;
+	
+	$rows = $db->prepare("SELECT COUNT(*) as count FROM forum_posts WHERE id_categoria = ?");
+	$rows->bindParam(1, $id, PDO::PARAM_INT);
+	$rows->execute();
+	$count = $rows->fetch(PDO::FETCH_OBJ)->count;
+
+	return $count;
+}
+
 function replyCount($id) {
 	global $db;
 	
@@ -129,6 +151,15 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
 					?>
 					</tbody>
 				</table>
+				
+				<div style="text-align:center;">
+					<p>
+					Fun fact: essa categoria tem <?= topicoCount($id) ?> tópicos e <?= postCount($id) ?> posts!
+					</p>
+					<?php if (isset($usuario)) : ?>
+					<p>Você pode <a href="/foruns/assinatura.php">mudar sua assinatura aqui.</a></p>
+					<?php endif; ?>
+				</div>
 		</div>
 	</div>
 </div>

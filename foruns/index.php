@@ -176,9 +176,14 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
 					</tbody>
 				</table>
 				
-				<p>
-				Fun fact: nós temos <?= topicoCountFull() ?> tópicos e <?= postCountFull() ?> posts ao todo!
-				</p>
+				<div style="text-align:center;">
+					<p>
+					Fun fact: nesses fóruns tem <?= topicoCountFull() ?> tópicos e <?= postCountFull() ?> posts ao todo!
+					</p>
+					<?php if (isset($usuario)) : ?>
+					<p>Você pode <a href="/foruns/assinatura.php">mudar sua assinatura aqui.</a></p>
+					<?php endif; ?>
+				</div>
 		</div>
 	</div>
 </div>

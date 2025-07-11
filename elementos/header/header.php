@@ -21,7 +21,7 @@ global $config;
 <head>
   <meta content="pt-br" http-equiv="Content-Language" />
   <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
-  <link href="/cssManeiro.css?v29" rel="stylesheet" type="text/css" />
+  <link href="/cssManeiro.css?v30" rel="stylesheet" type="text/css" />
   <link id="favicon" rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
   <link rel="preload" as="image" href="/elementos/davecoin/dvc_1.png">
   <link rel="preload" as="image" href="/elementos/davecoin/dvc_5.png">
@@ -56,6 +56,10 @@ global $config;
       background-color: #000000;
       background-image: url("/elementos/murais/fundo_luta.png");
     }
+	
+	.insideBodyFooter, .insideBodyFooter a {
+		color: #555;
+	}
   </style>
 </head>
 
@@ -156,8 +160,8 @@ global $config;
                 <button id="headerSeta"></button>
                 <div id="headerMenu">
                   <a href="/usuarios/<?= $usuario->username ?>">Perfil</a>
-                  <a href="/configuracoes.php">Configurações</a>
                   <a href="/convites.php">Seus convites</a>
+                  <a href="/bounties">Bounties</a>
                   <hr>
                   <a href="/sair.php">Sair</a>
                 </div>
@@ -200,8 +204,10 @@ global $config;
         function nextFrame() {
           frame++;
           if (frame > 24) {
-            clearInterval(interval);
             moedaDiv.style.display = "none";
+			if (moedaInterval) {
+              clearInterval(moedaInterval);
+			}
             return;
           }
           if (frame == 8) {

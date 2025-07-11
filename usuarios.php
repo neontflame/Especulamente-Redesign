@@ -48,14 +48,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
             <div class="projetos">
               <?php foreach ($usuarios as $usuario) : ?>
                 <div class="item">
-                  <a href="/usuarios/<?= $usuario->username ?>"><img src="
-					<?php
-                if ($usuario->pfp != null) {
-                  echo '/static/pfps/' . $usuario->pfp;
-                } else {
-                  echo '/static/pfp_padrao.png';
-                } ?>
-					"></a>
+                  <a href="/usuarios/<?= $usuario->username ?>"><img src="<?= pfp($usuario) ?>"></a>
                   <a href="/usuarios/<?= $usuario->username ?>"><?= $usuario->username ?></a>
                   <a class="autorItem">#<?= $usuario->id ?></a>
                 </div>
