@@ -1,5 +1,6 @@
 <?php
 include_once $_SERVER['DOCUMENT_ROOT'] . '/shhhh/autoload.php';
+$forum = true;
 login_obrigatorio($usuario);
 
 $erro;
@@ -9,6 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   if (isset($sig)) {
 	mudar_usuario($usuario->id, ['assinatura' => $sig]);
+	$sucesso = "Assinatura trocada!";
   }
 }
 ?>
@@ -26,8 +28,8 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
 
   <div class="page_content">
     <div class="inside_page_content">
-      <h2>Configurações</h2>
-      <h3>Mudar assinatura</h3>
+		<?php include $_SERVER['DOCUMENT_ROOT'] . '/elementos/statusbar.php'; ?>
+      <h2 style="text-align:center;">Mudar assinatura</h2>
 	  Isso vai fazer uma mensagem de sua escolha aparecer em baixo de seus posts nos Fóruns.
 	  <br>
 	  Você pode usar Markdown! 
@@ -37,9 +39,6 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
 		<textarea name="siggy" id="siggy" style="width: 427px; max-width: 427px;"><?= $usuario->assinatura ?></textarea>
         <button class="coolButt grandissimo">Mudar minha assinatura</button>
       </form>
-      <?php if (isset($erro)) : ?>
-        <p><?= $erro ?></p>
-      <?php endif ?>
     </div>
   </div>
 </div>

@@ -160,8 +160,8 @@ global $config;
                 <button id="headerSeta"></button>
                 <div id="headerMenu">
                   <a href="/usuarios/<?= $usuario->username ?>">Perfil</a>
-                  <a href="/configuracoes.php">Configurações</a>
                   <a href="/convites.php">Seus convites</a>
+                  <a href="/bounties">Bounties</a>
                   <hr>
                   <a href="/sair.php">Sair</a>
                 </div>
