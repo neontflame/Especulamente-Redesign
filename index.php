@@ -62,9 +62,11 @@
 			<p style="color: green; text-align: center; font-weight: bold; margin: 2px;">>> MITADALIST <<</p>
 			<div class="usuariosRanking">
 				<?php
-				$lugar = 1;
+				$lugar = 0;
 				$ultimaQuant = 0;
-				foreach ($usuarios as $usuario) { ?>
+				foreach ($usuarios as $usuario) { 
+				if ($usuario->mitadas != $ultimaQuant) { $lugar += 1; }
+				?>
 				<div class="rankeado">
 					<span class="lugar<?php if ($lugar < 4) { echo $lugar; } ?>"><?= $lugar ?>º</span>
 					<a href="/usuarios/<?= $usuario->username ?>"><img src="<?= pfp($usuario) ?>"></a>
@@ -72,7 +74,6 @@
 					<span class="infoExtra">com <?= $usuario->mitadas ?> mitadas</span>
 				</div>
 				<?php 
-				if ($usuario->mitadas != $ultimaQuant) { $lugar += 1; }
 				$ultimaQuant = $usuario->mitadas;
 				} ?>
 			</div>

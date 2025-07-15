@@ -54,9 +54,17 @@ $sortCoisitos = (isset($_GET['sort']) && array_key_exists($_GET['sort'], $sortCo
 			?>
 			<div class="usuariosRanking">
 				<?php
-				$lugar = 1;
+				$lugar = 0;
 				$ultimaQuant = 0;
-				foreach ($usuarios as $usuario) { ?>
+				foreach ($usuarios as $usuario) { 
+				if (
+				($sortCoisitos == "mitada" && $usuario->mitadas != $ultimaQuant) ||
+				($sortCoisitos == "sojada" && $usuario->sojadas != $ultimaQuant) ||
+				($sortCoisitos == "davecoin" && $usuario->davecoins != $ultimaQuant)
+				) {
+				$lugar += 1;
+				}
+				?>
 				<div class="rankeado">
 					<span class="lugar<?php if ($lugar < 4) { echo $lugar; } ?>"><?= $lugar ?>º</span>
 					<a href="/usuarios/<?= $usuario->username ?>"><img src="<?= pfp($usuario) ?>"></a>
@@ -68,13 +76,6 @@ $sortCoisitos = (isset($_GET['sort']) && array_key_exists($_GET['sort'], $sortCo
 					?> <?= $sortCoisitos ?>s</span>
 				</div>
 				<?php 
-				if (
-				($sortCoisitos == "mitada" && $usuario->mitadas != $ultimaQuant) ||
-				($sortCoisitos == "sojada" && $usuario->sojadas != $ultimaQuant) ||
-				($sortCoisitos == "davecoin" && $usuario->davecoins != $ultimaQuant)
-				) {
-				$lugar += 1;
-				}
 				
 				if ($sortCoisitos == "mitada") { $ultimaQuant = $usuario->mitadas; }
 				if ($sortCoisitos == "sojada") { $ultimaQuant = $usuario->sojadas; }
