@@ -33,7 +33,7 @@
 			</style>
 			<p class="labelManeira">>> DESTAQUE</p>
 			<div class="separador" style="margin-bottom: 8px; border-color:#D2EDFF"></div>
-			<a href="/foruns/3/17"><img src="/elementos/destaques/collabMural1.png"></a>
+			<a href="/projetos/117"><img src="/elementos/destaques/jornal.png"></a>
 			<div class="separador"></div>
 			<p class="labelManeira">>> PROJETOS RECENTES</p>
 			<div class="separador" style="margin-bottom: 8px; border-color:#D2EDFF"></div>
