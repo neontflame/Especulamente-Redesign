@@ -16,6 +16,35 @@ if ($path == "") {
 
 $dskjfds = pfp($usuario);
 
+$projeto = projeto_requestARQUIVOSDEVDDator($pasta);
+
+if ($projeto == null) {
+  erro_404();
+}
+
+$links = ['', ''];
+$estilosDeCoiso = ['color: #b1d9ff;', 'color: #b1d9ff;'];
+
+// link apos
+$stmt = $db->prepare("SELECT * FROM projetos WHERE tipo = 'rt' AND id > ? ORDER BY id ASC LIMIT 1");
+$stmt->bindParam(1, $projeto->id);
+$stmt->execute();
+$row = $stmt->fetch(PDO::FETCH_OBJ);
+if ($row != null) {
+	$links[1] = 'href="/~' . $row->arquivos_de_vdd . '/"';
+	$estilosDeCoiso[1] = '';
+}
+
+// link antes
+$stmt = $db->prepare("SELECT * FROM projetos WHERE tipo = 'rt' AND id < ? ORDER BY id DESC LIMIT 1");
+$stmt->bindParam(1, $projeto->id);
+$stmt->execute();
+$row = $stmt->fetch(PDO::FETCH_OBJ);
+if ($row != null) {
+	$links[0] = 'href="/~' . $row->arquivos_de_vdd . '/"';
+	$estilosDeCoiso[0] = '';
+}
+
 $cabecalho = isset($usuario) ?
   <<<HTML
   <div class="ESPECULAMENTE_masthead">
@@ -27,8 +56,8 @@ $cabecalho = isset($usuario) ?
             onmouseover="this.src='/static/resto/header/headerLogoHover.png';"
             onmouseout="this.src='/static/resto/header/headerLogo.png';"
         /></a>
-        <a href="" style="padding-bottom: 12px">site anterior</a>
-        <a href="" style="padding-bottom: 12px">proximo site</a>
+        <a {$links[0]} style="padding-bottom: 12px; {$estilosDeCoiso[0]}">site anterior</a>
+        <a {$links[1]} style="padding-bottom: 12px; {$estilosDeCoiso[1]}">proximo site</a>
       </div>
       <div class="twoink">
         <a href="/usuarios/{$usuario->username}"
@@ -88,11 +117,6 @@ $cabecalho = isset($usuario) ?
     }
   </style>
   HTML : "";
-
-$projeto = projeto_requestARQUIVOSDEVDDator($pasta);
-if ($projeto == null) {
-  erro_404();
-}
 
 $full_path = $_SERVER['DOCUMENT_ROOT'] . '/static/projetos/' . $projeto->id . $path;
 if (!file_exists($full_path) || is_dir($full_path)) {
