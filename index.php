@@ -63,6 +63,7 @@
 			<div class="usuariosRanking">
 				<?php
 				$lugar = 1;
+				$ultimaQuant = 0;
 				foreach ($usuarios as $usuario) { ?>
 				<div class="rankeado">
 					<span class="lugar<?php if ($lugar < 4) { echo $lugar; } ?>"><?= $lugar ?>º</span>
@@ -71,7 +72,8 @@
 					<span class="infoExtra">com <?= $usuario->mitadas ?> mitadas</span>
 				</div>
 				<?php 
-				$lugar += 1;
+				if ($usuario->mitadas != $ultimaQuant) { $lugar += 1; }
+				$ultimaQuant = $usuario->mitadas;
 				} ?>
 			</div>
 		</div>
