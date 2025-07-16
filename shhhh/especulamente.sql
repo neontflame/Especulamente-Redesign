@@ -128,6 +128,35 @@ CREATE TABLE IF NOT EXISTS `daveniveis` (
   `diada` int NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+--
+-- Despejando dados para a tabela `daveniveis`
+--
+
+INSERT INTO `daveniveis` (`id`, `nome`, `imagem`, `davecoins_proximo`, `diada`) VALUES
+(1, 'Novo Especulador', 'novo.png', 10, 1),
+(2, 'Especulador', 'especulador.png', 25, 1),
+(3, 'Especulativo', 'especulativo.png', 75, 1),
+(4, 'Apostador', 'apostador.png', 125, 1),
+(5, 'Bicheiro', 'bicheiro.png', 200, 1),
+(6, 'Investidor', 'investidor.png', 300, 1),
+(7, 'Empreendedor em Potencial', 'empreendedor_potencial.png', 450, 1),
+(8, 'Empreendedor em Realidade', 'empreendedor_real.png', 600, 1),
+(9, 'Milhário', 'milhario.png', 1000, 1),
+(10, 'Milionário', 'milionario.png', 1500, 1),
+(11, 'Especulionário', 'especulionario.png', 2022, 1),
+(12, 'Lagartixa', 'lagartixa.png', 2500, 1),
+(13, 'Lagarto', 'lagarto.png', 2750, 1),
+(14, 'Lagaaaaaarto', 'lagaaaaaarto.png', 3000, 1),
+(15, 'Rinoceronte', 'rinoceronte.png', 4000, 1),
+(16, 'Draguinho', 'draguinho.png', 4200, 1),
+(17, 'Dragão', 'dragao.png', 4400, 1),
+(18, 'Dragão Ancião', 'dragao_anciao.png', 4600, 1),
+(19, 'Dragão Geriátrico', 'dragao_geriatrico.png', 4800, 1),
+(20, 'Dragão Cremado', 'dragao_cremado.png', 5000, 1),
+(21, 'Super Saia Jeans Deus', 'supersaiajeansdeus.png', 7000, 1),
+(22, 'Ultra Saia Jeans Instinto', 'ultrasupersaiajeansinstinto.png', 8001, 1),
+(23, 'Gorila', 'gorila.png', 10000, 1);
+
 
 -- --------------------------------------------------------
 
@@ -142,6 +171,21 @@ CREATE TABLE IF NOT EXISTS `forum_categorias` (
   `tipoDeTopico` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Despejando dados para a tabela `forum_categorias`
+--
+
+INSERT INTO `forum_categorias` (`id`, `nome`, `descricao`, `tipoDeTopico`) VALUES
+(1, 'Avisos', 'Saiba o que a equipe do PORTAL ESPECULAMENTE está planejando!', 0),
+(2, 'Dúvidas e afins', 'Sinta-se livre pra perguntar coisas, dar sugestões ou só conversar sobre o site!', 0),
+(3, 'Colaborações', 'Busque outros ESPECULATIVOS para colaborar em projetos épicos!!', 0),
+(4, 'Jogos', 'Fale sobre videogames, jogos de tabuleiro, entretenimento lúdico no geral!', 1),
+(5, 'Leitura', '\"Que livro interessante, o que acontece se eu pegar e ler? Opa! Oxe? Quê? Ué? MEU!\"', 1),
+(6, 'Anime/Mangás', '\"Tell me! What kind of name is otaku?\"', 1),
+(7, 'Séries', 'Fale sobre séries!', 1),
+(8, 'O que ando fazendo', 'Você está criando alguma coisa? Sinta-se livre pra falar sobre aqui!', 1),
+(9, 'Geral', 'Tópicos gerais para pessoas legais!', 1);
 
 -- --------------------------------------------------------
 
