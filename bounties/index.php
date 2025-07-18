@@ -33,7 +33,7 @@ $meta["titulo"] = "[𝓑𝓸𝓾𝓷𝓽𝓲𝓯𝓾𝓵 𝓑𝓸𝓾𝓷𝓽�
 								<div id="botaoOuWhatever">
 									<?php // bounty nao feita
 									if (verificar_completeness_da_bounty($bounty->id, $usuario->id) == 0) : ?>
-									<span class="missaoCompleta">Vai lá fazer ಠ_ಠ</span>
+									<span class="missaoCompleta">+<?= $bounty->davecoins == 0 ? $rank["diada"] : $bounty->davecoins ?> <img style="vertical-align: bottom;" src="/elementos/davecoin/dvc.gif"></span>
 									<?php endif; ?>
 									<?php // bounty feita mas nao reinvindicada
 									if (verificar_completeness_da_bounty($bounty->id, $usuario->id) == 1) : ?>
@@ -41,7 +41,7 @@ $meta["titulo"] = "[𝓑𝓸𝓾𝓷𝓽𝓲𝓯𝓾𝓵 𝓑𝓸𝓾𝓷𝓽�
 									<?php endif; ?>
 									<?php // bounty feita e reinvindicada
 									if (verificar_completeness_da_bounty($bounty->id, $usuario->id) == 2) : ?>
-									<span class="missaoCompleta">+<?= $bounty->davecoins == 0 ? $rank["diada"] : $bounty->davecoins ?> <img style="vertical-align: bottom;" src="/elementos/davecoin/dvc.gif"></span>
+									<span class="missaoCompleta">Missão concluída!</span>
 									<?php endif; ?>
 								</div>
 							</span>
