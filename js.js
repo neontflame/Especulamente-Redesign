@@ -51,6 +51,10 @@ function postarComentario(tipo, id, ocomentario, thread, that, respondido) {
   );
 
   xhttp.onload = function () {
+    if (xhttp.responseText == 'yeah') {
+	  moeda(5);
+    }
+  
     carregarComentarios(tipo, id);
     that.parentElement.getElementsByTagName("textarea")[0].value = "";
 

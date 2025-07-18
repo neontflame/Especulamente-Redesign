@@ -826,7 +826,7 @@ function criar_projeto($id_criador, $nome, $descricao, $tipo, $arquivos, $arquiv
 			}
 		}
 
-		if ($arquivoVivel != null) {
+		if ($arquivoVivel != null && $arquivoVivel['size'] > 0) {
 			$rtn = subir_arquivo_vivel($arquivoVivel, $id, $id_criador);
 			if (is_string($rtn)) {
 				return $rtn;
@@ -1102,7 +1102,8 @@ function respostas_requestinator($id_topico)
 	return $comentarios;
 }
 
-function obter_bounties($id_usuario)
+// BOUNTY FUNÇOES
+function obter_bounties()
 {
 	global $db;
 
@@ -1116,6 +1117,103 @@ function obter_bounties($id_usuario)
 	}
 
 	return $bounties;
+}
+
+function obter_bounty($id_bounty)
+{
+	global $db;
+
+	$rows = $db->prepare("SELECT * FROM bounties WHERE id = ?");
+	$rows->bindParam(1, $id_bounty);
+	$rows->execute();
+
+	$row = $rows->fetch(PDO::FETCH_OBJ);
+	
+	return $row;
+}
+
+function verificar_completeness_da_bounty($id_bounty, $id_usuario)
+{
+	global $db;
+
+	$rows = $db->prepare("SELECT * FROM bounties_completos WHERE id_bounty = ? AND id_usuario = ? AND data = CURRENT_DATE");
+	$rows->bindParam(1, $id_bounty);
+	$rows->bindParam(2, $id_usuario);
+	$rows->execute();
+	
+	$row = $rows->fetch(PDO::FETCH_OBJ);
+	
+	if ($row != false) {
+		return ($row->reinvindicada + 1);
+	}
+	return 0;
+}
+
+function fazer_bounty($id_bounty, $reinvindicar = true)
+{
+	global $db;
+	global $usuario;
+
+	$rows = $db->prepare("SELECT * FROM bounties_completos WHERE id_bounty = ? AND id_usuario = ?");
+	$rows->bindParam(1, $id_bounty);
+	$rows->bindParam(2, $usuario->id);
+	$rows->execute();
+	
+	$row = $rows->fetch(PDO::FETCH_OBJ);
+	
+	if ($row != false) {
+		if ($row->data != date("Y-m-d", time())) {
+			$rows = $db->prepare("UPDATE bounties_completos SET data = CURRENT_DATE AND reinvindicada = FALSE WHERE id_bounty = ? AND id_usuario = ?");
+			$rows->bindParam(1, $id_bounty);
+			$rows->bindParam(2, $usuario->id);
+			$rows->execute();
+			
+			if ($reinvindicar) {
+				reinvindicar_bounty($id_bounty);
+			}
+			
+			return 1;
+		}
+	} else {
+		$rows = $db->prepare("INSERT INTO bounties_completos (id_bounty, id_usuario, data) VALUES (?, ?, CURRENT_DATE)");
+		$rows->bindParam(1, $id_bounty);
+		$rows->bindParam(2, $usuario->id);
+		$rows->execute();
+		
+		if ($reinvindicar) {
+			reinvindicar_bounty($id_bounty);
+		}
+		
+		return 0;
+	}
+	
+	return -1;
+}
+
+
+function reinvindicar_bounty($id_bounty) {
+	global $db;
+	global $usuario;
+	
+	$rows = $db->prepare("SELECT * FROM bounties_completos WHERE id_bounty = ? AND id_usuario = ? AND data = CURRENT_DATE AND reinvindicada = FALSE");
+	$rows->bindParam(1, $id_bounty);
+	$rows->bindParam(2, $usuario->id);
+	$rows->execute();
+	
+	$row = $rows->fetch(PDO::FETCH_OBJ);
+	$bounty = obter_bounty($id_bounty);
+	
+	if ($row != false) {
+		$rank = obter_rank($usuario->davecoins);
+		$davescoinNovas = ($bounty->davecoins == 0 ? $rank["diada"] : $bounty->davecoins);
+		
+		mudar_usuario($usuario->id, ['davecoins' => $usuario->davecoins + $davescoinNovas]);
+		
+		$rows = $db->prepare("UPDATE bounties_completos SET reinvindicada = TRUE WHERE id_bounty = ? AND id_usuario = ? AND data = CURRENT_DATE");
+		$rows->bindParam(1, $id_bounty);
+		$rows->bindParam(2, $usuario->id);
+		$rows->execute();
+	}
 }
 
 // subtrai data ya mané

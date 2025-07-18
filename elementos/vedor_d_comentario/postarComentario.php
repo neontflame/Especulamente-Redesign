@@ -16,6 +16,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 		$rows->bindParam(4, $comentario);
 		$rows->bindParam(5, $fio);
 		$rows->execute();
+		
+		if (verificar_completeness_da_bounty(3, $usuario->id) == 0) {
+			fazer_bounty(3);
+			echo('yeah');
+		}
 
 		$id_com = $db->lastInsertId();
 
@@ -25,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 
 		if ($tipo == 'projeto') {
 			$projeto = projeto_requestIDator($id);
-			echo $respondido;
+			// echo $respondido;
 			if ($respondido != 0) {
 				$comentarioOG = comentario_requestIDator($respondido);
 				$quote = responde_clickers($comentario, "/projetos/{$id}");
@@ -68,7 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 		}
 		if ($tipo == 'perfil') {
 			$perfil = usuario_requestIDator($id);
-			echo $respondido;
+			// echo $respondido;
 
 			if ($respondido != 0) {
 				$comentarioOG = comentario_requestIDator($respondido);

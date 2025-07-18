@@ -44,7 +44,12 @@ function reajor_d_reagida($tipo, &$coisa, &$usuario, $stringAdicional = null)
           if (this.responseText == "null" || this.responseText == "-1") {
             alert("Erro ao mitar");
           } else {
-			coiso.querySelector('#mitadas_cnt').innerText = this.responseText;
+			if (this.responseText[this.responseText.length - 1] == '§') {
+				coiso.querySelector('#mitadas_cnt').innerText = this.responseText.slice(0, this.responseText.length - 1);
+				moeda(1);
+			} else {
+				coiso.querySelector('#mitadas_cnt').innerText = this.responseText;
+			}
 			
             ja_mitou_<?= $coisa->id ?> = !ja_mitou_<?= $coisa->id ?>;
             if (ja_mitou_<?= $coisa->id ?>) {
@@ -73,7 +78,12 @@ function reajor_d_reagida($tipo, &$coisa, &$usuario, $stringAdicional = null)
           if (this.responseText == "-1") {
             alert("Erro ao sojar");
           } else {
-            coiso.querySelector('#sojadas_cnt').innerText = this.responseText;
+			if (this.responseText[this.responseText.length - 1] == '§') {
+				coiso.querySelector('#sojadas_cnt').innerText = this.responseText.slice(0, this.responseText.length - 1);
+				// moeda(1); pqq voce ganharia davecoins por espalhar odio
+			} else {
+				coiso.querySelector('#sojadas_cnt').innerText = this.responseText;
+			}
             ja_sojou_<?= $coisa->id ?> = !ja_sojou_<?= $coisa->id ?>;
             if (ja_sojou_<?= $coisa->id ?>) {
               coiso.querySelector("#sojar").style.display = "none";

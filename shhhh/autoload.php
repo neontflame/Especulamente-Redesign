@@ -285,3 +285,7 @@ function aviso($mensagem)
 	$aviso = $mensagem;
 	setcookie("aviso", $mensagem, time() + 5);
 }
+
+if ($usuario != null) {
+	fazer_bounty(1, false);
+}
