@@ -57,24 +57,24 @@
 			<?php
 			$usuarios = [];
 
-			$pages = coisos_tudo($usuarios, 'usuarios', 1, '', '', 10, 'mitadas DESC');
+			$pages = coisos_tudo($usuarios, 'usuarios', 1, '', '', 10, 'davecoins DESC');
 			?>
-			<p style="color: green; text-align: center; font-weight: bold; margin: 2px;">>> MITADALIST <<</p>
+			<p style="color: green; text-align: center; font-weight: bold; margin: 2px;">>> OS MAIORAIS <<</p>
 			<div class="usuariosRanking">
 				<?php
 				$lugar = 0;
 				$ultimaQuant = 0;
 				foreach ($usuarios as $usuario) { 
-				if ($usuario->mitadas != $ultimaQuant) { $lugar += 1; }
+				if ($usuario->davecoins != $ultimaQuant) { $lugar += 1; }
 				?>
 				<div class="rankeado">
 					<span class="lugar<?php if ($lugar < 4) { echo $lugar; } ?>"><?= $lugar ?>º</span>
 					<a href="/usuarios/<?= $usuario->username ?>"><img src="<?= pfp($usuario) ?>"></a>
 					<a class="username" href="/usuarios/<?= $usuario->username ?>"><?= $usuario->username ?></a>
-					<span class="infoExtra">com <?= $usuario->mitadas ?> mitadas</span>
+					<span class="infoExtra" style="float:right;"><?= obter_rank($usuario->davecoins)["nome"] ?> <img src="/elementos/ranks/<?= obter_rank($usuario->davecoins)["imagem"] ?>" width="48" height="48"></span>
 				</div>
 				<?php 
-				$ultimaQuant = $usuario->mitadas;
+				$ultimaQuant = $usuario->davecoins;
 				} ?>
 			</div>
 		</div>

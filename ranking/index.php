@@ -6,7 +6,7 @@ $sortCoiso = [
 'davecoin' => 'davecoins DESC'
 ];
 
-$sortCoisitos = (isset($_GET['sort']) && array_key_exists($_GET['sort'], $sortCoiso)) ? $_GET['sort'] : 'mitada';
+$sortCoisitos = (isset($_GET['sort']) && array_key_exists($_GET['sort'], $sortCoiso)) ? $_GET['sort'] : 'davecoin';
 
 ?>
 <?php include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
@@ -39,11 +39,11 @@ $sortCoisitos = (isset($_GET['sort']) && array_key_exists($_GET['sort'], $sortCo
 		<div class="inside_page_content">
 			<img src="/elementos/pagetitles/rankings.png" style="margin-top: -5px; margin-left: -5px; margin-right: -5px;">
 			<div class="sortsCoiso">
+			<?php if ($sortCoisitos != 'davecoin') { ?><a href="/ranking?sort=davecoin">com maior nível</a><?php } else { ?><b>com maior nível</b><?php } ?>
+			-
 			<?php if ($sortCoisitos != 'mitada') { ?><a href="/ranking?sort=mitada">mais mitados</a><?php } else { ?><b>mais mitados</b><?php } ?>
 			- 
 			<?php if ($sortCoisitos != 'sojada') { ?><a href="/ranking?sort=sojada">mais sojados</a><?php } else { ?><b>mais sojados</b><?php } ?>
-			- 
-			<?php if ($sortCoisitos != 'davecoin') { ?><a href="/ranking?sort=davecoin">com mais davecoins</a><?php } else { ?><b>com mais davecoins</b><?php } ?>
 			</div>
 			
 			<div class="separador" style="margin-bottom: 8px; border-color:#D2EDFF"></div>
@@ -69,11 +69,18 @@ $sortCoisitos = (isset($_GET['sort']) && array_key_exists($_GET['sort'], $sortCo
 					<span class="lugar<?php if ($lugar < 4) { echo $lugar; } ?>"><?= $lugar ?>º</span>
 					<a href="/usuarios/<?= $usuario->username ?>"><img src="<?= pfp($usuario) ?>"></a>
 					<a class="username" href="/usuarios/<?= $usuario->username ?>"><?= $usuario->username ?></a>
-					<span class="infoExtra">com <?php 
+				<?php if ($sortCoisitos != "davecoin") { ?> 
+				<span class="infoExtra">com <?php 
 					if ($sortCoisitos == "mitada") { echo $usuario->mitadas; }
 					if ($sortCoisitos == "sojada") { echo $usuario->sojadas; }
-					if ($sortCoisitos == "davecoin") { echo $usuario->davecoins; }
-					?> <?= $sortCoisitos ?>s</span>
+					?> <?= $sortCoisitos ?>s
+				</span>
+				<?php } else { ?>
+				<span class="infoExtra" style="float:right;">
+					<?= obter_rank($usuario->davecoins)["nome"] ?> 
+					<img src="/elementos/ranks/<?= obter_rank($usuario->davecoins)["imagem"] ?>" width="48" height="48">
+				</span>
+				<?php } ?>
 				</div>
 				<?php 
 				
