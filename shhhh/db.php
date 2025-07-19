@@ -799,7 +799,7 @@ function criar_projeto($id_criador, $nome, $descricao, $tipo, $arquivos, $arquiv
 
 	// EXPLODIR HOSTINGER
 	// se for rt ele coloca o nome da pasta em $arquivos_de_vdd
-	$arquivos_de_vdd = ($arquivos != null && !is_string($arquivos)) ? implode('\n', $arquivos['name']) : (is_string($arquivos) ? $arquivos : null);
+	$arquivos_de_vdd = ($arquivos != null && !is_string($arquivos)) ? implode('\n', $arquivos['name']) : (is_string($arquivos) ? $arquivos : '');
 
 	if ($arquivos == null && $arquivoVivel == null && ($tipo != 'rt' && $tipo != 'bg')) {
 		return "§Comeram seus arquivos?";
@@ -819,7 +819,7 @@ function criar_projeto($id_criador, $nome, $descricao, $tipo, $arquivos, $arquiv
 	mkdir($_SERVER['DOCUMENT_ROOT'] . '/static/projetos/' . $id . '/thumb');
 
 	if ($tipo != 'rt') {
-		if ($arquivos != null) {
+		if ($arquivos != null && $arquivos['size'] > 0) {
 			$rtn = subir_arquivoses($arquivos, '/static/projetos/' . $id, "projetos", $id, "arquivos", $extensoes_permitidas, 1024 * 1024 * 1024, 50);
 			if (is_string($rtn)) {
 				return $rtn;
