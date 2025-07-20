@@ -1163,7 +1163,7 @@ function fazer_bounty($id_bounty, $reinvindicar = true)
 	
 	if ($row != false) {
 		if ($row->data != date("Y-m-d", time())) {
-			$rows = $db->prepare("UPDATE bounties_completos SET data = CURRENT_DATE AND reinvindicada = FALSE WHERE id_bounty = ? AND id_usuario = ?");
+			$rows = $db->prepare("UPDATE bounties_completos SET data = CURRENT_DATE, reinvindicada = 0 WHERE id_bounty = ? AND id_usuario = ?");
 			$rows->bindParam(1, $id_bounty);
 			$rows->bindParam(2, $usuario->id);
 			$rows->execute();
