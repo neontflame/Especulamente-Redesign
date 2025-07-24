@@ -69,15 +69,15 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 								</object>
 							</div>
 						</div>
-						
+
 						<script>
-						var flashio = document.getElementsByClassName('jogo')[0].children[0];
-						
-						window.addEventListener('load', function () {
-							flashio.width = 620;
-							flashio.height = parseInt(flashio.TGetProperty('/', 9) * (620 / flashio.TGetProperty('/', 8)))
-							console.log('browser véio fix !');
-						});
+							var flashio = document.getElementsByClassName('jogo')[0].children[0];
+
+							window.addEventListener('load', function() {
+								flashio.width = 620;
+								flashio.height = parseInt(flashio.TGetProperty('/', 9) * (620 / flashio.TGetProperty('/', 8)))
+								console.log('browser véio fix !');
+							});
 						</script>
 					<?php endif; ?>
 					<?php if (str_ends_with($arquivo_vivel[0], '.zip')) : ?>
@@ -100,7 +100,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 					<?php if (str_ends_with($arquivo_vivel[0], '.sb3')) : ?>
 						<!-- JOGOS SCRATCH 3.0 (CRONOLOGICAMENTE INNACURATE MAS WHATEVER) -->
 						<div class="jogo" style="margin: 0 auto; width: -moz-fit-content; width: intrinsic; width: fit-content;">
-							<iframe src="http://turbowarp.org/embed?project_url=<?= $config['URL'] ?>/static/projetos/<?= $projeto->id ?>/<?= $arquivo_vivel[1] ?>" width="482" height="412" allowtransparency="true" frameborder="0" scrolling="no" allowfullscreen></iframe>
+							<iframe src="https://turbowarp.org/embed?project_url=<?= $config['URL'] ?>/static/projetos/<?= $projeto->id ?>/<?= $arquivo_vivel[1] ?>" width="482" height="412" allowtransparency="true" frameborder="0" scrolling="no" allowfullscreen></iframe>
 						</div>
 					<?php endif; ?>
 
@@ -127,62 +127,62 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 					<!-- midia -->
 					<div class="vedorDImagem">
 						<div id="listadorDImagem">
-						<p id="paginacio">Mídia 1 de <?= count($arquivos) ?></p>
+							<p id="paginacio">Mídia 1 de <?= count($arquivos) ?></p>
 
-						<button id="pagprimeiro" onclick="comecoCoisa()" style="float: left; margin: 14px 5px 0 0;" disabled>
-							<img src="/elementos/vedor_d_imagem/botaoPrimeiro.png" alt="Início">
-						</button>
-						<button id="paganterior" onclick="anteriorCoisa()" style="float: left; margin: 14px 6px 0 0;" disabled>
-							<img src="/elementos/vedor_d_imagem/botaoAnterior.png" alt="Anterior">
-						</button>
-						<button id="pagultimo" onclick="fimCoisa()" style="float: right; margin: 14px 0 0 5px;" <?= count($arquivos) == 1 ? "disabled" : "" ?>>
-							<img src="/elementos/vedor_d_imagem/botaoUltimo.png" alt="Último">
-						</button>
-						<button id="pagproximo" onclick="proximoCoisa()" style="float: right; margin: 14px 0 0 5px;" <?= count($arquivos) == 1 ? "disabled" : "" ?>>
-							<img src="/elementos/vedor_d_imagem/botaoProximo.png" alt="Próximo">
-						</button>
-						<div id="outrasImagens">
-							<?php $tiposDeVideo = ['mp4', 'avi', 'mkv'];
-							$tiposDeFlash = ['swf']; // provavelmente nao existe mais tipos de flash do que swf mas eu fiquei com preguiça e vai que minha hipotese e desprovada eventualmente					
-							$tiposDeAudio = ['mp3', 'wav', 'ogg'];
-							?>
-							<?php foreach ($arquivos as $i => $arquivo) : ?>
-								<?php $eh_um_video = in_array(pathinfo($arquivo, PATHINFO_EXTENSION), $tiposDeVideo);
-								$eh_um_flash = in_array(pathinfo($arquivo, PATHINFO_EXTENSION), $tiposDeFlash);
-								$eh_um_audio = in_array(pathinfo($arquivo, PATHINFO_EXTENSION), $tiposDeAudio);
+							<button id="pagprimeiro" onclick="comecoCoisa()" style="float: left; margin: 14px 5px 0 0;" disabled>
+								<img src="/elementos/vedor_d_imagem/botaoPrimeiro.png" alt="Início">
+							</button>
+							<button id="paganterior" onclick="anteriorCoisa()" style="float: left; margin: 14px 6px 0 0;" disabled>
+								<img src="/elementos/vedor_d_imagem/botaoAnterior.png" alt="Anterior">
+							</button>
+							<button id="pagultimo" onclick="fimCoisa()" style="float: right; margin: 14px 0 0 5px;" <?= count($arquivos) == 1 ? "disabled" : "" ?>>
+								<img src="/elementos/vedor_d_imagem/botaoUltimo.png" alt="Último">
+							</button>
+							<button id="pagproximo" onclick="proximoCoisa()" style="float: right; margin: 14px 0 0 5px;" <?= count($arquivos) == 1 ? "disabled" : "" ?>>
+								<img src="/elementos/vedor_d_imagem/botaoProximo.png" alt="Próximo">
+							</button>
+							<div id="outrasImagens">
+								<?php $tiposDeVideo = ['mp4', 'avi', 'mkv'];
+								$tiposDeFlash = ['swf']; // provavelmente nao existe mais tipos de flash do que swf mas eu fiquei com preguiça e vai que minha hipotese e desprovada eventualmente					
+								$tiposDeAudio = ['mp3', 'wav', 'ogg'];
 								?>
-								<button
-									data-url="/projetos/<?= $projeto->id ?>/<?= urlencode($arquivos_de_vdd[$i]) ?>"
-									data-static="/static/projetos/<?= $projeto->id ?>/<?= $arquivo ?>"
-									data-filename="<?= $arquivos_de_vdd[$i] ?>"
-									<?= $eh_um_video ? "data-video='true'" : "" ?>
-									<?= $eh_um_flash ? "data-flash='true'" : "" ?>
-									<?= $eh_um_audio ? "data-audio='true'" : "" ?>
-									onclick="clicCoiso(<?= $i ?>)"
-									style="<?= $i > 8 ? "display: none;" : "" ?>"
-									class="<?= $i == 0 ? "essa-imagem" : "" ?>">
-									<img
-										src="<?= $eh_um_video ? '/elementos/vedor_d_imagem/video_coiso.png' : ($eh_um_flash ? '/elementos/vedor_d_imagem/flash_coiso.png' : ($eh_um_audio ? '/elementos/vedor_d_imagem/audio_coiso.png' : "/static/projetos/" . $projeto->id . "/" . $arquivo)) ?>"
-										alt="<?= $arquivo ?>"
-										width="48px"
-										height="48px">
-								</button>
-							<?php endforeach ?>
-						</div>
+								<?php foreach ($arquivos as $i => $arquivo) : ?>
+									<?php $eh_um_video = in_array(pathinfo($arquivo, PATHINFO_EXTENSION), $tiposDeVideo);
+									$eh_um_flash = in_array(pathinfo($arquivo, PATHINFO_EXTENSION), $tiposDeFlash);
+									$eh_um_audio = in_array(pathinfo($arquivo, PATHINFO_EXTENSION), $tiposDeAudio);
+									?>
+									<button
+										data-url="/projetos/<?= $projeto->id ?>/<?= urlencode($arquivos_de_vdd[$i]) ?>"
+										data-static="/static/projetos/<?= $projeto->id ?>/<?= $arquivo ?>"
+										data-filename="<?= $arquivos_de_vdd[$i] ?>"
+										<?= $eh_um_video ? "data-video='true'" : "" ?>
+										<?= $eh_um_flash ? "data-flash='true'" : "" ?>
+										<?= $eh_um_audio ? "data-audio='true'" : "" ?>
+										onclick="clicCoiso(<?= $i ?>)"
+										style="<?= $i > 8 ? "display: none;" : "" ?>"
+										class="<?= $i == 0 ? "essa-imagem" : "" ?>">
+										<img
+											src="<?= $eh_um_video ? '/elementos/vedor_d_imagem/video_coiso.png' : ($eh_um_flash ? '/elementos/vedor_d_imagem/flash_coiso.png' : ($eh_um_audio ? '/elementos/vedor_d_imagem/audio_coiso.png' : "/static/projetos/" . $projeto->id . "/" . $arquivo)) ?>"
+											alt="<?= $arquivo ?>"
+											width="48px"
+											height="48px">
+									</button>
+								<?php endforeach ?>
+							</div>
 
-						<br>
+							<br>
 						</div>
 						<video id="videoAtual" width="620" autoplay="false" controls="true" style="display: none;">
 							Seu navegador não tem suporte pra tag de vídeo!!
 						</video>
 						<embed id="flashAtual" type="application/x-shockwave-flash" src="" width="620" height="465">
 						</embed>
-						
+
 						<div class="vedorDMusica" id="audioAtual">
 							<audio id="musicaDoVedor" src="WEATHER.mp3">
 								Seu navegador não tem suporte pra tag de áudio!!
-							</audio> 
-							
+							</audio>
+
 							<div class="botao">
 								<button type="button" id="musPlayButton" onclick="musicaPlay()"><img src="/elementos/vedor_d_audio/playButt.png"></button>
 								<button type="button" id="musPauseButton" style="display:none" onclick="musicaPause()"><img src="/elementos/vedor_d_audio/pauseButt.png"></button>
@@ -202,144 +202,148 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 								</div>
 							</div>
 						</div>
-						
+
 						<script>
-						var mouseSeguro = '';
-						var pauseDeMexerComOTempo = false;
-						
-						function musicaPlay() {
-							musicaDoVedor.play();
-							musPlayButton.style.display = 'none';
-							musPauseButton.style.display = '';
-						}
+							var mouseSeguro = '';
+							var pauseDeMexerComOTempo = false;
 
-						function musicaPause() {
-							musicaDoVedor.pause();
-							musPlayButton.style.display = '';
-							musPauseButton.style.display = 'none';
-						}
-
-						musicaDoVedor.ontimeupdate = function() {musMudarInfo()};
-						musicaDoVedor.oncanplay = function() {musMudarInfo()};
-
-						function musMudarInfo() {
-							if (musicaDoVedor.paused) {
-								musPlayButton.style.display = '';
-								musPauseButton.style.display = 'none';
-							} else {
+							function musicaPlay() {
+								musicaDoVedor.play();
 								musPlayButton.style.display = 'none';
 								musPauseButton.style.display = '';
 							}
-							musSuco.style.width = (568 * (musicaDoVedor.currentTime / musicaDoVedor.duration)) + 'px';
-							musSucoSeek.style.width = ((568 * (getLoadedAudioSeconds(musicaDoVedor) / musicaDoVedor.duration)) - (568 * (musicaDoVedor.currentTime / musicaDoVedor.duration))) + 'px';
-							musInfoTempo.innerText = formatadorDTempo(musicaDoVedor.currentTime) + ' / ' + formatadorDTempo(musicaDoVedor.duration);
-						}
 
-						function formatadorDTempo(segundos) {
-							if (segundos == null) {
-								segundos = 0;
+							function musicaPause() {
+								musicaDoVedor.pause();
+								musPlayButton.style.display = '';
+								musPauseButton.style.display = 'none';
 							}
-							var seg = Math.round(segundos % 60);
-							var min = Math.floor(segundos / 60);
-							
-							var stringSeg = '';
-							if (seg < 10) {
-								stringSeg = '0' + seg;
-							} else { 
-								stringSeg = seg;
-							}
-							
-							return min + ':' + stringSeg;
-						}
 
-						musMudarInfo();
-						musVolSuco.style.width = (100 * musicaDoVedor.volume) + 'px';
-						musInfoFilename.innerText = '"audio.wav"';
-
-						// robo faça meu trabalho por mim
-						function getMousePosRelativeToElement(event, element) {
-							event = event || window.event;
-
-							var rect = element.getBoundingClientRect();
-							var mouseX = (event.pageX !== undefined ? event.pageX : event.clientX + 
-								(document.documentElement.scrollLeft || document.body.scrollLeft));
-							var mouseY = (event.pageY !== undefined ? event.pageY : event.clientY + 
-								(document.documentElement.scrollTop || document.body.scrollTop));
-							var elemLeft = rect.left + (document.documentElement.scrollLeft || document.body.scrollLeft);
-							var elemTop = rect.top + (document.documentElement.scrollTop || document.body.scrollTop);
-							return {
-								x: mouseX - elemLeft,
-								y: mouseY - elemTop
+							musicaDoVedor.ontimeupdate = function() {
+								musMudarInfo()
 							};
-						}
+							musicaDoVedor.oncanplay = function() {
+								musMudarInfo()
+							};
 
-						function getLoadedAudioSeconds(audio) {
-							if (audio.buffered && audio.buffered.length) {
-								return audio.buffered.end(audio.buffered.length - 1);
+							function musMudarInfo() {
+								if (musicaDoVedor.paused) {
+									musPlayButton.style.display = '';
+									musPauseButton.style.display = 'none';
+								} else {
+									musPlayButton.style.display = 'none';
+									musPauseButton.style.display = '';
+								}
+								musSuco.style.width = (568 * (musicaDoVedor.currentTime / musicaDoVedor.duration)) + 'px';
+								musSucoSeek.style.width = ((568 * (getLoadedAudioSeconds(musicaDoVedor) / musicaDoVedor.duration)) - (568 * (musicaDoVedor.currentTime / musicaDoVedor.duration))) + 'px';
+								musInfoTempo.innerText = formatadorDTempo(musicaDoVedor.currentTime) + ' / ' + formatadorDTempo(musicaDoVedor.duration);
 							}
-							return 0;
-						}
 
-						// obrigado robo
-						
-						document.addEventListener('mousemove', function(e) {
-							mouseCoisos();
-						});
-						
-						document.addEventListener('mousedown', function(e) {
-							mouseCoisos();
-						});
-						
-						window.addEventListener("mouseup", function(e) {
-							if (mouseSeguro === 'tempo' && pauseDeMexerComOTempo == true) {
-								musicaPlay();
-								pauseDeMexerComOTempo = false;
+							function formatadorDTempo(segundos) {
+								if (segundos == null) {
+									segundos = 0;
+								}
+								var seg = Math.round(segundos % 60);
+								var min = Math.floor(segundos / 60);
+
+								var stringSeg = '';
+								if (seg < 10) {
+									stringSeg = '0' + seg;
+								} else {
+									stringSeg = seg;
+								}
+
+								return min + ':' + stringSeg;
 							}
-							
-							mouseSeguro = '';
-						});
-						
-						function musChangeTime() {
-							if (!musicaDoVedor.paused) {
-								pauseDeMexerComOTempo = true;
-							}
-							musicaPause();
-							
-							var oTempcio = (getMousePosRelativeToElement(null, musBarra).x / 568) * musicaDoVedor.duration;
-							if (oTempcio > musicaDoVedor.duration) {
-								musicaDoVedor.currentTime = musicaDoVedor.duration;
-							} else if (oTempcio < 0) {
-								musicaDoVedor.currentTime = 0;
-							} else {
-								musicaDoVedor.currentTime = oTempcio;
-							}
-						}
-						
-						function musChangeVolume() {
-							var oVolucio = getMousePosRelativeToElement(null, musVolBarra).x / 100;
-							if (oVolucio > 1) {
-								musicaDoVedor.volume = 1;
-							} else if (oVolucio < 0) {
-								musicaDoVedor.volume = 0;
-							} else {
-								musicaDoVedor.volume = oVolucio;
-							}
+
+							musMudarInfo();
 							musVolSuco.style.width = (100 * musicaDoVedor.volume) + 'px';
-						}
-						
-						function mudarMouseSeguro(coiso) {
-							console.log(coiso);
-							mouseSeguro = coiso;
-						}
-						
-						function mouseCoisos() {
-							if (mouseSeguro === 'tempo') {
-								musChangeTime();
+							musInfoFilename.innerText = '"audio.wav"';
+
+							// robo faça meu trabalho por mim
+							function getMousePosRelativeToElement(event, element) {
+								event = event || window.event;
+
+								var rect = element.getBoundingClientRect();
+								var mouseX = (event.pageX !== undefined ? event.pageX : event.clientX +
+									(document.documentElement.scrollLeft || document.body.scrollLeft));
+								var mouseY = (event.pageY !== undefined ? event.pageY : event.clientY +
+									(document.documentElement.scrollTop || document.body.scrollTop));
+								var elemLeft = rect.left + (document.documentElement.scrollLeft || document.body.scrollLeft);
+								var elemTop = rect.top + (document.documentElement.scrollTop || document.body.scrollTop);
+								return {
+									x: mouseX - elemLeft,
+									y: mouseY - elemTop
+								};
 							}
-							if (mouseSeguro === 'volume') {
-								musChangeVolume();
+
+							function getLoadedAudioSeconds(audio) {
+								if (audio.buffered && audio.buffered.length) {
+									return audio.buffered.end(audio.buffered.length - 1);
+								}
+								return 0;
 							}
-						}
+
+							// obrigado robo
+
+							document.addEventListener('mousemove', function(e) {
+								mouseCoisos();
+							});
+
+							document.addEventListener('mousedown', function(e) {
+								mouseCoisos();
+							});
+
+							window.addEventListener("mouseup", function(e) {
+								if (mouseSeguro === 'tempo' && pauseDeMexerComOTempo == true) {
+									musicaPlay();
+									pauseDeMexerComOTempo = false;
+								}
+
+								mouseSeguro = '';
+							});
+
+							function musChangeTime() {
+								if (!musicaDoVedor.paused) {
+									pauseDeMexerComOTempo = true;
+								}
+								musicaPause();
+
+								var oTempcio = (getMousePosRelativeToElement(null, musBarra).x / 568) * musicaDoVedor.duration;
+								if (oTempcio > musicaDoVedor.duration) {
+									musicaDoVedor.currentTime = musicaDoVedor.duration;
+								} else if (oTempcio < 0) {
+									musicaDoVedor.currentTime = 0;
+								} else {
+									musicaDoVedor.currentTime = oTempcio;
+								}
+							}
+
+							function musChangeVolume() {
+								var oVolucio = getMousePosRelativeToElement(null, musVolBarra).x / 100;
+								if (oVolucio > 1) {
+									musicaDoVedor.volume = 1;
+								} else if (oVolucio < 0) {
+									musicaDoVedor.volume = 0;
+								} else {
+									musicaDoVedor.volume = oVolucio;
+								}
+								musVolSuco.style.width = (100 * musicaDoVedor.volume) + 'px';
+							}
+
+							function mudarMouseSeguro(coiso) {
+								console.log(coiso);
+								mouseSeguro = coiso;
+							}
+
+							function mouseCoisos() {
+								if (mouseSeguro === 'tempo') {
+									musChangeTime();
+								}
+								if (mouseSeguro === 'volume') {
+									musChangeVolume();
+								}
+							}
 						</script>
 						<a href="/elementos/chillmaia.png" target="_blank" id="imagemAtual" style="display: none;">
 							<img src="/elementos/chillmaia.png">
@@ -393,84 +397,84 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 							#outrasImagens button.essa-imagem img {
 								opacity: 1;
 							}
-							
+
 							/* VEDOR D MUSICA !!! YEAHYE */
 							.vedorDMusica {
-							  display: table;
-							  width: 621px;
+								display: table;
+								width: 621px;
 							}
 
 							.vedorDMusica .botao {
-							  float:left;
+								float: left;
 							}
 
 							.vedorDMusica .botao button {
-							  cursor:pointer;
-							  border: none;
-							  width: 44px;
-							  padding: 0px;
+								cursor: pointer;
+								border: none;
+								width: 44px;
+								padding: 0px;
 							}
 
 							.vedorDMusica .tocador {
-							  float:right;
+								float: right;
 							}
 
 							.vedorDMusica .tocador .barrinha {
-							  height: 7px;
-							  border: 1px solid #8D8D8D;
-							  background-image: url('/elementos/vedor_d_audio/vidro.png');
+								height: 7px;
+								border: 1px solid #8D8D8D;
+								background-image: url('/elementos/vedor_d_audio/vidro.png');
 							}
 
 							.vedorDMusica .tocador .volume {
-							  width: 100px;
-							  float: left;
-							  margin-top: 10px;
+								width: 100px;
+								float: left;
+								margin-top: 10px;
 							}
 
 							.vedorDMusica .tocador .barrinha .juice {
-							  height: 7px;
-							  background-image: url('/elementos/vedor_d_audio/suco.png');
-							  float:left;
-							  animation: davejuice_flow 25s infinite linear;
-							  -webkit-animation: davejuice_webkitflow 25s infinite linear;
-							  -moz-animation: davejuice_mozflow 25s infinite linear;
+								height: 7px;
+								background-image: url('/elementos/vedor_d_audio/suco.png');
+								float: left;
+								animation: davejuice_flow 25s infinite linear;
+								-webkit-animation: davejuice_webkitflow 25s infinite linear;
+								-moz-animation: davejuice_mozflow 25s infinite linear;
 							}
 
 							.vedorDMusica .tocador .barrinha .juiceseek {
-							  height: 7px;
-							  background-image: url('/elementos/vedor_d_audio/sucoSeek.png');
-							  float:left;
-							  animation: davejuice_flow 25s infinite linear;
-							  -webkit-animation: davejuice_webkitflow 25s infinite linear;
-							  -moz-animation: davejuice_mozflow 25s infinite linear;
+								height: 7px;
+								background-image: url('/elementos/vedor_d_audio/sucoSeek.png');
+								float: left;
+								animation: davejuice_flow 25s infinite linear;
+								-webkit-animation: davejuice_webkitflow 25s infinite linear;
+								-moz-animation: davejuice_mozflow 25s infinite linear;
 							}
 
 							.vedorDMusica .tocador .info {
-							  width: 568px;
-							  height: 32px;
-							  background-image: url('/elementos/vedor_d_audio/fundoInfo.png');
-							  border: 1px solid #8D8D8D;
-							  border-top: 0px;
-							  font-family: Verdana;
-							  display:table;
+								width: 568px;
+								height: 32px;
+								background-image: url('/elementos/vedor_d_audio/fundoInfo.png');
+								border: 1px solid #8D8D8D;
+								border-top: 0px;
+								font-family: Verdana;
+								display: table;
 							}
 
 							.vedorDMusica .tocador .info .tempo {
-							  margin: 6px;
-							  float: left;
-							  font-size: 14px;
-							  color: #353535;
+								margin: 6px;
+								float: left;
+								font-size: 14px;
+								color: #353535;
 							}
 
 							.vedorDMusica .tocador .info .filename {
-							  margin: 8px;
-							  float: right;
-							  font-size: 11px;
-							  font-style: italic;
-							  color: #969696;
-							  max-width: 301px;
-							  overflow: hidden;
-							  white-space: nowrap;
+								margin: 8px;
+								float: right;
+								font-size: 11px;
+								font-style: italic;
+								color: #969696;
+								max-width: 301px;
+								overflow: hidden;
+								white-space: nowrap;
 							}
 						</style>
 
@@ -525,7 +529,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 									}
 									document.getElementById("flashAtual").style.display = "none";
 									document.getElementById("imagemAtual").style.display = "none";
-									
+
 									document.getElementById("audioAtual").style.display = "table";
 									musicaDoVedor.src = img.getAttribute('data-static');
 									musInfoFilename.innerText = '"' + img.getAttribute('data-filename') + '"';
@@ -614,7 +618,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 							function fimCoisa() {
 								clicCoiso(totalImagens - 1);
 							}
-							
+
 							if (totalImagens < 2) {
 								// bom de fazer isso e q dai eu nao preciso reescrever o php inteiro !!!! muahuahau
 								listadorDImagem.style.display = 'none';
@@ -667,12 +671,12 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 				<?= responde_clickers(trocadorDeImagemCoiso($projeto->descricao)) ?>
 			</div>
 			<?php $postadoString = '';
-			
+
 			if (isset($projeto->dataBump)) {
 				$postadoString .= 'Editado dia <b>' . velhificar_data($projeto->dataBump) . '</b>, ';
 			}
 			$postadoString .= 'Postado dia <b>' . velhificar_data($projeto->data) . '</b>';
-			
+
 			reajor_d_reagida('projeto', $projeto, $usuario, $postadoString); ?>
 		</div>
 
