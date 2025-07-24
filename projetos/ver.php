@@ -23,6 +23,11 @@ if (isset($usuario)) {
 	$projeto_e_meu = $projeto->id_criador == $usuario->id;
 }
 
+// Suporte a Godot 4.0
+if (str_ends_with($arquivo_vivel[0], '.zip')) {
+	header('Cross-Origin-Embedder-Policy: require-corp');
+	header('Cross-Origin-Opener-Policy: same-origin');
+}
 ?>
 
 <?php
