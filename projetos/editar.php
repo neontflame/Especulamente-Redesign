@@ -137,7 +137,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 						<?php if ($projeto->tipo != 'rt') : ?>
 						<button type="button" class="abaButt" onclick="inativarAsAbas(); this.className = 'abaButt abaAtiva'; abaArquivos.style.display = 'block';"><?= $projeto->tipo == 'jg' ? 'Downloadáveis' : ($projeto->tipo == 'bg' ? 'Anexos no post' : 'Arquivos') ?></button>
 						<?php endif;?>
+						<?php if ($projeto->tipo != 'dl') : ?>
 						<button type="button" class="abaButt" onclick="inativarAsAbas(); this.className = 'abaButt abaAtiva'; abaThumb.style.display = 'block';">Thumbnail</button>
+						<?php endif;?>
 					</div>
 				
 					<?php if ($projeto->tipo == 'jg') : ?>
