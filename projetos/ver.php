@@ -100,7 +100,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 					<?php if (str_ends_with($arquivo_vivel[0], '.sb3')) : ?>
 						<!-- JOGOS SCRATCH 3.0 (CRONOLOGICAMENTE INNACURATE MAS WHATEVER) -->
 						<div class="jogo" style="margin: 0 auto; width: -moz-fit-content; width: intrinsic; width: fit-content;">
-							<iframe src="https://turbowarp.org/embed?project_url=<?= $config['URL'] ?>/static/projetos/<?= $projeto->id ?>/<?= $arquivo_vivel[1] ?>" width="482" height="412" allowtransparency="true" frameborder="0" scrolling="no" allowfullscreen crossorigin></iframe>
+							<iframe src="https://turbowarp.org/embed?project_url=<?= $config['URL'] ?>/static/projetos/<?= $projeto->id ?>/<?= $arquivo_vivel[1] ?>" width="482" height="412" allowtransparency="true" frameborder="0" scrolling="no" allowfullscreen></iframe>
 						</div>
 					<?php endif; ?>
 
