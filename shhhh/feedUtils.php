@@ -48,7 +48,7 @@ function renderarProjetosMasDessaVezNoRss(&$projetos, &$canal) {
 				$arquivos = explode('\n', $proj->arquivos);
 				
 				$oContador = 0;
-				if (count($arquivos_de_vdd) > 0 && ($arquivos_de_vdd[0] != '' || $arquivos_de_vdd[0] != ' ')) {
+				if (count($arquivos_de_vdd) >= 1 && ($arquivos_de_vdd[0] != '' || $arquivos_de_vdd[0] != ' ')) {
 					$oGrandeEmbed = $oGrandeEmbed . '<h2>Lista de arquivos</h2><ul>';
 					
 					foreach ($arquivos_de_vdd as $arquivito) {
