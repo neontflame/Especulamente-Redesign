@@ -203,6 +203,10 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 				">
 						Cancelar edição</button>
 				<?php endif; ?>
+				
+				<?php if (!$perfil_e_meu) : ?>
+					<a href="/usuarios/<?= $perfil->username ?>/feed.xml" style="float:right;"><img src="/elementos/rss.png"></a>
+				<?php endif;?>
 			</div>
 			<form action="" method="post" enctype="multipart/form-data" id="form_css" style="display: none;">
 				<textarea name="css_fnf" id="css_fnf" style="width: 425px; height: 150px;"><?= htmlspecialchars($perfil->css) ?></textarea>

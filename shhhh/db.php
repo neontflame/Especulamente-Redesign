@@ -1040,7 +1040,9 @@ function editar_projeto($id_criador, $id_projeto, $nome, $descricao, $arquivos_n
 function deletar_projeto($id_criador, $id_projeto)
 {
 	global $db;
-
+	
+	$projetoADeletar = projeto_requestIDator($id_projeto);
+	
 	// -1: Checar se eu posso ter um super salsicha sandwich ei scoob (nome muito curto)
 	$rows = $db->prepare("SELECT id_criador FROM projetos WHERE id = ? AND id_criador = ?");
 	$rows->bindParam(1, $id_projeto);
@@ -1065,6 +1067,12 @@ function deletar_projeto($id_criador, $id_projeto)
 	$rows->execute();
 
 	remover_pasta_inteira($_SERVER['DOCUMENT_ROOT'] . '/static/projetos/' . $id_projeto);
+	
+	if ($projetoADeletar->tipo == 'jg' || $projetoADeletar->tipo == 'rt') {
+		mudar_usuario($id_criador, ['davecoins' => usuario_requestIDator($id_criador)->davecoins - 25]);
+	} else {
+		mudar_usuario($id_criador, ['davecoins' => usuario_requestIDator($id_criador)->davecoins - 10]);
+	}
 }
 
 function comentario_requestinator($tipo, $id)

@@ -61,6 +61,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
 	<div>
 		<div class="projTitulo">
 			<p style="display: inline-block;"><a href="/foruns">Fóruns</a> >> <i style="color: #4f6bad"><?= categoria_requestIDator($id)->nome ?></i></p>
+			<a href="/foruns/<?= $id ?>/feed.xml" style="float:right; margin: 4px;"><img src="/elementos/rss.png"></a>
 			<!-- <a class="postNaCat" href="/foruns/postar?cat=<?= $id ?>">+ Postar nessa categoria</a> -->
 		</div>
 		

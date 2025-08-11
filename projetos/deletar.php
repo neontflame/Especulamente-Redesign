@@ -59,6 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
           <p>Tem certeza que quer deletar o projeto <?= $projeto->nome ?>??</p>
           <p>você NUNCA mais vai conseguir acessá-lo.</p>
           <p>Isso é irreversível.</p>
+          <p>Você também vai perder <b><?= ($projeto->tipo == 'jg' || $projeto->tipo == 'rt') ? 25 : 10 ?> davecoins</b> com isso.</p>
           <p>Pense bem.</p>
           <br><br><br><br>
 

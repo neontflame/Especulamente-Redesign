@@ -124,6 +124,8 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 		<?php if ($sortCoisitos != 'mitada') { ?><a href="/<?= pagetitlePorTipo($tipo) ?>/<?= $coisodepaginaSemSort ?>sort=mitada">mais mitados</a><?php } else { ?><b>mais mitados</b><?php } ?>
 		- 
 		<?php if ($sortCoisitos != 'sojada') { ?><a href="/<?= pagetitlePorTipo($tipo) ?>/<?= $coisodepaginaSemSort ?>sort=sojada">mais sojados</a><?php } else { ?><b>mais sojados</b><?php } ?>
+		
+		<a href="/<?= pagetitlePorTipo($tipo) ?>/feed.xml" style="float:right;"><img src="/elementos/rss.png"></a>
 		</div>
 		<div class="separador"></div>
       <?php if ($query != '') { ?>

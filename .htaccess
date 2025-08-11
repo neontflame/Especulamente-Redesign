@@ -22,6 +22,14 @@ RewriteRule ^projetos/([0-9]+)/zipar/?$ /projetos/zipar.php?id=$1 [L,QSA]
 RewriteCond %{REQUEST_URI} !^/projetos/file\.php$
 RewriteRule ^projetos/([0-9]+)/([^/]+)$ /projetos/file.php?id=$1&filename=$2 [L,QSA]
 
+# Sidebárcios Cômicos eu acho (Forma de rss)
+RewriteRule ^projetos/feed\.xml?$ /feeds/proj.php?$1 [L,QSA]
+RewriteRule ^midia/feed\.xml?$ /feeds/proj.php?tipo=md [L,QSA]
+RewriteRule ^jogos/feed\.xml?$ /feeds/proj.php?tipo=jg [L,QSA]
+RewriteRule ^resto/feed\.xml?$ /feeds/proj.php?tipo=rt [L,QSA]
+RewriteRule ^blogs/feed\.xml?$ /feeds/proj.php?tipo=bg [L,QSA]
+RewriteRule ^downloadaveis/feed\.xml?$ /feeds/proj.php?tipo=dl [L,QSA]
+
 # Sidebárcios Cômicos eu acho
 RewriteRule ^projetos/?$ /lista.php?$1 [L,QSA]
 RewriteRule ^midia/?$ /lista.php?formato=grade&tipo=md [L,QSA]
@@ -40,8 +48,14 @@ RewriteCond %{REQUEST_URI} !^/usuarios/perfil\.php$
 RewriteRule ^usuarios/([^/]+)/?$ /usuarios/perfil.php?username=$1 [L,QSA]
 RewriteRule ^usuarios/?$ /usuarios.php [L]
 
+RewriteRule ^usuarios/([^/]+)/feed\.xml?$ /feeds/user.php?username=$1 [L,QSA]
+
 # Fóruns
 RewriteCond %{REQUEST_URI} !^/foruns/ver\.php$
+
+RewriteCond %{REQUEST_URI} !^/foruns/categoria\.php$
+RewriteRule ^foruns/([0-9]+)/feed\.xml?$ /feeds/forumCat.php?id=$1 [L,QSA]
+
 RewriteRule ^foruns/([0-9]+)/([0-9]+)/?$ /foruns/ver.php?id=$2&categoria=$1 [L,QSA]
 RewriteCond %{REQUEST_URI} !^/foruns/categoria\.php$
 RewriteRule ^foruns/([0-9]+)/?$ /foruns/categoria.php?id=$1 [L,QSA]
