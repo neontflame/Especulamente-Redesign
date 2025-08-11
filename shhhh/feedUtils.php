@@ -38,9 +38,10 @@ function renderarProjetosMasDessaVezNoRss(&$projetos, &$canal) {
 				else {
 					$oGrandeEmbed = $oGrandeEmbed . '<img src="/static/projetos/' . $proj->id . '/' . $arquivito . '">';
 				}
+				$oGrandeEmbed = $oGrandeEmbed . '<br>';
 			}
 			
-			$item->addChild('description', $oGrandeEmbed . '<br>' . responde_clickers(trocadorDeImagemCoiso($proj->descricao, $proj->id))); 
+			$item->addChild('description', $oGrandeEmbed . responde_clickers(trocadorDeImagemCoiso($proj->descricao, $proj->id))); 
 		} else {
 			if ($proj->tipo != 'bg' && $proj->tipo != 'rt') {
 				$arquivos_de_vdd = explode('\n', $proj->arquivos_de_vdd);
