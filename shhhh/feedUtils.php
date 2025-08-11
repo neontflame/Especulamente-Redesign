@@ -63,7 +63,7 @@ function renderarProjetosMasDessaVezNoRss(&$projetos, &$canal) {
 			}
 				
 			if ($proj->thumbnail != null) { 
-				$item->addChild('description', '<img src="/static/projetos/' . $proj->id . '/thumb/' . $proj->thumbnail . '"><br>' . $oGrandeEmbed . responde_clickers(trocadorDeImagemCoiso($proj->descricao, $proj->id)));
+				$item->addChild('description', '<img width="128" src="/static/projetos/' . $proj->id . '/thumb/' . $proj->thumbnail . '"><br>' . $oGrandeEmbed . responde_clickers(trocadorDeImagemCoiso($proj->descricao, $proj->id)));
 			} else {
 				$item->addChild('description', $oGrandeEmbed . responde_clickers(trocadorDeImagemCoiso($proj->descricao, $proj->id)));
 			}
