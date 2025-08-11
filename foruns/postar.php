@@ -137,7 +137,7 @@ unset($_SESSION['erroPost']);
 					}
 					foreach ($cats as $cat) {
 						if ($cat->nome != 'Avisos' || 
-						($cat->nome == 'Avisos' && ($usuario->username == 'neontflame' || $usuario->username == 'fupicat')) // note to self: deixar isso aqui bonito
+						($cat->nome == 'Avisos' && (strtolower($usuario->username) == 'neontflame' || strtolower($usuario->username) == 'fupicat')) // note to self: deixar isso aqui bonito
 						) :
 					?>
 						<option <?php if (isset($_GET['cat']) && $cat->id == $_GET['cat']) : ?>selected<?php endif; ?> value="<?= $cat->id ?>"><?= $cat->nome ?></option>
