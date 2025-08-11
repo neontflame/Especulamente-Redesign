@@ -30,7 +30,7 @@ function renderarProjetosMasDessaVezNoRss(&$projetos, &$canal) {
 					$oGrandeEmbed = $oGrandeEmbed . '<video src="/static/projetos/' . $proj->id . '/' . $arquivito . '" controls="true">Seu navegador não tem suporte pra tag de vídeo!!</video>';
 				}
 				else if ($eh_um_flash) {
-					$oGrandeEmbed = $oGrandeEmbed . '<embed type="application/x-shockwave-flash" src="/static/projetos/' . $proj->id . '/' . $arquivito . '"></embed>';
+					$oGrandeEmbed = $oGrandeEmbed . '<embed type="application/x-shockwave-flash" src="/static/projetos/' . $proj->id . '/' . $arquivito . '">Seu leitor RSS não tem suporte pra Flash!!</embed>';
 				}
 				else if ($eh_um_audio) {
 					$oGrandeEmbed = $oGrandeEmbed . '<audio src="/static/projetos/' . $proj->id . '/' . $arquivito . '">Seu leitor RSS não tem suporte pra tag de áudio!!</audio>';
