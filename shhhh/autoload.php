@@ -12,9 +12,17 @@ function redirect($location)
 	die();
 }
 
+$paginasSemFuck = array("/mensagens/contagem.php");
+
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+	// robo faça meu trabalho por mim!
+	$requestPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+    $requestPath = rtrim($requestPath, '/'); // Remove trailing slashes for consistency
+	// obrigado mr. robo
+	
 	$random = random_int(1, 1000);
-	if ($random == 1) {
+	
+	if ($random == 1 && !in_array($requestPath, $paginasSemFuck)) {
 		redirect('/vaisefoderem.php');
 	}
 }
