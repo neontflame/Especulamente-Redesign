@@ -162,6 +162,9 @@ global $config;
 									<a href="/usuarios/<?= $usuario->username ?>">Perfil</a>
 									<a href="/convites.php">Seus convites</a>
 									<a href="/bounties">Bounties</a>
+									<?php if (isset($forum)) : ?>
+									<a href="/foruns/assinatura">Assinatura</a>
+									<?php endif; ?>
 									<hr>
 									<a href="/sair.php">Sair</a>
 								</div>
