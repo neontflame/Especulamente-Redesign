@@ -66,7 +66,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
 		</div>
 		
 		<div class="projTitulo">
-			<h1 style="line-height: 4px; margin-top: 16px;"><i><?= categoria_requestIDator($id)->nome ?></i></h1>
+			<h1 style="line-height: 6px; margin-top: 14px;"><i><?= categoria_requestIDator($id)->nome ?></i></h1>
 			<p style="text-align: right;"><?= categoria_requestIDator($id)->descricao ?></p>
 		</div>
 		
