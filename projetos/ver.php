@@ -480,6 +480,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 								max-width: 301px;
 								overflow: hidden;
 								white-space: nowrap;
+								width: 253px;
 							}
 						</style>
 
