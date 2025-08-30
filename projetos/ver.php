@@ -203,7 +203,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 										<div id="musVolSuco" class="juice"></div>
 									</div>
 									<a href="" download="" id="musInfoFile" class="filename" style="font-weight: bold">Baixar áudio!</a>
-									<span id="musInfoFilename" class="filename">"Um negocio.ogg"</span>
+									<span id="musInfoFilename" class="filename" style="overflow:hidden; width: 253px;">"Um negocio.ogg"</span>
 								</div>
 							</div>
 						</div>
@@ -480,7 +480,6 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 								max-width: 301px;
 								overflow: hidden;
 								white-space: nowrap;
-								width: 253px;
 							}
 						</style>
 
