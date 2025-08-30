@@ -13,6 +13,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	$sucesso = "Assinatura trocada!";
   }
 }
+
+if (isset($_SERVER['HTTP_REFERER']) && !empty($_SERVER['HTTP_REFERER'])) {
+    $johnTravolta = $_SERVER['HTTP_REFERER'];
+} else {
+    $johnTravolta = '/foruns/';
+}
 ?>
 
 <?php
@@ -29,6 +35,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
   <div class="page_content">
     <div class="inside_page_content">
 		<?php include $_SERVER['DOCUMENT_ROOT'] . '/elementos/statusbar.php'; ?>
+	  <a href="<?= $johnTravolta ?>"><img style="margin-left: -5px; margin-top: -5px;" src="/elementos/voltar.png"></a>
       <h2 style="text-align:center;">Mudar assinatura</h2>
 	  Isso vai fazer uma mensagem de sua escolha aparecer em baixo de seus posts nos Fóruns.
 	  <br>

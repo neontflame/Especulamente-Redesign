@@ -49,6 +49,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 		$sucesso = ["Projeto editado com sucesso! :]"];
 	}
 }
+
+if (isset($_SERVER['HTTP_REFERER']) && !empty($_SERVER['HTTP_REFERER'])) {
+    $johnTravolta = $_SERVER['HTTP_REFERER'];
+} else {
+    $johnTravolta = '/projetos/' . $id;
+}
 ?>
 
 <?php include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
@@ -113,7 +119,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 					}
 				</script>
 				<!-- Downloadável -->
-				<a href="/projetos/<?= $id ?>"><img style="margin-left: -5px; margin-top: -5px;" src="/elementos/voltar.png"></a>
+				<a href="<?= $johnTravolta ?>"><img style="margin-left: -5px; margin-top: -5px;" src="/elementos/voltar.png"></a>
 				<h1 style="text-align: center; font-style: italic;">Editando projeto</h1>
 
 				<form action="" method="post" enctype="multipart/form-data">

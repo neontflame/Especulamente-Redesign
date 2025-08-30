@@ -65,6 +65,11 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
 			<!-- <a class="postNaCat" href="/foruns/postar?cat=<?= $id ?>">+ Postar nessa categoria</a> -->
 		</div>
 		
+		<div class="projTitulo">
+			<h1 style="line-height: 4px; margin-top: 16px;"><i><?= categoria_requestIDator($id)->nome ?></i></h1>
+			<p style="text-align: right;"><?= categoria_requestIDator($id)->descricao ?></p>
+		</div>
+		
 		<div class="inside_page_content" style="max-width: 621px;">
 			<style>
 				table th {
