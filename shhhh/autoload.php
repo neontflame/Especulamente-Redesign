@@ -6,6 +6,8 @@ include $_SERVER['DOCUMENT_ROOT'] . '/shhhh/login_coisos.php';
 include $_SERVER['DOCUMENT_ROOT'] . '/elementos/vedor_d_comentario/vdc.php';
 include $_SERVER['DOCUMENT_ROOT'] . '/elementos/reajor_d_reagida/rdr.php';
 
+$osAdminsEpicos = array("neontflame", "fupicat");
+
 function redirect($location)
 {
 	header("Location: " . $location);

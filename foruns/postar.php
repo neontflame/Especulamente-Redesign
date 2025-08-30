@@ -120,9 +120,13 @@ unset($_SESSION['erroPost']);
 		<p><a href="/foruns">Fóruns</a> >> <i style="color: #4f6bad">Postar</i></p>
 	</div>
 	<div>
+		<div class="projTitulo">
+			<h1 style="line-height: 6px; margin-top: 14px;"><i>Postar</i></h1>
+			<p style="text-align: right;">Proponha algo para ser discutido juntamente de outros ESPECULATIVOS!</p>
+		</div>
+		
 		<div class="inside_page_content">
 			<?php include $_SERVER['DOCUMENT_ROOT'] . '/elementos/statusbar.php'; ?>
-			Proponha algo a ser discutido!
 			<form action="/foruns/postarPost.php" method="post" enctype="multipart/form-data">
 				<label for="categoria" class="labelManeira">>> CATEGORIA</label>
 				<select id="categoria" name="categoria" style="width: 100%;">
@@ -137,7 +141,7 @@ unset($_SESSION['erroPost']);
 					}
 					foreach ($cats as $cat) {
 						if ($cat->nome != 'Avisos' || 
-						($cat->nome == 'Avisos' && (strtolower($usuario->username) == 'neontflame' || strtolower($usuario->username) == 'fupicat')) // note to self: deixar isso aqui bonito
+						($cat->nome == 'Avisos' && in_array(strtolower($usuario->username), $osAdminsEpicos)) // note to self: deixar isso aqui bonito
 						) :
 					?>
 						<option <?php if (isset($_GET['cat']) && $cat->id == $_GET['cat']) : ?>selected<?php endif; ?> value="<?= $cat->id ?>"><?= $cat->nome ?></option>
