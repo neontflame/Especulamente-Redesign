@@ -31,7 +31,7 @@ if (str_ends_with($arquivo_vivel[0], '.zip')) {
 ?>
 
 <?php
-$meta["titulo"] = "[" . $projeto->nome . " <> " . ['dl' => 'Downloadável', 'md' => 'Mídia', 'jg' => 'Jogo', 'bg' => 'Blog', 'rt' => 'Website'][$projeto->tipo] . " no PORTAL ESPECULAMENTE]";
+$meta["titulo"] = "[" . htmlspecialchars($projeto->nome) . " <> " . ['dl' => 'Downloadável', 'md' => 'Mídia', 'jg' => 'Jogo', 'bg' => 'Blog', 'rt' => 'Website'][$projeto->tipo] . " no PORTAL ESPECULAMENTE]";
 $meta["descricao"] = str_replace("\n", " ", markdown_apenas_texto($projeto->descricao));
 $meta["type"] = ['dl' => 'website', 'md' => 'image', 'jg' => 'website', 'bg' => 'article', 'rt' => 'website'][$projeto->tipo];
 $meta["pagina"] = '/projetos/' . $projeto->id;
