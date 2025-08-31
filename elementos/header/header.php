@@ -163,7 +163,7 @@ global $config;
 									<a href="/convites.php">Seus convites</a>
 									<a href="/bounties">Bounties</a>
 									<?php if (isset($forum)) : ?>
-									<a href="/foruns/assinatura">Assinatura</a>
+									<a href="/foruns/assinatura.php">Assinatura</a>
 									<?php endif; ?>
 									<hr>
 									<a href="/sair.php">Sair</a>
