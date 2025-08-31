@@ -87,7 +87,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 			}
 
 			.bioEditavel {
-				background-color: #FFFFFF00;
+				background: none;
 				border: none;
 				position: relative;
 				padding: 1px 1px;
