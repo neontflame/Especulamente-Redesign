@@ -8,7 +8,7 @@ $meta["titulo"] = "[𝓑𝓸𝓾𝓷𝓽𝓲𝓯𝓾𝓵 𝓑𝓸𝓾𝓷𝓽�
 ?>
 <?php include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 
-<link href="/cssDoDave.css" rel="stylesheet" type="text/css" />
+<link href="/cssDoDave.css?2" rel="stylesheet" type="text/css" />
 <div class="container">
 	<?php include $_SERVER['DOCUMENT_ROOT'] . '/elementos/sidebar/sidebar.php'; ?>
 
