@@ -82,6 +82,7 @@ $meta["titulo"] = "[𝓑𝓸𝓾𝓷𝓽𝓲𝓯𝓾𝓵 𝓑𝓸𝓾𝓷𝓽�
 
 		.bounty>img {
 			float: left;
+			margin-right: -9px;
 		}
 
 		.bounty .direito {

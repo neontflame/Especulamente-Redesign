@@ -20,13 +20,21 @@ $sortCoiso = [
 
 $sortCoisitos = (isset($_GET['sort']) && array_key_exists($_GET['sort'], $sortCoiso)) ? $_GET['sort'] : 'recente';
 
+if (isset($usuario)) {
+	$naolistcoiso = "(naolist = 0 OR (naolist = 1 AND id_criador = " . $usuario->id . "))";
+} else {
+	$naolistcoiso = "naolist = 0";
+}
+
 if ($tipo != '') {
-	$tipoQuery = " WHERE tipo = " . $db->quote($tipo);
+	$tipoQuery = " WHERE " . $naolistcoiso . " AND tipo = " . $db->quote($tipo);
+} else {
+	$tipoQuery = " WHERE " . $naolistcoiso;
 }
 
 if ($query != '') {
 	if ($tipo != '') {
-		$tipoQuery = " AND tipo = " . $db->quote($tipo);
+		$tipoQuery = " AND " . $naolistcoiso . " AND tipo = " . $db->quote($tipo);
 	}
 	// PARTE UM DO FUNNY COISO COM O NOME DE USUARIO
 	if (substr($query, 0, 1) == '@') {

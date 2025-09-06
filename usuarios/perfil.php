@@ -49,8 +49,15 @@ if (!$perfil) {
 	erro_404();
 }
 
+
+if (isset($usuario)) {
+	$naolistcoiso = "(naolist = 0 OR (naolist = 1 AND id_criador = " . $usuario->id . "))";
+} else {
+	$naolistcoiso = "naolist = 0";
+}
+
 $projetos = [];
-$proejos = coisos_tudo($projetos, 'projetos', 1, '', ' WHERE id_criador = ' . $perfil->id, 2, 'GREATEST(COALESCE(dataBump, 0), data) DESC, id DESC');
+$proejos = coisos_tudo($projetos, 'projetos', 1, '', ' WHERE ' . $naolistcoiso . ' AND id_criador = ' . $perfil->id, 2, 'GREATEST(COALESCE(dataBump, 0), data) DESC, id DESC');
 // variaveis com alma ?
 
 $perfil_e_meu = $usuario ? ($usuario->id == $perfil->id) : false;

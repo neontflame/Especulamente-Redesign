@@ -7,6 +7,7 @@ $erro = [];
 $sucesso = [];
 $id = $_GET['id'] ?? null;
 $projeto = projeto_requestIDator($id);
+$voltarPara = $_GET['volta'] ?? 'proj';
 
 $projeto_e_meu = false;
 
@@ -39,19 +40,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 
 	$tiposBons = ($tipo == 'md' ? ['png', 'bmp', 'jpg', 'jpeg', 'gif', 'mp4', 'ogg', 'mp3', 'wav', 'avi', 'wmv', 'mkv', 'swf'] : []);
 
+
+	if (isset($_POST['unlist'])) {
+		if ($_POST['unlist'] == 'on') {
+			$rows = $db->prepare("UPDATE projetos SET naolist = 1 WHERE id = ?");
+			$rows->bindParam(1, $id);
+			$rows->execute();
+		}
+	} else {
+		$rows = $db->prepare("UPDATE projetos SET naolist = 0 WHERE id = ?");
+		$rows->bindParam(1, $id);
+		$rows->execute();
+	}
+		
 	$projeto_rtn = editar_projeto($usuario->id, $id, $nome, $descricao, $arquivos, $remover, $ordem, $arquivoVivel, $removerArquivoVivel, $thumb, $removerThumb, $tiposBons);
 	if (is_string($projeto_rtn)) {
 		array_push($erro, $projeto_rtn);
 	}
-
+		
 	if (count($erro) == 0) {
 		$projeto = $projeto_rtn;
 		$sucesso = ["Projeto editado com sucesso! :]"];
 	}
 }
 
-if (isset($_SERVER['HTTP_REFERER']) && !empty($_SERVER['HTTP_REFERER'])) {
-    $johnTravolta = $_SERVER['HTTP_REFERER'];
+if ($voltarPara == 'criar') {
+    $johnTravolta = '/criar/';
 } else {
     $johnTravolta = '/projetos/' . $id;
 }
@@ -94,6 +108,12 @@ if (isset($_SERVER['HTTP_REFERER']) && !empty($_SERVER['HTTP_REFERER'])) {
     border-bottom: 1px solid #FFFFFF !important;
     background-color: white;
   }
+  
+	.labelDeVerdade {
+		font-weight: normal;
+		font-size: 12px;
+		display: inline;
+	}
 </style>
 
 <div class="container">
@@ -133,7 +153,11 @@ if (isset($_SERVER['HTTP_REFERER']) && !empty($_SERVER['HTTP_REFERER'])) {
 					<label for="descricao" class="labelManeira">>> <?= ($projeto->tipo == 'bg') ? 'POSTAGEM' : 'DESCRIÇÃO' ?></label>
 					<textarea style="width: 97%" name="descricao" id="descricao"><?= $projeto->descricao ?></textarea>
 					<br>
-
+					
+					<div class="separador" style="margin-bottom:4px"></div>
+					<input type="checkbox" name="unlist" id="unlist" <?php if ($projeto->naolist == 1) { echo 'checked'; } ?>> <label for="unlist" class="labelDeVerdade">Marcar como não listado</label>
+					<br>
+					
 					<div class="separador"></div>
 					<!-- abas wuatafaq -->
 					<div id="abaBotoes">

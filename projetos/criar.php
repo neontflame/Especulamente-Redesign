@@ -70,7 +70,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 			array_push($erro, "Tipo de projeto inválido.");
 		}
 
-		if (count($erro) == 0) {
+		// codigo debativelmente com alma porque eu fiquei com preguiça de colocar na funçao
+		if ($_POST['unlist'] == 'checked') {
+			$rows = $db->prepare("UPDATE projetos SET naolist = 1 WHERE id = ?");
+			$rows->bindParam(1, $projeto->id);
+			$rows->execute();
+		}
+				
+		if (count($erro) == 0 && ($_POST['unlist'] != 'checked')) {
 			if ($tipo == 'md') { fazer_bounty(4); }
 			if ($tipo == 'dl') { fazer_bounty(5); }
 			if ($tipo == 'bg') { fazer_bounty(6); }
@@ -118,6 +125,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 	.abaAtiva {
 		border-bottom: 1px solid #FFFFFF !important;
 		background-color: white;
+	}
+	
+	.labelDeVerdade {
+		font-weight: normal;
+		font-size: 12px;
+		display: inline;
 	}
 </style>
 
@@ -192,7 +205,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 					</style>
 					<h2 style="color: #000000; text-align: center; font-style: italic; font-weight: normal;">...ou talvez editar?</h2>
 					<?php foreach ($projetos as $projeto) :	?>
-						<a class="itemditavel tipo<?= $projeto->tipo ?>" href="/projetos/<?= $projeto->id ?>/editar">[<?= strtoupper($projeto->tipo) ?>] <?= $projeto->nome ?></a>
+						<a class="itemditavel tipo<?= $projeto->tipo ?>" href="/projetos/<?= $projeto->id ?>/editar?volta=criar">[<?= strtoupper($projeto->tipo) ?>] <?= $projeto->nome ?></a>
 						<br>
 				<?php endforeach;
 				} ?>
@@ -245,6 +258,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 					<textarea style="width: 97%" name="descricao" id="descricao"><?= $descricao ?? "" ?></textarea>
 					<br>
 					
+					<div class="separador" style="margin-bottom:4px"></div>
+					<input type="checkbox" name="unlist" id="unlist"> <label for="unlist" class="labelDeVerdade">Marcar como não listado</label>
+					<br>
 					<div class="separador"></div>
 					<!-- abas wuatafaq -->
 					<div id="abaBotoes">
@@ -285,6 +301,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 					<label for="descricao" class="labelManeira">>> DESCRIÇÃO</label>
 					<textarea style="width: 97%" name="descricao" id="descricao"><?= $descricao ?? "" ?></textarea>
 					<br>
+					<div class="separador" style="margin-bottom:4px"></div>
+					<input type="checkbox" name="unlist" id="unlist"> <label for="unlist" class="labelDeVerdade">Marcar como não listado</label>
+					<br>
 					<div class="separador"></div>
 					<label for="arquivos" class="labelManeira">>> ARQUIVOS</label>
 					<div id="multiFileUploader" style="margin-bottom: 10px;">
@@ -312,6 +331,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 
 					<label for="descricao" class="labelManeira">>> DESCRIÇÃO</label>
 					<textarea style="width: 97%" name="descricao" id="descricao"><?= $descricao ?? "" ?></textarea>
+					<br>
+					<div class="separador" style="margin-bottom:4px"></div>
+					<input type="checkbox" name="unlist" id="unlist"> <label for="unlist" class="labelDeVerdade">Marcar como não listado</label>
 					<br>
 					<div class="separador"></div>
 					
@@ -370,6 +392,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 					<label for="descricao" class="labelManeira">>> DESCRIÇÃO</label>
 					<textarea style="width: 97%" name="descricao" id="descricao"><?= $descricao ?? "" ?></textarea>
 					<br>
+					
+					<div class="separador" style="margin-bottom:4px"></div>
+					<input type="checkbox" name="unlist" id="unlist"> <label for="unlist" class="labelDeVerdade">Marcar como não listado</label>
+					<br>
 					<!-- abas wuatafaq -->
 					<div id="abaBotoes">
 						<button type="button" class="abaButt abaAtiva" onclick="inativarAsAbas(); this.className = 'abaButt abaAtiva'; abaMidias.style.display = 'table';">Imagens e vídeos</button>
@@ -410,6 +436,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 
 					<label for=" descricao" class="labelManeira">>> DESCRIÇÃO</label>
 					<textarea style="width: 97%" name="descricao" id="descricao"><?= $descricao ?? "" ?></textarea>
+					<br>
+					<div class="separador" style="margin-bottom:4px"></div>
+					<input type="checkbox" name="unlist" id="unlist"> <label for="unlist" class="labelDeVerdade">Marcar como não listado</label>
 					<br>
 					<!-- abas wuatafaq -->
 					<div id="abaBotoes">
