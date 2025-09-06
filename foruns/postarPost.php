@@ -37,6 +37,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 		$forumpost = forumpost_requestIDator($id_com);
 
 		if ($forumpost->id_resposta != -1) {
+			if ($forumpost->id_postador != $usuario->id) {
+				fazer_bounty(9);
+			}
 			//bump!
 			$rows = $db->prepare("UPDATE forum_posts SET dataBump = CURRENT_TIMESTAMP() WHERE id = ?");
 			$rows->bindParam(1, $forumpost->id_resposta);
@@ -60,6 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 				);
 			}
 		} else {
+			fazer_bounty(10);
 			redirect('/foruns/' . $forumpost->id_categoria . '/' . $id_com);
 		}
 	} else {
