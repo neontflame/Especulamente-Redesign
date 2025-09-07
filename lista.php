@@ -26,10 +26,12 @@ if (isset($usuario)) {
 	$naolistcoiso = "naolist = 0";
 }
 
+// codigo com alma .
+// to do: exorcizar pq Olha isso . Que porra e essa
 if ($tipo != '') {
-	$tipoQuery = " WHERE " . $naolistcoiso . " AND tipo = " . $db->quote($tipo);
+	$tipoQuery = ($query != '' ? " AND " : " WHERE ") . $naolistcoiso . " AND tipo = " . $db->quote($tipo);
 } else {
-	$tipoQuery = " WHERE " . $naolistcoiso;
+	$tipoQuery = ($query != '' ? " AND " : " WHERE ") . $naolistcoiso;
 }
 
 if ($query != '') {
