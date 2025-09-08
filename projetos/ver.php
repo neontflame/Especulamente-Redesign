@@ -88,8 +88,9 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 									flashio.width = 620;
 									flashio.height = parseInt(flashio.TGetProperty('/', 9) * (620 / flashio.TGetProperty('/', 8)))
 									console.log('browser véio fix !');
+									
+									fezONegocio = true;
 								}
-								fezONegocio = true;
 							}
 							
 							setTimeout(resFlash, 1000);
