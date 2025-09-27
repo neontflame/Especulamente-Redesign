@@ -1253,6 +1253,7 @@ function the_filetype_image($filename, $fileCoiso)
 {
 	$filetipos = [
 		'rtf' => 'richText',
+		'txt' => 'text',
 		'png' => 'img',
 		'jpg' => 'img',
 		'jpeg' => 'img',
@@ -1288,9 +1289,19 @@ function the_filetype_image($filename, $fileCoiso)
 		'gm81' => 'gamemaker',
 		'gmk' => 'gamemaker',
 		'gmx' => 'gamemaker',
+		'fbx' => 'mesh',
+		'obj' => 'mesh',
+		'dae' => 'mesh',
+		'stl' => 'mesh',
+		'blend' => 'blender',
+		'c4d' => 'c4d',
+		'pac' => 'brawlbox',
+		'pcs' => 'brawlbox',
+		'brstm' => 'brawlbox',
+		'brsar' => 'brawlbox',
 	];
 
-	return $filetipos[the_filetype($filename, $fileCoiso)] ?? 'text';
+	return $filetipos[the_filetype($filename, $fileCoiso)] ?? 'arquivo';
 }
 
 function obter_rank($davecoins_atuais)
