@@ -87,7 +87,7 @@ function getFileMimeType($file)
 
 function renderarProjeto($projeto, $botaoSim = true, $thumbObrigatoria = false)
 { ?>
-	<div class="projeto" style="min-height:84px">
+	<div class="projeto" style="min-height:77px">
 		<div class="projetoSide">
 			<?php if ($botaoSim) : ?>
 				<?php if ($projeto->tipo == 'dl') : ?>

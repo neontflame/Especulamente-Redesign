@@ -345,6 +345,7 @@ a.coolButt {
   border-bottom: solid 1px;
   border-bottom-color: #9ebbff;
   word-break: break-word;
+  font-size: 11px;
 }
 
 .projeto:last-child {
@@ -374,6 +375,8 @@ a.coolButt {
   float: right;
   text-align: right;
   margin-right: -8px;
+  margin-left: 4px;
+  display: table;
 }
 
 .projetoSide img {

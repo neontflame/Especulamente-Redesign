@@ -31,12 +31,10 @@
 				  text-decoration: underline;
 				}
 			</style>
-			<p class="labelManeira">>> DESTAQUE</p>
-			<div class="separador" style="margin-bottom: 8px; border-color:#D2EDFF"></div>
+			<img src="/elementos/principaltitles/destaque.png" style="margin-left: -5px; margin-bottom: 5px;">
 			<a href="/projetos/117"><img src="/elementos/destaques/jornal.png"></a>
-			<div class="separador"></div>
-			<p class="labelManeira">>> PROJETOS RECENTES</p>
-			<div class="separador" style="margin-bottom: 8px; border-color:#D2EDFF"></div>
+			<img src="/elementos/principaltitles/projsRecentes.png" style="margin-left: -5px; margin-top: 5px;">
+			<div class="separador" style="margin-bottom: 8px; margin-top: 4px;border-color:#D2EDFF"></div>
 			<?php
 			$projetos = [];
 
@@ -48,10 +46,10 @@
 				}
 				?>
 			</div>
-			<div class="separador"></div>
-			<div>
-				<p class="labelManeira">>> RANKINGS</p>
-				<a href="/ranking" class="aDoLado">ver lista completa >></a>
+			<div class="separador" style="border-color:#D2EDFF"></div>
+			<div style="margin-bottom: -3px; margin-top: -1px;">
+				<img src="/elementos/principaltitles/rankingsMetade.png" style="margin-left: -5px; margin-top: 5px;">
+				<a href="/ranking" style="float:right; margin: 5px -5px 0px 0px;"><img src="/elementos/principaltitles/rankBotaoInativo.png" onmouseover="this.src='/elementos/principaltitles/rankBotaoAtivo.png';" onmouseout="this.src='/elementos/principaltitles/rankBotaoInativo.png';" /></a>
 			</div>
 			<div class="separador" style="margin-bottom: 8px; border-color:#D2EDFF"></div>
 			<?php
@@ -59,7 +57,7 @@
 
 			$pages = coisos_tudo($usuarios, 'usuarios', 1, '', '', 10, 'davecoins DESC');
 			?>
-			<p style="color: green; text-align: center; font-weight: bold; margin: 2px;">>> OS MAIORAIS <<</p>
+			<!-- <p style="color: green; text-align: center; font-weight: bold; margin: 2px;">>> OS MAIORAIS <<</p> -->
 			<div class="usuariosRanking">
 				<?php
 				$lugar = 0;
