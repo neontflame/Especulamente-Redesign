@@ -250,17 +250,9 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 					</button>
 				</form>
 			<?php endif; ?>
-			<div class="separador"></div>
-			<style>
-				.labelManeira {
-					font-size: 15px;
-					font-weight: bold;
-					margin-top: 4px;
-					margin-bottom: 4px;
-				}
-			</style>
+			<div class="separador" style="border-color:#D2EDFF"></div>
 			<?php if ($projetos != []) : ?>
-				<p class="labelManeira">>> PROJETOS RECENTES</p>
+				<img src="/elementos/principaltitles/projsRecentes.png" style="margin-left: -5px; margin-top: 5px;">
 				<div class="separador" style="border-color: #c7eaf9; margin-bottom: 8px;"></div>
 				<div class="projetos">
 					<?php
@@ -270,7 +262,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 					?>
 				</div>
 				<a class="autorDeProjeto" style="color: #9ebbff; font-weight:bold; text-align:right; display:block; margin-top:0px;" href="/projetos/?q=@<?= $username ?>">ver mais projetos! >></a>
-				<div class="separador"></div>
+				<div class="separador" style="border-color:#D2EDFF"></div>
 			<?php endif; ?>
 			<?php dave_rank($perfil->davecoins); ?>
 			<?php reajor_d_reagida('perfil', $perfil, $usuario) ?>
