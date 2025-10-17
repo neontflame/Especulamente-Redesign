@@ -252,7 +252,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 			<?php endif; ?>
 			<div class="separador" style="border-color:#D2EDFF"></div>
 			<?php if ($projetos != []) : ?>
-				<img src="/elementos/principaltitles/projsRecentes.png" style="margin-left: -5px; margin-top: 5px;">
+				<img src="/elementos/principaltitles/projsRecentes.png" style="margin-left: -5px; margin-top: 5px; margin-bottom: -3px;">
 				<div class="separador" style="border-color: #c7eaf9; margin-bottom: 8px;"></div>
 				<div class="projetos">
 					<?php
@@ -262,7 +262,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 					?>
 				</div>
 				<a class="autorDeProjeto" style="color: #9ebbff; font-weight:bold; text-align:right; display:block; margin-top:0px;" href="/projetos/?q=@<?= $username ?>">ver mais projetos! >></a>
-				<div class="separador" style="border-color:#D2EDFF"></div>
+				<div class="separador"></div>
 			<?php endif; ?>
 			<?php dave_rank($perfil->davecoins); ?>
 			<?php reajor_d_reagida('perfil', $perfil, $usuario) ?>
