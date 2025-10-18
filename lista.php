@@ -137,7 +137,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 		
 		<a href="/<?= pagetitlePorTipo($tipo) ?>/feed.xml" style="float:right;"><img src="/elementos/rss.png"></a>
 		</div>
-		<div class="separador"></div>
+		<div class="separador" style="margin-right: 0px;"></div>
       <?php if ($query != '') { ?>
         <div class="pesquisaThing">Resultados da pesquisa por <b>"<?php echo htmlspecialchars($query) . '"</b></div>';
                                                                 } ?>
