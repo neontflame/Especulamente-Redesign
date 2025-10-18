@@ -51,15 +51,11 @@ global $config;
 
 	<!-- CSS ESPECIAL -->
 	<style>
-		/* poses de ~~puta~~ luta */
+		/* primaveresque */
 		body {
-			background-color: #000000;
-			background-image: url("/elementos/murais/fundo_luta.png");
+			background-color: #BBE2FE;
+			background-image: url("/elementos/murais/primavera.png");
 		}
-	
-	.insideBodyFooter, .insideBodyFooter a {
-		color: #555;
-	}
 	</style>
 </head>
 
