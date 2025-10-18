@@ -335,6 +335,8 @@ a.coolButt {
   border-bottom: 1px solid #9ebbff;
   padding-bottom: 4px;
   margin-bottom: 8px;
+  margin-top: 4px;
+  text-align: center;
 }
 
 .projetos {
