@@ -21,7 +21,7 @@ global $config;
 <head>
 	<meta content="pt-br" http-equiv="Content-Language" />
 	<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
-	<link href="/cssManeiro.css?v31" rel="stylesheet" type="text/css" />
+	<link href="/cssManeiro.css?v32" rel="stylesheet" type="text/css" />
 	<link id="favicon" rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 	<link rel="preload" as="image" href="/elementos/davecoin/dvc_1.png">
 	<link rel="preload" as="image" href="/elementos/davecoin/dvc_5.png">
@@ -73,7 +73,7 @@ global $config;
 						<a href="/blogs/">BLOGS</a>
 						<a href="/resto/">"O resto..."</a>
 					</div>
-					<form action="/<?= pagetitlePorTipo($_GET['tipo'] ?? '') ?>">
+					<form action="/<?= pagetitlePorTipo($_GET['tipo'] ?? '') ?>" style="float:right;">
 						<input type="text" id="search" name="q" placeholder="Pesquise algo lol" class="coolSearchBar" style="height: 18px; width: 198px; float:left; margin-right: 3px;" value="<?= $_GET["q"] ?? "" ?>" />
 						<button style="cursor:pointer; display: inline-block; padding: 0; border: 0;">
 							<img src="/elementos/header/pesquisa.png">
