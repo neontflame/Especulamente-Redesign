@@ -392,6 +392,7 @@ a.coolButt {
   text-decoration: none;
   margin-top: 4px;
   font-size: 11px;
+  line-height: 12px; /* jank do firefox véio fix */
 }
 
 .projTitulo {
