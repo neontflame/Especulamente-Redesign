@@ -131,6 +131,12 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 			.bioButt:active {
 				background-color: #B5DCFF;
 			}
+			
+			.projsRecentesCssavel {
+				margin-left: -5px;
+				margin-top: 5px; 
+				margin-bottom: -3px;
+			}
 		</style>
 
 		<style id="cssCustom">
@@ -252,7 +258,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 			<?php endif; ?>
 			<div class="separador" style="border-color:#D2EDFF"></div>
 			<?php if ($projetos != []) : ?>
-				<img src="/elementos/principaltitles/projsRecentes.png" style="margin-left: -5px; margin-top: 5px; margin-bottom: -3px;">
+				<img src="/elementos/principaltitles/projsRecentes.png" class="projsRecentesCssavel">
 				<div class="separador" style="border-color: #c7eaf9; margin-bottom: 8px;"></div>
 				<div class="projetos">
 					<?php
