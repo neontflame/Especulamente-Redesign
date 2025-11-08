@@ -37,9 +37,10 @@
 				}
 
 				.miniProjetoTreco {
-				  width: 218px;
+				  width: 214px;
 				  min-height: 36px;
 				  display:table;
+				  word-wrap: break-word;
 				}
 			
 				.miniProjetoTreco img {
