@@ -30,53 +30,109 @@
 				.aDoLado:hover {
 				  text-decoration: underline;
 				}
+
+				.projetosTreco {
+				  width:210px !important;
+				  margin-top: 5px;
+				}
+
+				.miniProjetoTreco {
+				  width: 218px;
+				  min-height: 36px;
+				  display:table;
+				}
+			
+				.miniProjetoTreco img {
+					float:left;
+				}
+				.miniProjetoTreco .tit {
+				  font-weight: bold;
+				  color: #395FCE;
+				  margin: 0px;
+				  text-decoration: none;
+				}
+				
+				.miniProjetoTreco .tit:hover {
+				  text-decoration: underline;
+				}
+				
+				.miniProjetoTreco .desc {
+				  margin-top: 0px;
+					color: #BCBCBC;
+					font-size: 10px;
+				}
 			</style>
 			<img src="/elementos/principaltitles/destaque.png" style="margin-left: -5px; margin-bottom: 5px;">
 			<a href="/projetos/117"><img src="/elementos/destaques/jornal.png"></a>
 			<img src="/elementos/principaltitles/projsRecentes.png" style="margin-left: -5px; margin-top: 5px;">
-			<div class="separador" style="margin-bottom: 8px; margin-top: 4px;border-color:#D2EDFF"></div>
+			<img src="/elementos/principaltitles/projetosRecentes1.png" style="margin-left: -5px; margin-top: 5px;">
+			<!-- midia -->
 			<?php
 			$projetos = [];
 
-			$pages = coisos_tudo($projetos, 'projetos', 1, '', ' WHERE naolist = 0', 4, 'GREATEST(COALESCE(dataBump, 0), data) DESC, id DESC');
+			$pages = coisos_tudo($projetos, 'projetos', 1, '', ' WHERE naolist = 0 AND tipo = "md"', 4, 'GREATEST(COALESCE(dataBump, 0), data) DESC, id DESC');
 			?>
-			<div class="projetos">
+			<div class="projetosTreco" style="float:left">
 				<?php foreach ($projetos as $projeto) {
-					renderarProjeto($projeto);
+					renderar_bosta($projeto);
 				}
 				?>
 			</div>
-			<div class="separador" style="border-color:#D2EDFF"></div>
-			<div style="margin-bottom: -3px; margin-top: -1px;">
-				<img src="/elementos/principaltitles/rankingsMetade.png" style="margin-left: -5px; margin-top: 5px;">
-				<a href="/ranking" style="float:right; margin: 5px -5px 0px 0px;"><img src="/elementos/principaltitles/rankBotaoInativo.png" onmouseover="this.src='/elementos/principaltitles/rankBotaoAtivo.png';" onmouseout="this.src='/elementos/principaltitles/rankBotaoInativo.png';" /></a>
-			</div>
-			<div class="separador" style="margin-bottom: 8px; border-color:#D2EDFF"></div>
+			<!-- jogos -->
 			<?php
-			$usuarios = [];
+			$projetos = [];
 
-			$pages = coisos_tudo($usuarios, 'usuarios', 1, '', '', 10, 'davecoins DESC');
+			$pages = coisos_tudo($projetos, 'projetos', 1, '', ' WHERE naolist = 0 AND tipo = "jg"', 4, 'GREATEST(COALESCE(dataBump, 0), data) DESC, id DESC');
 			?>
-			<!-- <p style="color: green; text-align: center; font-weight: bold; margin: 2px;">>> OS MAIORAIS <<</p> -->
-			<div class="usuariosRanking">
-				<?php
-				$lugar = 0;
-				$ultimaQuant = 0;
-				foreach ($usuarios as $usuario) { 
-				if ($usuario->davecoins != $ultimaQuant) { $lugar += 1; }
+			<div class="projetosTreco" style="float:right">
+				<?php foreach ($projetos as $projeto) {
+					renderar_bosta($projeto);
+				}
 				?>
-				<div class="rankeado">
-					<span class="lugar<?php if ($lugar < 4) { echo $lugar; } ?>"><?= $lugar ?>º</span>
-					<a href="/usuarios/<?= $usuario->username ?>"><img src="<?= pfp($usuario) ?>"></a>
-					<a class="username" href="/usuarios/<?= $usuario->username ?>"><?= $usuario->username ?></a>
-					<span class="infoExtra" style="float:right;"><?= obter_rank($usuario->davecoins)["nome"] ?> <img src="/elementos/ranks/<?= obter_rank($usuario->davecoins)["imagem"] ?>" width="48" height="48"></span>
-				</div>
-				<?php 
-				$ultimaQuant = $usuario->davecoins;
-				} ?>
 			</div>
+			<img src="/elementos/principaltitles/projetosRecentes2.png" style="margin-left: -5px; margin-top: 5px;">
+			<!-- blogs -->
+			<?php
+			$projetos = [];
+
+			$pages = coisos_tudo($projetos, 'projetos', 1, '', ' WHERE naolist = 0 AND tipo = "bg"', 4, 'GREATEST(COALESCE(dataBump, 0), data) DESC, id DESC');
+			?>
+			<div class="projetosTreco" style="float:left">
+				<?php foreach ($projetos as $projeto) {
+					renderar_bosta($projeto);
+				}
+				?>
+			</div>
+			<!-- downloadaveis -->
+			<?php
+			$projetos = [];
+
+			$pages = coisos_tudo($projetos, 'projetos', 1, '', ' WHERE naolist = 0 AND tipo = "dl"', 4, 'GREATEST(COALESCE(dataBump, 0), data) DESC, id DESC');
+			?>
+			<div class="projetosTreco" style="float:right">
+				<?php foreach ($projetos as $projeto) {
+					renderar_bosta($projeto);
+				}
+				?>
+			</div>
+			<img src="/elementos/principaltitles/bottomcoiso.png" style="margin-left: -5px; margin-top: 5px; margin-bottom: -5px;">
 		</div>
 	</div>
 </div>
 
-<?php include $_SERVER['DOCUMENT_ROOT'] . '/elementos/footer/footer.php'; ?>
+<?php include $_SERVER['DOCUMENT_ROOT'] . '/elementos/footer/footer.php'; 
+
+function renderar_bosta($projeto) { ?>
+	<div class="miniProjetoTreco">
+		<?php if ($projeto->thumbnail != null) { ?>
+			<a href="/projetos/<?= $projeto->id ?>" style="float:left; margin-right: 8px"><img style="max-width:32px; height:32px" src="/static/projetos/<?= ($projeto->id) ?>/thumb/<?= ($projeto->thumbnail) ?>"></a>
+		<?php } else { ?>
+			<a href="/projetos/<?= $projeto->id ?>" style="float:left; margin-right: 8px"><img style="max-width:32px; height:32px" src="/static/thumb_padrao.png"></a>
+		<?php } ?>
+		
+		<a class="tit" href="/projetos/<?= $projeto->id ?>"><?= $projeto->nome ?></a>
+		<p class="desc"><?= markdown_apenas_texto(explode("\n", $projeto->descricao)[0]) ?></p>
+	</div>
+<?php
+}
+?>
