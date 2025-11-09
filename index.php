@@ -5,6 +5,7 @@
 	<?php 
 	$forum_no_lado = true;
 	$esconder_ad = true;
+	$quantiaDeProjsPorCategoria = 6;
 	include $_SERVER['DOCUMENT_ROOT'] . '/elementos/sidebar/sidebar.php'; ?>
 
 	<div class="page_content" style="min-height: 556px">
@@ -71,7 +72,7 @@
 			<?php
 			$projetos = [];
 
-			$pages = coisos_tudo($projetos, 'projetos', 1, '', ' WHERE naolist = 0 AND tipo = "md"', 4, 'GREATEST(COALESCE(dataBump, 0), data) DESC, id DESC');
+			$pages = coisos_tudo($projetos, 'projetos', 1, '', ' WHERE naolist = 0 AND tipo = "md"', $quantiaDeProjsPorCategoria, 'GREATEST(COALESCE(dataBump, 0), data) DESC, id DESC');
 			?>
 			<div class="projetosTreco" style="float:left">
 				<?php foreach ($projetos as $projeto) {
@@ -83,7 +84,7 @@
 			<?php
 			$projetos = [];
 
-			$pages = coisos_tudo($projetos, 'projetos', 1, '', ' WHERE naolist = 0 AND tipo = "jg"', 4, 'GREATEST(COALESCE(dataBump, 0), data) DESC, id DESC');
+			$pages = coisos_tudo($projetos, 'projetos', 1, '', ' WHERE naolist = 0 AND tipo = "jg"', $quantiaDeProjsPorCategoria, 'GREATEST(COALESCE(dataBump, 0), data) DESC, id DESC');
 			?>
 			<div class="projetosTreco" style="float:right">
 				<?php foreach ($projetos as $projeto) {
@@ -96,11 +97,11 @@
 			<?php
 			$projetos = [];
 
-			$pages = coisos_tudo($projetos, 'projetos', 1, '', ' WHERE naolist = 0 AND tipo = "bg"', 4, 'GREATEST(COALESCE(dataBump, 0), data) DESC, id DESC');
+			$pages = coisos_tudo($projetos, 'projetos', 1, '', ' WHERE naolist = 0 AND tipo = "bg"', $quantiaDeProjsPorCategoria, 'GREATEST(COALESCE(dataBump, 0), data) DESC, id DESC');
 			?>
 			<div class="projetosTreco" style="float:left">
 				<?php foreach ($projetos as $projeto) {
-					renderar_bosta($projeto);
+					renderar_bosta($projeto, false);
 				}
 				?>
 			</div>
@@ -108,11 +109,11 @@
 			<?php
 			$projetos = [];
 
-			$pages = coisos_tudo($projetos, 'projetos', 1, '', ' WHERE naolist = 0 AND tipo = "dl"', 4, 'GREATEST(COALESCE(dataBump, 0), data) DESC, id DESC');
+			$pages = coisos_tudo($projetos, 'projetos', 1, '', ' WHERE naolist = 0 AND tipo = "dl"', $quantiaDeProjsPorCategoria, 'GREATEST(COALESCE(dataBump, 0), data) DESC, id DESC');
 			?>
 			<div class="projetosTreco" style="float:right">
 				<?php foreach ($projetos as $projeto) {
-					renderar_bosta($projeto);
+					renderar_bosta($projeto, false);
 				}
 				?>
 			</div>
@@ -123,11 +124,11 @@
 
 <?php include $_SERVER['DOCUMENT_ROOT'] . '/elementos/footer/footer.php'; 
 
-function renderar_bosta($projeto) { ?>
+function renderar_bosta($projeto, $thumbObrigatoria = true) { ?>
 	<div class="miniProjetoTreco">
 		<?php if ($projeto->thumbnail != null) { ?>
 			<a href="/projetos/<?= $projeto->id ?>" style="float:left; margin-right: 8px"><img style="max-width:32px; height:32px" src="/static/projetos/<?= ($projeto->id) ?>/thumb/<?= ($projeto->thumbnail) ?>"></a>
-		<?php } else { ?>
+		<?php } else if ($thumbObrigatoria) { ?>
 			<a href="/projetos/<?= $projeto->id ?>" style="float:left; margin-right: 8px"><img style="max-width:32px; height:32px" src="/static/thumb_padrao.png"></a>
 		<?php } ?>
 		
