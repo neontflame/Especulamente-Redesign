@@ -52,6 +52,7 @@
 				  color: #395FCE;
 				  margin: 0px;
 				  text-decoration: none;
+				  font-size: 11px;
 				}
 				
 				.miniProjetoTreco .tit:hover {

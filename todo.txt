@@ -1,0 +1,5 @@
+- rankings na sidebar da pagina inicial
+- expandir um pouco mais a funcionalidade dos foruns
+	- trancar topicos
+	- indicativo pra topicos ja lidos previamente
+	- pesquisa
