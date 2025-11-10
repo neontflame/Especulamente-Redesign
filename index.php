@@ -69,54 +69,60 @@
 			<a href="/projetos/117"><img src="/elementos/destaques/jornal.png"></a>
 			<img src="/elementos/principaltitles/projsRecentes.png" style="margin-left: -5px; margin-top: 5px;">
 			<img src="/elementos/principaltitles/projetosRecentes1.png" style="margin-left: -5px; margin-top: 5px;">
+			<!-- TODO PODEROSO display: table; -->
+			<div style="display:table;">
 			<!-- midia -->
-			<?php
-			$projetos = [];
+				<?php
+				$projetos = [];
 
-			$pages = coisos_tudo($projetos, 'projetos', 1, '', ' WHERE naolist = 0 AND tipo = "md"', $quantiaDeProjsPorCategoria, 'GREATEST(COALESCE(dataBump, 0), data) DESC, id DESC');
-			?>
-			<div class="projetosTreco" style="float:left">
-				<?php foreach ($projetos as $projeto) {
-					renderar_bosta($projeto);
-				}
+				$pages = coisos_tudo($projetos, 'projetos', 1, '', ' WHERE naolist = 0 AND tipo = "md"', $quantiaDeProjsPorCategoria, 'GREATEST(COALESCE(dataBump, 0), data) DESC, id DESC');
 				?>
-			</div>
-			<!-- jogos -->
-			<?php
-			$projetos = [];
+				<div class="projetosTreco" style="float:left">
+					<?php foreach ($projetos as $projeto) {
+						renderar_bosta($projeto);
+					}
+					?>
+				</div>
+				<!-- jogos -->
+				<?php
+				$projetos = [];
 
-			$pages = coisos_tudo($projetos, 'projetos', 1, '', ' WHERE naolist = 0 AND tipo = "jg"', $quantiaDeProjsPorCategoria, 'GREATEST(COALESCE(dataBump, 0), data) DESC, id DESC');
-			?>
-			<div class="projetosTreco" style="float:right">
-				<?php foreach ($projetos as $projeto) {
-					renderar_bosta($projeto);
-				}
+				$pages = coisos_tudo($projetos, 'projetos', 1, '', ' WHERE naolist = 0 AND tipo = "jg"', $quantiaDeProjsPorCategoria, 'GREATEST(COALESCE(dataBump, 0), data) DESC, id DESC');
 				?>
+				<div class="projetosTreco" style="float:right; margin-left: 10px;">
+					<?php foreach ($projetos as $projeto) {
+						renderar_bosta($projeto);
+					}
+					?>
+				</div>
 			</div>
 			<img src="/elementos/principaltitles/projetosRecentes2.png" style="margin-left: -5px; margin-top: 5px;">
-			<!-- blogs -->
-			<?php
-			$projetos = [];
+			<!-- OUTRO PODEROSO display: table; -->
+			<div style="display:table;">
+				<!-- blogs -->
+				<?php
+				$projetos = [];
 
-			$pages = coisos_tudo($projetos, 'projetos', 1, '', ' WHERE naolist = 0 AND tipo = "bg"', $quantiaDeProjsPorCategoria, 'GREATEST(COALESCE(dataBump, 0), data) DESC, id DESC');
-			?>
-			<div class="projetosTreco" style="float:left">
-				<?php foreach ($projetos as $projeto) {
-					renderar_bosta($projeto, false);
-				}
+				$pages = coisos_tudo($projetos, 'projetos', 1, '', ' WHERE naolist = 0 AND tipo = "bg"', $quantiaDeProjsPorCategoria, 'GREATEST(COALESCE(dataBump, 0), data) DESC, id DESC');
 				?>
-			</div>
-			<!-- downloadaveis -->
-			<?php
-			$projetos = [];
+				<div class="projetosTreco" style="float:left">
+					<?php foreach ($projetos as $projeto) {
+						renderar_bosta($projeto, false);
+					}
+					?>
+				</div>
+				<!-- downloadaveis -->
+				<?php
+				$projetos = [];
 
-			$pages = coisos_tudo($projetos, 'projetos', 1, '', ' WHERE naolist = 0 AND tipo = "dl"', $quantiaDeProjsPorCategoria, 'GREATEST(COALESCE(dataBump, 0), data) DESC, id DESC');
-			?>
-			<div class="projetosTreco" style="float:right">
-				<?php foreach ($projetos as $projeto) {
-					renderar_bosta($projeto, false);
-				}
+				$pages = coisos_tudo($projetos, 'projetos', 1, '', ' WHERE naolist = 0 AND tipo = "dl"', $quantiaDeProjsPorCategoria, 'GREATEST(COALESCE(dataBump, 0), data) DESC, id DESC');
 				?>
+				<div class="projetosTreco" style="float:right; margin-left: 10px;">
+					<?php foreach ($projetos as $projeto) {
+						renderar_bosta($projeto, false);
+					}
+					?>
+				</div>
 			</div>
 			<img src="/elementos/principaltitles/bottomcoiso.png" style="margin-left: -5px; margin-top: 5px; margin-bottom: -5px;">
 		</div>
