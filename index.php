@@ -124,7 +124,6 @@
 					?>
 				</div>
 			</div>
-			<img src="/elementos/principaltitles/bottomcoiso.png" style="margin-left: -5px; margin-top: 5px; margin-bottom: -5px;">
 		</div>
 	</div>
 </div>
