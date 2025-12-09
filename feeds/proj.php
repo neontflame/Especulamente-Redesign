@@ -6,8 +6,18 @@ $query = $_GET['q'] ?? '';
 $tipoQuery = '';
 $tipo = $_GET['tipo'] ?? '';
 
+// if (isset($usuario)) {
+// 		$naolistcoiso = "(naolist = 0 OR (naolist = 1 AND id_criador = " . $usuario->id . "))";
+// } else {
+$naolistcoiso = "naolist = 0";
+// }
+
+// codigo com alma .
+// to do: exorcizar pq Olha isso . Que porra e essa
 if ($tipo != '') {
-	$tipoQuery = " WHERE tipo = " . $db->quote($tipo);
+	$tipoQuery = ($query != '' ? " AND " : " WHERE ") . $naolistcoiso . " AND tipo = " . $db->quote($tipo);
+} else {
+	$tipoQuery = ($query != '' ? " AND " : " WHERE ") . $naolistcoiso;
 }
 
 $coisos = [];

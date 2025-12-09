@@ -148,6 +148,23 @@ function forumpost_requestIDator($id)
 	return $post;
 }
 
+// Porjtoej por id
+function colecao_requestIDator($id)
+{
+	global $db;
+
+	$rows = $db->prepare("SELECT * FROM colecoes WHERE id = ?");
+	$rows->bindParam(1, $id);
+	$rows->execute();
+	$colecao = $rows->fetch(PDO::FETCH_OBJ);
+
+	if ($colecao == false) {
+		return null;
+	}
+
+	return $colecao;
+}
+
 // Retorna o número de páginas (agora tweaked pra ter suporte pra DaveItens)
 function coisos_tudo(&$array, $table, $page = 1, $searchy = '', $queryAdicional = '', $perPage = 10, $sorting = 'id DESC')
 {
@@ -177,6 +194,22 @@ function coisos_tudo(&$array, $table, $page = 1, $searchy = '', $queryAdicional 
 		array_push($array, $row);
 	}
 	return $pages;
+}
+
+function simples_where_tudo($table, $column, $where, $sorting = 'id DESC')
+{
+	global $db;
+	
+	$array = [];
+
+	$rows = $db->prepare("SELECT * FROM " . $table . " WHERE " . $column . " = ?" . " ORDER BY " . $sorting);
+	$rows->bindParam(1, $where, PDO::PARAM_INT);
+	$rows->execute();
+
+	while ($row = $rows->fetch(PDO::FETCH_OBJ)) {
+		array_push($array, $row);
+	}
+	return $array;
 }
 
 // CONVITE COISOS

@@ -2,897 +2,898 @@
 	shoutouts 2 expression web 4 */
 
 body {
-  background-color: #bae2ff;
-  background-image: url("/elementos/murais/PoC.png");
-  background-position: top;
-  background-repeat: no-repeat;
-  width: 641px;
-  margin: auto;
-  padding: 0px;
+	background-color: #bae2ff;
+	background-image: url("/elementos/murais/PoC.png");
+	background-position: top;
+	background-repeat: no-repeat;
+	width: 641px;
+	margin: auto;
+	padding: 0px;
 }
 
 .bodyPrincipal {
-  padding-left: 4px;
-  padding-right: 4px;
-  background-image: url("/elementos/CoolAssFundo.png");
-  background-size: 100% 100%;
+	padding-left: 4px;
+	padding-right: 4px;
+	background-image: url("/elementos/CoolAssFundo.png");
+	background-size: 100% 100%;
 }
 
 a img {
-  border-width: 0px;
+	border-width: 0px;
 }
 
 /* Alguns elementos base q nao tinhamos estilado ainda */
 
 hr {
-  border: 1px solid #9ebbff;
-  border-top: 0;
+	border: 1px solid #9ebbff;
+	border-top: 0;
 }
 
 blockquote {
-  border-left: solid #9ebbff 2px;
-  margin: 0;
-  padding-left: 14px;
+	border-left: solid #9ebbff 2px;
+	margin: 0;
+	padding-left: 14px;
 }
 
 code {
-  border: solid 1px #9ebbff;
-  display: inline-block;
-  border-radius: 2px;
-  padding: 2px 4px;
-  font-style: italic;
+	border: solid 1px #9ebbff;
+	display: inline-block;
+	border-radius: 2px;
+	padding: 2px 4px;
+	font-style: italic;
 }
 
 table {
-  border: solid 1px #9ebbff;
-  border-spacing: 0;
-  border-top: 0;
-  border-left: 0;
+	border: solid 1px #9ebbff;
+	border-spacing: 0;
+	border-top: 0;
+	border-left: 0;
 }
 
 table th {
-  border: solid 1px #9ebbff;
-  border-right: 0;
-  border-bottom: 0;
-  padding: 2px 4px;
-  background: #edf2ff;
+	border: solid 1px #9ebbff;
+	border-right: 0;
+	border-bottom: 0;
+	padding: 2px 4px;
+	background: #edf2ff;
 }
 
 table td {
-  border: solid 1px #9ebbff;
-  border-right: 0;
-  border-bottom: 0;
-  padding: 2px 4px;
+	border: solid 1px #9ebbff;
+	border-right: 0;
+	border-bottom: 0;
+	padding: 2px 4px;
 }
 
 /* spoilers oqaf */
 details {
-  margin-top: 3px;
-  border: 1px solid #5d85e2;
+	margin-top: 3px;
+	border: 1px solid #5d85e2;
 }
 details summary {
-  padding: 4px;
-  background-color: #d6ebff;
-  border-bottom: 1px solid #96d6ff;
+	padding: 4px;
+	background-color: #d6ebff;
+	border-bottom: 1px solid #96d6ff;
 
-  font-family: Verdana;
+	font-family: Verdana;
 }
 
 details p {
-  margin-top: -4px;
-  margin-left: 12px;
+	margin-top: -4px;
+	margin-left: 12px;
 }
 
 /* ... */
 
 .container {
-  font: 12px "Verdana";
-  min-width: 100%;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  display: inline-block;
-  width: 100%;
+	font: 12px "Verdana";
+	min-width: 100%;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	display: inline-block;
+	width: 100%;
 }
 
 .left_col {
-  width: 182px;
-  margin-right: 3px;
-  float: left;
+	width: 182px;
+	margin-right: 3px;
+	float: left;
 }
 
 .right_col {
-  width: 200px;
-  float: right;
+	width: 200px;
+	float: right;
 }
 
 .page_content {
-  margin-left: 189px;
+	margin-left: 189px;
 }
 
 .page_content_two {
-  margin-left: 189px;
-  margin-right: 189px;
-  margin-bottom: -19px;
+	margin-left: 189px;
+	margin-right: 189px;
+	margin-bottom: -19px;
 }
 
 .inside_page_content {
-  padding: 5px;
-  border-style: solid;
-  border-width: 1px;
-  border-color: #9ebbff;
-  background-color: white;
-  color: #4f6bad;
+	padding: 5px;
+	border-style: solid;
+	border-width: 1px;
+	border-color: #9ebbff;
+	background-color: white;
+	color: #4f6bad;
 }
 
 /* woaw cool footery ! */
 
 .bodyFooter {
-  background-image: url("/elementos/TheFullAssCundo.png");
-  height: 153px;
+	background-image: url("/elementos/TheFullAssCundo.png");
+	height: 153px;
 }
 
 .insideBodyFooter {
-  float: left;
-  color: #4f6bad;
-  font-family: "Verdana";
-  font-size: 10px;
-  padding: 20px 20px 0px 20px;
+	float: left;
+	color: #4f6bad;
+	font-family: "Verdana";
+	font-size: 10px;
+	padding: 20px 20px 0px 20px;
 }
 
 .insideBodyFooter a {
-  color: #4f6bad;
-  font-weight: bold;
-  text-decoration: none;
+	color: #4f6bad;
+	font-weight: bold;
+	text-decoration: none;
 }
 
 /* woaw cool headery ! */
 .coolOrganizationy {
-  margin-top: 3px;
+	margin-top: 3px;
 }
 
 .coolLinkery {
-  float: left;
+	float: left;
 }
 
 .coolLinkery a {
-  color: #0000cc;
-  font-family: "Verdana";
-  font-weight: bold;
-  font-size: 11px;
-  text-decoration: none;
-  margin: 10px;
+	color: #0000cc;
+	font-family: "Verdana";
+	font-weight: bold;
+	font-size: 11px;
+	text-decoration: none;
+	margin: 10px;
 }
 
 .coolLinkery a:hover {
-  text-decoration: underline;
+	text-decoration: underline;
 }
 
 .coolSearchBar {
-  float: right;
-  margin-bottom: 3px;
+	float: right;
+	margin-bottom: 3px;
 }
 
 .coolSubHeadery {
-  margin-top: 3px;
-  border-style: solid;
-  border-color: #5d85e2;
-  border-width: 1px;
+	margin-top: 3px;
+	border-style: solid;
+	border-color: #5d85e2;
+	border-width: 1px;
 
-  background-image: url("/elementos/header/subheaderbg.png");
-  height: 18px;
+	background-image: url("/elementos/header/subheaderbg.png");
+	height: 18px;
 }
 
 .coolUsery {
-  float: right;
-  color: #000000;
-  font-family: "Verdana";
-  font-size: 11px;
-  text-decoration: none;
+	float: right;
+	color: #000000;
+	font-family: "Verdana";
+	font-size: 11px;
+	text-decoration: none;
 }
 
 .coolUsery .links {
-  margin-top: 2px;
-  display: inline-block;
-  vertical-align: top;
-  position: relative;
+	margin-top: 2px;
+	display: inline-block;
+	vertical-align: top;
+	position: relative;
 }
 
 .coolUsery .links:last-child {
-  border-left: 1px solid #5d85e2;
-  padding-left: 4px;
+	border-left: 1px solid #5d85e2;
+	padding-left: 4px;
 }
 
 .coolUsery .msgContador {
-  vertical-align: top;
+	vertical-align: top;
 }
 
 .coolUsery .ativo {
-  font-weight: bold;
+	font-weight: bold;
 }
 
 .coolUsery a {
-  color: #000000;
-  font-weight: bold;
-  text-decoration: none;
-  margin-left: 3px;
+	color: #000000;
+	font-weight: bold;
+	text-decoration: none;
+	margin-left: 3px;
 }
 
 .coolUsery button {
-  padding: 0;
-  border: 0;
-  background-color: transparent;
-  float: right;
-  margin-top: -1px;
-  cursor: pointer;
-  width: 26px;
-  height: 15px;
-  background-image: url("/elementos/header/headerSeta.png");
+	padding: 0;
+	border: 0;
+	background-color: transparent;
+	float: right;
+	margin-top: -1px;
+	cursor: pointer;
+	width: 26px;
+	height: 15px;
+	background-image: url("/elementos/header/headerSeta.png");
 }
 
 .coolUsery button.ativo {
-  background-position: 0 -15px;
+	background-position: 0 -15px;
 }
 
 .coolUsery #headerMenu {
-  display: none;
-  position: absolute;
-  top: 20px;
-  right: 4px;
-  background-color: #f6fbff;
-  border: 1px solid #5d85e2;
-  padding: 5px;
+	display: none;
+	position: absolute;
+	top: 20px;
+	right: 4px;
+	background-color: #f6fbff;
+	border: 1px solid #5d85e2;
+	padding: 5px;
 }
 
 .coolUsery #headerMenu.ativo {
-  display: block;
+	display: block;
 }
 
 .coolUsery #headerMenu a {
-  display: block;
-  color: #000000;
-  font-weight: bold;
-  text-decoration: none;
-  margin: 2px;
+	display: block;
+	color: #000000;
+	font-weight: bold;
+	text-decoration: none;
+	margin: 2px;
 }
 
 .coolUsery #headerMenu a:hover {
-  text-decoration: underline;
+	text-decoration: underline;
 }
 
 .separador {
-  border-top: 1px solid #9ebbff;
-  margin-top: 8px;
-  margin-right: 6px;
+	border-top: 1px solid #9ebbff;
+	margin-top: 8px;
+	margin-right: 6px;
 }
 
 .labelManeira {
-  font-style: italic;
-  color: #9ebbff;
-  text-shadow: aliceblue 4px 0;
+	font-style: italic;
+	color: #9ebbff;
+	text-shadow: aliceblue 4px 0;
 }
 
 /* woaw botoes ! */
 
 .coolButt {
-  margin-top: 3px;
-  background-color: #d6ebff;
-  border-style: solid;
-  border-width: 1px;
-  border-color: #5d85e2;
+	margin-top: 3px;
+	background-color: #d6ebff;
+	border-style: solid;
+	border-width: 1px;
+	border-color: #5d85e2;
 
-  font-family: Verdana;
+	font-family: Verdana;
 }
 
 a.coolButt {
-  display: inline-block;
-  box-sizing: border-box;
-  text-decoration: none;
-  padding: 1px 6px;
-  text-align: center;
-  color: black;
+	display: inline-block;
+	box-sizing: border-box;
+	text-decoration: none;
+	padding: 1px 6px;
+	text-align: center;
+	color: black;
 }
 
 .coolButt:hover {
-  background-color: aliceblue;
+	background-color: aliceblue;
 }
 
 .coolButt:active {
-  background-color: #b5dcff;
+	background-color: #b5dcff;
 }
 
 .vermelho {
-  background-color: #ffb7b2;
-  border-color: #e2665d;
+	background-color: #ffb7b2;
+	border-color: #e2665d;
 }
 
 .vermelho:hover {
-  background-color: #fff0f2;
+	background-color: #fff0f2;
 }
 
 .vermelho:active {
-  background-color: #ff938c;
+	background-color: #ff938c;
 }
 
 .verde {
-  background-color: #b2ffd3;
-  border-color: #4de287;
+	background-color: #b2ffd3;
+	border-color: #4de287;
 }
 
 .verde:hover {
-  background-color: #ddffeb;
+	background-color: #ddffeb;
 }
 
 .verde:active {
-  background-color: #60ffa0;
+	background-color: #60ffa0;
 }
 
 .grandissimo {
-  width: 99%;
+	width: 99%;
 }
 
 /* grah fuck your botoes ... */
 .pesquisaThing {
-  border-bottom: 1px solid #9ebbff;
-  padding-bottom: 4px;
-  margin-bottom: 8px;
-  margin-top: 4px;
-  text-align: center;
+	border-bottom: 1px solid #9ebbff;
+	padding-bottom: 4px;
+	margin-bottom: 8px;
+	margin-top: 4px;
+	text-align: center;
 }
 
 .projetos {
-  margin-top: -4px;
+	margin-top: -4px;
 }
 
 .projeto {
-  border-bottom: solid 1px;
-  border-bottom-color: #9ebbff;
-  word-break: break-word;
-  font-size: 11px;
+	border-bottom: solid 1px;
+	border-bottom-color: #9ebbff;
+	word-break: break-word;
+	font-size: 11px;
 }
 
 .projeto:last-child {
-  border-bottom: 0;
+	border-bottom: 0;
 }
 
 .projeto h2 {
-  color: black;
-  font-weight: normal;
-  margin-top: 4px;
-  margin-bottom: -4px;
+	color: black;
+	font-weight: normal;
+	margin-top: 4px;
+	margin-bottom: -4px;
 }
 
 .projeto h2 a {
-  float: none;
-  color: black;
-  text-decoration: none;
+	float: none;
+	color: black;
+	text-decoration: none;
 }
 
 .projeto h2 a:hover {
-  float: none;
-  color: black;
-  text-decoration: underline;
+	float: none;
+	color: black;
+	text-decoration: underline;
 }
 
 .projetoSide {
-  float: right;
-  text-align: right;
-  margin-right: -8px;
-  margin-left: 4px;
+	float: right;
+	text-align: right;
+	margin-right: -8px;
+	margin-left: 4px;
 }
 
 .projetoSide img {
-  margin-right: 8px;
-  margin-bottom: 4px;
+	margin-right: 8px;
+	margin-bottom: 4px;
 }
 
 .autorDeProjeto {
-  /* seria um capitulo de css jank mas eu descobri um design melhor */
-  color: #c9daff;
-  margin-right: 12px;
-  text-decoration: none;
-  margin-top: 4px;
-  font-size: 11px;
-  line-height: 12px; /* jank do firefox véio fix */
+	/* seria um capitulo de css jank mas eu descobri um design melhor */
+	color: #c9daff;
+	margin-right: 12px;
+	text-decoration: none;
+	margin-top: 4px;
+	font-size: 11px;
+	line-height: 12px; /* jank do firefox véio fix */
 }
 
 .projTitulo {
-  margin-bottom: 8px;
-  width: 631px;
-  background-image: url("/elementos/coolassGradiente.png");
-  border-style: solid;
-  border-width: 1px;
-  border-color: #9ebbff;
-  background-color: white;
-  color: #4f6bad;
+	margin-bottom: 8px;
+	width: 631px;
+	background-image: url("/elementos/coolassGradiente.png");
+	border-style: solid;
+	border-width: 1px;
+	border-color: #9ebbff;
+	background-color: white;
+	color: #4f6bad;
 }
 
 .projTitulo h1 {
-  margin: 8px;
-  margin-bottom: 4px;
+	margin: 8px;
+	margin-bottom: 4px;
 }
 
 .projTitulo p {
-  color: #a4b8e7;
-  margin: 4px;
-  margin-left: 8px;
+	color: #a4b8e7;
+	margin: 4px;
+	margin-left: 8px;
 }
 
 .projTitulo p a {
-  color: #4f6bad;
-  text-decoration: none;
+	color: #4f6bad;
+	text-decoration: none;
 }
 
 .projTitulo p a:hover {
-  text-decoration: underline;
+	text-decoration: underline;
 }
 
 /* itens midiaticos!
 copiei do meu site to com preguiça -neon */
 
 .item {
-  float: left;
-  width: 143px;
-  height: 189px;
-  text-align: center;
-  border-color: #9ebbff !important;
-  border-right: 1px solid;
-  border-bottom: 1px solid;
-  white-space: pre-line;
-  overflow: hidden;
+	float: left;
+	width: 143px;
+	height: 189px;
+	text-align: center;
+	border-color: #9ebbff !important;
+	border-right: 1px solid;
+	border-bottom: 1px solid;
+	white-space: pre-line;
+	overflow: hidden;
 }
 
 .item a {
-  color: #3f65cc;
-  font-weight: bold;
-  text-decoration: none;
-  font-size: 12px;
+	color: #3f65cc;
+	font-weight: bold;
+	text-decoration: none;
+	font-size: 12px;
 }
 
 .item .autorItem {
-  font-size: 11px;
-  font-weight: normal;
-  color: #c9daff;
+	font-size: 11px;
+	font-weight: normal;
+	color: #c9daff;
 }
 .item img {
-  max-width: 112px;
-  max-height: 124px;
-  margin-top: 8px;
-  margin-bottom: 4px;
+	max-width: 112px;
+	max-height: 124px;
+	margin-top: 8px;
+	margin-bottom: 4px;
 }
 
 /* comentarios !!! uhul */
 #osComentario ul {
-  padding-left: 0;
+	padding-left: 0;
 }
 
 .comentario {
-  width: 100%;
-  min-height: 40px;
-  display: inline-block;
-  list-style-type: none;
+	width: 100%;
+	min-height: 40px;
+	display: inline-block;
+	list-style-type: none;
 
-  border-top: solid 1px #9ebbff;
+	border-top: solid 1px #9ebbff;
 }
 
 .comentario.livel {
-  background-color: #fcffd9;
+	background-color: #fcffd9;
 }
 
 .comentario p {
-  display: block;
+	display: block;
+	word-wrap: break-word;
 }
 
 .comentario .nome {
-  font-size: 9px;
-  color: #aaaaaa;
+	font-size: 9px;
+	color: #aaaaaa;
 }
 
 .comentario .nome a {
-  font-size: 13px;
-  color: #4f6bad;
-  text-decoration: none;
-  font-weight: bold;
+	font-size: 13px;
+	color: #4f6bad;
+	text-decoration: none;
+	font-weight: bold;
 }
 
 .comentario .conteudo {
-  padding-left: 60px;
-  padding-bottom: 8px;
+	padding-left: 60px;
+	padding-bottom: 8px;
 }
 
 .comentario .texto {
-  margin-top: -6px;
-  color: black;
-  white-space: pre-line;
-  word-wrap: break-word;
+	margin-top: -6px;
+	color: black;
+	white-space: pre-line;
+	word-wrap: break-word;
 
-  margin-bottom: 6px;
+	margin-bottom: 6px;
 }
 
 .comentario img {
-  max-width: 100%;
+	max-width: 100%;
 }
 
 .resposta {
-  background-color: white;
-  display: inline-block;
+	background-color: white;
+	display: inline-block;
 
-  width: 100%;
-  box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  padding-left: 24px !important;
+	width: 100%;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	padding-left: 24px !important;
 }
 
 .resposta .comentario {
-  border-color: #beddff;
-  margin-bottom: 4px;
+	border-color: #beddff;
+	margin-bottom: 4px;
 }
 
 .resposta .comentario img {
-  max-width: 100%;
+	max-width: 100%;
 }
 
 .linkmentario {
-  color: #9ebbff !important;
+	color: #9ebbff !important;
 }
 
 .pfpComentarios {
-  width: 50px;
-  height: 50px;
-  float: left;
-  padding-right: 10px;
+	width: 50px;
+	height: 50px;
+	float: left;
+	padding-right: 10px;
 }
 
 .sayYourPrayers {
-  display: inline-block;
+	display: inline-block;
 }
 
 /* el paginado */
 
 .pagination {
-  display: inline-block;
-  text-align: center;
-  margin-top: -5px;
-  margin-bottom: -10px;
-  margin-left: 45px; /* css jank capitulo 2 */
+	display: inline-block;
+	text-align: center;
+	margin-top: -5px;
+	margin-bottom: -10px;
+	margin-left: 45px; /* css jank capitulo 2 */
 }
 
 .pagination a,
 .pagination p {
-  display: inline-block;
+	display: inline-block;
 }
 
 .pagination a {
-  color: #5757e6;
-  text-decoration: none;
+	color: #5757e6;
+	text-decoration: none;
 }
 
 .pagination a:hover {
-  color: #2525c4;
+	color: #2525c4;
 }
 
 .textinhoClaro {
-  color: #bbbbff;
+	color: #bbbbff;
 }
 
 .creditos {
-  margin-top: -5px;
-  margin-bottom: 10px;
+	margin-top: -5px;
+	margin-bottom: 10px;
 }
 
 .credito img {
-  float: left;
-  margin-left: 5px;
-  margin-right: 10px;
+	float: left;
+	margin-left: 5px;
+	margin-right: 10px;
 }
 
 .credito a {
-  text-decoration: none;
-  color: #45609e;
+	text-decoration: none;
+	color: #45609e;
 }
 
 .credito h2 {
-  color: black;
-  font-weight: normal;
-  margin-top: 4px;
-  margin-bottom: -4px;
+	color: black;
+	font-weight: normal;
+	margin-top: 4px;
+	margin-bottom: -4px;
 }
 
 .credito p {
-  color: #7896db;
-  margin-top: -10px;
+	color: #7896db;
+	margin-top: -10px;
 }
 
 /* reator de negocinhos !!!! */
 .reajorDReagida {
-  margin-left: -5px;
-  margin-right: -5px;
-  margin-bottom: -5px;
-  margin-top: 5px;
-  padding: 0px 4px 0px 4px;
-  border-top: solid 1px #9ebbff;
-  background-image: url("/elementos/reajor_d_reagida/reajorbg.png");
+	margin-left: -5px;
+	margin-right: -5px;
+	margin-bottom: -5px;
+	margin-top: 5px;
+	padding: 0px 4px 0px 4px;
+	border-top: solid 1px #9ebbff;
+	background-image: url("/elementos/reajor_d_reagida/reajorbg.png");
 }
 
 .reajorDReagida .oReajorEmSi {
-  width: fit-content;
-  padding-left: 8px;
-  padding-top: 3px;
-  padding-right: 8px;
-  border-right: solid 1px #9ebbff;
-  display: inline-block;
+	width: fit-content;
+	padding-left: 8px;
+	padding-top: 3px;
+	padding-right: 8px;
+	border-right: solid 1px #9ebbff;
+	display: inline-block;
 }
 
 .reajorDReagida .oReajorEmSi span {
-  vertical-align: super;
-  color: #a5c0ff;
+	vertical-align: super;
+	color: #a5c0ff;
 }
 
 .reajorDReagida #mitadas_cnt,
 #sojadas_cnt {
-  color: #4f6bad;
-  font-weight: bold;
+	color: #4f6bad;
+	font-weight: bold;
 }
 
 .reajorDReagida button {
-  padding: 0px;
-  border: 0px;
-  background-color: transparent;
+	padding: 0px;
+	border: 0px;
+	background-color: transparent;
 
-  cursor: pointer;
+	cursor: pointer;
 }
 
 .reajorDReagida .stringAdicional {
-  float: right;
-  margin-top: 8px;
-  margin-right: 4px;
-  font-size: 11px;
+	float: right;
+	margin-top: 8px;
+	margin-right: 4px;
+	font-size: 11px;
 }
 
 /* Erros.......... */
 .erro {
-  text-align: center;
+	text-align: center;
 }
 
 .erro h1 {
-  color: black;
+	color: black;
 }
 
 .erro p {
-  color: #777777;
-  margin: 0px;
+	color: #777777;
+	margin: 0px;
 }
 
 .erro a {
-  font-size: 16px;
-  text-decoration: none;
+	font-size: 16px;
+	text-decoration: none;
 }
 .erro a:hover {
-  text-decoration: underline;
+	text-decoration: underline;
 }
 
 /* MENSAGENS YESSSSSSSSSSSSSSSSS */
 .separadorChique {
-  /* e a mesma coisa da mensagem mas sem hover */
-  margin-left: -5px;
-  margin-right: -5px;
-  padding: 6px;
-  color: #8f9be0;
-  border-bottom: 1px solid #bae2ff;
+	/* e a mesma coisa da mensagem mas sem hover */
+	margin-left: -5px;
+	margin-right: -5px;
+	padding: 6px;
+	color: #8f9be0;
+	border-bottom: 1px solid #bae2ff;
 }
 
 .mensagem {
-  margin-left: -5px;
-  margin-right: -5px;
-  padding: 6px;
-  color: #8f9be0;
-  border-bottom: 1px solid #bae2ff;
+	margin-left: -5px;
+	margin-right: -5px;
+	padding: 6px;
+	color: #8f9be0;
+	border-bottom: 1px solid #bae2ff;
 }
 
 .mensagem:hover {
-  background-color: #fcffd9;
+	background-color: #fcffd9;
 }
 .msgNova {
-  background-color: aliceblue;
+	background-color: aliceblue;
 }
 
 .mensagem * {
-  vertical-align: top;
+	vertical-align: top;
 }
 
 .mensagem a {
-  text-decoration: none;
-  color: #2d4dd5;
+	text-decoration: none;
+	color: #2d4dd5;
 }
 .mensagem a:hover {
-  text-decoration: underline;
+	text-decoration: underline;
 }
 
 .mensagem .usuario {
-  text-decoration: none;
-  font-weight: bold;
-  color: #00137f;
+	text-decoration: none;
+	font-weight: bold;
+	color: #00137f;
 }
 
 .mensagem > blockquote {
-  margin-top: 4px;
-  margin-bottom: 4px;
-  color: #b3bae0;
-  font-style: italic;
-  border: 0;
-  padding: 0;
-  margin-inline-start: 40px;
-  margin-inline-end: 40px;
+	margin-top: 4px;
+	margin-bottom: 4px;
+	color: #b3bae0;
+	font-style: italic;
+	border: 0;
+	padding: 0;
+	margin-inline-start: 40px;
+	margin-inline-end: 40px;
 }
 
 .mensagem .autorDeProjeto {
-  text-align: right;
-  margin-right: 0px;
-  margin-bottom: -4px;
+	text-align: right;
+	margin-right: 0px;
+	margin-bottom: -4px;
 }
 
 .mensagem img {
-  max-width: 100%;
+	max-width: 100%;
 }
 
 /* Status bar */
 
 .statusbar {
-  margin: -5px -5px 5px;
-  color: white;
-  padding: 6px 10px;
-  text-align: center;
-  cursor: pointer;
+	margin: -5px -5px 5px;
+	color: white;
+	padding: 6px 10px;
+	text-align: center;
+	cursor: pointer;
 }
 
 .statusbar p {
-  margin: 0;
+	margin: 0;
 }
 
 .statusbar.error {
-  background: maroon;
+	background: maroon;
 }
 
 .statusbar.success {
-  background: darkgreen;
+	background: darkgreen;
 }
 
 .statusbar.info {
-  background: royalblue;
+	background: royalblue;
 }
 
 .statusbar.warning {
-  background: darkgoldenrod;
+	background: darkgoldenrod;
 }
 
 /* rankings! */
 .rankeado {
-  font-size: 16px;
-  font-weight: bold;
-  margin-bottom: 4px;
+	font-size: 16px;
+	font-weight: bold;
+	margin-bottom: 4px;
 }
 
 .rankeado img {
-  width: 32px;
-  height: 32px;
-  vertical-align: middle;
+	width: 32px;
+	height: 32px;
+	vertical-align: middle;
 }
 
 .rankeado .infoExtra {
-  color: #9ebef7;
-  font-size: 12px;
-  font-weight: normal;
+	color: #9ebef7;
+	font-size: 12px;
+	font-weight: normal;
 }
 
 .rankeado .username {
-  color: #4f6bad;
-  text-decoration: none;
+	color: #4f6bad;
+	text-decoration: none;
 }
 
 .rankeado .username:hover {
-  text-decoration: underline;
+	text-decoration: underline;
 }
 
 .rankeado .lugar1 {
-  color: #ffd800;
+	color: #ffd800;
 }
 .rankeado .lugar2 {
-  color: #cbcbcb;
+	color: #cbcbcb;
 }
 .rankeado .lugar3 {
-  color: #ad5600;
+	color: #ad5600;
 }
 .rankeado .lugar {
-  color: #96a6ff;
+	color: #96a6ff;
 }
 
 .daverank {
-  padding-top: 6px;
-  display: table;
+	padding-top: 6px;
+	display: table;
 }
 
 .daverank img.icon {
-  float: left;
+	float: left;
 }
 
 .daverank .direito {
-  float: right;
-  width: 378px;
-  margin-left: 6px;
-  height: 48px;
-  display: table;
+	float: right;
+	width: 378px;
+	margin-left: 6px;
+	height: 48px;
+	display: table;
 }
 
 .daverank .direito b {
-  float: left;
-  font-size: 14px;
-  color: #545454;
-  display: block;
+	float: left;
+	font-size: 14px;
+	color: #545454;
+	display: block;
 }
 
 .daverank .direito span {
-  float: right;
-  display: block;
+	float: right;
+	display: block;
 }
 
 .daverank .direito .barrinha {
-  border: 1px solid #9ebbff;
-  margin-top: 22px;
-  width: 376px;
-  background-image: url("/elementos/ranks/vidro.png");
+	border: 1px solid #9ebbff;
+	margin-top: 22px;
+	width: 376px;
+	background-image: url("/elementos/ranks/vidro.png");
 
-  /* TODO PODEROSO DISPLAY TABLE */
-  /* TODO PODEROSO DISPLAY TABLE */
-  /* TODO PODEROSO DISPLAY TABLE */
-  display: table;
-  /* TODO PODEROSO DISPLAY TABLE */
-  /* TODO PODEROSO DISPLAY TABLE */
-  /* TODO PODEROSO DISPLAY TABLE */
+	/* TODO PODEROSO DISPLAY TABLE */
+	/* TODO PODEROSO DISPLAY TABLE */
+	/* TODO PODEROSO DISPLAY TABLE */
+	display: table;
+	/* TODO PODEROSO DISPLAY TABLE */
+	/* TODO PODEROSO DISPLAY TABLE */
+	/* TODO PODEROSO DISPLAY TABLE */
 }
 
 /* aqui esta um exemplo de como desenvolver para Varios Browsers */
 .daverank .direito .barrinha .juice {
-  width: 376px;
-  height: 24px;
-  background-image: url("/elementos/ranks/davejuice.png");
-  animation: davejuice_flow 25s infinite linear;
-  -webkit-animation: davejuice_webkitflow 25s infinite linear;
-  -moz-animation: davejuice_mozflow 25s infinite linear;
+	width: 376px;
+	height: 24px;
+	background-image: url("/elementos/ranks/davejuice.png");
+	animation: davejuice_flow 25s infinite linear;
+	-webkit-animation: davejuice_webkitflow 25s infinite linear;
+	-moz-animation: davejuice_mozflow 25s infinite linear;
 }
 
 @keyframes davejuice_flow {
-  from {
-    background-position-x: 0px;
-  }
-  to {
-    background-position-x: 376px;
-  }
+	from {
+		background-position-x: 0px;
+	}
+	to {
+		background-position-x: 376px;
+	}
 }
 
 @-webkit-keyframes davejuice_webkitflow {
-  from {
-    background-position-x: 0px;
-  }
-  to {
-    background-position-x: 376px;
-  }
+	from {
+		background-position-x: 0px;
+	}
+	to {
+		background-position-x: 376px;
+	}
 }
 
 @-moz-keyframes davejuice_mozflow {
-  from {
-    background-position-x: 0px;
-  }
-  to {
-    background-position-x: 376px;
-  }
+	from {
+		background-position-x: 0px;
+	}
+	to {
+		background-position-x: 376px;
+	}
 }
 
 #moeda {
-  position: fixed;
-  width: 16px;
-  height: 48px;
-  background-size: cover;
-  background-position-x: 0px;
-  z-index: 9999;
-  display: none;
+	position: fixed;
+	width: 16px;
+	height: 48px;
+	background-size: cover;
+	background-position-x: 0px;
+	z-index: 9999;
+	display: none;
 }

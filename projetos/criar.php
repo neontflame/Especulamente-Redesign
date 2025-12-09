@@ -114,6 +114,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 		width: 100%;
 		margin-top: 6px;
 	}
+	
+	#abaBotoes .coiso {
+		border-bottom: 1px solid #9EBBFF;
+		display: table;
+		padding-left: 6px;
+		margin-left: -5px;
+		margin-bottom: 6px;
+		height: 20px;
+	}
+
 	.abaButt {
 		border: 1px solid #9EBBFF;
 		background-color: #CCDBFF;
@@ -132,6 +142,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 		font-size: 12px;
 		display: inline;
 	}
+	
+	.coisoDownloadavel {
+		text-decoration: none;
+		display: table;
+		float: left;
+	}
 </style>
 
 <div class="container">
@@ -149,20 +165,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 				<h1 style="text-align: center; font-style: italic; font-weight: normal;">O que você quer criar hoje...?</h1>
 
 				<!-- Coiso Downloadável -->
-				<a href="/criar/dl" style="margin-left: -5px; margin-right:-4px; text-decoration: none;">
+				<a href="/criar/dl" style="margin-left: -5px;" class="coisoDownloadavel">
 					<img src="/elementos/projetos/dl.png" onmouseover="this.src='/elementos/projetos/dl-hover.png';" onmouseout="this.src='/elementos/projetos/dl.png';">
 				</a>
 
-				<a href="/criar/jg" style="margin-right:-4px; text-decoration: none;">
+				<a href="/criar/jg" class="coisoDownloadavel">
 					<img src="/elementos/projetos/jogo.png" onmouseover="this.src='/elementos/projetos/jogo-hover.png';" onmouseout="this.src='/elementos/projetos/jogo.png';">
 				</a>
-				<a href="/criar/md" style="margin-right:-5px; text-decoration: none;">
+				<a href="/criar/md" class="coisoDownloadavel">
 					<img src="/elementos/projetos/midia.png" onmouseover="this.src='/elementos/projetos/midia-hover.png';" onmouseout="this.src='/elementos/projetos/midia.png';">
 				</a>
-				<a href="/criar/bg" style="margin-right:-4px; text-decoration: none;">
+				<a href="/criar/bg" class="coisoDownloadavel">
 					<img src="/elementos/projetos/blog.png" onmouseover="this.src='/elementos/projetos/blog-hover.png';" onmouseout="this.src='/elementos/projetos/blog.png';">
 				</a>
-				<a href="/criar/rt" style="text-decoration: none;">
+				<a href="/criar/rt" class="coisoDownloadavel">
 					<img src="/elementos/projetos/resto.png" onmouseover="this.src='/elementos/projetos/resto-hover.png';" onmouseout="this.src='/elementos/projetos/resto.png';">
 				</a>
 
@@ -215,7 +231,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 					function inativarAsAbas() {
 						var abaBotoes = document.getElementById('abaBotoes');
 						for (var i = 0; i < abaBotoes.children.length; i++) {
-							abaBotoes.children[i].className = 'abaButt';
+							if (abaBotoes.children[i].className != 'coiso') {
+								abaBotoes.children[i].className = 'abaButt';
+							}
 						}
 						
 						var abasReais = document.getElementsByClassName('aba');
@@ -264,8 +282,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 					<div class="separador"></div>
 					<!-- abas wuatafaq -->
 					<div id="abaBotoes">
+						<div style="float: left;" class="coiso"></div>
 						<button type="button" class="abaButt abaAtiva" onclick="inativarAsAbas(); this.className = 'abaButt abaAtiva'; abaAnexos.style.display = 'table';">Anexos no post</button>
 						<button type="button" class="abaButt" onclick="inativarAsAbas(); this.className = 'abaButt abaAtiva'; abaThumb.style.display = 'table';">Thumbnail (opcional)</button>
+						<div style="float: right;" class="coiso"></div>
 					</div>
 					
 					<div class="aba" id="abaAnexos" style="display:table;">
@@ -339,9 +359,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 					
 					<!-- abas wuatafaq -->
 					<div id="abaBotoes">
+						<div style="float: left;" class="coiso"></div>
 						<button type="button" class="abaButt abaAtiva" onclick="inativarAsAbas(); this.className = 'abaButt abaAtiva'; abaNavs.style.display = 'table';">Jogo p/navegadores</button>
 						<button type="button" class="abaButt" onclick="inativarAsAbas(); this.className = 'abaButt abaAtiva'; abaThumb.style.display = 'table';">Thumbnail</button>
 						<button type="button" class="abaButt" onclick="inativarAsAbas(); this.className = 'abaButt abaAtiva'; abaArquivos.style.display = 'table';">Downloadáveis</button>
+						<div style="float: right;" class="coiso"></div>
 					</div>
 					
 					<div class="aba" id="abaNavs" style="display:table";>
@@ -398,8 +420,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 					<br>
 					<!-- abas wuatafaq -->
 					<div id="abaBotoes">
+						<div style="float: left;" class="coiso"></div>
 						<button type="button" class="abaButt abaAtiva" onclick="inativarAsAbas(); this.className = 'abaButt abaAtiva'; abaMidias.style.display = 'table';">Imagens e vídeos</button>
 						<button type="button" class="abaButt" onclick="inativarAsAbas(); this.className = 'abaButt abaAtiva'; abaThumb.style.display = 'table';">Thumbnail</button>
+						<div style="float: right;" class="coiso"></div>
 					</div>
 					
 					<div class="aba" id="abaMidias" style="display: table;">
@@ -442,8 +466,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 					<br>
 					<!-- abas wuatafaq -->
 					<div id="abaBotoes">
+						<div style="float: left;" class="coiso"></div>
 						<button type="button" class="abaButt abaAtiva" onclick="inativarAsAbas(); this.className = 'abaButt abaAtiva'; abaPasta.style.display = 'table';">Nome da pasta</button>
 						<button type="button" class="abaButt" onclick="inativarAsAbas(); this.className = 'abaButt abaAtiva'; abaThumb.style.display = 'table';">Thumbnail</button>
+						<div style="float: right;" class="coiso"></div>
 					</div>
 					
 					<div class="aba" id="abaPasta" style="display: table;">

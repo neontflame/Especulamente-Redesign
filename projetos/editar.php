@@ -65,9 +65,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 }
 
 if ($voltarPara == 'criar') {
-    $johnTravolta = '/criar/';
+		$johnTravolta = '/criar/';
 } else {
-    $johnTravolta = '/projetos/' . $id;
+		$johnTravolta = '/projetos/' . $id;
 }
 ?>
 
@@ -81,34 +81,45 @@ if ($voltarPara == 'criar') {
 
 		margin-top: 5px;
 		margin-bottom: 5px;
-	}  
+	}	
 	
-  .statusbar {
-    margin-right: 0px;
-  }
+	.statusbar {
+		margin-right: 0px;
+	}
 
-  .aba {
-    display:none;
-  }
+	.aba {
+		display:none;
+	}
 
-  #abaBotoes {
-    display:table;
-    width: 100%;
-    margin-top: 6px;
-  }
-  .abaButt {
-    border: 1px solid #9EBBFF;
-    background-color: #CCDBFF;
-    width: <?= ($projeto->tipo == 'jg' ? '33' : '49') ?>%;
-    font-size: 14px;
-    margin-right:-5px;
-  }
+	#abaBotoes {
+		display:table;
+		width: 100%;
+		margin-top: 6px;
+	}
+	
+	#abaBotoes .coiso {
+		border-bottom: 1px solid #9EBBFF;
+		display: table;
+		padding-left: 6px;
+		margin-left: -5px;
+		margin-bottom: 6px;
+		height: 20px;
+	}
 
-  .abaAtiva {
-    border-bottom: 1px solid #FFFFFF !important;
-    background-color: white;
-  }
-  
+
+	.abaButt {
+		border: 1px solid #9EBBFF;
+		background-color: #CCDBFF;
+		width: <?= ($projeto->tipo == 'jg' ? '33' : '49') ?>%;
+		font-size: 14px;
+		margin-right:-5px;
+	}
+
+	.abaAtiva {
+		border-bottom: 1px solid #FFFFFF !important;
+		background-color: white;
+	}
+	
 	.labelDeVerdade {
 		font-weight: normal;
 		font-size: 12px;
@@ -129,7 +140,9 @@ if ($voltarPara == 'criar') {
 					function inativarAsAbas() {
 						var abaBotoes = document.getElementById('abaBotoes');
 						for (var i = 0; i < abaBotoes.children.length; i++) {
-							abaBotoes.children[i].className = 'abaButt';
+							if (abaBotoes.children[i].className != 'coiso') {
+								abaBotoes.children[i].className = 'abaButt';
+							}
 						}
 						
 						var abasReais = document.getElementsByClassName('aba');
@@ -161,6 +174,7 @@ if ($voltarPara == 'criar') {
 					<div class="separador"></div>
 					<!-- abas wuatafaq -->
 					<div id="abaBotoes">
+						<div style="float: left;" class="coiso"></div>
 						<?php if ($projeto->tipo == 'jg') : ?>
 						<button type="button" class="abaButt abaAtiva" onclick="inativarAsAbas(); this.className = 'abaButt abaAtiva'; abaNavs.style.display = 'block';">Jogo p/navegadores</button>
 						<?php endif;?>
@@ -170,6 +184,7 @@ if ($voltarPara == 'criar') {
 						<?php if ($projeto->tipo != 'dl') : ?>
 						<button type="button" class="abaButt" onclick="inativarAsAbas(); this.className = 'abaButt abaAtiva'; abaThumb.style.display = 'block';">Thumbnail</button>
 						<?php endif;?>
+						<div style="float: right;" class="coiso"></div>
 					</div>
 				
 					<?php if ($projeto->tipo == 'jg') : ?>
@@ -299,10 +314,10 @@ if ($voltarPara == 'criar') {
 
 <script>
 		var abaBotoes = document.getElementById('abaBotoes');
-		abaBotoes.children[0].className = 'abaButt abaAtiva';
+		abaBotoes.children[1].className = 'abaButt abaAtiva';
 		
 		var abasReais = document.getElementsByClassName('aba');
-		abasReais[0].style.display = 'block';
+		abasReais[1].style.display = 'block';
 </script>
 			
 <style>
