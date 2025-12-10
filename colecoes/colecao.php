@@ -122,7 +122,12 @@ if (isset($_POST)) {
 }
 
 ?>
-<?php include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
+<?php 
+$meta["titulo"] = "[" . htmlspecialchars($colecao->nome) . " <> Coleção no PORTAL ESPECULAMENTE]";
+$meta["descricao"] = str_replace("\n", " ", markdown_apenas_texto($colecao->descricao));
+$meta["pagina"] = '/colecoes/' . $colecao->id;
+$meta["imagem"] = $colecao->thumbnail ? '/static/colecoes/' . $colecao->thumbnail : null;
+include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 
 <div class="container">
 	<?php include $_SERVER['DOCUMENT_ROOT'] . '/elementos/sidebar/sidebar.php'; ?>

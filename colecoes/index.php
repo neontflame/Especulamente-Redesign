@@ -17,7 +17,10 @@ if ($query != '') {
 $pages = coisos_tudo($colecoes, 'colecoes', $page, $query);
 
 ?>
-<?php include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
+<?php 
+$meta["titulo"] = "[Coleções <> PORTAL ESPECULAMENTE]";
+$meta["descricao"] = 'Organizações e listas de toda sorte! É como se fossem vários museus em um...';
+include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 
 <div class="container">
 	<?php include $_SERVER['DOCUMENT_ROOT'] . '/elementos/sidebar/sidebar.php'; ?>
