@@ -470,8 +470,8 @@ copiei do meu site to com preguiça -neon */
 	min-height: 40px;
 	display: inline-block;
 	list-style-type: none;
-
 	border-top: solid 1px #9ebbff;
+	word-wrap: break-word;
 }
 
 .comentario.livel {
@@ -480,7 +480,6 @@ copiei do meu site to com preguiça -neon */
 
 .comentario p {
 	display: block;
-	word-wrap: break-word;
 }
 
 .comentario .nome {
@@ -688,6 +687,7 @@ copiei do meu site to com preguiça -neon */
 	padding: 6px;
 	color: #8f9be0;
 	border-bottom: 1px solid #bae2ff;
+	word-wrap: break-word;
 }
 
 .mensagem:hover {

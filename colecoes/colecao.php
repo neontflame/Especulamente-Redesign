@@ -134,6 +134,16 @@ if (isset($_POST)) {
 				$rows->bindParam(2, $usario->id);
 				$rows->execute();
 				
+				criar_mensagem(
+				$usario->id,
+				<<<HTML
+				<a href="/usuarios/{$usuario->username}" class="usuario">{$usuario->username}</a>
+				adicionou você como curador na coleção
+				<a href="/colecoes/{$id}">{$colecao->nome}</a>!
+				HTML,
+				'add'
+				);
+			
 				info($usario->username . ' adicionado como curador!');
 			}
 		}
