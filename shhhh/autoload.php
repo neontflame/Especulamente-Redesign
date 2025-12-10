@@ -85,7 +85,7 @@ function getFileMimeType($file)
 	return $type;
 }
 
-function renderarProjeto($projeto, $botaoSim = true, $thumbObrigatoria = false)
+function renderarProjeto($projeto, $botaoSim = true, $thumbObrigatoria = false, $trecosAdicionais = null)
 { ?>
 	<div class="projeto" style="min-height:77px">
 		<div class="projetoSide">
@@ -136,6 +136,8 @@ function renderarProjeto($projeto, $botaoSim = true, $thumbObrigatoria = false)
 
 		<h2><a href="/projetos/<?= $projeto->id ?>"><?= $projeto->nome ?></a></h2>
 		<p><?= markdown_apenas_texto(explode("\n", $projeto->descricao)[0]) ?></p>
+		
+		<?php if (isset($trecosAdicionais)) { echo($trecosAdicionais); } ?>
 	</div>
 <?php }
 function renderarProjGrade($projeto)

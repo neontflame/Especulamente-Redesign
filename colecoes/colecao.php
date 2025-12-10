@@ -11,11 +11,13 @@ $colecao = colecao_requestIDator($id);
 if ($colecao == null) {
 	erro_404();
 }
-$projos = simples_where_tudo('colecoes_projetos', 'id_colecao', $id);
+
+$estudio_e_meu = (isset($usuario) && $colecao->criador == $usuario->id);
 
 function colecao_curacios($id)
 {
 	$autores = [];
+	$autoresMasChique = [];
 	
 	global $db;
 	// pega do autor da coleçao
@@ -25,15 +27,135 @@ function colecao_curacios($id)
 	$rows = $db->prepare("SELECT * FROM colecoes_curadores WHERE id_colecao = ?");
 	$rows->bindParam(1, $id);
 	$rows->execute();
-	$colecaoaut = $rows->fetch(PDO::FETCH_OBJ);
 	
-	if ($colecaoaut != false) {	
-		foreach ($colecaoaut as $cara) {
-			array_push($autores, $cara->id_curador);
-		}
+	while ($colecaoaut = $rows->fetch(PDO::FETCH_OBJ)) {
+		array_push($autoresMasChique, $colecaoaut);
+	}
+	
+	foreach ($autoresMasChique as $cara) {
+		array_push($autores, $cara->id_curador);
 	}
 
 	return $autores;
+}
+
+function colecao_projetos($id)
+{
+	$projetos = [];
+	$projetosMasChique = [];
+	
+	global $db;
+	
+	$rows = $db->prepare("SELECT * FROM colecoes_projetos WHERE id_colecao = ?");
+	$rows->bindParam(1, $id);
+	$rows->execute();
+	
+	while ($colecaoproj = $rows->fetch(PDO::FETCH_OBJ)) {
+		array_push($projetosMasChique, $colecaoproj);
+	}
+	
+	foreach ($projetosMasChique as $prj) {
+		array_push($projetos, $prj->id_projeto);
+	}
+
+	return $projetos;
+}
+
+function souCurador($id) {
+	global $usuario;
+	
+	if (isset($usuario)) {
+		return in_array($usuario->id, colecao_curacios($id));
+	} else {
+		return false;
+	}
+}
+
+// Post Quests
+if (isset($_POST)) {
+	// curador exclusive
+	if (souCurador($id)) {
+		// add projeto
+		if (isset($_POST['proj_fnf'])) {
+			$pojejo = projeto_requestIDator($_POST['proj_fnf']);
+			
+			if ($pojejo == null) {
+				erro('Esse projeto não existe!!');
+			} else if (in_array($pojejo->id, colecao_projetos($id))) {
+				erro('Esse projeto já foi adicionado na coleção!');
+			} else {
+				$rows = $db->prepare("INSERT INTO colecoes_projetos (id_colecao, id_projeto, id_adicionador) VALUES (?, ?, ?)");
+				$rows->bindParam(1, $colecao->id);
+				$rows->bindParam(2, $pojejo->id);
+				$rows->bindParam(3, $usuario->id);
+				$rows->execute();
+				
+				info('Projeto adicionado!');
+			}
+		}
+		// remover proejto
+		if (isset($_POST['removerProj_fnf'])) {
+			$pojejo = projeto_requestIDator($_POST['removerProj_fnf']);
+			
+			if (!in_array($pojejo->id, colecao_projetos($id))) {
+				erro('Esse projeto não está na coleção!');
+			} else {
+				$rows = $db->prepare("DELETE FROM colecoes_projetos WHERE id_colecao = ? AND id_projeto = ?");
+				$rows->bindParam(1, $colecao->id);
+				$rows->bindParam(2, $pojejo->id);
+				$rows->execute();
+				
+				info('Projeto removido!');
+			}
+		}
+		
+		// mudar desc
+		if (isset($_POST['desc_fnf'])) {
+			$desc = $_POST['desc_fnf'];
+
+			mudar_colecao($colecao->id, ['descricao' => $desc]);
+			info('Descrição da coleção alterada!');
+		}
+	}
+	
+	// dono do estudio exclusive
+	if ($estudio_e_meu) {
+		// add curador
+		if (isset($_POST['user_fnf'])) {
+			$usario = usuario_requestinator($_POST['user_fnf']);
+			
+			if ($usario == null) {
+				erro('Esse usuário não existe!!');
+			} else if (in_array($usario->id, colecao_curacios($id))) {
+				erro('Esse usuário já é um curador!');
+			} else {
+				$rows = $db->prepare("INSERT INTO colecoes_curadores (id_colecao, id_curador) VALUES (?, ?)");
+				$rows->bindParam(1, $colecao->id);
+				$rows->bindParam(2, $usario->id);
+				$rows->execute();
+				
+				info($usario->username . ' adicionado como curador!');
+			}
+		}
+		
+		// remove curador
+		if (isset($_POST['removerUser_fnf'])) {
+			$usario = usuario_requestIDator($_POST['removerUser_fnf']);
+			
+			if (!in_array($usario->id, colecao_curacios($id))) {
+				erro('Esse usuário não é um curador!');
+			} else {
+				$rows = $db->prepare("DELETE FROM colecoes_curadores WHERE id_colecao = ? AND id_curador = ?");
+				$rows->bindParam(1, $colecao->id);
+				$rows->bindParam(2, $usario->id);
+				$rows->execute();
+				
+				info('Curador removido!');
+			}
+		}
+	}
+
+	$colecao = colecao_requestIDator($id);
 }
 
 ?>
@@ -54,8 +176,9 @@ function colecao_curacios($id)
 
 		#abaBotoes {
 			display:table;
-			width: 100%;
+			width: 101.2%;
 			margin-top: 6px;
+			margin-right:0px;
 		}
 		
 		#abaBotoes .coiso {
@@ -83,6 +206,52 @@ function colecao_curacios($id)
 		.inside_page_content form {
 			text-align: center;  
 		}
+		
+		.botaoDoLado {
+			float: right;
+		}
+		
+		
+		/* roubado da pagina de usuarios mas #EuNaoToNemAi */
+			.bioEditavel {
+				background: none;
+				border: none;
+				position: relative;
+				padding: 1px 1px;
+				text-align: left;
+				vertical-align: top;
+
+				font: 12px "Verdana";
+				color: #4f6bad;
+			}
+
+			.bioEditavel:hover {
+				background-color: #FFFFDD;
+			}
+
+			.bioEditavel:active {
+				background-color: #FFEEAA;
+			}
+
+			.bioButt {
+				margin-top: 3px;
+				width: 100%;
+				background-color: #D6EBFF;
+				border-style: solid;
+				border-width: 1px;
+				border-color: #5d85e2;
+
+				font-family: Verdana;
+			}
+
+			.bioButt:hover {
+				background-color: aliceblue;
+			}
+
+			.bioButt:active {
+				background-color: #B5DCFF;
+			}
+			
 	</style>
 	
 	<script>
@@ -111,7 +280,8 @@ function colecao_curacios($id)
 			<p style="margin-top: 12px;">por <a href="/usuarios/<?= usuario_requestIDator($colecao->criador)->username ?>"><?= usuario_requestIDator($colecao->criador)->username ?></a></p>
 		</div>
 
-		<div class="inside_page_content" style="padding-right: 0px;">
+		<div class="inside_page_content">
+			<?php include $_SERVER['DOCUMENT_ROOT'] . '/elementos/statusbar.php'; ?>
 			<div id="abaBotoes">
 				<div style="float: left;" class="coiso"></div>
 				<button type="button" class="abaButt abaAtiva" onclick="inativarAsAbas(); this.className = 'abaButt abaAtiva'; abaProjs.style.display = 'table';">Projetos</button>
@@ -119,15 +289,35 @@ function colecao_curacios($id)
 				<button type="button" class="abaButt" onclick="inativarAsAbas(); this.className = 'abaButt abaAtiva'; abaDesc.style.display = 'table';">Descrição</button>
 				<div style="float: right;" class="coiso"></div>
 			</div>
-					
+			
+			<!-- aba de projetos -->
 			<div class="aba" id="abaProjs" style="display:table">
+				<!-- adicionar projos -->
+				<?php if (souCurador($id)) : ?>
+				<form action="" method="post">
+					<label for="curadoradd">ID:</label>
+					<input type="text" name="proj_fnf" id="proj_fnf">
+					<button class="coolButt verde">Adicionar projeto</button>
+				</form>
+				<div class="separador" style="margin-bottom:8px;"></div>
+				<?php endif; ?>
+				
 				<?php
+					$projos = colecao_projetos($id);
+					
 					if (count($projos) > 0) : ?>
 					<div class="projetos">
 						<?php
 						foreach ($projos as $projejo) {
-							$projeto = projeto_requestIDator($projejo->id_projeto);
-							renderarProjeto($projeto);
+							// isso provavelmente pode ser feito de um jeito melhor mas Whatever!!! Blehhhhhhh
+							$botao = '
+							<form action="" method="post" enctype="multipart/form-data" id="form_removerProj">
+								<input type="text" name="removerProj_fnf" id="removerProj_fnf" style="display: none;" value="' . $projejo . '">
+								<button class="coolButt vermelho" style="display: block;">Remover</button>
+							</form>
+							';
+							$projeto = projeto_requestIDator($projejo);
+							renderarProjeto($projeto, true, false, (souCurador($colecao->id) ? $botao : null));
 						}
 						?>
 					</div>
@@ -135,23 +325,55 @@ function colecao_curacios($id)
 					endif;
 				?>
 			</div>
+			
+			<!-- aba de curadores -->
 			<div class="aba" id="abaCurs">
+				<!-- adicionar caras -->
+				<?php if ($estudio_e_meu) : ?>
 				<form action="" method="post">
-					<label for="curadoradd">adicionar curador</label>
-					<input type="text" name="curadoradd" id="curadoradd">
-					<button class="coolButt verde">Adicionar</button>
+					<label for="user_fnf">Usuário:</label>
+					<input type="text" name="user_fnf" id="user_fnf">
+					<button class="coolButt verde">Adicionar curador</button>
 				</form>
 				<div class="separador" style="margin-bottom:4px;"></div>
-			
+				<?php endif; ?>
+				
 				<?php foreach (colecao_curacios($id) as $curador) { 
 					$uusuuaario = usuario_requestIDator($curador) ?>
 					<div class="rankeado">
 						<a href="/usuarios/<?= $uusuuaario->username ?>"><img src="<?= pfp($uusuuaario) ?>"></a>
 						<a class="username" href="/usuarios/<?= $uusuuaario->username ?>"><?= $uusuuaario->username ?></a>
+						<?php if ($estudio_e_meu && ($uusuuaario->id != $usuario->id)) : ?>
+							<form action="" method="post" enctype="multipart/form-data" id="form_removerUser" style="display:inline">
+								<input type="text" name="removerUser_fnf" id="removerUser_fnf" style="display: none;" value="<?= $uusuuaario->id ?>">
+								<button class="coolButt vermelho botaoDoLado">Remover</button>
+							</form>
+						<?php endif; ?>
 					</div>
 				<?php } ?>
 			</div>
+			
+			<!-- aba de descriçao -->
 			<div class="aba" id="abaDesc">
+				<?php if (souCurador($colecao->id)) : ?>
+					<button class="bioEditavel" onclick="form_desc.style.display = 'block'; desc.style.display = 'none'">
+					<?php endif; ?>
+
+					<p id="desc" style="margin-top: 0px; white-space: pre-line;">
+						<?php if (souCurador($colecao->id) && ($colecao->descricao == null or $colecao->descricao == '')) : ?>vazio - insira algo aqui!<?php endif; ?>
+						<?= responde_clickers($colecao->descricao) ?></p>
+
+					<?php if (souCurador($colecao->id)) : ?>
+					</button>
+					<form action="" method="post" enctype="multipart/form-data" id="form_desc" style="display: none;">
+						<textarea name="desc_fnf" id="desc_fnf" style="width: 425px; height: 300px;"><?= htmlspecialchars($colecao->descricao) ?></textarea>
+						<button type="submit" class="bioButt">
+							Salvar descrição
+						</button>
+					</form>
+				<?php else :
+					responde_clickers($colecao->descricao);
+					endif; ?>
 			</div>
 		</div>
 	</div>

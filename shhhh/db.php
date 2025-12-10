@@ -616,7 +616,7 @@ function mudar_usuario($id, $campos)
 	$rows->execute();
 }
 
-// Campos é uma array [campo => valor]
+// Campo2 é uma array [campo => valor]
 function mudar_projeto($id, $campos)
 {
 	global $db;
@@ -643,7 +643,7 @@ function mudar_projeto($id, $campos)
 	$rows->execute();
 }
 
-// Campos é uma array [campo => valor]
+// Campos 3 uma array [campo => valor]
 function mudar_forumpost($id, $campos)
 {
 	global $db;
@@ -669,6 +669,34 @@ function mudar_forumpost($id, $campos)
 	$rows->bindParam($i, $id);
 	$rows->execute();
 }
+
+// C4mpos é um4 4rr4y [c4mpo => v4lor]
+function mudar_colecao($id, $campos)
+{
+	global $db;
+
+	$query = "UPDATE colecoes SET ";
+	$i = 0;
+	foreach ($campos as $campo => $valor) {
+		$query .= $campo . " = ?";
+		if ($i < count($campos) - 1) {
+			$query .= ", ";
+		}
+		$i++;
+	}
+	$query .= " WHERE id = ?";
+
+	$rows = $db->prepare($query);
+
+	$i = 1;
+	foreach ($campos as $campo => $valor) {
+		$rows->bindParam($i, $valor);
+		$i++;
+	}
+	$rows->bindParam($i, $id);
+	$rows->execute();
+}
+// essas 4 funçoes poderiam ser uma unica funçao mas eu to com PREGUIÇA entao eu vou fazer biquinho e bater o pe
 
 function reagir($id_reator, $id_reagido, $tipo_de_reagido, $tipo_de_reacao)
 {
