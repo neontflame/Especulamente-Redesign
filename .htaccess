@@ -25,6 +25,8 @@ RewriteRule ^projetos/([0-9]+)/([^/]+)$ /projetos/file.php?id=$1&filename=$2 [L,
 # Coleções
 RewriteCond %{REQUEST_URI} !^/colecoes/colecao\.php$
 RewriteRule ^colecoes/([0-9]+)/?$ /colecoes/colecao.php?id=$1 [L,QSA]
+RewriteCond %{REQUEST_URI} !^/colecoes/editar\.php$
+RewriteRule ^colecoes/([0-9]+)/editar/?$ /colecoes/editar.php?id=$1 [L,QSA]
 
 # Sidebárcios Cômicos eu acho (Forma de rss)
 RewriteRule ^projetos/feed\.xml?$ /feeds/proj.php?$1 [L,QSA]
@@ -41,12 +43,14 @@ RewriteRule ^jogos/?$ /lista.php?tipo=jg [L,QSA]
 RewriteRule ^resto/?$ /lista.php?tipo=rt [L,QSA]
 RewriteRule ^blogs/?$ /lista.php?tipo=bg [L,QSA]
 RewriteRule ^downloadaveis/?$ /lista.php?tipo=dl [L,QSA]
-RewriteRule ^colecoes/?$ /colecoes/index.php?$1 [L,QSA]
+RewriteRule ^colecoes/?$ /colecoes/index.php [L,QSA]
 
 # Criar
 RewriteRule ^criar/?$ /projetos/criar.php [L]
 RewriteCond %{REQUEST_URI} !^/projetos/criar\.php$
 RewriteRule ^criar/((dl)|(jg)|(md)|(bg)|(rt))/?$ /projetos/criar.php?tipo=$1 [L,QSA]
+RewriteCond %{REQUEST_URI} !^/colecoes/criar\.php$
+RewriteRule ^criar/col/?$ /colecoes/criar.php [L,QSA]
 
 # Usuários
 RewriteCond %{REQUEST_URI} !^/usuarios/perfil\.php$

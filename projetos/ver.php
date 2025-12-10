@@ -690,7 +690,91 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 
 			reajor_d_reagida('projeto', $projeto, $usuario, $postadoString); ?>
 		</div>
+		
+		<?php if (count(projeto_colecoes($projeto->id)) > 0) :?>
+		<div class="inside_page_content" style="margin-top: 8px; margin-bottom: 8px;">
+			<style>
+				.reajorNoTopo {
+					height: 28px;
+					margin-top: -6px;
+					margin-bottom: 4px;
+					border-bottom: solid 1px #9ebbff;
+				}
+				
+				.colecoes {
+					display:table; /* TODO PODEROSO display: table; */
+					margin-left: -5px;
+					margin-top: -4px;
+					margin-bottom: -8px;
+				}
+				.colecao {
+					display: table-cell;
+					float: left;
+				}
 
+				.colecao a {
+					text-decoration: none;
+				}
+
+				.colecao .colecaoInfo {
+					font-size: 12px;
+					font-weight: bold;
+					width: 315px;
+					height: 33px;
+					position:absolute;
+					margin-top: -36px;
+					color: white;
+					background-color: #00000099;
+					opacity: 0;
+				}
+
+				.colecao .colecaoInfo:hover{
+					opacity: 100;
+				}
+				
+				.thumbless {
+					margin-top: 0 !important;
+					color: #6D81B0 !important;
+					background-color: white !important;
+					background-image: url(/elementos/chillmaia.png); 
+					background-position: right -80px; background-repeat: no-repeat;
+					opacity: 100 !important;
+				}
+				
+				.thumbless p, .colecao .colecaoInfo p {
+					margin-left: 8px;
+				}
+
+				.thumbless:hover{
+					background-color: aliceblue !important;
+					background-image: url(/elementos/chillermaia.png);
+					color: black !important;
+				}
+			</style>
+			<div class="reajorDReagida reajorNoTopo">
+			<b style="display: block; margin-top: 7px; margin-left: 4px;">Inserido nas coleções</b>
+			</div>
+			<div class="colecoes">
+				<?php foreach (projeto_colecoes($projeto->id) as $colecio) {
+						$colecao = colecao_requestIDator($colecio); ?>
+					<div class="colecao">
+						<a href="/colecoes/<?= $colecao->id ?>">
+							<?php if ($colecao->thumbnail != null) :?>
+							<img src="/static/colecoes/<?= $colecao->thumbnail ?>" width="315" height="33">
+							<div class="colecaoInfo">
+								<p><?= $colecao->nome ?></p>
+							</div>
+							<?php else :?>
+							<div class="colecaoInfo thumbless">
+								<p><?= $colecao->nome ?></p>
+							</div>
+							<?php endif; ?>
+						</a>
+					</div>
+				<?php } ?>
+			</div>
+		</div>
+		<?php endif; ?>
 	</div>
 
 	<?php include $_SERVER['DOCUMENT_ROOT'] . '/elementos/sidebar/sidebar.php'; ?>

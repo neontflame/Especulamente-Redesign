@@ -173,7 +173,11 @@ function coisos_tudo(&$array, $table, $page = 1, $searchy = '', $queryAdicional 
 	$search = $db->quote('%' . $searchy . '%');
 
 	if ($searchy != '') {
-		$searchQuery = " WHERE (nome LIKE " . $search . " OR descricao LIKE " . $search . " OR arquivos_de_vdd LIKE "  . $search . ") ";
+		if ($table == 'projetos') {
+			$searchQuery = " WHERE (nome LIKE " . $search . " OR descricao LIKE " . $search . " OR arquivos_de_vdd LIKE "  . $search . ") ";
+		} else {
+			$searchQuery = " WHERE (nome LIKE " . $search . " OR descricao LIKE " . $search . ") ";
+		}
 	} else {
 		$searchQuery = "";
 	}
@@ -194,22 +198,6 @@ function coisos_tudo(&$array, $table, $page = 1, $searchy = '', $queryAdicional 
 		array_push($array, $row);
 	}
 	return $pages;
-}
-
-function simples_where_tudo($table, $column, $where, $sorting = 'id DESC')
-{
-	global $db;
-	
-	$array = [];
-
-	$rows = $db->prepare("SELECT * FROM " . $table . " WHERE " . $column . " = ?" . " ORDER BY " . $sorting);
-	$rows->bindParam(1, $where, PDO::PARAM_INT);
-	$rows->execute();
-
-	while ($row = $rows->fetch(PDO::FETCH_OBJ)) {
-		array_push($array, $row);
-	}
-	return $array;
 }
 
 // CONVITE COISOS
@@ -1400,4 +1388,74 @@ function obter_rank($davecoins_atuais)
 		"diada" => $row ? $row->diada : $last_row->diada,
 		"barrinha_width" => 376 * (!$row ? 1 : (($davecoins_atuais - ($last_row ? $last_row->davecoins_proximo : 0)) / (($row ? $row->davecoins_proximo : $last_row->davecoins_proximo) - ($last_row ? $last_row->davecoins_proximo : 0))))
 	];
+}
+
+// funçoes de colecao
+function colecao_curacios($id)
+{
+	$autores = [];
+	$autoresMasChique = [];
+	
+	global $db;
+	// pega do autor da coleçao
+	array_push($autores, colecao_requestIDator($id)->criador);
+	
+	// pega dos curadores
+	$rows = $db->prepare("SELECT * FROM colecoes_curadores WHERE id_colecao = ?");
+	$rows->bindParam(1, $id);
+	$rows->execute();
+	
+	while ($colecaoaut = $rows->fetch(PDO::FETCH_OBJ)) {
+		array_push($autoresMasChique, $colecaoaut);
+	}
+	
+	foreach ($autoresMasChique as $cara) {
+		array_push($autores, $cara->id_curador);
+	}
+
+	return $autores;
+}
+
+function colecao_projetos($id)
+{
+	$projetos = [];
+	$projetosMasChique = [];
+	
+	global $db;
+	
+	$rows = $db->prepare("SELECT * FROM colecoes_projetos WHERE id_colecao = ?");
+	$rows->bindParam(1, $id);
+	$rows->execute();
+	
+	while ($colecaoproj = $rows->fetch(PDO::FETCH_OBJ)) {
+		array_push($projetosMasChique, $colecaoproj);
+	}
+	
+	foreach ($projetosMasChique as $prj) {
+		array_push($projetos, $prj->id_projeto);
+	}
+
+	return $projetos;
+}
+
+function projeto_colecoes($id)
+{
+	$colecoes = [];
+	$colecoesMasChique = [];
+	
+	global $db;
+	
+	$rows = $db->prepare("SELECT * FROM colecoes_projetos WHERE id_projeto = ?");
+	$rows->bindParam(1, $id);
+	$rows->execute();
+	
+	while ($colecaoproj = $rows->fetch(PDO::FETCH_OBJ)) {
+		array_push($colecoesMasChique, $colecaoproj);
+	}
+	
+	foreach ($colecoesMasChique as $col) {
+		array_push($colecoes, $col->id_colecao);
+	}
+
+	return $colecoes;
 }

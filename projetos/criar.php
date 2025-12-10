@@ -150,6 +150,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 	}
 </style>
 
+<style>
+	.itemditavel {
+		text-decoration: none;
+		font-size: 12px;
+	}
+
+	.itemditavel:hover {
+		text-decoration: underline;
+	}
+
+	.tipodl {
+		color: #FF003B;
+	}
+
+	.tipojg {
+		color: #EFAF6F;
+	}
+
+	.tipomd {
+		color: #4DC13E;
+	}
+
+	.tipobg {
+		color: #56A5EA;
+	}
+
+	.tiport {
+		color: #878787;
+	}
+</style>
+					
 <div class="container">
 	<?php include $_SERVER['DOCUMENT_ROOT'] . '/elementos/sidebar/sidebar.php'; ?>
 
@@ -181,50 +212,54 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 				<a href="/criar/rt" class="coisoDownloadavel">
 					<img src="/elementos/projetos/resto.png" onmouseover="this.src='/elementos/projetos/resto-hover.png';" onmouseout="this.src='/elementos/projetos/resto.png';">
 				</a>
+				<a href="/criar/col" style="margin-left: -5px; margin-bottom: 4px;" class="coisoDownloadavel">
+					<img src="/elementos/projetos/colecao.png" onmouseover="this.src='/elementos/projetos/colecao-hover.png';" onmouseout="this.src='/elementos/projetos/colecao.png';">
+				</a>
 
-				<?php
-				$projetos = [];
-
-				// grandes numeros para grandes coisas
-				$projejos = coisos_tudo($projetos, 'projetos', 1, null, ' WHERE id_criador = ' . $usuario->id, 10000000);
-
-				if (count($projetos) > 0) { ?>
-					<style>
-						.itemditavel {
-							text-decoration: none;
-							font-size: 16px;
-						}
-
-						.itemditavel:hover {
-							text-decoration: underline;
-						}
-
-						.tipodl {
-							color: #FF003B;
-						}
-
-						.tipojg {
-							color: #EFAF6F;
-						}
-
-						.tipomd {
-							color: #4DC13E;
-						}
-
-						.tipobg {
-							color: #56A5EA;
-						}
-
-						.tiport {
-							color: #878787;
-						}
-					</style>
 					<h2 style="color: #000000; text-align: center; font-style: italic; font-weight: normal;">...ou talvez editar?</h2>
-					<?php foreach ($projetos as $projeto) :	?>
-						<a class="itemditavel tipo<?= $projeto->tipo ?>" href="/projetos/<?= $projeto->id ?>/editar?volta=criar">[<?= strtoupper($projeto->tipo) ?>] <?= $projeto->nome ?></a>
-						<br>
-				<?php endforeach;
-				} ?>
+				<table style="margin-right: 5px">
+					<thead>
+						<tr>
+							<th scope="col">Projetos</th>
+							<th scope="col">Coleções</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<!-- projetos -->
+							<td style="width: 50%; vertical-align:top;">
+							<?php
+							$projetos = [];
+
+							// grandes numeros para grandes coisas
+							$projejos = coisos_tudo($projetos, 'projetos', 1, null, ' WHERE id_criador = ' . $usuario->id, 10000000);
+
+							if (count($projetos) > 0) : ?>
+								<?php foreach ($projetos as $projeto) :	?>
+									<a class="itemditavel tipo<?= $projeto->tipo ?>" href="/projetos/<?= $projeto->id ?>/editar?volta=criar">[<?= strtoupper($projeto->tipo) ?>] <?= $projeto->nome ?></a>
+									<br>
+								<?php endforeach;?>
+							<?php endif; ?>
+							</td>
+
+							<!-- colecoes -->
+							<td style="width: 50%; vertical-align:top;">
+							<?php
+							$colecoes = [];
+
+							// grandes numeros para grandes coisas
+							$colceios = coisos_tudo($colecoes, 'colecoes', 1, null, ' WHERE criador = ' . $usuario->id, 10000000);
+
+							if (count($colecoes) > 0) : ?>
+								<?php foreach ($colecoes as $colecao) :	?>
+									<a class="itemditavel tipocol" href="/colecoes/<?= $colecao->id ?>/editar?volta=criar"><?= $colecao->nome ?></a>
+									<br>
+								<?php endforeach;?>
+							<?php endif; ?>
+							</td>
+						</tr>
+					</tbody>
+					</table>
 			<?php endif; ?>
 			
 			<script>

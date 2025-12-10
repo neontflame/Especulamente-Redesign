@@ -73,7 +73,7 @@ global $config;
 						<a href="/blogs/">BLOGS</a>
 						<a href="/resto/">"O resto..."</a>
 					</div>
-					<form action="/<?= pagetitlePorTipo($_GET['tipo'] ?? '') ?>" style="float:right;">
+					<form action="/<?= pagetitlePorTipo($_GET['tipo'] ?? ($tipo ?? '')) ?>" style="float:right;">
 						<input type="text" id="search" name="q" placeholder="Pesquise algo lol" class="coolSearchBar" style="height: 18px; width: 198px; float:left; margin-right: 3px;" value="<?= $_GET["q"] ?? "" ?>" />
 						<button style="cursor:pointer; display: inline-block; padding: 0; border: 0;">
 							<img src="/elementos/header/pesquisa.png">

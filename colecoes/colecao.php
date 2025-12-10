@@ -14,53 +14,6 @@ if ($colecao == null) {
 
 $estudio_e_meu = (isset($usuario) && $colecao->criador == $usuario->id);
 
-function colecao_curacios($id)
-{
-	$autores = [];
-	$autoresMasChique = [];
-	
-	global $db;
-	// pega do autor da coleçao
-	array_push($autores, colecao_requestIDator($id)->criador);
-	
-	// pega dos curadores
-	$rows = $db->prepare("SELECT * FROM colecoes_curadores WHERE id_colecao = ?");
-	$rows->bindParam(1, $id);
-	$rows->execute();
-	
-	while ($colecaoaut = $rows->fetch(PDO::FETCH_OBJ)) {
-		array_push($autoresMasChique, $colecaoaut);
-	}
-	
-	foreach ($autoresMasChique as $cara) {
-		array_push($autores, $cara->id_curador);
-	}
-
-	return $autores;
-}
-
-function colecao_projetos($id)
-{
-	$projetos = [];
-	$projetosMasChique = [];
-	
-	global $db;
-	
-	$rows = $db->prepare("SELECT * FROM colecoes_projetos WHERE id_colecao = ?");
-	$rows->bindParam(1, $id);
-	$rows->execute();
-	
-	while ($colecaoproj = $rows->fetch(PDO::FETCH_OBJ)) {
-		array_push($projetosMasChique, $colecaoproj);
-	}
-	
-	foreach ($projetosMasChique as $prj) {
-		array_push($projetos, $prj->id_projeto);
-	}
-
-	return $projetos;
-}
-
 function souCurador($id) {
 	global $usuario;
 	
@@ -114,7 +67,7 @@ if (isset($_POST)) {
 			$desc = $_POST['desc_fnf'];
 
 			mudar_colecao($colecao->id, ['descricao' => $desc]);
-			info('Descrição da coleção alterada!');
+			info('Descrição da coleção atualizada!');
 		}
 	}
 	
@@ -262,6 +215,15 @@ if (isset($_POST)) {
 				background-color: #B5DCFF;
 			}
 			
+			.editarInfo {
+				display: block;
+				text-align: center;
+				text-decoration: none;
+			}
+			.editarInfo:hover {
+				text-decoration: underline;
+			}
+			
 	</style>
 	
 	<script>
@@ -292,6 +254,9 @@ if (isset($_POST)) {
 
 		<div class="inside_page_content">
 			<?php include $_SERVER['DOCUMENT_ROOT'] . '/elementos/statusbar.php'; ?>
+			<?php if ($estudio_e_meu) : ?>
+				<a href="/colecoes/<?= $colecao->id ?>/editar" class="editarInfo">Editar informações do estúdio</a>
+			<?php endif; ?>
 			<div id="abaBotoes">
 				<div style="float: left;" class="coiso"></div>
 				<button type="button" class="abaButt abaAtiva" onclick="inativarAsAbas(); this.className = 'abaButt abaAtiva'; abaProjs.style.display = 'table';">Projetos</button>

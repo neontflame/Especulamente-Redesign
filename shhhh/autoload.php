@@ -231,6 +231,8 @@ function pagetitlePorTipo($tipo)
 			return 'blogs';
 		case 'rt':
 			return 'resto';
+		case 'col':
+			return 'colecoes';
 		default:
 			return 'projetos';
 	}
