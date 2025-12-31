@@ -148,7 +148,7 @@ function forumpost_requestIDator($id)
 	return $post;
 }
 
-// Porjtoej por id
+// Colecio por id
 function colecao_requestIDator($id)
 {
 	global $db;

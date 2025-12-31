@@ -710,6 +710,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 				.colecao {
 					display: table-cell;
 					float: left;
+					height: 36px;
 				}
 
 				.colecao a {
