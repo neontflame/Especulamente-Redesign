@@ -90,7 +90,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 						
 						<h2><a href="/colecoes/<?= $colecao->id ?>"><?= $colecao->nome ?></a></h2>
 					</div>
-					<img src="/static/colecoes/<?= $colecao->thumbnail ?>" width="442" height="47" style="padding: 0px; margin: -5px; margin-top: 0px;">
+					<img src="/static/colecoes/<?= $colecao->thumbnail ?>" width="442" height="46" style="padding: 0px; margin: -5px; margin-top: -4px;">
 				</div>
 				<?php else : ?>
 				<div class="projeto semSal">
