@@ -10,6 +10,7 @@ $creditados = [
 	['henry.guy', 'banners e anuncios'],
 	['DexDousky', 'banners'],
 	['brenoborb', 'banner'],
+	['flaunart', 'banner'],
 	['dafver', 'o cara do dinheiro'],
 ];
 ?>

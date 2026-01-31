@@ -71,18 +71,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 		}
 
 		// codigo debativelmente com alma porque eu fiquei com preguiça de colocar na funçao
-		if ($_POST['unlist'] == 'checked') {
+		if (isset($_POST['unlist']) && ($_POST['unlist'] == 'on')) {
 			$rows = $db->prepare("UPDATE projetos SET naolist = 1 WHERE id = ?");
 			$rows->bindParam(1, $projeto->id);
 			$rows->execute();
 		}
 				
-		if (count($erro) == 0 && ($_POST['unlist'] != 'checked')) {
-			if ($tipo == 'md') { fazer_bounty(4); }
-			if ($tipo == 'dl') { fazer_bounty(5); }
-			if ($tipo == 'bg') { fazer_bounty(6); }
-			if ($tipo == 'jg') { fazer_bounty(7); }
-			if ($tipo == 'rt') { fazer_bounty(8); }
+		if (count($erro) == 0) {
+			if ($_POST['unlist'] != 'on' || !isset($_POST['unlist'])) {
+				if ($tipo == 'md') { fazer_bounty(4); }
+				if ($tipo == 'dl') { fazer_bounty(5); }
+				if ($tipo == 'bg') { fazer_bounty(6); }
+				if ($tipo == 'jg') { fazer_bounty(7); }
+				if ($tipo == 'rt') { fazer_bounty(8); }
+			}
 			header('Location: /projetos/' . $projeto->id);
 		}
 	}
