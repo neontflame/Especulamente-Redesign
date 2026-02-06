@@ -7,6 +7,7 @@ $ads = [
 	['ad5.png', 'https://www.sentaifilmworks.com/blogs/catalog/magical-play'],
 	['ad6.png', 'https://www.newgrounds.com/portal/view/770371'],
 	['ad7.png', 'https://scratch.mit.edu'],
+	['ad8.png', 'https://github.com/neontflame/Especulamente-Redesign'],
 ];
 $ad = $ads[array_rand($ads)];
 ?>
