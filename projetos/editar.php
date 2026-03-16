@@ -137,30 +137,6 @@ if ($voltarPara == 'criar') {
 				<p>wtf</p>
 			<?php else : ?>
 				<script>
-					function ativarPrimeiraAba() {
-						var abaBotoes = document.getElementById('abaBotoes');
-						var primeiroBotaoAtivado = false
-						for (var i = 0; i < abaBotoes.children.length; i++) {
-							if (abaBotoes.children[i].className != 'coiso') {
-								abaBotoes.children[i].className = 'abaButt';
-								if (!primeiroBotaoAtivado) {
-									abaBotoes.children[i].className = 'abaButt abaAtiva';
-									primeiroBotaoAtivado = true
-								}
-							}
-						}
-						
-						var abasReais = document.getElementsByClassName('aba');
-						var primeiraAbaAtiva = false
-						for (var i = 0; i < abasReais.length; i++) {
-							abasReais[i].style.display = 'none';
-							if (!primeiraAbaAtiva) {
-								abasReais[i].style.display = 'block';
-								primeiraAbaAtiva = true
-							}
-						}
-					}
-					
 					function inativarAsAbas() {
 						var abaBotoes = document.getElementById('abaBotoes');
 						for (var i = 0; i < abaBotoes.children.length; i++) {
@@ -179,7 +155,7 @@ if ($voltarPara == 'criar') {
 				<a href="<?= $johnTravolta ?>"><img style="margin-left: -5px; margin-top: -5px;" src="/elementos/voltar.png"></a>
 				<h1 style="text-align: center; font-style: italic;">Editando projeto</h1>
 
-				<form action="" method="post" enctype="multipart/form-data" onload="ativarPrimeiraAba()">
+				<form action="" method="post" enctype="multipart/form-data">
 					<input type="hidden" name="tipo" value="<?= $projeto->tipo ?>">
 					<input type="hidden" name="id" value="<?= $projeto->id ?>">
 
@@ -337,11 +313,27 @@ if ($voltarPara == 'criar') {
 </div>
 
 <script>
-		var abaBotoes = document.getElementById('abaBotoes');
-		abaBotoes.children[1].className = 'abaButt abaAtiva';
-		
-		var abasReais = document.getElementsByClassName('aba');
-		abasReais[1].style.display = 'block';
+	var abaBotoes = document.getElementById('abaBotoes');
+	var primeiroBotaoAtivado = false
+	for (var i = 0; i < abaBotoes.children.length; i++) {
+		if (abaBotoes.children[i].className != 'coiso') {
+			abaBotoes.children[i].className = 'abaButt';
+			if (!primeiroBotaoAtivado) {
+				abaBotoes.children[i].className = 'abaButt abaAtiva';
+				primeiroBotaoAtivado = true
+			}
+		}
+	}
+	
+	var abasReais = document.getElementsByClassName('aba');
+	var primeiraAbaAtiva = false
+	for (var i = 0; i < abasReais.length; i++) {
+		abasReais[i].style.display = 'none';
+		if (!primeiraAbaAtiva) {
+			abasReais[i].style.display = 'block';
+			primeiraAbaAtiva = true
+		}
+	}
 </script>
 			
 <style>
