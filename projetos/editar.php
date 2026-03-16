@@ -137,6 +137,30 @@ if ($voltarPara == 'criar') {
 				<p>wtf</p>
 			<?php else : ?>
 				<script>
+					function ativarPrimeiraAba() {
+						var abaBotoes = document.getElementById('abaBotoes');
+						var primeiroBotaoAtivado = false
+						for (var i = 0; i < abaBotoes.children.length; i++) {
+							if (abaBotoes.children[i].className != 'coiso') {
+								abaBotoes.children[i].className = 'abaButt';
+								if (!primeiroBotaoAtivado) {
+									abaBotoes.children[i].className = 'abaButt abaAtiva';
+									primeiroBotaoAtivado = true
+								}
+							}
+						}
+						
+						var abasReais = document.getElementsByClassName('aba');
+						var primeiraAbaAtiva = false
+						for (var i = 0; i < abasReais.length; i++) {
+							abasReais[i].style.display = 'none';
+							if (!primeiraAbaAtiva) {
+								abasReais[i].style.display = 'block';
+								primeiraAbaAtiva = true
+							}
+						}
+					}
+					
 					function inativarAsAbas() {
 						var abaBotoes = document.getElementById('abaBotoes');
 						for (var i = 0; i < abaBotoes.children.length; i++) {
@@ -155,7 +179,7 @@ if ($voltarPara == 'criar') {
 				<a href="<?= $johnTravolta ?>"><img style="margin-left: -5px; margin-top: -5px;" src="/elementos/voltar.png"></a>
 				<h1 style="text-align: center; font-style: italic;">Editando projeto</h1>
 
-				<form action="" method="post" enctype="multipart/form-data">
+				<form action="" method="post" enctype="multipart/form-data" onload="ativarPrimeiraAba()">
 					<input type="hidden" name="tipo" value="<?= $projeto->tipo ?>">
 					<input type="hidden" name="id" value="<?= $projeto->id ?>">
 
@@ -176,7 +200,7 @@ if ($voltarPara == 'criar') {
 					<div id="abaBotoes">
 						<div style="float: left;" class="coiso"></div>
 						<?php if ($projeto->tipo == 'jg') : ?>
-						<button type="button" class="abaButt abaAtiva" onclick="inativarAsAbas(); this.className = 'abaButt abaAtiva'; abaNavs.style.display = 'block';">Jogo p/navegadores</button>
+						<button type="button" class="abaButt" onclick="inativarAsAbas(); this.className = 'abaButt abaAtiva'; abaNavs.style.display = 'block';">Jogo p/navegadores</button>
 						<?php endif;?>
 						<?php if ($projeto->tipo != 'rt') : ?>
 						<button type="button" class="abaButt" onclick="inativarAsAbas(); this.className = 'abaButt abaAtiva'; abaArquivos.style.display = 'block';"><?= $projeto->tipo == 'jg' ? 'Downloadáveis' : ($projeto->tipo == 'bg' ? 'Anexos no post' : 'Arquivos') ?></button>
@@ -188,7 +212,7 @@ if ($voltarPara == 'criar') {
 					</div>
 				
 					<?php if ($projeto->tipo == 'jg') : ?>
-						<div class="aba" id="abaNavs" style="display:block">
+						<div class="aba" id="abaNavs">
 							<p>Deixe em branco para deixar o mesmo arquivo que está agora.</p>
 							<p>Esse arquivo deve ser:</p>
 							<ul>

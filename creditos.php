@@ -12,6 +12,7 @@ $creditados = [
 	['brenoborb', 'banner'],
 	['el_passo', 'banner'],
 	['flaunart', 'banner'],
+	['smixqse', 'banner'],
 	['dafver', 'o cara do dinheiro'],
 ];
 ?>
