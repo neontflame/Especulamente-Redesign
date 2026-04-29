@@ -10,7 +10,6 @@ $creditados = [
 	['henry.guy', 'banners e anuncios'],
 	['DexDousky', 'banners'],
 	['brenoborb', 'banner'],
-	['el_passo', 'banner'],
 	['flaunart', 'banner'],
 	['smixqse', 'banner'],
 	['dafver', 'o cara do dinheiro'],
