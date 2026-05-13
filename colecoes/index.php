@@ -54,7 +54,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 		min-height: 26px;
 		border-bottom: 0px;
 		padding-top: 10px;
-		padding-bottom: 4px;
+		padding-bottom: 8px;
 		padding-left: 5px;
 		margin-left: -5px;
 		margin-top: 0px;
@@ -90,7 +90,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 						
 						<h2><a href="/colecoes/<?= $colecao->id ?>"><?= $colecao->nome ?></a></h2>
 					</div>
-					<img src="/static/colecoes/<?= $colecao->thumbnail ?>" width="442" height="46" style="padding: 0px; margin: -5px; margin-top: -4px;">
+					<img src="/static/colecoes/<?= $colecao->thumbnail ?>" width="442" height="46" style="padding: 0px; margin-left: -5px;">
 				</div>
 				<?php else : ?>
 				<div class="projeto semSal">
