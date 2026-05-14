@@ -59,6 +59,47 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 				<a href="/projetos/<?= $projeto->id ?>/editar" style="float:right; margin:8px;"><img src="/elementos/botaoEditar.png"></a>
 			<?php endif ?>
 
+			<?php if (isset($usuario)) : 
+				$ja_indicou = (isset($usuario) && $usuario) ? ja_indicou($usuario->id, $projeto->id) : false;?>
+				<a href="#" onclick="indicar(this)" id="indicar" style="float:right; margin:8px;<?= $ja_indicou ? 'display: none;' : '' ?>"><img src="/elementos/botaoIndicar.png"></a>
+				<a href="#" onclick="indicar(this)" id="desindicar" style="float:right; margin:8px;<?= $ja_indicou ? '' : 'display: none;' ?>"><img src="/elementos/botaoDesindicar.png"></a>
+			<script>
+			  var ja_indicou = <?= $ja_indicou ? 'true' : 'false' ?>;
+			  
+			  function indicar(that) {
+				var coiso = that.parentElement;
+				
+				var req = new XMLHttpRequest();
+				req.addEventListener("load", function() {
+				  if (this.responseText == "null" || this.responseText == "-1") {
+					alert("Erro ao indicar");
+				  } else {
+					if (this.responseText[this.responseText.length - 1] == '§') {
+						// coiso.querySelector('#indicas_cnt').innerText = this.responseText.slice(0, this.responseText.length - 1);
+						moeda(1);
+					} else {
+						// coiso.querySelector('#indicas_cnt').innerText = this.responseText;
+					}
+					
+					ja_indicou = !ja_indicou;
+					if (ja_indicou) {
+						coiso.querySelector("#indicar").style.display = "none";
+						coiso.querySelector("#desindicar").style.display = "";
+					} else {
+						coiso.querySelector("#indicar").style.display = "";
+						coiso.querySelector("#desindicar").style.display = "none";
+					}
+				  }
+				});
+				var formData = new FormData();
+				formData.append("id", <?= $projeto->id ?>);
+
+				req.open("POST", "/elementos/indicador_d_indicada.php");
+				req.send(formData);
+			  }
+			</script>
+			<?php endif; ?>
+  
 			<h1><i><?= $projeto->nome ?></i></h1>
 			<p>por <a href="/usuarios/<?= usuario_requestIDator($projeto->id_criador)->username ?>"><?= usuario_requestIDator($projeto->id_criador)->username ?></a></p>
 		</div>

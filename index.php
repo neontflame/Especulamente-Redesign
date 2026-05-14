@@ -67,6 +67,36 @@
 			</style>
 			<img src="/elementos/principaltitles/destaque.png" style="margin-left: -5px; margin-bottom: 5px;">
 			<a href="/projetos/117"><img src="/elementos/destaques/jornal.png"></a>
+			<img src="/elementos/principaltitles/takeoverTuesdaySoQueAzul.png" style="margin-left: -5px; margin-top: 5px;">
+			<!-- TODO PODEROSO display: table; -->
+			<div style="display:table; width:100%;">
+				<!-- midia -->
+				<?php if (count(indicados_requestinator(12, 0)) > 0) {?>
+					<?php
+					$projetos = indicados_requestinator(6, 0);
+					?>
+					<div class="projetosTreco" style="float:left">
+						<?php foreach ($projetos as $projeto) {
+							renderar_bosta($projeto, false);
+						}
+						?>
+					</div>
+					<!-- jogos -->
+					<?php if (count(indicados_requestinator(12)) > 6) { ?>
+					<?php
+					$projetos = indicados_requestinator(6, 6);
+					?>
+					<div class="projetosTreco" style="float:right; margin-left: 10px;">
+						<?php foreach ($projetos as $projeto) {
+							renderar_bosta($projeto, false);
+						}
+						?>
+					</div>
+					<?php } ?>
+				<?php } else { ?>
+					<p style="color: #BBBBBB; text-align: center; font-style: italic; font-weight: normal;">Ninguém indicou nada essa semana... volte mais tarde!</p>
+				<?php } ?>
+			</div>
 			<img src="/elementos/principaltitles/projsRecentes.png" style="margin-left: -5px; margin-top: 5px;">
 			<img src="/elementos/principaltitles/projetosRecentes1.png" style="margin-left: -5px; margin-top: 5px;">
 			<!-- TODO PODEROSO display: table; -->

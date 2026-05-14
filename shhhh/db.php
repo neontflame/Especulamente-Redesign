@@ -1459,3 +1459,92 @@ function projeto_colecoes($id)
 
 	return $colecoes;
 }
+
+// indicacios woo
+// indicaçoes sao semanais!
+function indicados_requestinator($limite = 12, $offsetcoiso = 0) {
+	global $db;
+	
+	$array = [];
+	$rows = $db->prepare("SELECT id_projeto, COUNT(*) AS indicados FROM indicacoes WHERE YEARWEEK(data) = YEARWEEK(CURDATE()) GROUP BY id_projeto ORDER BY indicados DESC LIMIT ? OFFSET ?");
+	$rows->bindParam(1, $limite, PDO::PARAM_INT);
+	$rows->bindParam(2, $offsetcoiso, PDO::PARAM_INT);
+	$rows->execute();
+
+	while ($row = $rows->fetch(PDO::FETCH_OBJ)) {
+		// echo($row->id_projeto);
+		array_push($array, projeto_requestIDator($row->id_projeto));
+	}
+	return $array;
+}
+
+function indicar($id_reator, $id_reagido)
+{
+	global $db;
+
+	$existe = usuario_requestIDator($id_reator) && projeto_requestIDator($id_reagido);
+	if (!$existe) {
+		return -3;
+	}
+	
+	if (ja_indicou($id_reator, $id_reagido)) {
+		return -1;
+	}
+
+	$rows = $db->prepare("INSERT INTO indicacoes (id_projeto, id_usuario) VALUES (?, ?)");
+	$rows->bindParam(1, $id_reagido);
+	$rows->bindParam(2, $id_reator);
+	$rows->execute();
+
+	$count = $db->prepare("SELECT COUNT(*) as count FROM indicacoes WHERE id_projeto = ? AND YEARWEEK(data) = YEARWEEK(CURDATE())");
+	$count->bindParam(1, $id_reagido);
+	$count->execute();
+	$count = $count->fetch(PDO::FETCH_OBJ)->count;
+
+	return $count;
+}
+
+function ja_indicou($id_reator, $id_reagido)
+{
+	global $db;
+
+	$ja_mitou = $db->prepare("SELECT id FROM indicacoes WHERE id_usuario = ? AND id_projeto = ? AND YEARWEEK(data) = YEARWEEK(CURDATE())");
+	$ja_mitou->bindParam(1, $id_reator);
+	$ja_mitou->bindParam(2, $id_reagido);
+	$ja_mitou->execute();
+
+	return $ja_mitou->fetch(PDO::FETCH_OBJ) ? true : false;
+}
+
+function desindicar($id_reator, $id_reagido)
+{
+	global $db;
+	
+	$existe = usuario_requestIDator($id_reator) && projeto_requestIDator($id_reagido);
+	if (!$existe) {
+		return -3;
+	}
+
+	$rows = $db->prepare("DELETE FROM indicacoes WHERE id_usuario = ? AND id_projeto = ? AND YEARWEEK(data) = YEARWEEK(CURDATE())");
+	$rows->bindParam(1, $id_reator);
+	$rows->bindParam(2, $id_reagido);
+	$rows->execute();
+
+	$count = $db->prepare("SELECT COUNT(*) as count FROM indicacoes WHERE id_projeto = ? AND YEARWEEK(data) = YEARWEEK(CURDATE())");
+	$count->bindParam(1, $id_reagido);
+	$count->execute();
+	$count = $count->fetch(PDO::FETCH_OBJ)->count;
+
+	return $count;
+}
+
+function quantos_indicacios($id_projeto) {
+	global $db;
+	
+	$count = $db->prepare("SELECT COUNT(*) as count FROM indicacoes WHERE id_projeto = ? AND YEARWEEK(data) = YEARWEEK(CURDATE())");
+	$count->bindParam(1, $id_projeto);
+	$count->execute();
+	$count = $count->fetch(PDO::FETCH_OBJ)->count;
+
+	return $count;
+}
