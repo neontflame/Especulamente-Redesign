@@ -111,5 +111,5 @@ $meta["titulo"] = "[𝓑𝓸𝓾𝓷𝓽𝓲𝓯𝓾𝓵 𝓑𝓸𝓾𝓷𝓽�
 			font-style: italic;
 		}
 	</style>
-
-	<?php include $_SERVER['DOCUMENT_ROOT'] . '/elementos/footer/footer.php'; ?>
+</div>
+<?php include $_SERVER['DOCUMENT_ROOT'] . '/elementos/footer/footer.php'; ?>
