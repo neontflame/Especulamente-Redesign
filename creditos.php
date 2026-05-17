@@ -6,7 +6,7 @@ $creditados = [
 	['neontflame', 'html css e codigo, desenhos, banners, puxar cordas'],
 	['Sushi', 'banners e chars'],
 	['Sketcher', 'banner e char'],
-	['Hawnt', 'banner e char'],
+	['Hawnt', 'banner e char, ideas guy, salario aumentado, puxar cordas'],
 	['henry.guy', 'banners e anuncios'],
 	['DexDousky', 'banners'],
 	['brenoborb', 'banner'],
