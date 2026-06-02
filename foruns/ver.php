@@ -277,11 +277,11 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
 								<br>
 								<?php if (isset($usuario)) : ?>
 									<div style="text-align: right;">
-										<button onclick='citarPost("<?= usuario_requestIDator($post->id_postador)->username ?>", "<?= velhificar_data($post->data) ?>", "postissimo_<?= $post->id ?>")' class="coolButt" style="height: 18px;">Citar</button>
+										<button type="button" onclick='citarPost("<?= usuario_requestIDator($post->id_postador)->username ?>", "<?= velhificar_data($post->data) ?>", "postissimo_<?= $post->id ?>")' class="coolButt" style="height: 18px;">Citar</button>
 
 										<?php if ($usuario->id == $post->id_postador) : ?>
-											<button onclick='deletarPost(<?= $post->id ?>, this)' class="coolButt vermelho" style="height: 18px;">Deletar</button>
-											<button onclick='
+											<button type="button" onclick='deletarPost(<?= $post->id ?>, this)' class="coolButt vermelho" style="height: 18px;">Deletar</button>
+											<button type="button" onclick='
 								document.getElementById("edit_<?= $post->id ?>").style.display = "";
 								document.getElementById("sujeito_<?= $post->id ?>").style.display = "none";
 								document.getElementById("sujeito_fnf_<?= $post->id ?>").style.display = "";
@@ -300,7 +300,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
 											var sujInicial<?= $post->id ?> = document.getElementById('sujeito_fnf_<?= $post->id ?>').value;
 										</script>
 										<br>
-										<button type="submit" onclick="editarPost(<?= $post->id ?>, this);" class="coolButt">
+										<button type="button" type="submit" onclick="editarPost(<?= $post->id ?>, this);" class="coolButt">
 											Editar comentário
 										</button>
 
@@ -354,7 +354,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
 								<input type="text" style="width: 73%; float: left;" id="sujeito_fnf" name="sujeito_fnf" value="Resposta a &#039;<?= htmlspecialchars(forumpost_requestIDator($id)->sujeito) ?>&#039;">
 								<div style="text-align: right;">
 									<input type="file" id="inputImg" accept="image/*" style="width: 0px; height: 0px; opacity: 0" onchange="anexarImg(this.files)">
-									<button onclick="document.getElementById('inputImg').click()" class="coolButt" style="height: 18px; margin-right: 6px;">Anexar imagem</button>
+									<button type="button" onclick="document.getElementById('inputImg').click()" class="coolButt" style="height: 18px; margin-right: 6px;">Anexar imagem</button>
 								</div>
 							</div>
 							<div class="oPostEmSi">

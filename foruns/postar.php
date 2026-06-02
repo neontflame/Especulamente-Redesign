@@ -168,7 +168,7 @@ unset($_SESSION['erroPost']);
 								
 								<div style="text-align: right;">
 									<input type="file" id="inputImg" accept="image/*" style="width: 0px; height: 0px; opacity: 0" onchange="anexarImg(this.files)">
-									<button onclick="document.getElementById('inputImg').click()" class="coolButt" style="height: 18px; margin-right: 6px;">Anexar imagem</button>
+									<button type="button" onclick="document.getElementById('inputImg').click()" class="coolButt" style="height: 18px; margin-right: 6px;">Anexar imagem</button>
 								</div>
 							</div>
 							<div class="oPostEmSi">

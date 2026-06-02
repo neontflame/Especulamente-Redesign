@@ -111,7 +111,9 @@ function mensagem_mencao($texto, $id, $id_com)
 		);
 	}
 	
-	if (array_key_exists(usuario_requestIDator(forumpost_requestIDator($id)->id_postador)->username, $nomesarray)) {
+	$autorTopico = strtolower(usuario_requestIDator(forumpost_requestIDator($id)->id_postador)->username);
+	
+	if (array_key_exists($autorTopico, $nomesarray)) {
 		return 0;
 	} else {
 		return 1;
