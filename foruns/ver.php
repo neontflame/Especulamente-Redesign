@@ -300,7 +300,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
 											var sujInicial<?= $post->id ?> = document.getElementById('sujeito_fnf_<?= $post->id ?>').value;
 										</script>
 										<br>
-										<button type="button" type="submit" onclick="editarPost(<?= $post->id ?>, this);" class="coolButt">
+										<button type="submit" onclick="editarPost(<?= $post->id ?>, this);" class="coolButt">
 											Editar comentário
 										</button>
 
