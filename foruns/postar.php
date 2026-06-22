@@ -140,9 +140,7 @@ unset($_SESSION['erroPost']);
 						array_push($cats, $row);
 					}
 					foreach ($cats as $cat) {
-						if ($cat->nome != 'Avisos' || 
-						($cat->nome == 'Avisos' && in_array(strtolower($usuario->username), $osAdminsEpicos)) // note to self: deixar isso aqui bonito
-						) :
+						if ($cat->nome != 'Avisos' || ($cat->nome == 'Avisos' && $usuario->admin == 1)) :
 					?>
 						<option <?php if (isset($_GET['cat']) && $cat->id == $_GET['cat']) : ?>selected<?php endif; ?> value="<?= $cat->id ?>"><?= $cat->nome ?></option>
 					<?php endif;

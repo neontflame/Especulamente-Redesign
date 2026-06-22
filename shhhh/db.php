@@ -1548,3 +1548,66 @@ function quantos_indicacios($id_projeto) {
 
 	return $count;
 }
+
+
+// Seguir Forumposts Ou Algo do Tipo
+function forum_seguidores_requestIDator($id) {
+	global $db;
+	
+	$array = [];
+	$rows = $db->prepare("SELECT id_usuario FROM forum_seguidas WHERE id_post = ?");
+	$rows->bindParam(1, $id, PDO::PARAM_INT);
+	$rows->execute();
+
+	while ($row = $rows->fetch(PDO::FETCH_OBJ)) {
+		// echo($row->id_projeto);
+		array_push($array, $row->id_usuario);
+	}
+	return $array;
+}
+
+function seguir_forumpost($id_reator, $id_post)
+{
+	global $db;
+
+	$existe = usuario_requestIDator($id_reator) && forumpost_requestIDator($id_post);
+	if (!$existe) {
+		return -3;
+	}
+	
+	if (ja_seguiu_forumpost($id_reator, $id_post)) {
+		return -1;
+	}
+
+	$rows = $db->prepare("INSERT INTO forum_seguidas (id_post, id_usuario) VALUES (?, ?)");
+	$rows->bindParam(1, $id_post);
+	$rows->bindParam(2, $id_reator);
+	$rows->execute();
+}
+
+function ja_seguiu_forumpost($id_reator, $id_post)
+{
+	global $db;
+
+	$ja_mitou = $db->prepare("SELECT id FROM forum_seguidas WHERE id_usuario = ? AND id_post = ?");
+	$ja_mitou->bindParam(1, $id_reator);
+	$ja_mitou->bindParam(2, $id_post);
+	$ja_mitou->execute();
+
+	return $ja_mitou->fetch(PDO::FETCH_OBJ) ? true : false;
+}
+
+function desseguir_forumpost($id_reator, $id_post)
+{
+	global $db;
+	
+	$existe = usuario_requestIDator($id_reator) && forumpost_requestIDator($id_post);
+	if (!$existe) {
+		return -3;
+	}
+
+	$rows = $db->prepare("DELETE FROM forum_seguidas WHERE id_usuario = ? AND id_post = ?");
+	$rows->bindParam(1, $id_reator);
+	$rows->bindParam(2, $id_post);
+	$rows->execute();
+}

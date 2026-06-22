@@ -37,6 +37,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 		$forumpost = forumpost_requestIDator($id_com);
 
 		if ($forumpost->id_resposta != -1) {
+			$forumpostOG = forumpost_requestIDator($forumpost->id_resposta);
+
 			fazer_bounty(9);
 			
 			//bump!
@@ -52,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 					<<<HTML
 						<a href="/usuarios/{$usuario->username}" class="usuario">{$usuario->username}</a>
 						comentou no seu tópico
-						<a href="/foruns/{$forumpost->id_categoria}/{$forumpost->id_resposta}#post_{$id_com}">{$forumpost->sujeito}</a>!
+						<a href="/foruns/{$forumpost->id_categoria}/{$forumpost->id_resposta}#post_{$id_com}">{$forumpostOG->sujeito}</a>!
 						
 						<blockquote>
 							{$quote}
@@ -61,6 +63,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 					'resposta'
 				);
 			}
+			
+			foreach (forum_seguidores_requestIDator($forumpost->id_resposta) as $seguidor) {
+				$seguidoresBlacklist = [
+					$usuario->id,
+					forumpost_requestIDator($forumpost->id_resposta)->id_postador
+				];
+				
+				if (!in_array($seguidor, $seguidoresBlacklist)) {
+					criar_mensagem(
+						$seguidor,
+						<<<HTML
+							<a href="/usuarios/{$usuario->username}" class="usuario">{$usuario->username}</a>
+							comentou no tópico
+							<a href="/foruns/{$forumpost->id_categoria}/{$forumpost->id_resposta}#post_{$id_com}">{$forumpostOG->sujeito}</a>!
+							
+							<blockquote>
+								{$quote}
+							</blockquote>
+							HTML,
+						'resposta'
+					);
+				}
+			}
+			
 		} else {
 			fazer_bounty(10);
 			redirect('/foruns/' . $forumpost->id_categoria . '/' . $id_com);

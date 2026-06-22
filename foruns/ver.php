@@ -239,7 +239,47 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php';
 	</style>
 	<div>
 		<div class="projTitulo">
-			<p><a href="/foruns">Fóruns</a> >> <a href="/foruns/<?= $categoria ?>"><?= categoria_requestIDator($categoria)->nome ?></a> >> <i style="color: #4f6bad"><?= forumpost_requestIDator($id)->sujeito ?></i></p>
+			<p><a href="/foruns">Fóruns</a> >> <a href="/foruns/<?= $categoria ?>"><?= categoria_requestIDator($categoria)->nome ?></a> >> <i style="color: #4f6bad"><?= forumpost_requestIDator($id)->sujeito ?></i>
+		
+			<?php if (isset($usuario)) : 
+				$ja_seguiu = (isset($usuario) && $usuario) ? ja_seguiu_forumpost($usuario->id, $ofix->id) : false;?>
+				<a href="#" onclick="seguir(this)" id="seguir" style="float:right;<?= $ja_seguiu ? 'display: none;' : '' ?>"><img src="/elementos/botaoSeguirThread.png"></a>
+				<a href="#" onclick="seguir(this)" id="desseguir" style="float:right;<?= $ja_seguiu ? '' : 'display: none;' ?>"><img src="/elementos/botaoDesseguirThread.png"></a>
+			<script>
+			  var ja_seguiu = <?= $ja_seguiu ? 'true' : 'false' ?>;
+			  
+			  function seguir(that) {
+				var coiso = that.parentElement;
+				
+				var req = new XMLHttpRequest();
+				req.addEventListener("load", function() {
+				  if (this.responseText == "null" || this.responseText == "-1") {
+					alert("Erro ao seguir");
+				  } else {
+					if (this.responseText[this.responseText.length - 1] == '§') {
+						moeda(1);
+					} else {
+					}
+					
+					ja_seguiu = !ja_seguiu;
+					if (ja_seguiu) {
+						coiso.querySelector("#seguir").style.display = "none";
+						coiso.querySelector("#desseguir").style.display = "";
+					} else {
+						coiso.querySelector("#seguir").style.display = "";
+						coiso.querySelector("#desseguir").style.display = "none";
+					}
+				  }
+				});
+				var formData = new FormData();
+				formData.append("id", <?= $ofix->id ?>);
+
+				req.open("POST", "/elementos/seguidor_d_forum.php");
+				req.send(formData);
+			  }
+			</script>
+			<?php endif; ?>
+			</p>
 		</div>
 
 		<?php
