@@ -143,7 +143,7 @@ $meta["descricao"] = "Como você está se sentindo hoje? Está bem? Está com n�
 				$hoscopos = [
 					"Hoje o mar está pra peixe! Vá pescar... ou morra tentando.",
 					"Hoje o ar está pra peixe! Lembre-se de levar um guarda-peixe.",
-					"Há a chance de um cara aleatório tentar bater em você atrás de um mcdonalds. Prossiga com cautela.",
+					"Há a chance de um cara aleatório aparecer e tentar te espancar atrás de um Bojangles. Prossiga com cautela.",
 					"Você perdeu o jogo.",
 					"Você ganhou a chance de participar no jogo denovo. Eba!",
 					"Seu futuro está repleto de nozes.",
