@@ -277,7 +277,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 			<div class="daverank">
 				<img class="icon" alt="Sushi" src="/elementos/horoscopo/osHoscopos/sushi.png" width="48">
 				<div class="direito" style="height: auto;">
-					<a href="/estilodevida#sushi"><b>Sushi</b></a>
+					<a href="/estilodevida.php#sushi"><b>Sushi</b></a>
 				</div>
 			</div>
 			<?php
@@ -286,7 +286,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 			<div class="daverank">
 				<img class="icon" alt="<?= $generos[$perfil->id % count($generos)][0] ?>" src="/elementos/horoscopo/osHoscopos/<?= $generos[$perfil->id % count($generos)][1] ?>" width="48">
 				<div class="direito" style="height: auto;">
-					<a href="/estilodevida#<?= substr($generos[$perfil->id % count($generos)][1], 0, -4) ?>"><b style="color: gold;"><?= $generos[$perfil->id % count($generos)][0] ?></b></a>
+					<a href="/estilodevida.php#<?= substr($generos[$perfil->id % count($generos)][1], 0, -4) ?>"><b style="color: gold;"><?= $generos[$perfil->id % count($generos)][0] ?></b></a>
 				</div>
 			</div>
 			<?php } ?>

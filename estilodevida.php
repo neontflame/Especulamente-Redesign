@@ -112,7 +112,7 @@ $meta["descricao"] = "Como você está se sentindo hoje? Está bem? Está com n�
 						["Não tem", "44.gif", "eu comi tudo :(", [0, 0]],
 						["Azul", "azul.png", "porque voce ta azul nao fique assim >:(", [10, 15]],
 						["Verde", "verde.png", "porque voce ta verde", [15, 24]],
-						["Chuva forte", "chuvaforte.png", "Lembre-se de usar um guarda-chuva quando sair!", [0, 13]],
+						["Chuva forte", "chuvaForte.png", "Lembre-se de usar um guarda-chuva quando sair!", [0, 13]],
 						["Cuspe", "cuspe.png", "Lembre-se de usar um guarda-cuspe quando sair! Que nojeira :s", [12, 43]],
 						["Maujoa juice", "maujoaJuice.png", "Lembre-se de usar um guarda-joa quando sair! Cool!", [19, 91]],
 						["Nevasca", "neve.png", "Onde você pensa que está? Não neva no Brasil. A não ser que você esteja na Ilha do Especulapenguin. Pinguinando!", [-20, 0]],
