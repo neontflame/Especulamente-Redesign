@@ -111,6 +111,7 @@ global $config;
 						<?php endif ?>
 						<a href="/usuarios">AMIGOS</a>
 						<a href="/foruns">FÓRUNS</a>
+						<a href="/estilodevida">C/H</a>
 					</div>
 
 					<div class="coolUsery">

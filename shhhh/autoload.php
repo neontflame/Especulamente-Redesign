@@ -7,6 +7,19 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/vedor_d_comentario/vdc.php';
 include $_SERVER['DOCUMENT_ROOT'] . '/elementos/reajor_d_reagida/rdr.php';
 
 // $osAdminsEpicos = array("neontflame", "fupicat", "sushi");
+$generos = [
+	["O goat", "goat.png"],
+	["Rinoceronte", "rinoceronte.png"],
+	["Gênios", "genios.png"],
+	["Aids", "aids.png", ["Você tem aids.", "Você tem aids.", "Você tem aids.", "Você tem aids.", "Você tem aids.", "Você tem aids.", "Você tem aids.", "Você tem aids.", "Você tem aids.", "Você tem aids.", "Você não tem aids."]],
+	["Gorila", "gorila.png"],
+	["Chad", "chad.png"],
+	["Quid", "quid.png"],
+	["Psicopata", "psicopata.png"],
+	["Estagiário/Sanitário/Cuspideira", "estagiariosanitariocuspideira.png"],
+	["Unicórnio", "unicornio.png"],
+	["Escarradeira", "escarradeira.png"]
+];
 
 function redirect($location)
 {
