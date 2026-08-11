@@ -47,7 +47,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 			$rows->execute();
 
 			$quote = responde_clickers($comentario, "/foruns/{$forumpost->id_categoria}/{$forumpost->id_resposta}");
-
+			
+			/*
 			if ($oCoiso[0] == 1) {
 				criar_mensagem(
 					forumpost_requestIDator($forumpost->id_resposta)->id_postador,
@@ -63,11 +64,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 					'resposta'
 				);
 			}
+			*/
 			
 			foreach (forum_seguidores_requestIDator($forumpost->id_resposta) as $seguidor) {
 				$seguidoresBlacklist = [
-					$usuario->id,
-					forumpost_requestIDator($forumpost->id_resposta)->id_postador
+					$usuario->id
+					// forumpost_requestIDator($forumpost->id_resposta)->id_postador
 				];
 				
 				foreach ($oCoiso[1] as $idblacklistado) {
@@ -93,6 +95,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 			
 		} else {
 			fazer_bounty(10);
+			seguir_forumpost($usuario->id, $id_com);
 			redirect('/foruns/' . $forumpost->id_categoria . '/' . $id_com);
 		}
 	} else {
@@ -145,11 +148,12 @@ function mensagem_mencao($texto, $id, $id_com)
 	}
 	
 	$autorTopico = strtolower(usuario_requestIDator(forumpost_requestIDator($id)->id_postador)->username);
-	$status = -1;
-	if (array_key_exists($autorTopico, $nomesarray)) {
+	$status = 1;
+	/* if (array_key_exists($autorTopico, $nomesarray)) {
 		$status = 0;
 	} else {
 		$status = 1;
 	}
+	*/
 	return [$status, $idsarray];
 }
