@@ -153,6 +153,7 @@ details p {
 
 .coolLinkery {
 	float: left;
+	margin-top: -2px;
 }
 
 .coolLinkery a {
