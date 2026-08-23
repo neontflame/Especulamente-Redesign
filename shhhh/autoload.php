@@ -136,7 +136,7 @@ function renderarProjeto($projeto, $botaoSim = true, $thumbObrigatoria = false, 
 				?>
 			</p>
 			<?php if (isset($projeto->dataBump)) : ?>
-				<p class="autorDeProjeto" style="margin-top: -8px; font-size: 9px;">editado <?= velhificar_data($projeto->dataBump); ?></p>
+				<p class="autorDeProjeto" style="margin-top: -8px; font-size: 9px;">editado: <?= velhificar_data_horaless($projeto->dataBump); ?></p>
 			<?php endif; ?>
 
 		</div>

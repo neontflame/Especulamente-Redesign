@@ -1282,6 +1282,14 @@ function velhificar_data($datetime)
 	return date_format($date, "d/m/Y") . " às " . date_format($date, "H:i");
 }
 
+function velhificar_data_horaless($datetime)
+{
+	$date = date_create($datetime);
+	// horario de brasilia, 2008
+	date_sub($date, date_interval_create_from_date_string("17 years + 3 hours"));
+	return date_format($date, "d/m/Y");
+}
+
 // coisos de filetype
 // eu ia fazer a funçao pra isso mas eu achei uma nota no manual de php de filesize que fazia o que eu queria so que bem melhor
 // agradeço-lhe rommel de rommelsantor dot com

@@ -87,7 +87,7 @@ details p {
 /* ... */
 
 .container {
-	font-size: 12px;
+	font-size: 11px;
 	min-width: 100%;
 	padding-top: 5px;
 	padding-bottom: 5px;
@@ -359,8 +359,10 @@ a.coolButt {
 .projeto h2 {
 	color: black;
 	font-weight: normal;
+	font-size: 15px;
 	margin-top: 4px;
 	margin-bottom: -4px;
+	line-break: strict;
 }
 
 .projeto h2 a {
@@ -370,9 +372,7 @@ a.coolButt {
 }
 
 .projeto h2 a:hover {
-	float: none;
-	color: black;
-	text-decoration: underline;
+	font-weight: bold;
 }
 
 .projetoSide {
@@ -411,6 +411,7 @@ a.coolButt {
 .projTitulo h1 {
 	margin: 8px;
 	margin-bottom: 4px;
+	font-size: 20px;
 }
 
 .projTitulo p {
@@ -482,6 +483,7 @@ copiei do meu site to com preguiça -neon */
 
 .comentario p {
 	display: block;
+	font-size: 11px;
 }
 
 .comentario .nome {
@@ -494,6 +496,7 @@ copiei do meu site to com preguiça -neon */
 	color: #4f6bad;
 	text-decoration: none;
 	font-weight: bold;
+	margin-right: 2px;
 }
 
 .comentario .conteudo {

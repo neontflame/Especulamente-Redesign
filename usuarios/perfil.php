@@ -137,6 +137,14 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 				margin-top: 5px; 
 				margin-bottom: -3px;
 			}
+			
+			#bio {
+				font-size: 11px;
+			}
+
+			#bio * {
+				margin-bottom: 0px;
+			}
 		</style>
 
 		<style id="cssCustom">
@@ -243,9 +251,10 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 				<button class="bioEditavel" onclick="form_bio.style.display = 'block'; bio.style.display = 'none'">
 				<?php endif; ?>
 
-				<p id="bio" style="margin-top: 0px; white-space: pre-line;">
+				<span id="bio" style="margin-top: 0px; white-space: pre-line;">
 					<?php if ($perfil_e_meu && ($perfil->bio == null or $perfil->bio == '')) : ?>vazio - insira algo aqui!<?php endif; ?>
-					<?= responde_clickers($perfil->bio) ?></p>
+					<?= responde_clickers($perfil->bio) ?>
+				</span>
 
 				<?php if ($perfil_e_meu) : ?>
 				</button>
