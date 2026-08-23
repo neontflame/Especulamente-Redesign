@@ -189,7 +189,7 @@ function renderarProjGrade($projeto)
 														} ?></a>
 
 			<?php if (isset($projeto->dataBump)) : ?>
-				<a class="autorItem" style="font-size: 9px;">edit: <?= velhificar_data($projeto->dataBump); ?></a>
+				<a class="autorItem" style="font-size: 9px;">edit: <?= velhificar_data_horaless($projeto->dataBump); ?></a>
 			<?php endif; ?>
 		</div>
 	</div>
