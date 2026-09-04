@@ -766,7 +766,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 					position:absolute;
 					margin-top: -36px;
 					color: white;
-					background-color: #00000099;
+					background-color: rgba(0, 0, 100, 0.6);
 					opacity: 0;
 				}
 
