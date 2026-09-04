@@ -159,8 +159,9 @@ function colecoesVeio(ver, index, element) {
 }
 
 function colecaoVelhizador(atual) {
+	if (atual.className == 'projeto semSal') return;
 	atual.children[1].style.display = 'table';
-	atual.children[0].style.background-color = '#000000';
+	atual.children[0].style.background = '#000000';
 }
 
 chromeVeio.forEach(colecoesVeio);
