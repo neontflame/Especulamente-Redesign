@@ -33,7 +33,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 		padding-top: 5px;
 		width: 437px;
 		height: 41px;
-		background-color: rgba(0.0, 0.0, 0.0, 0.6);
+		background-color: rgba(0, 0, 0, 0.6);
 		opacity: 0;
 	}
 
