@@ -33,7 +33,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 		padding-top: 5px;
 		width: 437px;
 		height: 41px;
-		background-color: #000000AA;
+		background-color: rgba(0.0, 0.0, 0.0, 0.6);
 		opacity: 0;
 	}
 
@@ -161,7 +161,6 @@ function colecoesVeio(ver, index, element) {
 function colecaoVelhizador(atual) {
 	if (atual.className == 'projeto semSal') return;
 	atual.children[1].style.display = 'table';
-	atual.children[0].style.background = '#000000';
 }
 
 chromeVeio.forEach(colecoesVeio);
