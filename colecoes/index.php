@@ -145,5 +145,24 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 		</div>
 	</div>
 </div>
+<script>
+var chromeVeio = [];
 
+for (var i = 8; i <= 33; i++) {
+	chromeVeio.push("" + i);
+}
+
+function colecoesVeio(ver, index, element) {
+	if (window.navigator.userAgent.indexOf('Chrome/' + ver + '.') != -1) {
+		Array.prototype.forEach.call(document.getElementsByClassName("projeto"), colecaoVelhizador);
+	}
+}
+
+function colecaoVelhizador(atual) {
+	atual.children[1].style.display = 'table';
+	atual.children[0].style.background-color = '#000000';
+}
+
+chromeVeio.forEach(colecoesVeio);
+</script>
 <?php include $_SERVER['DOCUMENT_ROOT'] . '/elementos/footer/footer.php'; ?>

@@ -118,11 +118,16 @@ function desesconderResposting(id) {
   textarea.setSelectionRange(length, length);
 }
 
-var chromeVeio = ["8", "9", "10", "11", "12", "13", "14", "15", "16"];
+var chromeVeio = [];
+
+for (var i = 8; i <= 33; i++) {
+	chromeVeio.push("" + i);
+}
 
 function chromeCheck(ver, index, element) {
 	if (window.navigator.userAgent.indexOf('Chrome/' + ver + '.') != -1) {
-		document.getElementById("headerSeta").style.margin = '-16px 0px 0px 0px'
+		document.getElementById("headerSeta").style.margin = '-16px 0px 0px 0px';
+		document.getElementById("bannerPica").style.margin = '-56px 0 0 0';
 	}
 }
 
