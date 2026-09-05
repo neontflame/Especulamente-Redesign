@@ -30,7 +30,8 @@ function vedor_d_comentario($tipo, $id, $temTudo, &$usuario)
 
 	if (count($comentarios) == 0) {
 		?>
-		<p>Nenhum comentário ainda.</p>
+		<hr>
+		<center>Nenhum comentário ainda...</center>
 	<?php
 	} else {
 	?>

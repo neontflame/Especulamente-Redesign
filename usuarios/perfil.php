@@ -139,7 +139,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 			}
 			
 			#bio {
-				font-size: 11px;
+				font-size: 12px;
 			}
 
 			#bio * {
