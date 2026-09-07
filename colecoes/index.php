@@ -46,9 +46,6 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 	.projetoInfo h2 a:hover {
 		color: white; !important
 	}
-	.projetoInfo .autorDeProjeto {
-		color: gray;
-	}
 	
 	.semSal {
 		min-height: 26px;
@@ -148,7 +145,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 <script>
 var chromeVeio = [];
 
-for (var i = 8; i <= 33; i++) {
+for (var i = 8; i <= 44; i++) {
 	chromeVeio.push("" + i);
 }
 
