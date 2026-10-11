@@ -44,7 +44,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 		margin-bottom: 12px;
 	}
 </style>
-<script src="/projetos/flashRes.js?v=2"></script>
+<script src="/projetos/flashRes.js?v=3"></script>
 
 <div class="container">
 	<?php /* include $_SERVER['DOCUMENT_ROOT'] . '/elementos/sidebar/sidebar.php'; */ ?>
@@ -557,8 +557,21 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 									// FLASH
 									document.getElementById("videoAtual").pause();
 									document.getElementById("videoAtual").style.display = "none";
-									document.getElementById("flashAtual").src = img.getAttribute('data-static');
+									
+									// ok agora a gente reconstroi o flash pq browsers velhos sao meio esquisitos
+									var embedOg = document.getElementById("flashAtual");
+									var oParente = embedOg.parentElement;
+									
+									var novoEmbed = document.createElement("embed");
+									novoEmbed.id = "flashAtual";
+									novoEmbed.type = "application/x-shockwave-flash";
+									novoEmbed.src = img.getAttribute('data-static');
+									novoEmbed.width = 620;
+									
+									oParente.replaceChild(novoEmbed, embedOg);
 									document.getElementById("flashAtual").style.display = "block";
+									// fim da reconstruçao !
+									
 									document.getElementById("imagemAtual").style.display = "none";
 									document.getElementById("audioAtual").style.display = "none";
 									musicaPause();
