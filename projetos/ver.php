@@ -44,6 +44,8 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 		margin-bottom: 12px;
 	}
 </style>
+<script src="/projetos/flashRes.js"></script>
+
 <div class="container">
 	<?php /* include $_SERVER['DOCUMENT_ROOT'] . '/elementos/sidebar/sidebar.php'; */ ?>
 
@@ -117,19 +119,9 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 						</div>
 
 						<script>
-							var flashio = document.getElementsByClassName('jogo')[0].children[0];
-							
 							window.addEventListener('load', function() {
-								resFlash();
+								resFlash('jg');
 							});
-							
-							function resFlash() {
-								flashio.width = 620;
-								flashio.height = parseInt(flashio.TGetProperty('/', 9) * (620 / flashio.TGetProperty('/', 8)))
-								console.log('browser véio fix !');
-							}
-							
-							setTimeout(resFlash, 5000);
 						</script>
 					<?php endif; ?>
 					<?php if (str_ends_with($arquivo_vivel[0], '.zip')) : ?>
@@ -227,7 +219,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 						<video id="videoAtual" width="620" autoplay="false" controls="true" style="display: none;">
 							Seu navegador não tem suporte pra tag de vídeo!!
 						</video>
-						<embed id="flashAtual" type="application/x-shockwave-flash" src="" width="620" height="465">
+						<embed id="flashAtual" type="application/x-shockwave-flash" src="" width="620">
 						</embed>
 
 						<div class="vedorDMusica" id="audioAtual">
@@ -533,7 +525,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 						<script>
 							var totalImagens = <?= count($arquivos) ?>;
 							var curSelected = 0;
-
+							
 							function clicCoiso(id) {
 								// codigo com alma ?
 								// sim;.
@@ -570,6 +562,9 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 									document.getElementById("imagemAtual").style.display = "none";
 									document.getElementById("audioAtual").style.display = "none";
 									musicaPause();
+									
+									refreshResFlashAtts();
+									resFlash('md');
 								} else if (img.getAttribute('data-audio') == 'true') {
 									// AUDIOS
 									document.getElementById("videoAtual").pause();
