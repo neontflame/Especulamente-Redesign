@@ -22,7 +22,7 @@ function resFlash(mode) {
 		return;
 	} catch (e) {
 		try {
-			var ruffleShit = flashio.ruffle?.().metadata;
+			var ruffleShit = flashio.ruffle().metadata;
 			flashio.width = 620;
 			flashio.height = Math.round(ruffleShit.height * (620 / ruffleShit.width));
 			console.log('browser NOVO fix !');
@@ -35,6 +35,6 @@ function resFlash(mode) {
 	myTimeout = setTimeout(resFlash, 500, mode);
 }
 
-function refreshResFlashAtts(){
+function refreshResFlashAtts() {
 	attempts = 0;
 }
