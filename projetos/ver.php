@@ -44,7 +44,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 		margin-bottom: 12px;
 	}
 </style>
-<script src="/projetos/flashRes.js"></script>
+<script src="/projetos/flashRes.js?v=2"></script>
 
 <div class="container">
 	<?php /* include $_SERVER['DOCUMENT_ROOT'] . '/elementos/sidebar/sidebar.php'; */ ?>
