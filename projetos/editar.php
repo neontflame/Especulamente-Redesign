@@ -247,7 +247,7 @@ if ($voltarPara == 'criar') {
 										<?php endforeach ?>
 									<?php endif ?>
 								</ul>
-								<button class="coolButt grandissimo" type="button" onclick="addMais1()">+ Adicionar mais um</button>
+								<button class="coolButt grandissimo" type="button" id="addMaisUm" onclick="addMais1()">+ Adicionar mais um</button>
 							</div>
 						</div>
 					<?php endif; ?>
@@ -449,8 +449,10 @@ if ($voltarPara == 'criar') {
 		insidePageContent.insertBefore(clone, insidePageContent.firstChild);
 	}
 
+	var botaoDoMal = document.getElementById("botaoDoMal");
+	var botaoAddMaisUm = document.getElementById("addMaisUm");
+	
 	function fazerSubmit(botao){
-		var botaoDoMal = document.getElementById("botaoDoMal");
 		var form = document.querySelectorAll('form[enctype="multipart/form-data"]')[0];
 		
 		// os breguenaites de browser véio
@@ -488,12 +490,7 @@ if ($voltarPara == 'criar') {
 				<?php endif; ?>
 			}
 			
-			botao.disabled = false;
-			botao.style.display = '';
-			
-			botaoDoMal.disabled = false;
-			botaoDoMal.style.display = '';
-			
+			enableBotoes(botao, botaoDoMal, botaoAddMaisUm);
 			tudoProgresso.style.display = 'none';
 		};
 		
@@ -508,33 +505,18 @@ if ($voltarPara == 'criar') {
 
 		xhttp.onerror = function() {
 			addErro('Houve um erro não-descrito :(');
-			
-			botao.disabled = false;
-			botao.style.display = '';
-			
-			botaoDoMal.disabled = false;
-			botaoDoMal.style.display = '';
-			
+			enableBotoes(botao, botaoDoMal, botaoAddMaisUm);
 			tudoProgresso.display = 'none';
 		}
 
 		xhttp.onabort = function() {
-			botao.disabled = false;
-			botao.style.display = '';
-			
-			botaoDoMal.disabled = false;
-			botaoDoMal.style.display = '';
-			
+			enableBotoes(botao, botaoDoMal, botaoAddMaisUm);
 			tudoProgresso.style.display = 'none';
 		}
 		
 		xhttp.open("POST", form.action, true);
 		xhttp.send(formData);
-		botao.disabled = true;
-		botao.style.display = 'none';
-		
-		botaoDoMal.disabled = true;
-		botaoDoMal.style.display = 'none';
+		disableBotoes(botao, botaoDoMal, botaoAddMaisUm);
 	}
 	
 	function reloadFilelist() {
@@ -551,6 +533,28 @@ if ($voltarPara == 'criar') {
 		);
 		
 		xhttp.send();
+	}
+	
+	function disableBotoes(botao, botaoDoMal, botaoAddMaisUm) {
+		botao.disabled = true;
+		botao.style.display = 'none';
+		
+		botaoDoMal.disabled = true;
+		botaoDoMal.style.display = 'none';
+		
+		botaoAddMaisUm.disabled = true;
+		botaoAddMaisUm.style.display = 'none';
+	}
+	
+	function enableBotoes(botao, botaoDoMal, botaoAddMaisUm) {
+		botao.disabled = false;
+		botao.style.display = '';
+		
+		botaoDoMal.disabled = false;
+		botaoDoMal.style.display = '';
+		
+		botaoAddMaisUm.disabled = false;
+		botaoAddMaisUm.style.display = '';
 	}
 </script>
 

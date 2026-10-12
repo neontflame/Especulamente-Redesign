@@ -283,7 +283,7 @@ $tipo = $_GET['tipo'] ?? null;
 							<ul class="files">
 
 							</ul>
-							<button class="coolButt grandissimo" type="button" onclick="addMais1()">+ Adicionar mais um</button>
+							<button class="coolButt grandissimo" type="button" id="addMaisUm" onclick="addMais1()">+ Adicionar mais um</button>
 						</div>
 					</div>
 
@@ -320,7 +320,7 @@ $tipo = $_GET['tipo'] ?? null;
 						<ul class="files">
 
 						</ul>
-						<button class="coolButt grandissimo" type="button" onclick="addMais1()">+ Adicionar mais um</button>
+						<button class="coolButt grandissimo" type="button" id="addMaisUm" onclick="addMais1()">+ Adicionar mais um</button>
 					</div>
 
 					<button type="button" onclick="fazerSubmit(this)" class="coolButt verde grandissimo">Criar</button>
@@ -378,7 +378,7 @@ $tipo = $_GET['tipo'] ?? null;
 							<ul class="files">
 
 							</ul>
-							<button class="coolButt grandissimo" type="button" onclick="addMais1()">+ Adicionar mais um</button>
+							<button class="coolButt grandissimo" type="button" id="addMaisUm" onclick="addMais1()">+ Adicionar mais um</button>
 						</div>
 						<p>Limite: <b>continua 1GB</b></p>
 					</div>
@@ -421,7 +421,7 @@ $tipo = $_GET['tipo'] ?? null;
 							<ul class="files">
 
 							</ul>
-							<button class="coolButt grandissimo" type="button" onclick="addMais1()">+ Adicionar mais um</button>
+							<button class="coolButt grandissimo" type="button" id="addMaisUm" onclick="addMais1()">+ Adicionar mais um</button>
 						</div>
 					</div>
 					
@@ -545,6 +545,8 @@ $tipo = $_GET['tipo'] ?? null;
 		insidePageContent.insertBefore(clone, insidePageContent.firstChild);
 	}
 
+	var botaoAddMaisUm = document.getElementById("addMaisUm");
+	
 	function fazerSubmit(botao){
 		var form = document.querySelectorAll('form[enctype="multipart/form-data"]')[0];
 		
@@ -573,8 +575,7 @@ $tipo = $_GET['tipo'] ?? null;
 					addErro(allErrors[i]);
 				}
 				
-				botao.disabled = false;
-				botao.style.display = '';
+				enableBotoes(botao, botaoAddMaisUm);
 				tudoProgresso.style.display = 'none';
 			} else {
 				window.location.href = "/projetos/" + xhttp.responseText;
@@ -592,9 +593,7 @@ $tipo = $_GET['tipo'] ?? null;
 
 		xhttp.onerror = function() {
 			addErro('Houve um erro não-descrito :(');
-			
-			botao.disabled = false;
-			botao.style.display = '';
+			enableBotoes(botao, botaoAddMaisUm);
 			tudoProgresso.display = 'none';
 		}
 
@@ -606,8 +605,24 @@ $tipo = $_GET['tipo'] ?? null;
 		
 		xhttp.open("POST", form.action, true);
 		xhttp.send(formData);
+		disableBotoes(botao, botaoAddMaisUm);
+	}
+
+
+	function disableBotoes(botao, botaoAddMaisUm) {
 		botao.disabled = true;
 		botao.style.display = 'none';
+		
+		botaoAddMaisUm.disabled = true;
+		botaoAddMaisUm.style.display = 'none';
+	}
+	
+	function enableBotoes(botao, botaoAddMaisUm) {
+		botao.disabled = false;
+		botao.style.display = '';
+		
+		botaoAddMaisUm.disabled = false;
+		botaoAddMaisUm.style.display = '';
 	}
 </script>
 
