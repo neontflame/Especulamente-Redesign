@@ -172,7 +172,7 @@ $tipo = $_GET['tipo'] ?? null;
 				</a>
 
 					<h2 style="color: #000000; text-align: center; font-style: italic; font-weight: normal;">...ou talvez editar?</h2>
-				<table style="margin-right: 5px">
+				<table style="margin-right: 5px; width: 432px;">
 					<thead>
 						<tr>
 							<th scope="col">Projetos</th>
