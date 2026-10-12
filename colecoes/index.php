@@ -26,14 +26,24 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 	<?php include $_SERVER['DOCUMENT_ROOT'] . '/elementos/sidebar/sidebar.php'; ?>
 
 	<style>
-	.projetoInfo {
-		position:absolute;
-		margin-left: -5px;
-		padding-left: 5px;
-		padding-top: 5px;
+	.projeto {
+		display:table;
 		width: 437px;
-		height: 41px;
+		position: relative;
+	}
+
+	.projetoInfo {
+		position: absolute;
+		box-sizing: border-box;
+		
+		left: -5px;
+		padding: 5px;
+		
+		width: 442px;
+		height: 46px;
+
 		background-color: rgba(0, 0, 100, 0.6);
+		
 		opacity: 0;
 	}
 
@@ -49,9 +59,8 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 	
 	.semSal {
 		min-height: 26px;
-		border-bottom: 0px;
-		padding-top: 10px;
-		padding-bottom: 8px;
+		border-bottom: 1px solid #beddff;
+		padding-top: 4px;
 		padding-left: 5px;
 		margin-left: -5px;
 		margin-top: 0px;
@@ -60,6 +69,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 	.semSal:hover {
 		background-color: aliceblue;
 	}
+	
 	</style>
 	<div class="page_content">
 		<img src="/elementos/pagetitles/colecoes.png" class="inside_page_content" style="padding: 0px; margin-bottom: 7px;">
