@@ -3,92 +3,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/shhhh/autoload.php';
 login_obrigatorio($usuario);
 ?>
 <?php
-$erro = [];
 $tipo = $_GET['tipo'] ?? null;
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
-	if (isset($_POST['tipo'])) {
-		$tipo = $_POST['tipo'];
-
-		$nome = $_POST['nome'];
-		$descricao = $_POST['descricao'];
-
-		if (strlen($nome) < 3) {
-			array_push($erro, "O nome do projeto é muito curto.");
-		}
-
-		$tiposBons = (($tipo == 'md') ? ['png', 'bmp', 'jpg', 'jpeg', 'gif', 'mp4', 'ogg', 'mp3', 'wav', 'avi', 'wmv', 'mkv', 'swf'] : (($tipo == 'bg') ? ['png', 'bmp', 'jpg', 'jpeg', 'gif', 'mp4', 'ogg', ''] : []));
-
-		if ($tipo == 'dl' || $tipo == 'md' || $tipo == 'bg') {
-			$arquivos = $_FILES['arquivos'] ?? null;
-			$thumb = $_FILES['thumb'] ?? null;
-
-			if (count($erro) == 0) {
-				$projeto = criar_projeto($usuario->id, $nome, $descricao, $tipo, $arquivos, null, $thumb, $tiposBons);
-				if (is_string($projeto)) {
-					array_push($erro, $projeto);
-				}
-			}
-		} else if ($tipo == 'jg') {
-			$arquivoJogavel = $_FILES['arquivoJogavel'];
-			$thumb = $_FILES['thumb'];
-			$arquivos = $_FILES['arquivos'] ?? null;
-
-			if (count($erro) == 0) {
-				$projeto = criar_projeto($usuario->id, $nome, $descricao, $tipo, $arquivos, $arquivoJogavel, $thumb, []);
-				if (is_string($projeto)) {
-					array_push($erro, $projeto);
-				}
-			}
-		} else if ($tipo == 'rt') {
-			$pasta = $_POST['pasta'];
-			$thumb = $_FILES['thumb'];
-
-			$checadorDeCoiso = $db->prepare("SELECT * FROM projetos WHERE arquivos_de_vdd = ?");
-			$checadorDeCoiso->bindParam(1, $pasta);
-			$checadorDeCoiso->execute();
-
-			if ($checadorDeCoiso->rowCount() != 0) {
-				array_push($erro, "Cadê a originalidade? Esse nome de pasta JÁ existe.");
-			}
-
-			if (strlen($pasta) < 3) {
-				array_push($erro, "O nome da pasta é muito curto.");
-			}
-
-			if (!preg_match('/^[a-zA-Z0-9_-]+$/', $pasta)) {
-				array_push($erro, "NÃO use acentos, nem espaços, nem caracteres especiais.");
-			}
-
-			if (count($erro) == 0) {
-				$projeto = criar_projeto($usuario->id, $nome, $descricao, $tipo, $pasta, null, $thumb, []);
-				if (is_string($projeto)) {
-					array_push($erro, $projeto);
-				}
-			}
-		} else {
-			array_push($erro, "Tipo de projeto inválido.");
-		}
-
-		// codigo debativelmente com alma porque eu fiquei com preguiça de colocar na funçao
-		if (isset($_POST['unlist']) && ($_POST['unlist'] == 'on')) {
-			$rows = $db->prepare("UPDATE projetos SET naolist = 1 WHERE id = ?");
-			$rows->bindParam(1, $projeto->id);
-			$rows->execute();
-		}
-				
-		if (count($erro) == 0) {
-			if ($_POST['unlist'] != 'on' || !isset($_POST['unlist'])) {
-				if ($tipo == 'md') { fazer_bounty(4); }
-				if ($tipo == 'dl') { fazer_bounty(5); }
-				if ($tipo == 'bg') { fazer_bounty(6); }
-				if ($tipo == 'jg') { fazer_bounty(7); }
-				if ($tipo == 'rt') { fazer_bounty(8); }
-			}
-			header('Location: /projetos/' . $projeto->id);
-		}
-	}
-}
 ?>
 
 <?php include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
@@ -150,6 +65,39 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 		display: table;
 		float: left;
 	}
+
+	.barrinha {
+		border: 1px solid #9ebbff;
+		margin-top: 4px;
+		width: 430px;
+		background-image: url("/elementos/ranks/vidro.png");
+
+		/* TODO PODEROSO DISPLAY TABLE */
+		/* TODO PODEROSO DISPLAY TABLE */
+		/* TODO PODEROSO DISPLAY TABLE */
+		display: table;
+		/* TODO PODEROSO DISPLAY TABLE */
+		/* TODO PODEROSO DISPLAY TABLE */
+		/* TODO PODEROSO DISPLAY TABLE */
+	}
+
+	/* aqui esta um exemplo de como desenvolver para Varios Browsers */
+	.barrinha .juice {
+		width: 430px;
+		height: 24px;
+		background-image: url("/elementos/ranks/davejuice.png");
+		animation: davejuice_flow 25s infinite linear;
+		-webkit-animation: davejuice_webkitflow 25s infinite linear;
+		-moz-animation: davejuice_mozflow 25s infinite linear;
+	}
+	
+	#uploadProgresso {
+		text-align: center;
+		width: 100%;
+		display: block;
+		margin-top: 2px;
+		font-size: 14px;
+	}
 </style>
 
 <style>
@@ -188,7 +136,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 
 	<div class="page_content">
 		<div class="inside_page_content" style="padding-right: 0px;">
-			<?php include $_SERVER['DOCUMENT_ROOT'] . '/elementos/statusbarArray.php'; ?>
+			<div class="statusbar error" id="errorTemplate" onclick="this.style.display='none'" title="Clique para fechar" style="display: none;">
+				<img src="/elementos/erro.gif" alt="" style="float: left;">
+				<img src="/elementos/erro.gif" alt="" style="float: right;">
+				<p>Seu erro vai aqui lol</p>
+			</div>
+			
 			<?php if ($tipo != null) : ?>
 				<a href="/criar"><img style="margin-left: -5px; margin-top: -5px;" src="/elementos/voltar.png"></a>
 			<?php endif; ?>
@@ -302,7 +255,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 				<h1 style="text-align: center; font-style: italic;">Blog!</h1>
 				<p><i>Escreva qualquer coisa aqui e publique para que qualquer pessoa na rede mundial de computadores possa ler o que você escreveu!!</i></p>
 
-				<form action="" method="post" enctype="multipart/form-data">
+				<form action="/projetos/criarInternal.php?tipo=<?= $tipo ?>" method="post" enctype="multipart/form-data">
 					<input type="hidden" name="tipo" value="bg">
 
 					<label for="nome" class="labelManeira">>> NOME</label>
@@ -339,7 +292,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 						<input type="file" name="thumb" id="thumb" accept=".png,.jpg,.jpeg,.gif,.bmp">
 					</div>
 					
-					<button type="submit" class="coolButt verde grandissimo">Criar</button>
+					<button type="button" onclick="fazerSubmit(this)" class="coolButt verde grandissimo">Criar</button>
 				</form>
 			<?php endif; ?>
 
@@ -348,7 +301,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 				<h1 style="text-align: center; font-style: italic;">Downloadável!</h1>
 				<p><i>Esse tipo de projeto oferece arquivos para descarga. Os usuários podem transferir as suas coisas para seus discos rígidos.</i></p>
 
-				<form action="" method="post" enctype="multipart/form-data">
+				<form action="/projetos/criarInternal.php?tipo=<?= $tipo ?>" method="post" enctype="multipart/form-data">
 					<input type="hidden" name="tipo" value="dl">
 
 					<label for="nome" class="labelManeira">>> NOME</label>
@@ -370,7 +323,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 						<button class="coolButt grandissimo" type="button" onclick="addMais1()">+ Adicionar mais um</button>
 					</div>
 
-					<button type="submit" class="coolButt verde grandissimo">Criar</button>
+					<button type="button" onclick="fazerSubmit(this)" class="coolButt verde grandissimo">Criar</button>
 				</form>
 			<?php endif; ?>
 
@@ -379,7 +332,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 				<h1 style="text-align: center; font-style: italic;">Jogos!</h1>
 				<p><i>Esse tipo de projeto oferece Diversão e Brincadeiras diretamente na telinha do seu microcomputador. Usuários podem Jogar.</i></p>
 
-				<form action="" method="post" enctype="multipart/form-data">
+				<form action="/projetos/criarInternal.php?tipo=<?= $tipo ?>" method="post" enctype="multipart/form-data">
 					<input type="hidden" name="tipo" value="jg">
 
 					<label for="nome" class="labelManeira">>> NOME</label>
@@ -430,7 +383,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 						<p>Limite: <b>continua 1GB</b></p>
 					</div>
 					<div class="separador"></div>
-					<button type="submit" class="coolButt verde grandissimo">Criar</button>
+					<button type="button" onclick="fazerSubmit(this)" class="coolButt verde grandissimo">Criar</button>
 				</form>
 
 
@@ -441,7 +394,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 				<h1 style="text-align: center; font-style: italic;">Mídia!</h1>
 				<p><i>Esse tipo de projeto oferece as imagens (dentre outras coisas) que você carregar aqui como se fosse um pequeno álbum!!</i></p>
 
-				<form action="" method="post" enctype="multipart/form-data">
+				<form action="/projetos/criarInternal.php?tipo=<?= $tipo ?>" method="post" enctype="multipart/form-data">
 					<input type="hidden" name="tipo" value="md">
 
 					<label for="nome" class="labelManeira">>> NOME</label>
@@ -479,7 +432,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 					</div>
 					
 					<div class="separador"></div>
-					<button type="submit" class="coolButt verde grandissimo">Criar</button>
+					<button type="button" onclick="fazerSubmit(this)" class="coolButt verde grandissimo">Criar</button>
 				</form>
 			<?php endif; ?>
 
@@ -488,7 +441,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 				<h1 style="text-align: center; font-style: italic;">O Resto!</h1>
 				<p><i>O resto é tipo o "geocities" (seja lá oq isso seja). Aqui vc pode criar e hospedar seus PRÓPRIOS sites {html, sem php!! (nem aspx (nem ruby)) :(}</i></p>
 
-				<form action="" method="post" enctype="multipart/form-data">
+				<form action="/projetos/criarInternal.php?tipo=<?= $tipo ?>" method="post" enctype="multipart/form-data">
 					<input type="hidden" name="tipo" value="rt">
 
 					<label for="nome" class="labelManeira">>> NOME</label>
@@ -522,11 +475,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 						<!-- ^ esse código tem ALMA -->
 					</div>
 					<div class="separador"></div>
-					<button type="submit" class="coolButt verde grandissimo">Criar</button>
+					<button type="button" onclick="fazerSubmit(this)" class="coolButt verde grandissimo">Criar</button>
 				</form>
 
 
 			<?php endif; ?>
+
+			<!-- progresso -->
+			<div id="uploadTrecos" style="display:none">
+				<div class="barrinha">
+					<div class="juice" id="uploadJuice" style="width: 430px"></div>
+				</div>
+				<span id="uploadProgresso">50%</span>
+			</div>
 
 			<div id="fileTemplate" style="display: none;">
 				<li>
@@ -571,6 +532,82 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 	<?php if ($tipo != 'jg') : ?>
 		addMais1();
 	<?php endif; ?>
+	
+	function addErro(oErro) {
+		var template = document.getElementById('errorTemplate');
+		
+		var clone = template.cloneNode(true);
+		clone.style.display = 'list-item';
+		clone.removeAttribute('id');
+		clone.getElementsByTagName('p')[0].innerHTML = oErro;
+		
+		var insidePageContent = document.getElementsByClassName('inside_page_content')[0]
+		insidePageContent.insertBefore(clone, insidePageContent.firstChild);
+	}
+
+	function fazerSubmit(botao){
+		var form = document.querySelectorAll('form[enctype="multipart/form-data"]')[0];
+		
+		// os breguenaites de browser véio
+		if (!window.FormData || !window.XMLHttpRequest || !('upload' in new XMLHttpRequest())) {
+			form.submit();
+			return;
+		}
+	
+		var xhttp = new XMLHttpRequest();
+		
+		var tudoProgresso = document.getElementById('uploadTrecos');
+		var textoProgresso = document.getElementById('uploadProgresso');
+		var barraProgresso = document.getElementById('uploadJuice');
+		
+		var formData = new FormData(form);
+
+		xhttp.onload = function () {
+			barraProgresso.style.width = '430px';
+            textoProgresso.textContent = 'Aguarde!';
+			
+			var allErrors = xhttp.responseText.split("\n");
+			if (allErrors[0] == "erro") {
+				for (var i = allErrors.length - 1; i >= 1; i--) {
+					addErro(allErrors[i]);
+				}
+				
+				botao.disabled = false;
+				botao.style.display = '';
+				tudoProgresso.style.display = 'none';
+			} else {
+				window.location.href = "/projetos/" + xhttp.responseText;
+			}
+		};
+		
+		xhttp.upload.onprogress = function(event) {
+			if (event.lengthComputable) {
+				textoProgresso.innerHTML = Math.round((event.loaded/event.total) * 100) + "%";
+				barraProgresso.style.width = ((event.loaded/event.total) * 430) + 'px';
+			}
+			
+			tudoProgresso.style.display = 'block';
+		}
+
+		xhttp.onerror = function() {
+			addErro('Houve um erro não-descrito :(');
+			
+			botao.disabled = false;
+			botao.style.display = '';
+			tudoProgresso.display = 'none';
+		}
+
+		xhttp.onabort = function() {
+			botao.disabled = false;
+			botao.style.display = '';
+			tudoProgresso.style.display = 'none';
+		}
+		
+		xhttp.open("POST", form.action || window.location.href, true);
+		xhttp.send(formData);
+		botao.disabled = true;
+		botao.style.display = 'none';
+	}
 </script>
 
 <?php include $_SERVER['DOCUMENT_ROOT'] . '/elementos/footer/footer.php'; ?>

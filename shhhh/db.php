@@ -850,7 +850,7 @@ function criar_projeto($id_criador, $nome, $descricao, $tipo, $arquivos, $arquiv
 	// se for rt ele coloca o nome da pasta em $arquivos_de_vdd
 	$arquivos_de_vdd = ($arquivos != null && !is_string($arquivos)) ? implode('\n', $arquivos['name']) : (is_string($arquivos) ? $arquivos : '');
 
-	if ($arquivos == null && $arquivoVivel == null && ($tipo != 'rt' && $tipo != 'bg')) {
+	if (($arquivos == null || $arquivos['error'][0] === UPLOAD_ERR_NO_FILE) && $arquivoVivel == null && ($tipo != 'rt' && $tipo != 'bg')) {
 		return "§Comeram seus arquivos?";
 	}
 
