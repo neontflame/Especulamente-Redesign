@@ -66,7 +66,7 @@
 				}
 			</style>
 			<img src="/elementos/principaltitles/destaque.png" style="margin-left: -5px; margin-bottom: 5px;">
-			<a href="/projetos/117"><img src="/elementos/destaques/jornal.png"></a>
+			<a href="/colecoes/4"><img src="/elementos/destaques/lovari.png"></a>
 			<img src="/elementos/principaltitles/takeoverTuesdaySoQueAzul.png" style="margin-left: -5px; margin-top: 5px;">
 			<!-- TODO PODEROSO display: table; -->
 			<div style="display:table; width:100%;">
