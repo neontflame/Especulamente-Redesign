@@ -3,11 +3,10 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/shhhh/autoload.php';
 login_obrigatorio($usuario);
 ?>
 <?php
-$erro = [];
-$sucesso = [];
+$voltarPara = $_GET['volta'] ?? 'proj';
+
 $id = $_GET['id'] ?? null;
 $projeto = projeto_requestIDator($id);
-$voltarPara = $_GET['volta'] ?? 'proj';
 
 $projeto_e_meu = false;
 
@@ -20,9 +19,9 @@ if (isset($usuario)) {
 }
 
 if ($voltarPara == 'criar') {
-		$johnTravolta = '/criar/';
+	$johnTravolta = '/criar/';
 } else {
-		$johnTravolta = '/projetos/' . $id;
+	$johnTravolta = '/projetos/' . $id;
 }
 ?>
 
