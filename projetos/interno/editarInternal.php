@@ -66,6 +66,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 		array_push($erroArray, "O nome do projeto é muito curto.");
 	}
 
+	$arquivoVivelJaLa = $projeto->arquivo_vivel == '' ? ['', ''] : explode('\n', $projeto->arquivo_vivel);
+	$naoTemArquivo = ($arquivos == [] || $arquivos['error'][0] === UPLOAD_ERR_NO_FILE);
+	$naoTemArquivoVivel = ($arquivoVivel == [] || $arquivoVivel['error'][0] === UPLOAD_ERR_NO_FILE) && ($arquivoVivelJaLa == ['', '']);
+	
+	if (count($remover) == count(explode("\n", $projeto->arquivos_de_vdd)) && $naoTemArquivo) {
+		if ($removerArquivoVivel || $naoTemArquivoVivel) {
+			array_push($erroArray, "Comeram seus arquivos?");
+		}
+	}
+	
 	$tiposBons = ($tipo == 'md' ? ['png', 'bmp', 'jpg', 'jpeg', 'gif', 'mp4', 'ogg', 'mp3', 'wav', 'avi', 'wmv', 'mkv', 'swf'] : []);
 
 	if (isset($_POST['unlist'])) {
