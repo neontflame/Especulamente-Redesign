@@ -255,7 +255,7 @@ $tipo = $_GET['tipo'] ?? null;
 				<h1 style="text-align: center; font-style: italic;">Blog!</h1>
 				<p><i>Escreva qualquer coisa aqui e publique para que qualquer pessoa na rede mundial de computadores possa ler o que você escreveu!!</i></p>
 
-				<form action="/projetos/criarInternal.php?tipo=<?= $tipo ?>" method="post" enctype="multipart/form-data">
+				<form action="/projetos/interno/criarInternal.php?tipo=<?= $tipo ?>" method="post" enctype="multipart/form-data">
 					<input type="hidden" name="tipo" value="bg">
 
 					<label for="nome" class="labelManeira">>> NOME</label>
@@ -301,7 +301,7 @@ $tipo = $_GET['tipo'] ?? null;
 				<h1 style="text-align: center; font-style: italic;">Downloadável!</h1>
 				<p><i>Esse tipo de projeto oferece arquivos para descarga. Os usuários podem transferir as suas coisas para seus discos rígidos.</i></p>
 
-				<form action="/projetos/criarInternal.php?tipo=<?= $tipo ?>" method="post" enctype="multipart/form-data">
+				<form action="/projetos/interno/criarInternal.php?tipo=<?= $tipo ?>" method="post" enctype="multipart/form-data">
 					<input type="hidden" name="tipo" value="dl">
 
 					<label for="nome" class="labelManeira">>> NOME</label>
@@ -332,7 +332,7 @@ $tipo = $_GET['tipo'] ?? null;
 				<h1 style="text-align: center; font-style: italic;">Jogos!</h1>
 				<p><i>Esse tipo de projeto oferece Diversão e Brincadeiras diretamente na telinha do seu microcomputador. Usuários podem Jogar.</i></p>
 
-				<form action="/projetos/criarInternal.php?tipo=<?= $tipo ?>" method="post" enctype="multipart/form-data">
+				<form action="/projetos/interno/criarInternal.php?tipo=<?= $tipo ?>" method="post" enctype="multipart/form-data">
 					<input type="hidden" name="tipo" value="jg">
 
 					<label for="nome" class="labelManeira">>> NOME</label>
@@ -394,7 +394,7 @@ $tipo = $_GET['tipo'] ?? null;
 				<h1 style="text-align: center; font-style: italic;">Mídia!</h1>
 				<p><i>Esse tipo de projeto oferece as imagens (dentre outras coisas) que você carregar aqui como se fosse um pequeno álbum!!</i></p>
 
-				<form action="/projetos/criarInternal.php?tipo=<?= $tipo ?>" method="post" enctype="multipart/form-data">
+				<form action="/projetos/interno/criarInternal.php?tipo=<?= $tipo ?>" method="post" enctype="multipart/form-data">
 					<input type="hidden" name="tipo" value="md">
 
 					<label for="nome" class="labelManeira">>> NOME</label>
@@ -441,7 +441,7 @@ $tipo = $_GET['tipo'] ?? null;
 				<h1 style="text-align: center; font-style: italic;">O Resto!</h1>
 				<p><i>O resto é tipo o "geocities" (seja lá oq isso seja). Aqui vc pode criar e hospedar seus PRÓPRIOS sites {html, sem php!! (nem aspx (nem ruby)) :(}</i></p>
 
-				<form action="/projetos/criarInternal.php?tipo=<?= $tipo ?>" method="post" enctype="multipart/form-data">
+				<form action="/projetos/interno/criarInternal.php?tipo=<?= $tipo ?>" method="post" enctype="multipart/form-data">
 					<input type="hidden" name="tipo" value="rt">
 
 					<label for="nome" class="labelManeira">>> NOME</label>
@@ -537,7 +537,7 @@ $tipo = $_GET['tipo'] ?? null;
 		var template = document.getElementById('errorTemplate');
 		
 		var clone = template.cloneNode(true);
-		clone.style.display = 'list-item';
+		clone.style.display = 'block';
 		clone.removeAttribute('id');
 		clone.getElementsByTagName('p')[0].innerHTML = oErro;
 		
@@ -550,6 +550,7 @@ $tipo = $_GET['tipo'] ?? null;
 		
 		// os breguenaites de browser véio
 		if (!window.FormData || !window.XMLHttpRequest || !('upload' in new XMLHttpRequest())) {
+			form.action += "?browserVeio=true";
 			form.submit();
 			return;
 		}
@@ -582,7 +583,7 @@ $tipo = $_GET['tipo'] ?? null;
 		
 		xhttp.upload.onprogress = function(event) {
 			if (event.lengthComputable) {
-				textoProgresso.innerHTML = Math.round((event.loaded/event.total) * 100) + "%";
+				textoProgresso.innerHTML = "Carregando arquivos... (" + Math.round((event.loaded/event.total) * 100) + "%)";
 				barraProgresso.style.width = ((event.loaded/event.total) * 430) + 'px';
 			}
 			
@@ -603,7 +604,7 @@ $tipo = $_GET['tipo'] ?? null;
 			tudoProgresso.style.display = 'none';
 		}
 		
-		xhttp.open("POST", form.action || window.location.href, true);
+		xhttp.open("POST", form.action, true);
 		xhttp.send(formData);
 		botao.disabled = true;
 		botao.style.display = 'none';

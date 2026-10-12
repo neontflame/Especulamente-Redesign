@@ -19,51 +19,6 @@ if (isset($usuario)) {
 	}
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
-	$tipo = $_POST['tipo'];
-
-	$id = $_POST['id'];
-	$nome = $_POST['nome'];
-	$descricao = $_POST['descricao'];
-	$arquivos = $_FILES['arquivos'] ?? [];
-	$remover = $_POST['remover'] ?? [];
-	$ordem = $_POST['ordem'] ?? 0;
-	$arquivoVivel = $_FILES['arquivoJogavel'] ?? [];
-	$removerArquivoVivel = $_POST['removerArquivoJogavel'] ?? null;
-
-	$thumb = $_FILES['thumb'] ?? [];
-	$removerThumb = $_POST['removerThumb'] ?? null;
-
-	if (strlen($nome) < 3) {
-		array_push($erro, "O nome do projeto é muito curto.");
-	}
-
-	$tiposBons = ($tipo == 'md' ? ['png', 'bmp', 'jpg', 'jpeg', 'gif', 'mp4', 'ogg', 'mp3', 'wav', 'avi', 'wmv', 'mkv', 'swf'] : []);
-
-
-	if (isset($_POST['unlist'])) {
-		if ($_POST['unlist'] == 'on') {
-			$rows = $db->prepare("UPDATE projetos SET naolist = 1 WHERE id = ?");
-			$rows->bindParam(1, $id);
-			$rows->execute();
-		}
-	} else {
-		$rows = $db->prepare("UPDATE projetos SET naolist = 0 WHERE id = ?");
-		$rows->bindParam(1, $id);
-		$rows->execute();
-	}
-		
-	$projeto_rtn = editar_projeto($usuario->id, $id, $nome, $descricao, $arquivos, $remover, $ordem, $arquivoVivel, $removerArquivoVivel, $thumb, $removerThumb, $tiposBons);
-	if (is_string($projeto_rtn)) {
-		array_push($erro, $projeto_rtn);
-	}
-		
-	if (count($erro) == 0) {
-		$projeto = $projeto_rtn;
-		$sucesso = ["Projeto editado com sucesso! :]"];
-	}
-}
-
 if ($voltarPara == 'criar') {
 		$johnTravolta = '/criar/';
 } else {
@@ -125,6 +80,40 @@ if ($voltarPara == 'criar') {
 		font-size: 12px;
 		display: inline;
 	}
+
+
+	.barrinha {
+		border: 1px solid #9ebbff;
+		margin-top: 4px;
+		width: 430px;
+		background-image: url("/elementos/ranks/vidro.png");
+
+		/* TODO PODEROSO DISPLAY TABLE */
+		/* TODO PODEROSO DISPLAY TABLE */
+		/* TODO PODEROSO DISPLAY TABLE */
+		display: table;
+		/* TODO PODEROSO DISPLAY TABLE */
+		/* TODO PODEROSO DISPLAY TABLE */
+		/* TODO PODEROSO DISPLAY TABLE */
+	}
+
+	/* aqui esta um exemplo de como desenvolver para Varios Browsers */
+	.barrinha .juice {
+		width: 430px;
+		height: 24px;
+		background-image: url("/elementos/ranks/davejuice.png");
+		animation: davejuice_flow 25s infinite linear;
+		-webkit-animation: davejuice_webkitflow 25s infinite linear;
+		-moz-animation: davejuice_mozflow 25s infinite linear;
+	}
+	
+	#uploadProgresso {
+		text-align: center;
+		width: 100%;
+		display: block;
+		margin-top: 2px;
+		font-size: 14px;
+	}
 </style>
 
 <div class="container">
@@ -132,7 +121,18 @@ if ($voltarPara == 'criar') {
 
 	<div class="page_content">
 		<div class="inside_page_content" style="padding-right: 0px;">
-		<?php include $_SERVER['DOCUMENT_ROOT'] . '/elementos/statusbarArray.php'; ?>
+			<div class="statusbar error" id="errorTemplate" onclick="this.style.display='none'" title="Clique para fechar" style="display: none;">
+				<img src="/elementos/erro.gif" alt="" style="float: left;">
+				<img src="/elementos/erro.gif" alt="" style="float: right;">
+				<p>Seu erro vai aqui lol</p>
+			</div>
+
+			<div class="statusbar success" id="successTemplate" onclick="this.style.display='none'" title="Clique para fechar" style="display: none;">
+				<img src="/elementos/emoticons/_yay_.png" alt="" style="float: left;">
+				<img src="/elementos/emoticons/_yay_.png" alt="" style="float: right;">
+				<p>Seu sucesso vai aqui lol</p>
+			</div>
+			
 			<?php if ($id == null) : ?>
 				<p>wtf</p>
 			<?php else : ?>
@@ -155,7 +155,7 @@ if ($voltarPara == 'criar') {
 				<a href="<?= $johnTravolta ?>"><img style="margin-left: -5px; margin-top: -5px;" src="/elementos/voltar.png"></a>
 				<h1 style="text-align: center; font-style: italic;">Editando projeto</h1>
 
-				<form action="" method="post" enctype="multipart/form-data">
+				<form action="/projetos/interno/editarInternal.php" method="post" enctype="multipart/form-data">
 					<input type="hidden" name="tipo" value="<?= $projeto->tipo ?>">
 					<input type="hidden" name="id" value="<?= $projeto->id ?>">
 
@@ -272,9 +272,9 @@ if ($voltarPara == 'criar') {
 						<a href="/gerenciator/index.php?pasta=<?= $projeto->arquivos_de_vdd ?>" target="_blank" class="coolButt grandissimo" style="font-size: 30px; margin-bottom: 20px">Editar site!!!</a>
 					<?php endif; ?>
 
-					<button type="submit" class="coolButt verde grandissimo">Salvar mudanças</button>
+					<button type="button" onclick="fazerSubmit(this)" class="coolButt verde grandissimo">Salvar mudanças</button>
 				</form>
-				<a href="/projetos/deletar.php?id=<?= $projeto->id ?>" class="coolButt vermelho grandissimo">DELETAR PROJETO ???!?</a>
+				<a href="/projetos/deletar.php?id=<?= $projeto->id ?>" id="botaoDoMal" class="coolButt vermelho grandissimo">DELETAR PROJETO ???!?</a>
 
 				<div id="fileTemplate" style="display: none;">
 					<li data-filename="">
@@ -308,6 +308,15 @@ if ($voltarPara == 'criar') {
 					</li>
 				</div>
 			<?php endif; ?>
+
+			<!-- progresso -->
+			<div id="uploadTrecos" style="display:none">
+				<div class="barrinha">
+					<div class="juice" id="uploadJuice" style="width: 430px"></div>
+				</div>
+				<span id="uploadProgresso">50%</span>
+			</div>
+			
 		</div>
 	</div>
 </div>
@@ -397,7 +406,6 @@ if ($voltarPara == 'criar') {
 	}
 
 	<?php if ($projeto->tipo == 'bg') { ?>
-
 		function extractFilename(path) {
 			if (path.substr(0, 12) == "C:\\fakepath\\")
 				return path.substr(12); // modern browser
@@ -415,6 +423,135 @@ if ($voltarPara == 'criar') {
 			document.getElementById("descricao").value += '\n![](' + extractFilename(valor.value) + ')';
 		}
 	<?php } ?>
+
+
+	function addErro(oErro) {
+		var template = document.getElementById('errorTemplate');
+		
+		var clone = template.cloneNode(true);
+		clone.style.display = 'block';
+		clone.removeAttribute('id');
+		clone.getElementsByTagName('p')[0].innerHTML = oErro;
+		
+		var insidePageContent = document.getElementsByClassName('inside_page_content')[0]
+		insidePageContent.insertBefore(clone, insidePageContent.firstChild);
+	}
+
+	function addSucesso(oSucesso) {
+		var template = document.getElementById('successTemplate');
+		
+		var clone = template.cloneNode(true);
+		clone.style.display = 'block';
+		clone.removeAttribute('id');
+		clone.getElementsByTagName('p')[0].innerHTML = oSucesso;
+		
+		var insidePageContent = document.getElementsByClassName('inside_page_content')[0]
+		insidePageContent.insertBefore(clone, insidePageContent.firstChild);
+	}
+
+	function fazerSubmit(botao){
+		var botaoDoMal = document.getElementById("botaoDoMal");
+		var form = document.querySelectorAll('form[enctype="multipart/form-data"]')[0];
+		
+		// os breguenaites de browser véio
+		if (!window.FormData || !window.XMLHttpRequest || !('upload' in new XMLHttpRequest())) {
+			form.action += "?browserVeio=true&voltar=<?= $voltarPara ?>";
+			form.submit();
+			return;
+		}
+	
+		var xhttp = new XMLHttpRequest();
+		
+		var tudoProgresso = document.getElementById('uploadTrecos');
+		var textoProgresso = document.getElementById('uploadProgresso');
+		var barraProgresso = document.getElementById('uploadJuice');
+		
+		var formData = new FormData(form);
+
+		xhttp.onload = function () {
+			barraProgresso.style.width = '430px';
+            textoProgresso.textContent = 'Aguarde!';
+			
+			var allErrors = xhttp.responseText.split("\n");
+			
+			if (allErrors[0] == "erro") {
+				for (var i = allErrors.length - 1; i >= 1; i--) {
+					addErro(allErrors[i]);
+				}
+			}
+			if (allErrors[0] == "sucesso") {
+				for (var i = allErrors.length - 1; i >= 1; i--) {
+					addSucesso(allErrors[i]);
+				}
+				<?php if ($projeto->tipo != 'rt'): ?>
+				reloadFilelist();
+				<?php endif; ?>
+			}
+			
+			botao.disabled = false;
+			botao.style.display = '';
+			
+			botaoDoMal.disabled = false;
+			botaoDoMal.style.display = '';
+			
+			tudoProgresso.style.display = 'none';
+		};
+		
+		xhttp.upload.onprogress = function(event) {
+			if (event.lengthComputable) {
+				textoProgresso.innerHTML = "Carregando arquivos... (" + Math.round((event.loaded/event.total) * 100) + "%)";
+				barraProgresso.style.width = ((event.loaded/event.total) * 430) + 'px';
+			}
+			
+			tudoProgresso.style.display = 'block';
+		}
+
+		xhttp.onerror = function() {
+			addErro('Houve um erro não-descrito :(');
+			
+			botao.disabled = false;
+			botao.style.display = '';
+			
+			botaoDoMal.disabled = false;
+			botaoDoMal.style.display = '';
+			
+			tudoProgresso.display = 'none';
+		}
+
+		xhttp.onabort = function() {
+			botao.disabled = false;
+			botao.style.display = '';
+			
+			botaoDoMal.disabled = false;
+			botaoDoMal.style.display = '';
+			
+			tudoProgresso.style.display = 'none';
+		}
+		
+		xhttp.open("POST", form.action, true);
+		xhttp.send(formData);
+		botao.disabled = true;
+		botao.style.display = 'none';
+		
+		botaoDoMal.disabled = true;
+		botaoDoMal.style.display = 'none';
+	}
+	
+	function reloadFilelist() {
+		var xhttp = new XMLHttpRequest();
+		
+		xhttp.onload = function () {
+			document.getElementById('multiFileUploader').getElementsByClassName('files')[0].innerHTML = this.responseText;
+		};
+		
+		xhttp.open(
+			"GET",
+			"/projetos/interno/editarFilelist.php?id=" + <?= $projeto->id ?>,
+			true
+		);
+		
+		xhttp.send();
+	}
 </script>
 
 <?php include $_SERVER['DOCUMENT_ROOT'] . '/elementos/footer/footer.php'; ?>

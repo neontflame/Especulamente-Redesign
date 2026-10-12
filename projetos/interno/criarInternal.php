@@ -2,12 +2,14 @@
 error_reporting(E_ERROR);
 include_once $_SERVER['DOCUMENT_ROOT'] . '/shhhh/autoload.php';
 
+$browserVeio = isset($_GET['browserVeio']);
+
 function printErros(){
-	global $erro;
+	global $erroArray;
 	
-	if (count($erro) > 0) {
+	if (count($erroArray) > 0) {
 		echo('erro');
-		foreach ($erro as $err) {
+		foreach ($erroArray as $err) {
 			echo "\n";
 			echo $err;
 		}
@@ -15,12 +17,12 @@ function printErros(){
 }
 
 if (!isset($usuario)) {
-	array_push($erro, 'Você não tá logado ô cabeça dmjkgfdh');
+	array_push($erroArray, 'Você não tá logado ô cabeça dmjkgfdh');
 	printErros();
 	die();
 }
 
-$erro = [];
+$erroArray = [];
 $tipo = $_GET['tipo'] ?? null;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
@@ -31,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 		$descricao = $_POST['descricao'];
 
 		if (strlen($nome) < 3) {
-			array_push($erro, "O nome do projeto é muito curto.");
+			array_push($erroArray, "O nome do projeto é muito curto.");
 		}
 
 		$tiposBons = (($tipo == 'md') ? ['png', 'bmp', 'jpg', 'jpeg', 'gif', 'mp4', 'ogg', 'mp3', 'wav', 'avi', 'wmv', 'mkv', 'swf'] : (($tipo == 'bg') ? ['png', 'bmp', 'jpg', 'jpeg', 'gif', 'mp4', 'ogg', ''] : []));
@@ -40,10 +42,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 			$arquivos = $_FILES['arquivos'] ?? null;
 			$thumb = $_FILES['thumb'] ?? null;
 	
-			if (count($erro) == 0) {
+			if (count($erroArray) == 0) {
 				$projeto = criar_projeto($usuario->id, $nome, $descricao, $tipo, $arquivos, null, $thumb, $tiposBons);
 				if (is_string($projeto)) {
-					array_push($erro, substr($projeto, 2));
+					array_push($erroArray, substr($projeto, 2));
 				}
 			}
 		} else if ($tipo == 'jg') {
@@ -51,10 +53,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 			$thumb = $_FILES['thumb'];
 			$arquivos = $_FILES['arquivos'] ?? null;
 
-			if (count($erro) == 0) {
+			if (count($erroArray) == 0) {
 				$projeto = criar_projeto($usuario->id, $nome, $descricao, $tipo, $arquivos, $arquivoJogavel, $thumb, []);
 				if (is_string($projeto)) {
-					array_push($erro, substr($projeto, 2));
+					array_push($erroArray, substr($projeto, 2));
 				}
 			}
 		} else if ($tipo == 'rt') {
@@ -66,34 +68,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 			$checadorDeCoiso->execute();
 
 			if ($checadorDeCoiso->rowCount() != 0) {
-				array_push($erro, "Cadê a originalidade? Esse nome de pasta JÁ existe.");
+				array_push($erroArray, "Cadê a originalidade? Esse nome de pasta JÁ existe.");
 			}
 
 			if (strlen($pasta) < 3) {
-				array_push($erro, "O nome da pasta é muito curto.");
+				array_push($erroArray, "O nome da pasta é muito curto.");
 			}
 
 			if (!preg_match('/^[a-zA-Z0-9_-]+$/', $pasta)) {
-				array_push($erro, "NÃO use acentos, nem espaços, nem caracteres especiais.");
+				array_push($erroArray, "NÃO use acentos, nem espaços, nem caracteres especiais.");
 			}
 
 			printErros();
 			
-			if (count($erro) == 0) {
+			if (count($erroArray) == 0) {
 				$projeto = criar_projeto($usuario->id, $nome, $descricao, $tipo, $pasta, null, $thumb, []);
 				if (is_string($projeto)) {
-					array_push($erro, $projeto);
+					array_push($erroArray, $projeto);
 				}
 			}
 		} else {
-			array_push($erro, "Tipo de projeto inválido.");
+			array_push($erroArray, "Tipo de projeto inválido.");
 		}
 		
 		// codigo debativelmente com alma porque eu fiquei com preguiça de colocar na funçao
-		$coolUnlist = $_POST['unlist'];
-		
-		if (isset($coolUnlist)) {
-			if ($coolUnlist == 'on') {
+		if (isset($_POST['unlist'])) {
+			if ($_POST['unlist'] == 'on') {
 				$rows = $db->prepare("UPDATE projetos SET naolist = 1 WHERE id = ?");
 				$rows->bindParam(1, $projeto->id);
 				$rows->execute();
@@ -102,8 +102,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 		
 		printErros();
 		
-		if (count($erro) == 0) {
-			if ($coolUnlist != 'on' || !isset($coolUnlist)) {
+		if (count($erroArray) == 0) {
+			if ($_POST['unlist'] != 'on' || !isset($_POST['unlist'])) {
 				if ($tipo == 'md') { fazer_bounty(4); }
 				if ($tipo == 'dl') { fazer_bounty(5); }
 				if ($tipo == 'bg') { fazer_bounty(6); }
@@ -111,6 +111,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 				if ($tipo == 'rt') { fazer_bounty(8); }
 			}
 			echo($projeto->id);
+			if ($browserVeio) { header('Location: /projetos/' . $projeto->id); }
 		}
 	}
 }
