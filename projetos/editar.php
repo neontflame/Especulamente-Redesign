@@ -403,6 +403,15 @@ if ($voltarPara == 'criar') {
 
 		document.querySelector('input[name="ordem"]').value = ordem.join('\\n');
 	}
+	
+	function limparRemoção() {
+		for (var i = 0; i < document.getElementById('multiFileUploader').children.length; i++) {
+			var childness = document.getElementById('multiFileUploader').children[i];
+			if (childness.name == 'remover[]') {
+				childness.remove();
+			}
+		}
+	}
 
 	<?php if ($projeto->tipo == 'bg') { ?>
 		function extractFilename(path) {
@@ -523,6 +532,7 @@ if ($voltarPara == 'criar') {
 		
 		xhttp.onload = function () {
 			document.getElementById('multiFileUploader').getElementsByClassName('files')[0].innerHTML = this.responseText;
+			limparRemoção();
 		};
 		
 		xhttp.open(

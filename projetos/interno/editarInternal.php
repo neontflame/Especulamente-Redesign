@@ -31,7 +31,6 @@ function printSucessos(){
 			echo "\n";
 			echo $suc;
 		}
-		die();
 	}
 }
 
@@ -66,11 +65,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 		array_push($erroArray, "O nome do projeto é muito curto.");
 	}
 
-	$arquivoVivelJaLa = $projeto->arquivo_vivel == '' ? ['', ''] : explode('\n', $projeto->arquivo_vivel);
-	$naoTemArquivo = ($arquivos == [] || $arquivos['error'][0] === UPLOAD_ERR_NO_FILE);
-	$naoTemArquivoVivel = ($arquivoVivel == [] || $arquivoVivel['error'][0] === UPLOAD_ERR_NO_FILE) && ($arquivoVivelJaLa == ['', '']);
+	$arquivoVivelJaLa = ($projeto->arquivo_vivel === '' || $projeto->arquivo_vivel == null) ? ['', ''] : explode('\n', $projeto->arquivo_vivel);
 	
-	if (count($remover) == count(explode("\n", $projeto->arquivos_de_vdd)) && $naoTemArquivo) {
+	$naoTemArquivo = (!isset($arquivos) || $arquivos['error'][0] === UPLOAD_ERR_NO_FILE);
+	$naoTemArquivoVivel = (!isset($arquivoVivel) || $arquivoVivel['error'][0] === UPLOAD_ERR_NO_FILE) && ($arquivoVivelJaLa === ['', '']);
+	
+	if (count($remover) >= count(explode('\n', $projeto->arquivos_de_vdd)) && $naoTemArquivo) {
 		if ($removerArquivoVivel || $naoTemArquivoVivel) {
 			array_push($erroArray, "Comeram seus arquivos?");
 		}
