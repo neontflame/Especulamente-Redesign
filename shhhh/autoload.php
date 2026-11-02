@@ -246,6 +246,8 @@ function pagetitlePorTipo($tipo)
 			return 'resto';
 		case 'col':
 			return 'colecoes';
+		case 'req':
+			return 'requisicoes';
 		default:
 			return 'projetos';
 	}

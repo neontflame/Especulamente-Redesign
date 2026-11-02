@@ -44,7 +44,7 @@ $tipo = $_GET['tipo'] ?? null;
 	.abaButt {
 		border: 1px solid #9EBBFF;
 		background-color: #CCDBFF;
-		width: <?= ($tipo == 'jg' ? '33' : '49') ?>%;
+		width: <?= ($tipo == 'jg' || $tipo == null ? '33' : '49') ?>%;
 		font-size: 14px;
 		margin-right:-5px;
 	}
@@ -175,49 +175,63 @@ $tipo = $_GET['tipo'] ?? null;
 				</a>
 
 					<h2 style="color: #000000; text-align: center; font-style: italic; font-weight: normal;">...ou talvez editar?</h2>
-				<table style="margin-right: 5px; width: 432px;">
-					<thead>
-						<tr>
-							<th scope="col">Projetos</th>
-							<th scope="col">Coleções</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<!-- projetos -->
-							<td style="width: 50%; vertical-align:top;">
-							<?php
-							$projetos = [];
+					
+				<div id="abaBotoes">
+					<div style="float: left;" class="coiso"></div>
+						<button type="button" class="abaButt abaAtiva" onclick="inativarAsAbas(); this.className = 'abaButt abaAtiva'; abaProjetos.style.display = 'block';">Projetos</button>
+						<button type="button" class="abaButt" onclick="inativarAsAbas(); this.className = 'abaButt abaAtiva'; abaColecoes.style.display = 'block';">Coleções</button>
+						<button type="button" class="abaButt" onclick="inativarAsAbas(); this.className = 'abaButt abaAtiva'; abaRequisicoes.style.display = 'block';">Requisições</button>
+					<div style="float: right;" class="coiso"></div>
+				</div>
 
-							// grandes numeros para grandes coisas
-							$projejos = coisos_tudo($projetos, 'projetos', 1, null, ' WHERE id_criador = ' . $usuario->id, 10000000);
+				<!-- aba de projetos -->
+				<div class="aba" id="abaProjetos" style="display:table;">
+					<?php
+					$projetos = [];
 
-							if (count($projetos) > 0) : ?>
-								<?php foreach ($projetos as $projeto) :	?>
-									<a class="itemditavel tipo<?= $projeto->tipo ?>" href="/projetos/<?= $projeto->id ?>/editar?volta=criar">[<?= strtoupper($projeto->tipo) ?>] <?= $projeto->nome ?></a>
-									<br>
-								<?php endforeach;?>
-							<?php endif; ?>
-							</td>
+					// grandes numeros para grandes coisas
+					$projejos = coisos_tudo($projetos, 'projetos', 1, null, ' WHERE id_criador = ' . $usuario->id, 10000000);
 
-							<!-- colecoes -->
-							<td style="width: 50%; vertical-align:top;">
-							<?php
-							$colecoes = [];
+					if (count($projetos) > 0) : ?>
+						<?php foreach ($projetos as $projeto) :	?>
+							<a class="itemditavel tipo<?= $projeto->tipo ?>" href="/projetos/<?= $projeto->id ?>/editar?volta=criar">[<?= strtoupper($projeto->tipo) ?>] <?= $projeto->nome ?></a>
+							<br>
+						<?php endforeach;?>
+					<?php endif; ?>
+				</div>
 
-							// grandes numeros para grandes coisas
-							$colceios = coisos_tudo($colecoes, 'colecoes', 1, null, ' WHERE criador = ' . $usuario->id, 10000000);
+				<!-- aba de colecoes -->
+				<div class="aba" id="abaColecoes" style="display:none;">
+					<?php
+					$colecoes = [];
 
-							if (count($colecoes) > 0) : ?>
-								<?php foreach ($colecoes as $colecao) :	?>
-									<a class="itemditavel tipocol" href="/colecoes/<?= $colecao->id ?>/editar?volta=criar"><?= $colecao->nome ?></a>
-									<br>
-								<?php endforeach;?>
-							<?php endif; ?>
-							</td>
-						</tr>
-					</tbody>
-					</table>
+					// grandes numeros para grandes coisas
+					$colceios = coisos_tudo($colecoes, 'colecoes', 1, null, ' WHERE criador = ' . $usuario->id, 10000000);
+
+					if (count($colecoes) > 0) : ?>
+						<?php foreach ($colecoes as $colecao) :	?>
+							<a class="itemditavel tipocol" href="/colecoes/<?= $colecao->id ?>/editar?volta=criar"><?= $colecao->nome ?></a>
+							<br>
+						<?php endforeach;?>
+					<?php endif; ?>
+				</div>
+				
+				<!-- aba de requisicoes -->
+				<div class="aba" id="abaRequisicoes" style="display:none;">
+					<?php
+					$reqs = [];
+
+					// grandes numeros para grandes coisas
+					$colceios = coisos_tudo($reqs, 'requisicoes', 1, null, ' WHERE id_requisitor = ' . $usuario->id, 10000000);
+
+					if (count($reqs) > 0) : ?>
+						<?php foreach ($reqs as $req) :	?>
+							<a class="itemditavel tipocol" href="/requisicoes/<?= $req->id ?>/editar?volta=criar"><?= $req->nome ?></a>
+							<br>
+						<?php endforeach;?>
+					<?php endif; ?>
+				</div>
+			
 			<?php endif; ?>
 			
 			<script>
@@ -525,15 +539,16 @@ $tipo = $_GET['tipo'] ?? null;
 </div>
 
 <script>
+	<?php if ($tipo != null) : ?>
 	function addMais1() {
 		var template = document.getElementById('fileTemplate').getElementsByTagName('li')[0];
 		var clone = template.cloneNode(true);
 		clone.style.display = 'list-item';
 		document.getElementById('multiFileUploader').getElementsByClassName('files')[0].appendChild(clone);
 	}
-
-	<?php if ($tipo != 'jg') : ?>
+		<?php if ($tipo != 'jg') : ?>
 		addMais1();
+		<?php endif; ?>
 	<?php endif; ?>
 	
 	function addErro(oErro) {

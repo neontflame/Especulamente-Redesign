@@ -165,6 +165,39 @@ function colecao_requestIDator($id)
 	return $colecao;
 }
 
+// Requesce por id
+function requisicao_requestIDator($id)
+{
+	global $db;
+
+	$rows = $db->prepare("SELECT * FROM requisicoes WHERE id = ?");
+	$rows->bindParam(1, $id);
+	$rows->execute();
+	$req = $rows->fetch(PDO::FETCH_OBJ);
+
+	if ($req == false) {
+		return null;
+	}
+
+	return $req;
+}
+
+function requisicao_entrega_requestIDator($id)
+{
+	global $db;
+
+	$rows = $db->prepare("SELECT * FROM requisicoes_entregas WHERE id = ?");
+	$rows->bindParam(1, $id);
+	$rows->execute();
+	$req = $rows->fetch(PDO::FETCH_OBJ);
+
+	if ($req == false) {
+		return null;
+	}
+
+	return $req;
+}
+
 // Retorna o número de páginas (agora tweaked pra ter suporte pra DaveItens)
 function coisos_tudo(&$array, $table, $page = 1, $searchy = '', $queryAdicional = '', $perPage = 10, $sorting = 'id DESC')
 {
@@ -684,7 +717,34 @@ function mudar_colecao($id, $campos)
 	$rows->bindParam($i, $id);
 	$rows->execute();
 }
-// essas 4 funçoes poderiam ser uma unica funçao mas eu to com PREGUIÇA entao eu vou fazer biquinho e bater o pe
+
+// Campo5 é uma array [campo => valor]
+function mudar_requisicao($id, $campos)
+{
+	global $db;
+
+	$query = "UPDATE requisicoes SET ";
+	$i = 0;
+	foreach ($campos as $campo => $valor) {
+		$query .= $campo . " = ?";
+		if ($i < count($campos) - 1) {
+			$query .= ", ";
+		}
+		$i++;
+	}
+	$query .= " WHERE id = ?";
+
+	$rows = $db->prepare($query);
+
+	$i = 1;
+	foreach ($campos as $campo => $valor) {
+		$rows->bindParam($i, $valor);
+		$i++;
+	}
+	$rows->bindParam($i, $id);
+	$rows->execute();
+}
+// essas 5 funçoes poderiam ser uma unica funçao mas eu to com PREGUIÇA entao eu vou fazer biquinho e bater o pe
 
 function reagir($id_reator, $id_reagido, $tipo_de_reagido, $tipo_de_reacao)
 {
@@ -1391,13 +1451,14 @@ function obter_rank($davecoins_atuais)
 	// quantia atual davecoin = Qd
 
 	// 376 * ((Qd - Qa) / (Qp - Qa))
-
+	$numeroDivisao = (($row ? $row->davecoins_proximo : $last_row->davecoins_proximo) - ($last_row ? $last_row->davecoins_proximo : 0)); // em caso de davedebt ...
+	
 	return [
 		"imagem" => $row ? $row->imagem : $last_row->imagem,
 		"nome" => $row ? $row->nome : $last_row->nome,
 		"davecoins_proximo" => $row ? $row->davecoins_proximo : $last_row->davecoins_proximo,
 		"diada" => $row ? $row->diada : $last_row->diada,
-		"barrinha_width" => 376 * (!$row ? 1 : (($davecoins_atuais - ($last_row ? $last_row->davecoins_proximo : 0)) / (($row ? $row->davecoins_proximo : $last_row->davecoins_proximo) - ($last_row ? $last_row->davecoins_proximo : 0))))
+		"barrinha_width" => 376 * (!$row ? 1 : (($davecoins_atuais - ($last_row ? $last_row->davecoins_proximo : 0)) / ($numeroDivisao > 0.0001 ? $numeroDivisao : 1)))
 	];
 }
 
@@ -1469,6 +1530,101 @@ function projeto_colecoes($id)
 	}
 
 	return $colecoes;
+}
+
+
+function deletar_colecao($id_criador, $id_colecao)
+{
+	global $db;
+	
+	$colecaoADeletar = colecao_requestIDator($id_colecao);
+	
+	// -1: Checar se eu posso ter um super salsicha sandwich ei scoob (nome muito curto)
+	$rows = $db->prepare("SELECT criador FROM colecoes WHERE id = ? AND criador = ?");
+	$rows->bindParam(1, $id_colecao);
+	$rows->bindParam(2, $id_criador);
+	$rows->execute();
+	$row = $rows->fetch(PDO::FETCH_OBJ);
+	if ($row == false) {
+		return "§Sua deleção é: <em>inválida deleção!</em>";
+	}
+
+	$rows = $db->prepare("DELETE FROM colecoes_curadores WHERE id_colecao = ?");
+	$rows->bindParam(1, $id_colecao);
+	$rows->execute();
+	
+	$rows = $db->prepare("DELETE FROM colecoes_projetos WHERE id_colecao = ?");
+	$rows->bindParam(1, $id_colecao);
+	$rows->execute();
+	
+	unlink($_SERVER['DOCUMENT_ROOT'] . '/static/colecoes/' . $colecaoADeletar->thumbnail);
+	
+	$rows = $db->prepare("DELETE FROM colecoes WHERE id = ? AND criador = ?");
+	$rows->bindParam(1, $id_colecao);
+	$rows->bindParam(2, $id_criador);
+	$rows->execute();
+}
+
+// funçoes de requisicao!
+function requisicao_entregas($id)
+{
+	$entregas = [];
+	
+	global $db;
+	
+	$rows = $db->prepare("SELECT * FROM requisicoes_entregas WHERE id_requisicao = ?");
+	$rows->bindParam(1, $id);
+	$rows->execute();
+	
+	while ($entrega = $rows->fetch(PDO::FETCH_OBJ)) {
+		array_push($entregas, $entrega);
+	}
+	
+	return $entregas;
+}
+
+function requisicao_preco($id)
+{
+	global $db;
+	
+	$requisicao = requisicao_requestIDator($id);
+	$date1 = new DateTime($requisicao->data);
+	$date2 = new DateTime($requisicao->dataEntregue ?? 'now');
+	
+	$diff = $date1->diff($date2);
+
+	$weeksElapsed = floor($diff->days / 7);
+	
+	$precoEquacao = intval($requisicao->precoInicial) + (5 * $weeksElapsed);
+	return $precoEquacao;
+}
+
+function deletar_requisicao($id_criador, $id_requisicao)
+{
+	global $db;
+	
+	$precoDaRequisicao = requisicao_preco($id_requisicao);
+	
+	// -1: Checar se eu posso ter um super salsicha sandwich ei scoob (nome muito curto)
+	$rows = $db->prepare("SELECT criador FROM requisicoes WHERE id = ? AND id_requisitor = ?");
+	$rows->bindParam(1, $id_requisicao);
+	$rows->bindParam(2, $id_criador);
+	$rows->execute();
+	$row = $rows->fetch(PDO::FETCH_OBJ);
+	if ($row == false) {
+		return "§Sua deleção é: <em>inválida deleção!</em>";
+	}
+
+	$rows = $db->prepare("DELETE FROM requisicoes_entregas WHERE id_requisicao = ?");
+	$rows->bindParam(1, $id_requisicao);
+	$rows->execute();
+	
+	$rows = $db->prepare("DELETE FROM requisicoes WHERE id = ? AND id_requisitor = ?");
+	$rows->bindParam(1, $id_requisicao);
+	$rows->bindParam(2, $id_criador);
+	$rows->execute();
+	
+	mudar_usuario($id_criador, ['davecoins' => usuario_requestIDator($id_criador)->davecoins - $precoDaRequisicao]);
 }
 
 // indicacios woo

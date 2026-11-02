@@ -3,9 +3,9 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/shhhh/autoload.php';
 
 $query = $_GET['q'] ?? '';
 $page = $_GET['page'] ?? 1;
-$tipo = 'col'; // nao e um projeto mas conta!
+$tipo = 'req'; // nao e um projeto mas conta!
 
-$colecoes = [];
+$requisicoes = [];
 
 
 if ($query != '') {
@@ -14,7 +14,7 @@ if ($query != '') {
 	$coisodepagina = '?';
 }
 
-$pages = coisos_tudo($colecoes, 'colecoes', $page, $query);
+$pages = coisos_tudo($requisicoes, 'requisicoes', $page, $query);
 
 ?>
 <?php 
@@ -24,40 +24,12 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 
 <div class="container">
 	<?php include $_SERVER['DOCUMENT_ROOT'] . '/elementos/sidebar/sidebar.php'; ?>
-
+	
 	<style>
 	.projeto {
 		display:table;
 		width: 437px;
 		position: relative;
-	}
-
-	.projetoInfo {
-		position: absolute;
-		box-sizing: border-box;
-		
-		left: -5px;
-		padding: 5px;
-		
-		width: 442px;
-		height: 46px;
-
-		background-color: rgba(0, 0, 100, 0.6);
-		
-		opacity: 0;
-	}
-
-	.projetoInfo:hover {
-		opacity: 100;
-	}
-	.projetoInfo h2 a {
-		color: white; !important
-	}
-	.projetoInfo h2 a:hover {
-		color: white; !important
-	}
-	
-	.semSal {
 		min-height: 26px;
 		border-bottom: 1px solid #beddff;
 		padding-top: 4px;
@@ -66,61 +38,42 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 		margin-top: 0px;
 		margin-right: -5px;
 	}
-	.semSal:hover {
-		background-color: aliceblue;
-	}
 	
+	.disponivel {
+		background-color: #f9ffe6;
+	}
 	</style>
 	<div class="page_content">
 		<img src="/elementos/pagetitles/requisicoes.png" class="inside_page_content" style="padding: 0px; margin-bottom: 7px;">
 
 		<div class="inside_page_content" style="padding-top: 0px;">
-			<?php foreach ($colecoes as $colecao) : ?>
-				<?php if ($colecao->thumbnail != null) : ?>
-				<div class="projeto">
-					<div class="projetoInfo">
-						<div class="projetoSide">
-							<a class="autorDeProjeto" href="/usuarios/<?= usuario_requestIDator($colecao->criador)->username ?>">
-								por <?= usuario_requestIDator($colecao->criador)->username ?>
-							</a>
-							<br>
-							<p class="autorDeProjeto">
-								<?php
-								if (isset($colecao->data)) {
-									echo velhificar_data($colecao->data);
-								} else {
-									echo 'data nula WTF???';
-								}
-								?>
-							</p>
-						</div>
-						
-						<h2><a href="/colecoes/<?= $colecao->id ?>"><?= $colecao->nome ?></a></h2>
-					</div>
-					<img src="/static/colecoes/<?= $colecao->thumbnail ?>" width="442" height="46" style="padding: 0px; margin-left: -5px;">
-				</div>
-				<?php else : ?>
-				<div class="projeto semSal">
+			<?php foreach ($requisicoes as $requisicao) : ?>
+				<div class="projeto <?= ($requisicao->dataEntregue == null) ? 'disponivel' : '' ?>">
 					<div class="projetoSide">
-						<a class="autorDeProjeto" href="/usuarios/<?= usuario_requestIDator($colecao->criador)->username ?>">
-							por <?= usuario_requestIDator($colecao->criador)->username ?>
+						<a class="autorDeProjeto" href="/usuarios/<?= usuario_requestIDator($requisicao->id_requisitor)->username ?>">
+							por <?= usuario_requestIDator($requisicao->id_requisitor)->username ?>
 						</a>
 						<br>
 						<p class="autorDeProjeto">
 							<?php
-							if (isset($colecao->data)) {
-								echo velhificar_data($colecao->data);
+							if (isset($requisicao->data)) {
+								echo velhificar_data($requisicao->data);
 							} else {
 								echo 'data nula WTF???';
 							}
 							?>
 						</p>
+						
+						<?php if ($requisicao->dataEntregue == null) : ?>
+						<p class="autorDeProjeto" style="margin-top: -8px; color: #9008E0;">Aberto! <b><?= requisicao_preco($requisicao->id) ?> Dv¢</b></p>
+						<?php else : ?>
+						<p class="autorDeProjeto" style="margin-top: -8px; color: red;">Concluída por <b><?= requisicao_preco($requisicao->id) ?> Dv¢</b></p>
+						<?php endif;?>
 					</div>
 
-					<h2><a href="/colecoes/<?= $colecao->id ?>"><?= $colecao->nome ?></a></h2>
-					<p><?= markdown_apenas_texto(explode("\n", $colecao->descricao)[0]) ?></p>
+					<h2><a href="/requisicoes/<?= $requisicao->id ?>"><?= $requisicao->nome ?></a></h2>
+					<p><?= markdown_apenas_texto(explode("\n", $requisicao->descricao)[0]) ?></p>
 				</div>
-				<?php endif; ?>
 			<?php endforeach; ?>
 
 				
@@ -152,24 +105,5 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 		</div>
 	</div>
 </div>
-<script>
-var chromeVeio = [];
 
-for (var i = 8; i <= 44; i++) {
-	chromeVeio.push("" + i);
-}
-
-function colecoesVeio(ver, index, element) {
-	if (window.navigator.userAgent.indexOf('Chrome/' + ver + '.') != -1) {
-		Array.prototype.forEach.call(document.getElementsByClassName("projeto"), colecaoVelhizador);
-	}
-}
-
-function colecaoVelhizador(atual) {
-	if (atual.className == 'projeto semSal') return;
-	atual.children[1].style.display = 'table';
-}
-
-chromeVeio.forEach(colecoesVeio);
-</script>
 <?php include $_SERVER['DOCUMENT_ROOT'] . '/elementos/footer/footer.php'; ?>

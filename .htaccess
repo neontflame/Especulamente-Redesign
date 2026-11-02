@@ -17,6 +17,8 @@ RewriteCond %{REQUEST_URI} !^/projetos/ver\.php$
 RewriteRule ^projetos/([0-9]+)/?$ /projetos/ver.php?id=$1 [L,QSA]
 RewriteCond %{REQUEST_URI} !^/projetos/editar\.php$
 RewriteRule ^projetos/([0-9]+)/editar/?$ /projetos/editar.php?id=$1 [L,QSA]
+RewriteCond %{REQUEST_URI} !^/projetos/deletar\.php$
+RewriteRule ^projetos/([0-9]+)/deletar/?$ /projetos/deletar.php?id=$1 [L,QSA]
 RewriteCond %{REQUEST_URI} !^/projetos/zipar\.php$
 RewriteRule ^projetos/([0-9]+)/zipar/?$ /projetos/zipar.php?id=$1 [L,QSA]
 RewriteCond %{REQUEST_URI} !^/projetos/file\.php$
@@ -27,6 +29,16 @@ RewriteCond %{REQUEST_URI} !^/colecoes/colecao\.php$
 RewriteRule ^colecoes/([0-9]+)/?$ /colecoes/colecao.php?id=$1 [L,QSA]
 RewriteCond %{REQUEST_URI} !^/colecoes/editar\.php$
 RewriteRule ^colecoes/([0-9]+)/editar/?$ /colecoes/editar.php?id=$1 [L,QSA]
+RewriteCond %{REQUEST_URI} !^/colecoes/deletar\.php$
+RewriteRule ^colecoes/([0-9]+)/deletar/?$ /colecoes/deletar.php?id=$1 [L,QSA]
+
+# Requisições
+RewriteCond %{REQUEST_URI} !^/requisicoes/req\.php$
+RewriteRule ^requisicoes/([0-9]+)/?$ /requisicoes/req.php?id=$1 [L,QSA]
+RewriteCond %{REQUEST_URI} !^/requisicoes/editar\.php$
+RewriteRule ^requisicoes/([0-9]+)/editar/?$ /requisicoes/editar.php?id=$1 [L,QSA]
+RewriteCond %{REQUEST_URI} !^/requisicoes/deletar\.php$
+RewriteRule ^requisicoes/([0-9]+)/deletar/?$ /requisicoes/deletar.php?id=$1 [L,QSA]
 
 # Sidebárcios Cômicos eu acho (Forma de rss)
 RewriteRule ^projetos/feed\.xml?$ /feeds/proj.php?$1 [L,QSA]
@@ -44,6 +56,7 @@ RewriteRule ^resto/?$ /lista.php?tipo=rt [L,QSA]
 RewriteRule ^blogs/?$ /lista.php?tipo=bg [L,QSA]
 RewriteRule ^downloadaveis/?$ /lista.php?tipo=dl [L,QSA]
 RewriteRule ^colecoes/?$ /colecoes/index.php [L,QSA]
+RewriteRule ^requisicoes/?$ /requisicoes/index.php [L,QSA]
 
 # Criar
 RewriteRule ^criar/?$ /projetos/criar.php [L]
@@ -51,6 +64,8 @@ RewriteCond %{REQUEST_URI} !^/projetos/criar\.php$
 RewriteRule ^criar/((dl)|(jg)|(md)|(bg)|(rt))/?$ /projetos/criar.php?tipo=$1 [L,QSA]
 RewriteCond %{REQUEST_URI} !^/colecoes/criar\.php$
 RewriteRule ^criar/col/?$ /colecoes/criar.php [L,QSA]
+RewriteCond %{REQUEST_URI} !^/requisicoes/criar\.php$
+RewriteRule ^criar/req/?$ /requisicoes/criar.php [L,QSA]
 
 # Usuários
 RewriteCond %{REQUEST_URI} !^/usuarios/perfil\.php$

@@ -105,6 +105,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 					<label for="removerThumb" style="display: inline-block; font-size: 12px;">remover banner</label>
 							
 					<button type="submit" class="coolButt verde grandissimo">Salvar mudanças</button>
+					<a href="/colecoes/<?= $colecao->id ?>/deletar" id="botaoDoMal" class="coolButt vermelho grandissimo">DELETAR COLEÇÃO ???!?</a>
 				</form>
 		</div>
 	</div>

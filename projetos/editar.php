@@ -273,7 +273,7 @@ if ($voltarPara == 'criar') {
 
 					<button type="button" onclick="fazerSubmit(this)" class="coolButt verde grandissimo">Salvar mudanças</button>
 				</form>
-				<a href="/projetos/deletar.php?id=<?= $projeto->id ?>" id="botaoDoMal" class="coolButt vermelho grandissimo">DELETAR PROJETO ???!?</a>
+				<a href="/projetos/<?= $projeto->id ?>/deletar" id="botaoDoMal" class="coolButt vermelho grandissimo">DELETAR PROJETO ???!?</a>
 
 				<div id="fileTemplate" style="display: none;">
 					<li data-filename="">
