@@ -167,8 +167,11 @@ $tipo = $_GET['tipo'] ?? null;
 				<a href="/criar/rt" class="coisoDownloadavel">
 					<img src="/elementos/projetos/resto.png" onmouseover="this.src='/elementos/projetos/resto-hover.png';" onmouseout="this.src='/elementos/projetos/resto.png';">
 				</a>
-				<a href="/criar/col" style="margin-left: -5px; margin-bottom: 4px;" class="coisoDownloadavel">
+				<a href="/criar/col" style="margin-left: -5px;" class="coisoDownloadavel">
 					<img src="/elementos/projetos/colecao.png" onmouseover="this.src='/elementos/projetos/colecao-hover.png';" onmouseout="this.src='/elementos/projetos/colecao.png';">
+				</a>
+				<a href="/criar/req" style="margin-left: -5px; margin-bottom: 4px;" class="coisoDownloadavel">
+					<img src="/elementos/projetos/requisicao.png" onmouseover="this.src='/elementos/projetos/requisicao-hover.png';" onmouseout="this.src='/elementos/projetos/requisicao.png';">
 				</a>
 
 					<h2 style="color: #000000; text-align: center; font-style: italic; font-weight: normal;">...ou talvez editar?</h2>

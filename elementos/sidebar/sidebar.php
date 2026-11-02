@@ -14,6 +14,7 @@ $ad = $ads[array_rand($ads)];
 <div class="left_col">
 	<a href="/projetos/"><img src="/elementos/sidebar/projetosInativo.png" onmouseover="this.src='/elementos/sidebar/projetosAtivo.png';" onmouseout="this.src='/elementos/sidebar/projetosInativo.png';" /></a><br />
 	<a href="/colecoes/"><img src="/elementos/sidebar/colecoesInativo.png" style="margin-top: 8px;" onmouseover="this.src='/elementos/sidebar/colecoesAtivo.png';" onmouseout="this.src='/elementos/sidebar/colecoesInativo.png';" /></a><br />
+	<a href="/requisicoes/"><img src="/elementos/sidebar/requisicoesInativo.png" style="margin-top: 8px;" onmouseover="this.src='/elementos/sidebar/requisicoesAtivo.png';" onmouseout="this.src='/elementos/sidebar/requisicoesInativo.png';" /></a><br />
 	<img style="margin-top: 8px;" src="/elementos/sidebar/tiposcoisa.png">
 	<a href="/midia/"><img src="/elementos/sidebar/midiaInativo.png" onmouseover="this.src='/elementos/sidebar/midiaAtivo.png';" onmouseout="this.src='/elementos/sidebar/midiaInativo.png';" /></a><br />
 	<a href="/jogos/"><img src="/elementos/sidebar/jogosInativo.png" onmouseover="this.src='/elementos/sidebar/jogosAtivo.png';" onmouseout="this.src='/elementos/sidebar/jogosInativo.png';" /></a><br />
