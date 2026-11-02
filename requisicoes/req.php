@@ -114,25 +114,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 		.botaoDoLado {
 			float: right;
 		}
-		
-		
 	</style>
-	
-	<script>
-			function inativarAsAbas() {
-				var abaBotoes = document.getElementById('abaBotoes');
-				for (var i = 0; i < abaBotoes.children.length; i++) {
-					if (abaBotoes.children[i].className != 'coiso') {
-						abaBotoes.children[i].className = 'abaButt';
-					}
-				}
-				
-				var abasReais = document.getElementsByClassName('aba');
-				for (var i = 0; i < abasReais.length; i++) {
-					abasReais[i].style.display = 'none';
-				}
-			}
-	</script>
 			
 	<div class="page_content">
 		<div class="projTitulo">
@@ -146,7 +128,10 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 
 		<div class="inside_page_content">
 			<?php include $_SERVER['DOCUMENT_ROOT'] . '/elementos/statusbar.php'; ?>
-			todo o fucking resto
+			
+			<div class="descricao">
+				<?= responde_clickers($requisicao->descricao) ?>
+			</div>
 		</div>
 	</div>
 </div>

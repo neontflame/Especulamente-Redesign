@@ -69,7 +69,7 @@ function criar_requisicao($id_criador, $nome, $desc, $preco)
 				<a href="/criar"><img style="margin-left: -5px; margin-top: -5px;" src="/elementos/voltar.png"></a>
 				
 				<h1 style="text-align: center; font-style: italic;">Requisição!</h1>
-				<p><i>Agrupe seus projetos e coloque-os à mostra para todos, tal como um álbum!</i></p>
+				<p><i>Deixe sua ideia à mercê das habilidades de outras pessoas!</i></p>
 				
 				<form action="" method="post" enctype="multipart/form-data">
 					<input type="hidden" name="tipo" value="bg">
