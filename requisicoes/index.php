@@ -29,7 +29,6 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 	.projeto {
 		display:table;
 		width: 437px;
-		position: relative;
 		min-height: 26px;
 		border-bottom: 1px solid #beddff;
 		padding-top: 4px;
