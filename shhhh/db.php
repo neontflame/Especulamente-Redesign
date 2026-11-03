@@ -1315,7 +1315,7 @@ function reinvindicar_bounty($id_bounty) {
 	global $db;
 	global $usuario;
 	
-	$rows = $db->prepare("SELECT * FROM bounties_completos WHERE id_bounty = ? AND id_usuario = ? AND data = CURRENT_DATE AND reinvindicada = FALSE");
+	$rows = $db->prepare("SELECT * FROM bounties_completos WHERE id_bounty = ? AND id_usuario = ? AND data = CURRENT_DATE AND reinvindicada = 0");
 	$rows->bindParam(1, $id_bounty);
 	$rows->bindParam(2, $usuario->id);
 	$rows->execute();
@@ -1329,7 +1329,7 @@ function reinvindicar_bounty($id_bounty) {
 		
 		mudar_usuario($usuario->id, ['davecoins' => $usuario->davecoins + $davescoinNovas]);
 		
-		$rows = $db->prepare("UPDATE bounties_completos SET reinvindicada = TRUE WHERE id_bounty = ? AND id_usuario = ? AND data = CURRENT_DATE");
+		$rows = $db->prepare("UPDATE bounties_completos SET reinvindicada = 1 WHERE id_bounty = ? AND id_usuario = ? AND data = CURRENT_DATE");
 		$rows->bindParam(1, $id_bounty);
 		$rows->bindParam(2, $usuario->id);
 		$rows->execute();
@@ -1595,7 +1595,9 @@ function requisicao_preco($id)
 
 	$weeksElapsed = floor($diff->days / 7);
 	
-	$precoEquacao = intval($requisicao->precoInicial) + (5 * $weeksElapsed);
+	// davedebt nao mais :broken_heart:
+	// $precoEquacao = intval($requisicao->precoInicial) + (5 * $weeksElapsed);
+	$precoEquacao = intval($requisicao->precoInicial);
 	return $precoEquacao;
 }
 
@@ -1606,7 +1608,7 @@ function deletar_requisicao($id_criador, $id_requisicao)
 	$precoDaRequisicao = requisicao_preco($id_requisicao);
 	
 	// -1: Checar se eu posso ter um super salsicha sandwich ei scoob (nome muito curto)
-	$rows = $db->prepare("SELECT criador FROM requisicoes WHERE id = ? AND id_requisitor = ?");
+	$rows = $db->prepare("SELECT id_requisitor FROM requisicoes WHERE id = ? AND id_requisitor = ?");
 	$rows->bindParam(1, $id_requisicao);
 	$rows->bindParam(2, $id_criador);
 	$rows->execute();
@@ -1623,8 +1625,6 @@ function deletar_requisicao($id_criador, $id_requisicao)
 	$rows->bindParam(1, $id_requisicao);
 	$rows->bindParam(2, $id_criador);
 	$rows->execute();
-	
-	mudar_usuario($id_criador, ['davecoins' => usuario_requestIDator($id_criador)->davecoins - $precoDaRequisicao]);
 }
 
 // indicacios woo

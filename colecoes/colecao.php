@@ -253,15 +253,16 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 		</div>
 			
 		<div class="projTitulo">
+			<?php if ($estudio_e_meu) : ?>
+				<a href="/colecoes/<?= $colecao->id ?>/editar" style="float:right; margin:8px;"><img src="/elementos/botaoEditarColecao.png"></a>
+			<?php endif ?>
+			
 			<h1 style="line-height: 6px; margin-top: 14px; font-weight: normal;"><i><?= $colecao->nome ?></i></h1>
 			<p style="margin-top: 12px;">por <a href="/usuarios/<?= usuario_requestIDator($colecao->criador)->username ?>"><?= usuario_requestIDator($colecao->criador)->username ?></a></p>
 		</div>
 
 		<div class="inside_page_content">
 			<?php include $_SERVER['DOCUMENT_ROOT'] . '/elementos/statusbar.php'; ?>
-			<?php if ($estudio_e_meu) : ?>
-				<a href="/colecoes/<?= $colecao->id ?>/editar" class="editarInfo">Editar informações do estúdio</a>
-			<?php endif; ?>
 			<div id="abaBotoes">
 				<div style="float: left;" class="coiso"></div>
 				<button type="button" class="abaButt abaAtiva" onclick="inativarAsAbas(); this.className = 'abaButt abaAtiva'; abaProjs.style.display = 'table';">Projetos</button>

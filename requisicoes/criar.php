@@ -26,6 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 function criar_requisicao($id_criador, $nome, $desc, $preco)
 {
 	global $db;
+	global $usuario;
 	$precoClamp = max(10, min(intval($preco), $usuario->davecoins));
 	
 	$rows = $db->prepare("INSERT INTO requisicoes (nome, id_requisitor, descricao, precoInicial) VALUES (?, ?, ?, ?)");
@@ -36,8 +37,12 @@ function criar_requisicao($id_criador, $nome, $desc, $preco)
 	$rows->execute();
 
 	$id = $db->lastInsertId();
-
-	return requisicao_requestIDator($id);
+	
+	$req = requisicao_requestIDator($id);
+	
+	mudar_usuario($id_criador, ['davecoins' => $usuario->davecoins - requisicao_preco($req->id)]);
+	
+	return $req;
 }
 
 ?>

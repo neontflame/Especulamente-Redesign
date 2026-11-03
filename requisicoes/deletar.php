@@ -51,14 +51,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
         <p>wtf</p>
       <?php else : ?>
         <a href="/requisicoes/<?= $id ?>"><img style="margin-left: -5px; margin-top: -5px;" src="/elementos/voltar.png"></a>
-        <h1 style="text-align: center; font-style: italic;">Deletando requisicao...???!</h1>
+        <h1 style="text-align: center; font-style: italic;">Deletando requisição...???!</h1>
 
         <form action="/requisicoes/deletar.php" method="post" enctype="multipart/form-data">
           <input type="hidden" name="id" value="<?= $requisicao->id ?>">
-          <p>Tem certeza que quer deletar o requisicao <?= $requisicao->nome ?>??</p>
-          <p>você NUNCA mais vai conseguir acessá-lo.</p>
+          <p>Tem certeza que quer desistir de pedir <b><?= $requisicao->nome ?></b>??</p>
           <p>Isso é irreversível.</p>
-          <p>Você também vai perder <b><?= requisicao_preco($requisicao->id) ?> davecoins</b> com isso.</p>
+          <p>Suas <b><?= requisicao_preco($requisicao->id) ?> davecoins</b> também terão sido gastas em vão.</p>
           <p>Pense bem.</p>
           <br><br><br><br>
 

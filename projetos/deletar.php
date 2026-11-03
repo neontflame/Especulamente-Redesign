@@ -55,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 
         <form action="/projetos/deletar.php" method="post" enctype="multipart/form-data">
           <input type="hidden" name="id" value="<?= $projeto->id ?>">
-          <p>Tem certeza que quer deletar o projeto <?= $projeto->nome ?>??</p>
+          <p>Tem certeza que quer deletar o projeto <b><?= $projeto->nome ?></b>??</p>
           <p>você NUNCA mais vai conseguir acessá-lo.</p>
           <p>Isso é irreversível.</p>
           <p>Você também vai perder <b><?= ($projeto->tipo == 'jg' || $projeto->tipo == 'rt') ? 25 : 10 ?> davecoins</b> com isso.</p>

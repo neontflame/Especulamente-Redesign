@@ -55,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST)) {
 
         <form action="/colecoes/deletar.php" method="post" enctype="multipart/form-data">
           <input type="hidden" name="id" value="<?= $colecao->id ?>">
-          <p>Tem certeza que quer deletar a coleção <?= $colecao->nome ?>??</p>
+          <p>Tem certeza que quer deletar a coleção <b><?= $colecao->nome ?></b>??</p>
           <p>você NUNCA mais vai conseguir acessá-la.</p>
           <p>Isso é irreversível.</p>
           <p>Você não vai perder nenhuma <b>davecoin</b> com isso (por enquanto), mas todos os projetos que você já reuniu na coleção vão ficar todos espalhados pelo site.</p>

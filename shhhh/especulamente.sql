@@ -388,6 +388,39 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
 ) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 COMMIT;
 
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `requisicoes`
+--
+
+CREATE TABLE IF NOT EXISTS `requisicoes` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `nome` text NOT NULL,
+  `id_requisitor` int NOT NULL,
+  `descricao` text NOT NULL,
+  `precoInicial` int NOT NULL,
+  `dataEntregue` datetime DEFAULT NULL,
+  `id_entrega` int DEFAULT NULL,
+  `data` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `requisicoes_entregas`
+--
+
+CREATE TABLE IF NOT EXISTS `requisicoes_entregas` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `id_requisicao` int NOT NULL,
+  `id_entregador` int NOT NULL,
+  `idProjeto` int NOT NULL,
+  `dataQuando` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

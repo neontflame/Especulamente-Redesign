@@ -25,7 +25,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 						<?= $mensagem->html ?>
 						<?php 
 							if ($mensagem->davecoins != 0) { ?>
-							<button style="float:right" class="coolButt verde" onclick="location.href='/mensagens/reinvindicar.php?mensagem=<?= $mensagem->id ?>';">Reinvindicar</button>
+							<button style="float:right;" class="coolButt verde grandissimo" onclick="location.href='/mensagens/reinvindicar.php?mensagem=<?= $mensagem->id ?>';">Reinvindicar <?= $mensagem->davecoins ?> <img style="vertical-align: bottom;" src="/elementos/davecoin/dvc.gif"></button>
 						<?php }
 						?>
 						<p class="autorDeProjeto">dia <?= velhificar_data($mensagem->data); ?></p>
@@ -43,7 +43,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 				<?= $mensagem->html ?>
 					<?php 
 						if ($mensagem->davecoins != 0) { ?>
-						<button style="float:right" class="coolButt verde" onclick="location.href='/mensagens/reinvindicar.php?mensagem=<?= $mensagem->id ?>';">Reinvindicar</button>
+						<button style="float:right;" class="coolButt verde grandissimo" onclick="location.href='/mensagens/reinvindicar.php?mensagem=<?= $mensagem->id ?>';">Reinvindicar <?= $mensagem->davecoins ?> <img style="vertical-align: bottom;" src="/elementos/davecoin/dvc.gif"></button>
 					<?php }
 					?>
 				<p class="autorDeProjeto">dia <?= velhificar_data($mensagem->data); ?></p>
