@@ -55,9 +55,9 @@ function noMoreReqs() {
 }
 
 // Post Quests
-if (isset($_POST)) {
+if (isset($_POST) && isset($usuario)) {
 	// curador exclusive
-	if (!jaFizARequest($id) && isset($usuario)) {
+	if (!jaFizARequest($id)) {
 		// add url
 		if (isset($_POST['entrega_fnf'])) {
 			$pojejo = $_POST['entrega_fnf'];
