@@ -265,7 +265,8 @@ include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 			
 			<div class="contrato">
 Para realizar uma requisição, deve ser enviado o número identificador (ID) do projeto para que, em seguida, o requerente faça a devida análise.
-Ao realizá-la, o requerente fará o pagamento de <b><?= requisicao_preco($requisicao->id) ?> Dv¢</b> ao feitor de tal requisição. 
+<br>
+Após a realização dessa análise, o requerente efetuará o pagamento de <b><?= requisicao_preco($requisicao->id) ?> Dv¢</b> ao feitor da requisição. 
 <br>
 Na ocasião de que mais de uma pessoa tenha realizado a requisição, a escolha de quem será pago será decidida por intermédio da escolha manual do requerente.
 <br>
