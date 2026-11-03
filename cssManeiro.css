@@ -1,5 +1,15 @@
 ﻿/* CSS layout do especulamente - by neontflame 
 	shoutouts 2 expression web 4 */
+	
+/* segoe script especificamente pra pagina de requests  */
+@font-face {
+	font-family: 'Segoe Script';
+	src: local('Segoe Script'), 
+		local('SegoeScript'),
+		url('fonts/segoesc.ttf') format('truetype'); 
+	font-weight: normal;
+	font-style: normal;
+}
 
 body {
 	background-color: #bae2ff;
