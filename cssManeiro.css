@@ -6,7 +6,7 @@
 	font-family: 'Segoe Script';
 	src: local('Segoe Script'), 
 		local('SegoeScript'),
-		url('fonts/segoesc.ttf') format('truetype'); 
+		url('/elementos/fontes/segoesc.ttf') format('truetype'); 
 	font-weight: normal;
 	font-style: normal;
 }
