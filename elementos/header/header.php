@@ -21,7 +21,7 @@ global $config;
 <head>
 	<meta content="pt-br" http-equiv="Content-Language" />
 	<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
-	<link href="/cssManeiro.css?v41" rel="stylesheet" type="text/css" />
+	<link href="/cssManeiro.css?v42" rel="stylesheet" type="text/css" />
 	<link id="favicon" rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 	<link rel="preload" as="image" href="/elementos/davecoin/dvc_1.png">
 	<link rel="preload" as="image" href="/elementos/davecoin/dvc_5.png">
@@ -86,8 +86,10 @@ global $config;
 					<a href="/">
 						<?php if (str_ends_with($banner, '.swf')) : ?>
 							<object width="633" height="110" style="display: inline-block">
-								<param name="movie" value="/elementos/header/headers/<?= $banner ?>">
-								<embed src="/elementos/header/headers/<?= $banner ?>" width="633" height="110">
+								<param name="movie" value="/elementos/header/headers/<?= $banner ?>?v2">
+								<param name="allowScriptAccess" value="always" />
+								<param name="allowNetworking" value="all" />
+								<embed src="/elementos/header/headers/<?= $banner ?>" width="633" height="110" allowScriptAccess="always" allowNetworking="all">
 								</embed>
 							</object>
 						<?php else : ?>
