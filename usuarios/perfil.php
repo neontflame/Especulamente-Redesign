@@ -65,6 +65,9 @@ $perfil_e_meu = $usuario ? ($usuario->id == $perfil->id) : false;
 
 <?php
 $meta["titulo"] = "[" . $perfil->username . " <> Usuário do PORTAL ESPECULAMENTE]";
+$meta["descricao"] = explode("\n", markdown_apenas_texto($perfil->bio))[0];
+$meta["imagem"] = pfp($perfil);
+
 include $_SERVER['DOCUMENT_ROOT'] . '/elementos/header/header.php'; ?>
 
 <div class="container">
